@@ -1,0 +1,28 @@
+{
+  "name": "situk-web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@babel/eslint-parser": "^7.16.3",
+    "@nuxtjs/apollo": "^4.0.1-rc.5",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "babel-eslint": "^10.1.0",
+    "core-js": "^3.19.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-nuxt": "^3.0.0",
+    "graphql-tag": "^2.12.6",
+    "nuxt": "^2.15.8",
+    "vue-signature": "^2.5.4",
+    "vue-signature-pad": "^3.0.1",
+    "vuetify": "^2.5.14"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.12.1"
+  }
+}
