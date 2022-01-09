@@ -2,9 +2,9 @@
   <div class="page-content-wrapper-inner">
     <section>
       <v-layout
+        v-if="!state.skeleton"
         column
         wrap
-        v-if="!state.skeleton"
       >
         <v-container fluid>
           <v-row>
@@ -108,19 +108,19 @@
               <v-card
                 class="mx-auto"
               >
-              <v-card-title>
-                <span class="headline px-5">Informasi Profil</span>
+                <v-card-title>
+                  <span class="headline px-5">Informasi Profil</span>
 
-                <v-spacer></v-spacer>
+                  <v-spacer></v-spacer>
 
-                <v-btn
-                  to="/asesi/edit-profile"
-                  outlined
-                  color="primary"
-                >
-                  <v-icon small class="mr-2">edit</v-icon>
-                  Edit profil
-                </v-btn>
+                  <v-btn
+                    to="/asesi/edit-profile"
+                    outlined
+                    color="primary"
+                  >
+                    <v-icon small class="mr-2">edit</v-icon>
+                    Edit profil
+                  </v-btn>
 
                 <!-- <v-menu bottom left>
                   <template v-slot:activator="{ on }">
@@ -149,9 +149,9 @@
                     </v-list-item>
                   </v-list>
                 </v-menu> -->
-              </v-card-title>
+                </v-card-title>
 
-              <v-divider></v-divider>
+                <v-divider></v-divider>
                 <v-row>
                   <v-col md="12" class="px-10">
                     <div class="px-5 py-5">
@@ -225,14 +225,14 @@
                               offset-y
                               min-width="290px"
                             >
-                              <template v-slot:activator="{ on }">
+                              <template #activator="{ on }">
                                 <v-text-field
                                   v-model="profile.tanggal_lahir"
                                   class="mt-2"
                                   label="Tanggal lahir"
-                                  v-on="on"
                                   solo
                                   readonly
+                                  v-on="on"
                                 ></v-text-field>
                               </template>
                               <v-date-picker v-model="date" no-title scrollable>
@@ -350,13 +350,13 @@
                             <v-row>
                               <v-col md="7">
                                 <v-card>
-                                <v-img
-                                  :src="profile.image"
-                                  :lazy-src="profile.image"
-                                  aspect-ratio="1"
-                                  class="grey lighten-2"
-                                ></v-img>
-                              </v-card>
+                                  <v-img
+                                    :src="profile.image"
+                                    :lazy-src="profile.image"
+                                    aspect-ratio="1"
+                                    class="grey lighten-2"
+                                  ></v-img>
+                                </v-card>
                               </v-col>
                             </v-row>
                           </v-col>
@@ -365,13 +365,13 @@
                             <v-row>
                               <v-col md="7">
                                 <v-card>
-                                <v-img
-                                  :src="profile.ttd"
-                                  :lazy-src="profile.ttd"
-                                  aspect-ratio="1"
-                                  class="white"
-                                ></v-img>
-                              </v-card>
+                                  <v-img
+                                    :src="profile.ttd"
+                                    :lazy-src="profile.ttd"
+                                    aspect-ratio="1"
+                                    class="white"
+                                  ></v-img>
+                                </v-card>
                               </v-col>
                             </v-row>
                           </v-col>
@@ -389,217 +389,217 @@
   </div>
 </template>
 <script>
-import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL } from '@/constants/settings';
-import { UPDATE_ASESI_MUTATION, GET_USERDATA, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_SELF_ASESI } from '@/constants/graphql';
+import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL } from '@/constants/settings'
+import { UPDATE_ASESI_MUTATION, GET_USERDATA, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_SELF_ASESI } from '@/constants/graphql'
 
 export default {
-    name: 'profile',
-    layout: 'App_asesi',
-    data() {
-      return {
-        items: [
-          { title: 'Edit Profil' , icon: 'edit', link: 'edit-profile'},
-          // { title: 'Ubah Password' , icon: 'lock', link: '/change-password'},
-          // { title: 'Overview' , icon: 'bar_chart', link: '/dashboard-asesi'},
-        ],
-        state:{
-          loading: false,
-          skeleton: true
+  name: 'Profile',
+  layout: 'App_asesi',
+  data() {
+    return {
+      items: [
+        { title: 'Edit Profil' , icon: 'edit', link: 'edit-profile'},
+        // { title: 'Ubah Password' , icon: 'lock', link: '/change-password'},
+        // { title: 'Overview' , icon: 'bar_chart', link: '/dashboard-asesi'},
+      ],
+      state:{
+        loading: false,
+        skeleton: true
+      },
+      alert:{
+        show: false,
+        type: '',
+        message: '',
+      },
+      rules: [
+        value => !value || value.size < 1000000 || 'Ukuran gambar harus kurang dari 1 MB!',
+      ],
+      date: new Date().toISOString().substr(0, 10),
+      menu: false,
+      modal: false,
+      menu2: false,
+      // profile : [],
+      gender: [
+        {
+          kode: "L",
+          jk: "Laki-laki"
         },
-        alert:{
-          show: false,
-          type: '',
-          message: '',
-        },
-        rules: [
-          value => !value || value.size < 1000000 || 'Ukuran gambar harus kurang dari 1 MB!',
-        ],
-        date: new Date().toISOString().substr(0, 10),
-        menu: false,
-        modal: false,
-        menu2: false,
-        // profile : [],
-        gender: [
-          {
-            kode: "L",
-            jk: "Laki-laki"
-          },
-          {
-            kode: "P",
-            jk: "Perempuan"
-          }
-        ],
-        profile: [],
-        nama: '',
-        nik: '',
-        tempat_lahir: '',
-        kebangsaan: '',
-        alamat: '',
-        kodepos: '',
-        telepon: '',
-        image: null,
-        selectedImage: '',
-        ttd: null,
-        selectedTtd: '',
-        selectedGender: null,
-        kota: [],
-        selectedCity: null,
-        province: [],
-        selectedProvince: null,
-        lembaga: [],
-        selectedLembaga: null,
-        pekerjaan: [],
-        selectedPekerjaan: null,
-        pendidikan: [],
-        selectedPendidikan:null,
-      };
-    },
-    async mounted() {
-        await this.checkAsesiData();
-        // this.getLembagas();
-        // this.getPekerjaans();
-        // this.getPendidikans();
-        // this.getProvinsis();
-        // await this.getKotas();
-    },
-    methods: {
-      onPhotoSelected(e) {
-        const imgFile = e.target.files[0];
-        const reader = new FileReader();
-
-        reader.onloadend = (imgFile) => {
-          this.image = reader.result;
-        };
-        reader.readAsDataURL(imgFile);
-      },
-      onTtdSelected(e) {
-        const ttdFile = e.target.files[0];
-        const reader = new FileReader();
-
-        reader.onloadend = (ttdFile) => {
-          this.ttd = reader.result;
-        };
-        reader.readAsDataURL(ttdFile);
-      },
-
-      async getLembagas() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_LEMBAGAS
-        }).then(({ data }) => {
-          this.lembaga = data.lembagas;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getPekerjaans() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PEKERJAANS
-        }).then(({ data }) => {
-          this.pekerjaan = data.pekerjaans;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getPendidikans() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PENDIDIKANS
-        }).then(({ data }) => {
-          this.pendidikan = data.pendidikans;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getProvinsis() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PROVINSIS
-        }).then(({ data }) => {
-          this.province = data.provinsis;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      // async getKotas() {
-      //   const id = this.profile.kota.provinsi.id;
-      //   console.log(id);
-      //   const result = await this.$apollo.mutate({
-      //       mutation: GET_KOTAS,
-      //       variables: {
-      //           id
-      //       }
-      //   }).then(({ data }) => {
-      //     this.kota = data.provinsi.kota;
-      //   }).catch((error) => {
-      //     console.log(error);
-      //   });
-      // },
-      
-      async selectKotas() {
-        const id = this.profile.provinsi;
-        console.log(id);
-        const result = await this.$apollo.mutate({
-            mutation: GET_KOTAS,
-            variables: {
-                id
-            }
-        }).then(({ data }) => {
-          this.kota = data.provinsi.kota;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      showAlert(type, message) {
-        this.alert = { show: true, type, message };
-      },
-      async checkAsesiData() {
-          const result = await this.$apollo.mutate({
-              mutation: GET_SELF_ASESI
-        }).then(({ data }) => {
-            this.profile = data.checkselfAsesi;
-            console.log(data);
-        }).catch((error) => {
-          console.log(error);
-        }).finally(() => {
-          this.state.skeleton = false;
-        });
-      },
-      // async checkAsesiData() {
-      //   const user_id = localStorage.getItem('lsp-user-id');
-      //   const result = await this.$apollo.mutate({
-      //       mutation: GET_USERDATA,
-      //       variables: {
-      //           user_id
-      //       }
-      //   }).then(({ data }) => {
-      //       this.profile.nama = data.user.asesi.nama;
-      //       this.profile.jenis_kelamin = data.user.asesi.jenis_kelamin;
-      //       this.profile.nik = data.user.asesi.nik;
-      //       this.profile.tempat_lahir = data.user.asesi.tempat_lahir;
-      //       this.profile.tanggal_lahir = data.user.asesi.tanggal_lahir;
-      //       this.profile.kebangsaan = data.user.asesi.kebangsaan;
-      //       this.profile.alamat = data.user.asesi.alamat;
-      //       this.profile.kota = data.user.asesi.kota;
-      //       this.profile.provinsi = data.user.asesi.kota.provinsi;
-      //       this.profile.kodepos = data.user.asesi.kodepos;
-      //       this.profile.telepon = data.user.asesi.telepon;
-      //       this.profile.lembaga = data.user.asesi.lembaga;
-      //       this.profile.pekerjaan = data.user.asesi.pekerjaan;
-      //       this.profile.pendidikan = data.user.asesi.pendidikan;
-      //       this.profile.image = data.user.asesi.image;
-      //       this.profile.ttd = data.user.asesi.ttd;
-      //       this.profile.email = data.user.email;
-      //       this.profile.role = data.user.role.role;
-      //       console.log(data);
-      //   }).catch((error) => {
-      //       alert(error);
-      //   });
-      // },
+        {
+          kode: "P",
+          jk: "Perempuan"
+        }
+      ],
+      profile: [],
+      nama: '',
+      nik: '',
+      tempat_lahir: '',
+      kebangsaan: '',
+      alamat: '',
+      kodepos: '',
+      telepon: '',
+      image: null,
+      selectedImage: '',
+      ttd: null,
+      selectedTtd: '',
+      selectedGender: null,
+      kota: [],
+      selectedCity: null,
+      province: [],
+      selectedProvince: null,
+      lembaga: [],
+      selectedLembaga: null,
+      pekerjaan: [],
+      selectedPekerjaan: null,
+      pendidikan: [],
+      selectedPendidikan:null,
     }
-  };
+  },
+  async mounted() {
+    await this.checkAsesiData()
+    // this.getLembagas();
+    // this.getPekerjaans();
+    // this.getPendidikans();
+    // this.getProvinsis();
+    // await this.getKotas();
+  },
+  methods: {
+    onPhotoSelected(e) {
+      const imgFile = e.target.files[0]
+      const reader = new FileReader()
+
+      reader.onloadend = (imgFile) => {
+        this.image = reader.result
+      }
+      reader.readAsDataURL(imgFile)
+    },
+    onTtdSelected(e) {
+      const ttdFile = e.target.files[0]
+      const reader = new FileReader()
+
+      reader.onloadend = (ttdFile) => {
+        this.ttd = reader.result
+      }
+      reader.readAsDataURL(ttdFile)
+    },
+
+    async getLembagas() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_LEMBAGAS
+      }).then(({ data }) => {
+        this.lembaga = data.lembagas
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getPekerjaans() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PEKERJAANS
+      }).then(({ data }) => {
+        this.pekerjaan = data.pekerjaans
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getPendidikans() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PENDIDIKANS
+      }).then(({ data }) => {
+        this.pendidikan = data.pendidikans
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getProvinsis() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PROVINSIS
+      }).then(({ data }) => {
+        this.province = data.provinsis
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    // async getKotas() {
+    //   const id = this.profile.kota.provinsi.id;
+    //   console.log(id);
+    //   const result = await this.$apollo.mutate({
+    //       mutation: GET_KOTAS,
+    //       variables: {
+    //           id
+    //       }
+    //   }).then(({ data }) => {
+    //     this.kota = data.provinsi.kota;
+    //   }).catch((error) => {
+    //     console.log(error);
+    //   });
+    // },
+      
+    async selectKotas() {
+      const id = this.profile.provinsi
+      console.log(id)
+      const result = await this.$apollo.mutate({
+        mutation: GET_KOTAS,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        this.kota = data.provinsi.kota
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    showAlert(type, message) {
+      this.alert = { show: true, type, message }
+    },
+    async checkAsesiData() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_SELF_ASESI
+      }).then(({ data }) => {
+        this.profile = data.checkselfAsesi
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      }).finally(() => {
+        this.state.skeleton = false
+      })
+    },
+    // async checkAsesiData() {
+    //   const user_id = localStorage.getItem('lsp-user-id');
+    //   const result = await this.$apollo.mutate({
+    //       mutation: GET_USERDATA,
+    //       variables: {
+    //           user_id
+    //       }
+    //   }).then(({ data }) => {
+    //       this.profile.nama = data.user.asesi.nama;
+    //       this.profile.jenis_kelamin = data.user.asesi.jenis_kelamin;
+    //       this.profile.nik = data.user.asesi.nik;
+    //       this.profile.tempat_lahir = data.user.asesi.tempat_lahir;
+    //       this.profile.tanggal_lahir = data.user.asesi.tanggal_lahir;
+    //       this.profile.kebangsaan = data.user.asesi.kebangsaan;
+    //       this.profile.alamat = data.user.asesi.alamat;
+    //       this.profile.kota = data.user.asesi.kota;
+    //       this.profile.provinsi = data.user.asesi.kota.provinsi;
+    //       this.profile.kodepos = data.user.asesi.kodepos;
+    //       this.profile.telepon = data.user.asesi.telepon;
+    //       this.profile.lembaga = data.user.asesi.lembaga;
+    //       this.profile.pekerjaan = data.user.asesi.pekerjaan;
+    //       this.profile.pendidikan = data.user.asesi.pendidikan;
+    //       this.profile.image = data.user.asesi.image;
+    //       this.profile.ttd = data.user.asesi.ttd;
+    //       this.profile.email = data.user.email;
+    //       this.profile.role = data.user.role.role;
+    //       console.log(data);
+    //   }).catch((error) => {
+    //       alert(error);
+    //   });
+    // },
+  }
+}
 
 </script>
 <style lang="scss" scoped>

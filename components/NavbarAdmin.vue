@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar class="collapse-sidebar" elevate-on-scroll app >
+    <v-app-bar class="collapse-sidebar" elevate-on-scroll app>
       <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer">
       </v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase pl-0">
@@ -14,7 +14,7 @@
         </v-list-item-avatar>
       </v-toolbar-items> -->
       <v-toolbar-items>
-        <v-btn color="primary" @click='logout' text>
+        <v-btn color="primary" text @click="logout">
           <v-icon left>exit_to_app</v-icon>
           <span>Logout</span>
         </v-btn>
@@ -42,9 +42,9 @@
         shaped
       >
         <v-list-item
-          class="mx-0"
           v-for="item in items"
           :key="item.title"
+          class="mx-0"
           :to="item.link"
           link
           :exact="item.exact"
@@ -62,8 +62,8 @@
   </nav>
 </template>
 <script>
-import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL, LSP_USERNAME } from '../constants/settings';
-import { GET_USERDATA } from '../constants/graphql';
+import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL, LSP_USERNAME } from '../constants/settings'
+import { GET_USERDATA } from '../constants/graphql'
 
 export default {
   name: "NavbarAdmin",
@@ -86,47 +86,47 @@ export default {
         // { title: 'Elemen', icon: 'menu_open', link: '/admin/element' },
         // { title: 'Settings', icon: 'settings', link:'#' },
       ],
-    };
+    }
   },
   created () {
-    this.checkAsesiData();
+    this.checkAsesiData()
   },
   methods: {
     onClick() {
 
     },
     async checkAsesiData() {
-        const user_id = localStorage.getItem('lsp-user-id');
-        const result = await this.$apollo.mutate({
-            mutation: GET_USERDATA,
-            variables: {
-                user_id
-            }
-        }).then(({ data }) => {
-            if (data.user.role.role != 'admin') {
-                this.logout();
-            }
-            this.profile.email = data.user.email;
-            console.log(data.user.role.role);
-        }).catch((graphQLErrors) => {
-            alert(graphQLErrors[0].message);
-        });
+      const user_id = localStorage.getItem('lsp-user-id')
+      const result = await this.$apollo.mutate({
+        mutation: GET_USERDATA,
+        variables: {
+          user_id
+        }
+      }).then(({ data }) => {
+        if (data.user.role.role != 'admin') {
+          this.logout()
+        }
+        this.profile.email = data.user.email
+        console.log(data.user.role.role)
+      }).catch((graphQLErrors) => {
+        alert(graphQLErrors[0].message)
+      })
     },
     saveUserData(username) {
-        localStorage.setItem(LSP_USERNAME, username);
-        this.profile.username = localStorage.getItem('lsp-username');
+      localStorage.setItem(LSP_USERNAME, username)
+      this.profile.username = localStorage.getItem('lsp-username')
     },
     gotoPage(page) {
-        this.$router.push(page);
+      this.$router.push(page)
     },
     logout () {
-        localStorage.removeItem(LSP_USER_ID);
-        localStorage.removeItem(LSP_AUTH_TOKEN);
-        this.$apolloHelpers.onLogout();
-        this.gotoPage('/signin');
+      localStorage.removeItem(LSP_USER_ID)
+      localStorage.removeItem(LSP_AUTH_TOKEN)
+      this.$apolloHelpers.onLogout()
+      this.gotoPage('/signin')
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 </style>

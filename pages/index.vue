@@ -29,9 +29,9 @@
       >
         <v-flex xs12 sm4 class="my-4">
           <div class="text-center">
-            <h2 class="headline">Tentang LSP UPN Jatim</h2>
+            <h2 class="headline">Tentang LSP TIFA</h2>
             <span class="subheading">
-              berikut ini adalah skema dari LSP UPN Jatim
+              berikut ini adalah skema dari LSP TIFA
             </span>
           </div>
         </v-flex>
@@ -232,22 +232,22 @@
 </template>
 <script>
 
-  export default {
-    name: 'index',
-    layout: 'App',
-    data() {
-      return {
-        items: [
-          {
-            src: '',
-          }
-        ]
-      };
-    },
-    async created() {
-        this.$router.push('/signin');
-    },
-  };
+export default {
+  name: 'Index',
+  layout: 'App',
+  data() {
+    return {
+      items: [
+        {
+          src: '',
+        }
+      ]
+    }
+  },
+  async created() {
+    this.$router.push('/signin')
+  },
+}
 
 </script>
 <style lang="scss" scoped>

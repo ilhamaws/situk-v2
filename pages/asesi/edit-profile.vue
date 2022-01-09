@@ -7,74 +7,74 @@
       >
         <v-container fluid>
           <div v-if="!state.skeleton">
-              <v-row>
-                <div class="col-md-4 col-xs-12 pt-0">
-                  <v-card>
-                    <div class="d-flex flex-no-wrap">
-                      <v-avatar
-                        class="mt-5 ml-5"
-                        size="125"
-                        style="border-radius: .42rem;"
-                        tile
-                      >
-                        <v-img :src="profile.image"></v-img>
-                      </v-avatar>
-                      <div>
-                        <v-card-title
-                          class="headline"
-                          v-text="profile.nama"
-                        ></v-card-title>
-                        <v-card-subtitle class="py-0">status user:</v-card-subtitle>
-                        <v-card-actions>
-                          <v-btn text color="primary">
-                            <span class="text-capitalize">
-                              {{ profile.user.role.role }}
-                            </span>
-                          </v-btn>
-                        </v-card-actions>
-                      </div>
+            <v-row>
+              <div class="col-md-4 col-xs-12 pt-0">
+                <v-card>
+                  <div class="d-flex flex-no-wrap">
+                    <v-avatar
+                      class="mt-5 ml-5"
+                      size="125"
+                      style="border-radius: .42rem;"
+                      tile
+                    >
+                      <v-img :src="profile.image"></v-img>
+                    </v-avatar>
+                    <div>
+                      <v-card-title
+                        class="headline"
+                        v-text="profile.nama"
+                      ></v-card-title>
+                      <v-card-subtitle class="py-0">status user:</v-card-subtitle>
+                      <v-card-actions>
+                        <v-btn text color="primary">
+                          <span class="text-capitalize">
+                            {{ profile.user.role.role }}
+                          </span>
+                        </v-btn>
+                      </v-card-actions>
                     </div>
-                    <v-card-text class="px-5">
-                      <v-simple-table>
-                        <tbody>
-                          <tr>
-                            <td width="20%"><b>Nama:</b></td>
-                            <td>{{ profile.nama }}</td>
-                          </tr>
-                          <tr>
-                            <td width="20%"><b>NIK:</b></td>
-                            <td>{{ profile.nik }}</td>
-                          </tr>
-                          <tr>
-                            <td width="20%"><b>Email:</b></td>
-                            <td>{{ profile.user.email }}</td>
-                          </tr>
-                          <tr>
-                            <td width="20%"><b>Telepon:</b></td>
-                            <td>{{ profile.telepon }}</td>
-                          </tr>
-                        </tbody>
-                      </v-simple-table>
-                    </v-card-text>
-                  </v-card>
-                </div>
+                  </div>
+                  <v-card-text class="px-5">
+                    <v-simple-table>
+                      <tbody>
+                        <tr>
+                          <td width="20%"><b>Nama:</b></td>
+                          <td>{{ profile.nama }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>NIK:</b></td>
+                          <td>{{ profile.nik }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Email:</b></td>
+                          <td>{{ profile.user.email }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Telepon:</b></td>
+                          <td>{{ profile.telepon }}</td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card-text>
+                </v-card>
+              </div>
               <div class="col-lg-8 col-xs-12 pt-md-0">
                 <v-card
                   class="mx-auto"
                 >
-                <v-card-title>
-                  <span class="headline px-5">Edit Profil</span>
+                  <v-card-title>
+                    <span class="headline px-5">Edit Profil</span>
 
-                  <v-spacer></v-spacer>
+                    <v-spacer></v-spacer>
 
-                  <v-btn
-                    to="/asesi/profile"
-                    outlined
-                    color="primary"
-                  >
-                    <v-icon small class="mr-2">person</v-icon>
-                    Informasi Profil
-                  </v-btn>
+                    <v-btn
+                      to="/asesi/profile"
+                      outlined
+                      color="primary"
+                    >
+                      <v-icon small class="mr-2">person</v-icon>
+                      Informasi Profil
+                    </v-btn>
 
                   <!-- <v-menu bottom left>
                     <template v-slot:activator="{ on }">
@@ -100,8 +100,8 @@
                       </v-list-item>
                     </v-list>
                   </v-menu> -->
-                </v-card-title>
-                <v-divider></v-divider>
+                  </v-card-title>
+                  <v-divider></v-divider>
                   <v-row>
                     <v-col md="12" class="px-10 py-5">
                       <div class="px-5 py-5">
@@ -177,13 +177,13 @@
                                 offset-y
                                 min-width="290px"
                               >
-                                <template v-slot:activator="{ on }">
+                                <template #activator="{ on }">
                                   <v-text-field
                                     v-model="input.tanggal_lahir"
                                     class="mt-2"
                                     label="Tanggal lahir"
-                                    v-on="on"
                                     solo
+                                    v-on="on"
                                     
                                   ></v-text-field>
                                 </template>
@@ -235,24 +235,24 @@
                             <v-col md="6" class="py-0">
                               <label for=""><b>Provinsi</b></label>
                               <v-select
-                              class="mt-2"
-                              @input='selectKotas'
-                              v-model="input.kota.provinsi.id"
-                              :items="province"
-                              label="Provinsi"
-                              item-value="id" item-text="provinsi"
-                              solo
+                                v-model="input.kota.provinsi.id"
+                                class="mt-2"
+                                :items="province"
+                                label="Provinsi"
+                                item-value="id"
+                                item-text="provinsi" solo
+                                @input="selectKotas"
                               />
                             </v-col>
                             <v-col md="6" class="py-0">
                               <label for=""><b>Kota</b></label>
                               <v-select
-                              class="mt-2"
-                              v-model="input.kota.id"
-                              :items="kota"
-                              label="Kota"
-                              item-value="id" item-text="kota"
-                              solo
+                                v-model="input.kota.id"
+                                class="mt-2"
+                                :items="kota"
+                                label="Kota"
+                                item-value="id" item-text="kota"
+                                solo
                               />
                             </v-col>
                           </v-row>
@@ -271,24 +271,24 @@
                             <v-col md="4" class="py-0">
                               <label for=""><b>Pekerjaan</b></label>
                               <v-select
-                              v-model="input.pekerjaan.id"
-                              class="mt-2"
-                              :items="pekerjaan"
-                              label="Pekerjaan"
-                              item-value="id" item-text="pekerjaan"
-                              disabled
-                              solo
+                                v-model="input.pekerjaan.id"
+                                class="mt-2"
+                                :items="pekerjaan"
+                                label="Pekerjaan"
+                                item-value="id" item-text="pekerjaan"
+                                disabled
+                                solo
                               />
                             </v-col>
                             <v-col md="4" class="py-0">
                               <label for=""><b>Pendidikan</b></label>
                               <v-select
-                              v-model="input.pendidikan.id"
-                              class="mt-2"
-                              :items="pendidikan"
-                              label="Pendidikan"
-                              item-value="id" item-text="pendidikan"
-                              solo
+                                v-model="input.pendidikan.id"
+                                class="mt-2"
+                                :items="pendidikan"
+                                label="Pendidikan"
+                                item-value="id" item-text="pendidikan"
+                                solo
                               />
                             </v-col>
                           </v-row>
@@ -307,24 +307,24 @@
                             <v-col md="4" xs="12" class="py-0">
                               <label for=""><b>Fakultas</b></label>
                               <v-select
-                              @input='getJurusans'
-                              class="mt-2"
-                              v-model="input.jurusan.fakultas.id"
-                              :items="fakultass"
-                              label="Fakultas"
-                              item-value="id" item-text="fakultas"
-                              solo
+                                v-model="input.jurusan.fakultas.id"
+                                class="mt-2"
+                                :items="fakultass"
+                                label="Fakultas"
+                                item-value="id"
+                                item-text="fakultas" solo
+                                @input="getJurusans"
                               />
                             </v-col>
                             <v-col md="4" xs="12" class="py-0">
                               <label for=""><b>Jurusan</b></label>
                               <v-select
-                              class="mt-2"
-                              v-model="input.jurusan.id"
-                              :items="jurusans"
-                              label="Jurusan"
-                              item-value="id" item-text="jurusan"
-                              solo
+                                v-model="input.jurusan.id"
+                                class="mt-2"
+                                :items="jurusans"
+                                label="Jurusan"
+                                item-value="id" item-text="jurusan"
+                                solo
                               />
                             </v-col>
                           </v-row>
@@ -333,12 +333,12 @@
                             <v-col md="12" class="py-0">
                               <label for=""><b>Lembaga</b></label>
                               <v-select
-                              class="mt-2"
-                              v-model="input.lembaga.id"
-                              :items="lembaga"
-                              label="Lembaga"
-                              item-value="id" item-text="nama"
-                              solo
+                                v-model="input.lembaga.id"
+                                class="mt-2"
+                                :items="lembaga"
+                                label="Lembaga"
+                                item-value="id" item-text="nama"
+                                solo
                               />
                             </v-col>
                           </v-row>
@@ -349,24 +349,24 @@
                               <v-row>
                                 <v-col md="7">
                                   <v-card>
-                                  <v-img
-                                    :src="input.image"
-                                    :lazy-src="input.image"
-                                    aspect-ratio="1"
-                                    class="grey lighten-2"
-                                  ></v-img>
-                                </v-card>
+                                    <v-img
+                                      :src="input.image"
+                                      :lazy-src="input.image"
+                                      aspect-ratio="1"
+                                      class="grey lighten-2"
+                                    ></v-img>
+                                  </v-card>
                                 </v-col>
                               </v-row>
                               <v-row>
                                 <v-col md="7">
-                                  <v-text-field label="Edit Foto" v-model='image.imageName' @click='pickImage' prepend-icon='mdi-camera' solo></v-text-field>
+                                  <v-text-field v-model="image.imageName" label="Edit Foto" prepend-icon="mdi-camera" solo @click="pickImage"></v-text-field>
                                   <input
-                                      type="file"
-                                      style="display: none"
-                                      ref="image"
-                                      accept="image/png, image/jpeg"
-                                      @change="onPhotoSelected"
+                                    ref="image"
+                                    type="file"
+                                    style="display: none"
+                                    accept="image/png, image/jpeg"
+                                    @change="onPhotoSelected"
                                   >
                                 </v-col>
                               </v-row>
@@ -376,13 +376,13 @@
                               <v-row>
                                 <v-col md="7">
                                   <v-card>
-                                  <v-img
-                                    :src="input.ttd"
-                                    :lazy-src="input.ttd"
-                                    aspect-ratio="1"
-                                    class="white"
-                                  ></v-img>
-                                </v-card>
+                                    <v-img
+                                      :src="input.ttd"
+                                      :lazy-src="input.ttd"
+                                      aspect-ratio="1"
+                                      class="white"
+                                    ></v-img>
+                                  </v-card>
                                 </v-col>
                               </v-row>
                               <v-row>
@@ -397,22 +397,22 @@
                                     <v-card>
                                       <VueSignaturePad
                                         id="signature"
+                                        ref="signaturePad"
                                         width="100%"
                                         height="200px"
-                                        ref="signaturePad"
                                         :options="{onBegin: () => {$refs.signaturePad.resizeCanvas()}}"
                                       />
                                     </v-card>
                                   </v-card-text>
                                   <v-card-text>
-                                    <v-btn color="primary" @click="undo()" class="mr-2" outlined dark><v-icon left>undo</v-icon>Undo</v-btn>
-                                    <v-btn color="primary" @click="clear()" outlined dark><v-icon left>clear</v-icon>Clear</v-btn>
+                                    <v-btn color="primary" class="mr-2" outlined dark @click="undo()"><v-icon left>undo</v-icon>Undo</v-btn>
+                                    <v-btn color="primary" outlined dark @click="clear()"><v-icon left>clear</v-icon>Clear</v-btn>
                                   </v-card-text>
                                   <v-card-actions>
-                                  <v-spacer></v-spacer>
-                                  <v-btn color="grey" text @click="editDialog = false">Batal</v-btn>
-                                  <v-btn color="primary" text @click='saveTtd'>Simpan Ttd</v-btn>
-                                </v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="grey" text @click="editDialog = false">Batal</v-btn>
+                                    <v-btn color="primary" text @click="saveTtd">Simpan Ttd</v-btn>
+                                  </v-card-actions>
                                 </v-card>
                               </v-dialog>
                             </v-col>
@@ -429,17 +429,17 @@
                                 <span>Reset form ke awal</span>
                               </v-tooltip> -->
                               <v-btn
-                                @click='updateAsesi'
                                 large
                                 rounded
                                 color="primary"
-                                dark>
+                                dark
+                                @click="updateAsesi">
                                 <v-progress-circular
+                                  v-if="state.loading"
                                   :size="20"
                                   :width="2"
                                   indeterminate
                                   color="white"
-                                  v-if="state.loading"
                                   class="mr-2"
                                 ></v-progress-circular>
                                 Simpan Perubahan
@@ -668,348 +668,348 @@
   </div>
 </template>
 <script>
-import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL } from '@/constants/settings';
-import { UPDATE_ASESI_MUTATION, GET_USERDATA, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_SELF_ASESI, GET_FAKULTASS, GET_JURUSANS } from '@/constants/graphql';
+import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL } from '@/constants/settings'
+import { UPDATE_ASESI_MUTATION, GET_USERDATA, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_SELF_ASESI, GET_FAKULTASS, GET_JURUSANS } from '@/constants/graphql'
 
 export default {
-    name: 'profile',
-    layout: 'App_asesi',
-    data() {
-      return {
-        editDialog: false,
-        state:{
-          loading: false,
-          skeleton: true
-        },
-        pages: [
-          { title: 'Informasi Profil' , icon: 'person', link: 'profile'},
-          // { title: 'Ubah Password' , icon: 'lock', link: '/change-password'},
-          // { title: 'Overview' , icon: 'bar_chart', link: '/dashboard-asesi'},
-        ],
-        options: {
-          penColor: "#c0f"
-        },
-        alert:{
-          show: false,
-          type: '',
-          message: '',
-        },
-        rules: [
-          value => !value || value.size < 1000000 || 'Ukuran image harus kurang dari 1 MB!',
-        ],
-        date: new Date().toISOString().substr(0, 10),
-        menu: false,
-        modal: false,
-        menu2: false,
-        profile : [],
-        input: [],
-        gender: [
-          {
-            kode: "L",
-            jk: "Laki-laki"
-          },
-          {
-            kode: "P",
-            jk: "Perempuan"
-          }
-        ],
-        nama: '',
-        nik: '',
-        tempat_lahir: '',
-        kebangsaan: '',
-        alamat: '',
-        kodepos: '',
-        telepon: '',
-        // image: null,
-        image: {
-            imageName: '',
-            imageUrl: null,
-            imageFile: ''
-        },
-        ttd: {
-            ttdName: '',
-            ttdUrl: null,
-            ttdFile: ''
-        },
-        selectedImage: '',
-        // ttd: null,
-        selectedTtd: '',
-        selectedGender: null,
-        kota: [],
-        selectedCity: null,
-        province: [],
-        selectedProvince: null,
-        lembaga: [],
-        selectedLembaga: null,
-        pekerjaan: [],
-        selectedPekerjaan: null,
-        pendidikan: [],
-        selectedPendidikan:null,
-        fakultass: [],
-        jurusans: []
-      };
-    },
-    async created() {
-    },
-    async mounted() {
-        await this.checkAsesiData();
-        this.getLembagas();
-        this.getPekerjaans();
-        this.getPendidikans();
-        this.getProvinsis();
-        this.getKotas();
-        this.getFakultass();
-        this.getJurusans();
-        // await this.checkAsesiData();
-    },
-    methods: {
-      undo() {
-        this.$refs.signaturePad.undoSignature();
+  name: 'Profile',
+  layout: 'App_asesi',
+  data() {
+    return {
+      editDialog: false,
+      state:{
+        loading: false,
+        skeleton: true
       },
-      clear() {
-        this.$refs.signaturePad.clearSignature();
+      pages: [
+        { title: 'Informasi Profil' , icon: 'person', link: 'profile'},
+        // { title: 'Ubah Password' , icon: 'lock', link: '/change-password'},
+        // { title: 'Overview' , icon: 'bar_chart', link: '/dashboard-asesi'},
+      ],
+      options: {
+        penColor: "#c0f"
       },
-      saveTtd() {
-        const { isEmpty, data } = this.$refs.signaturePad.saveSignature();
-        this.input.ttd = data;
-        this.ttd.ttdUrl = data;
-        this.editDialog = false;
-        // alert("Open DevTools see the save data.");
-        // console.log(isEmpty);
-        // console.log(data);
+      alert:{
+        show: false,
+        type: '',
+        message: '',
       },
-      onPhotoSelected(e) {
-        const files = e.target.files;
-        // const reader = new FileReader();
-
-        if(files[0] !== undefined) {
-            this.image.imageName = files[0].name;
-            if(this.image.imageName.lastIndexOf('.') <= 0) {
-                return;
-            }
-            const fr = new FileReader ();
-            fr.readAsDataURL(files[0]);
-            fr.addEventListener('load', () => {
-                this.image.imageUrl = fr.result;
-                this.input.image = fr.result;
-                this.image.imageFile = files[0]; // this is an image file that can be sent to server...
-            });
-        } else {
-            this.image.imageName = '';
-            this.image.imageFile = '';
-            this.image.imageUrl = '';
+      rules: [
+        value => !value || value.size < 1000000 || 'Ukuran image harus kurang dari 1 MB!',
+      ],
+      date: new Date().toISOString().substr(0, 10),
+      menu: false,
+      modal: false,
+      menu2: false,
+      profile : [],
+      input: [],
+      gender: [
+        {
+          kode: "L",
+          jk: "Laki-laki"
+        },
+        {
+          kode: "P",
+          jk: "Perempuan"
         }
-        // reader.onloadend = (imgFile) => {
-        //   this.image = reader.result;
-        // };
-        // reader.readAsDataURL(imgFile);
+      ],
+      nama: '',
+      nik: '',
+      tempat_lahir: '',
+      kebangsaan: '',
+      alamat: '',
+      kodepos: '',
+      telepon: '',
+      // image: null,
+      image: {
+        imageName: '',
+        imageUrl: null,
+        imageFile: ''
       },
-      pickImage() {
-            this.$refs.image.click();
+      ttd: {
+        ttdName: '',
+        ttdUrl: null,
+        ttdFile: ''
       },
-      pickTtd() {
-        // this.$nextTick(() => {
-        //   this.$refs.signaturePad.resizeCanvas();
-        // });
-        this.editDialog = true;
-            // this.$refs.ttd.click();
-      },
-      resetForm(){
-        this.input = {...this.profile};
-      },
-      onTtdSelected(e) {
-        const ttdFile = e.target.files;
-
-        if(ttdFile[0] !== undefined) {
-            this.ttd.ttdName = ttdFile[0].name;
-            if(this.ttd.ttdName.lastIndexOf('.') <= 0) {
-                return;
-            }
-            const fr = new FileReader ();
-            fr.readAsDataURL(ttdFile[0]);
-            fr.addEventListener('load', () => {
-                this.ttd.ttdUrl = fr.result;
-                this.ttd.ttdFile = ttdFile[0]; // this is an ttd file that can be sent to server...
-            });
-        } else {
-            this.ttd.ttdName = '';
-            this.ttd.ttdFile = '';
-            this.ttd.ttdUrl = '';
-        }
-      },
-
-      async getLembagas() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_LEMBAGAS
-        }).then(({ data }) => {
-          this.lembaga = data.lembagas;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getPekerjaans() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PEKERJAANS
-        }).then(({ data }) => {
-          this.pekerjaan = data.pekerjaans;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getPendidikans() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PENDIDIKANS
-        }).then(({ data }) => {
-          this.pendidikan = data.pendidikans;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getProvinsis() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PROVINSIS
-        }).then(({ data }) => {
-          this.province = data.provinsis;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getKotas() {
-        const id = this.input.kota.provinsi.id;
-        console.log(id);
-        const result = await this.$apollo.mutate({
-            mutation: GET_KOTAS,
-            variables: {
-                id
-            }
-        }).then(({ data }) => {
-          this.kota = data.provinsi.kota;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getFakultass() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_FAKULTASS
-        }).then(({ data }) => {
-          console.log(data);
-          this.fakultass = data.fakultass;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getJurusans() {
-        const id = this.input.jurusan.fakultas.id;
-        const result = await this.$apollo.mutate({
-            mutation: GET_JURUSANS,
-            variables: {
-                id
-            }
-        }).then(({ data }) => {
-          console.log(data);
-          this.jurusans = data.fakultas.jurusan;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async selectKotas() {
-        const id = this.input.kota.provinsi.id;
-        console.log(id);
-        const result = await this.$apollo.mutate({
-            mutation: GET_KOTAS,
-            variables: {
-                id
-            }
-        }).then(({ data }) => {
-          this.kota = data.provinsi.kota;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      showAlert(type, message) {
-        this.alert = { show: true, type, message };
-      },
-      async updateAsesi(e) {
-        e.preventDefault();
-        const { state: { loading } } = this;
-
-        if (!loading) {
-          this.alert.show = false;
-          this.state.loading = true;
-          const { input: { nik
-          , nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, npm}} = this.$data;
-          const lembaga_id = this.input.lembaga.id;
-          const pendidikan_id = this.input.pendidikan.id;
-          const pekerjaan_id = this.input.pekerjaan.id;
-          const kota_id = this.input.kota.id;
-          const jurusan_id = this.input.jurusan.id;
-          const image = this.image.imageUrl;
-          const ttd = this.ttd.ttdUrl;
-          const result = await this.$apollo.mutate({
-            mutation: UPDATE_ASESI_MUTATION,
-            variables: {
-                lembaga_id, pendidikan_id, pekerjaan_id, kota_id, nik,
-                nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon,
-                image, ttd, jurusan_id, npm
-            }
-          }).then(({ data }) => {
-            this.showAlert('success', 'Data berhasil diubah');
-            this.checkAsesiData();
-            // location.href = 'edit-profile';
-            console.log(data);
-          }).catch(({graphQLErrors}) => {
-            this.showAlert('error', graphQLErrors[0].message);
-          }).finally(() => {
-            this.state.loading = false;
-          });
-        }
-      },
-
-      async checkAsesiData() {
-        // const user_id = localStorage.getItem('lsp-user-id');
-        const result = await this.$apollo.mutate({
-            mutation: GET_SELF_ASESI
-        }).then(({ data }) => {
-            this.profile = data.checkselfAsesi;
-            this.input = { ...this.profile };
-            // this.profile.nama = data.user.asesi.nama;
-            // this.profile.jenis_kelamin = data.user.asesi.jenis_kelamin;
-            // this.profile.nik = data.user.asesi.nik;
-            // this.profile.tempat_lahir = data.user.asesi.tempat_lahir;
-            // this.profile.tanggal_lahir = data.user.asesi.tanggal_lahir;
-            // this.profile.kebangsaan = data.user.asesi.kebangsaan;
-            // this.profile.alamat = data.user.asesi.alamat;
-            // this.profile.kota = data.user.asesi.kota.id;
-            // this.profile.provinsi = data.user.asesi.kota.provinsi.id;
-            // this.profile.kodepos = data.user.asesi.kodepos;
-            // this.profile.telepon = data.user.asesi.telepon;
-            // this.profile.lembaga = data.user.asesi.lembaga.id;
-            // this.profile.pekerjaan = data.user.asesi.pekerjaan.id;
-            // this.profile.pendidikan = data.user.asesi.pendidikan.id;
-            // this.profile.image = data.user.asesi.image;
-            // this.profile.ttd = data.user.asesi.ttd;
-            // this.profile.email = data.user.email;
-            // this.profile.role = data.user.role.role;
-            console.log(data);
-        }).catch((error) => {
-            alert(error);
-        }).finally(() => {
-          this.state.skeleton = false;
-        });
-      },
-      gotoPage(page) {
-          this.$router.push(page);
-      },
+      selectedImage: '',
+      // ttd: null,
+      selectedTtd: '',
+      selectedGender: null,
+      kota: [],
+      selectedCity: null,
+      province: [],
+      selectedProvince: null,
+      lembaga: [],
+      selectedLembaga: null,
+      pekerjaan: [],
+      selectedPekerjaan: null,
+      pendidikan: [],
+      selectedPendidikan:null,
+      fakultass: [],
+      jurusans: []
     }
-  };
+  },
+  async created() {
+  },
+  async mounted() {
+    await this.checkAsesiData()
+    this.getLembagas()
+    this.getPekerjaans()
+    this.getPendidikans()
+    this.getProvinsis()
+    this.getKotas()
+    this.getFakultass()
+    this.getJurusans()
+    // await this.checkAsesiData();
+  },
+  methods: {
+    undo() {
+      this.$refs.signaturePad.undoSignature()
+    },
+    clear() {
+      this.$refs.signaturePad.clearSignature()
+    },
+    saveTtd() {
+      const { isEmpty, data } = this.$refs.signaturePad.saveSignature()
+      this.input.ttd = data
+      this.ttd.ttdUrl = data
+      this.editDialog = false
+      // alert("Open DevTools see the save data.");
+      // console.log(isEmpty);
+      // console.log(data);
+    },
+    onPhotoSelected(e) {
+      const files = e.target.files
+      // const reader = new FileReader();
+
+      if(files[0] !== undefined) {
+        this.image.imageName = files[0].name
+        if(this.image.imageName.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader ()
+        fr.readAsDataURL(files[0])
+        fr.addEventListener('load', () => {
+          this.image.imageUrl = fr.result
+          this.input.image = fr.result
+          this.image.imageFile = files[0] // this is an image file that can be sent to server...
+        })
+      } else {
+        this.image.imageName = ''
+        this.image.imageFile = ''
+        this.image.imageUrl = ''
+      }
+      // reader.onloadend = (imgFile) => {
+      //   this.image = reader.result;
+      // };
+      // reader.readAsDataURL(imgFile);
+    },
+    pickImage() {
+      this.$refs.image.click()
+    },
+    pickTtd() {
+      // this.$nextTick(() => {
+      //   this.$refs.signaturePad.resizeCanvas();
+      // });
+      this.editDialog = true
+      // this.$refs.ttd.click();
+    },
+    resetForm(){
+      this.input = {...this.profile}
+    },
+    onTtdSelected(e) {
+      const ttdFile = e.target.files
+
+      if(ttdFile[0] !== undefined) {
+        this.ttd.ttdName = ttdFile[0].name
+        if(this.ttd.ttdName.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader ()
+        fr.readAsDataURL(ttdFile[0])
+        fr.addEventListener('load', () => {
+          this.ttd.ttdUrl = fr.result
+          this.ttd.ttdFile = ttdFile[0] // this is an ttd file that can be sent to server...
+        })
+      } else {
+        this.ttd.ttdName = ''
+        this.ttd.ttdFile = ''
+        this.ttd.ttdUrl = ''
+      }
+    },
+
+    async getLembagas() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_LEMBAGAS
+      }).then(({ data }) => {
+        this.lembaga = data.lembagas
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getPekerjaans() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PEKERJAANS
+      }).then(({ data }) => {
+        this.pekerjaan = data.pekerjaans
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getPendidikans() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PENDIDIKANS
+      }).then(({ data }) => {
+        this.pendidikan = data.pendidikans
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getProvinsis() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PROVINSIS
+      }).then(({ data }) => {
+        this.province = data.provinsis
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getKotas() {
+      const id = this.input.kota.provinsi.id
+      console.log(id)
+      const result = await this.$apollo.mutate({
+        mutation: GET_KOTAS,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        this.kota = data.provinsi.kota
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getFakultass() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_FAKULTASS
+      }).then(({ data }) => {
+        console.log(data)
+        this.fakultass = data.fakultass
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getJurusans() {
+      const id = this.input.jurusan.fakultas.id
+      const result = await this.$apollo.mutate({
+        mutation: GET_JURUSANS,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        console.log(data)
+        this.jurusans = data.fakultas.jurusan
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async selectKotas() {
+      const id = this.input.kota.provinsi.id
+      console.log(id)
+      const result = await this.$apollo.mutate({
+        mutation: GET_KOTAS,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        this.kota = data.provinsi.kota
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    showAlert(type, message) {
+      this.alert = { show: true, type, message }
+    },
+    async updateAsesi(e) {
+      e.preventDefault()
+      const { state: { loading } } = this
+
+      if (!loading) {
+        this.alert.show = false
+        this.state.loading = true
+        const { input: { nik
+          , nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, npm}} = this.$data
+        const lembaga_id = this.input.lembaga.id
+        const pendidikan_id = this.input.pendidikan.id
+        const pekerjaan_id = this.input.pekerjaan.id
+        const kota_id = this.input.kota.id
+        const jurusan_id = this.input.jurusan.id
+        const image = this.image.imageUrl
+        const ttd = this.ttd.ttdUrl
+        const result = await this.$apollo.mutate({
+          mutation: UPDATE_ASESI_MUTATION,
+          variables: {
+            lembaga_id, pendidikan_id, pekerjaan_id, kota_id, nik,
+            nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon,
+            image, ttd, jurusan_id, npm
+          }
+        }).then(({ data }) => {
+          this.showAlert('success', 'Data berhasil diubah')
+          this.checkAsesiData()
+          // location.href = 'edit-profile';
+          console.log(data)
+        }).catch(({graphQLErrors}) => {
+          this.showAlert('error', graphQLErrors[0].message)
+        }).finally(() => {
+          this.state.loading = false
+        })
+      }
+    },
+
+    async checkAsesiData() {
+      // const user_id = localStorage.getItem('lsp-user-id');
+      const result = await this.$apollo.mutate({
+        mutation: GET_SELF_ASESI
+      }).then(({ data }) => {
+        this.profile = data.checkselfAsesi
+        this.input = { ...this.profile }
+        // this.profile.nama = data.user.asesi.nama;
+        // this.profile.jenis_kelamin = data.user.asesi.jenis_kelamin;
+        // this.profile.nik = data.user.asesi.nik;
+        // this.profile.tempat_lahir = data.user.asesi.tempat_lahir;
+        // this.profile.tanggal_lahir = data.user.asesi.tanggal_lahir;
+        // this.profile.kebangsaan = data.user.asesi.kebangsaan;
+        // this.profile.alamat = data.user.asesi.alamat;
+        // this.profile.kota = data.user.asesi.kota.id;
+        // this.profile.provinsi = data.user.asesi.kota.provinsi.id;
+        // this.profile.kodepos = data.user.asesi.kodepos;
+        // this.profile.telepon = data.user.asesi.telepon;
+        // this.profile.lembaga = data.user.asesi.lembaga.id;
+        // this.profile.pekerjaan = data.user.asesi.pekerjaan.id;
+        // this.profile.pendidikan = data.user.asesi.pendidikan.id;
+        // this.profile.image = data.user.asesi.image;
+        // this.profile.ttd = data.user.asesi.ttd;
+        // this.profile.email = data.user.email;
+        // this.profile.role = data.user.role.role;
+        console.log(data)
+      }).catch((error) => {
+        alert(error)
+      }).finally(() => {
+        this.state.skeleton = false
+      })
+    },
+    gotoPage(page) {
+      this.$router.push(page)
+    },
+  }
+}
 
 </script>
 <style lang="scss" scoped>

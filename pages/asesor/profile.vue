@@ -7,76 +7,76 @@
       >
         <v-container fluid>
           <div v-if="!state.skeleton" class="">
-          <v-row>
-            <div class="col-md-4 col-xs-12 pt-0">
-              <v-card>
-                <div class="d-flex flex-no-wrap">
-                  <a :href="asesor.image" target="_blank">
-                    <v-avatar
-                      class="mt-5 ml-5"
-                      size="125"
-                      style="border-radius: .42rem;"
-                      tile
-                    >
-                      <v-img v-if="asesor.image != null" :src="asesor.image"></v-img>
-                    </v-avatar>
-                  </a>
-                  <div>
-                    <v-card-title
-                      class="headline"
-                      v-text="asesor.nama"
-                    ></v-card-title>
-                    <v-card-subtitle class="py-0">status user:</v-card-subtitle>
-                    <v-card-actions>
-                      <v-btn text color="primary">
-                        <span class="text-capitalize">
-                          {{ asesor.user.role.role }}
-                        </span>
-                      </v-btn>
-                    </v-card-actions>
+            <v-row>
+              <div class="col-md-4 col-xs-12 pt-0">
+                <v-card>
+                  <div class="d-flex flex-no-wrap">
+                    <a :href="asesor.image" target="_blank">
+                      <v-avatar
+                        class="mt-5 ml-5"
+                        size="125"
+                        style="border-radius: .42rem;"
+                        tile
+                      >
+                        <v-img v-if="asesor.image != null" :src="asesor.image"></v-img>
+                      </v-avatar>
+                    </a>
+                    <div>
+                      <v-card-title
+                        class="headline"
+                        v-text="asesor.nama"
+                      ></v-card-title>
+                      <v-card-subtitle class="py-0">status user:</v-card-subtitle>
+                      <v-card-actions>
+                        <v-btn text color="primary">
+                          <span class="text-capitalize">
+                            {{ asesor.user.role.role }}
+                          </span>
+                        </v-btn>
+                      </v-card-actions>
+                    </div>
                   </div>
-                </div>
-                <v-card-text class="px-5">
-                  <v-simple-table>
-                    <tbody>
-                      <tr>
-                        <td width="20%"><b>Nama:</b></td>
-                        <td>{{ asesor.nama }}</td>
-                      </tr>
-                      <tr>
-                        <td width="20%"><b>Skema:</b></td>
-                        <td>{{ asesor.skema.skema }}</td>
-                      </tr>
-                      <tr>
-                        <td width="20%"><b>Email:</b></td>
-                        <td>{{ asesor.user.email }}</td>
-                      </tr>
-                      <tr>
-                        <td width="20%"><b>No Sertifikat:</b></td>
-                        <td>{{ asesor.no_sertifikat }}</td>
-                      </tr>
-                    </tbody>
-                  </v-simple-table>
-                </v-card-text>
-              </v-card>
-            </div>
-            <div class="col-lg-8 col-xs-12 pt-md-0">
+                  <v-card-text class="px-5">
+                    <v-simple-table>
+                      <tbody>
+                        <tr>
+                          <td width="20%"><b>Nama:</b></td>
+                          <td>{{ asesor.nama }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Skema:</b></td>
+                          <td>{{ asesor.skema.skema }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Email:</b></td>
+                          <td>{{ asesor.user.email }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>No Sertifikat:</b></td>
+                          <td>{{ asesor.no_sertifikat }}</td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card-text>
+                </v-card>
+              </div>
+              <div class="col-lg-8 col-xs-12 pt-md-0">
                 <v-card
-                class="mx-auto"
+                  class="mx-auto"
                 >
-                <v-card-title>
-                  <span class="headline px-5">Informasi Profil</span>
+                  <v-card-title>
+                    <span class="headline px-5">Informasi Profil</span>
 
-                  <v-spacer></v-spacer>
+                    <v-spacer></v-spacer>
 
-                  <v-btn
-                    to="/asesor/edit-profile"
-                    outlined
-                    color="primary"
-                  >
-                    <v-icon small class="mr-2">edit</v-icon>
-                    Edit profil
-                  </v-btn>
+                    <v-btn
+                      to="/asesor/edit-profile"
+                      outlined
+                      color="primary"
+                    >
+                      <v-icon small class="mr-2">edit</v-icon>
+                      Edit profil
+                    </v-btn>
                   <!-- <v-menu bottom left>
                     <template v-slot:activator="{ on }">
                       <v-btn
@@ -102,17 +102,17 @@
                       </v-list-item>
                     </v-list>
                   </v-menu> -->
-                </v-card-title>
-                <v-divider></v-divider>
-                <v-row>
+                  </v-card-title>
+                  <v-divider></v-divider>
+                  <v-row>
                     <v-col md="12" class="px-10 py-5">
-                    <div class="px-5 py-5">
+                      <div class="px-5 py-5">
                         <div v-if="alert.show">
-                        <v-alert :type="alert.type" dismissible class="mb-10">
+                          <v-alert :type="alert.type" dismissible class="mb-10">
                             <div class="white--text">
-                            {{ alert.message }}
+                              {{ alert.message }}
                             </div>
-                        </v-alert>
+                          </v-alert>
                         </div>
                         <v-form>
                           <v-row>
@@ -193,14 +193,14 @@
                                 offset-y
                                 min-width="290px"
                               >
-                                <template v-slot:activator="{ on }">
+                                <template #activator="{ on }">
                                   <v-text-field
                                     v-model="asesor.exp_sertifikat"
                                     class="mt-2"
                                     label="Exp. Sertifikat"
-                                    v-on="on"
                                     solo
                                     readonly
+                                    v-on="on"
                                   ></v-text-field>
                                 </template>
                                 <v-date-picker v-model="asesor.exp_sertifikat" no-title scrollable>
@@ -215,14 +215,14 @@
                               <v-row>
                                 <v-col md="7">
                                   <v-card>
-                                  <v-img
-                                    v-if="asesor.image != null"
-                                    :src="asesor.image"
-                                    :lazy-src="asesor.image"
-                                    aspect-ratio="1"
-                                    class="grey lighten-2"
-                                  ></v-img>
-                                </v-card>
+                                    <v-img
+                                      v-if="asesor.image != null"
+                                      :src="asesor.image"
+                                      :lazy-src="asesor.image"
+                                      aspect-ratio="1"
+                                      class="grey lighten-2"
+                                    ></v-img>
+                                  </v-card>
                                 </v-col>
                               </v-row>
                             </v-col>
@@ -231,138 +231,138 @@
                               <v-row>
                                 <v-col md="7">
                                   <v-card>
-                                  <v-img
-                                    v-if="asesor.image != null"
-                                    :src="asesor.ttd"
-                                    :lazy-src="asesor.ttd"
-                                    aspect-ratio="1"
-                                    class="white"
-                                  ></v-img>
-                                </v-card>
+                                    <v-img
+                                      v-if="asesor.image != null"
+                                      :src="asesor.ttd"
+                                      :lazy-src="asesor.ttd"
+                                      aspect-ratio="1"
+                                      class="white"
+                                    ></v-img>
+                                  </v-card>
                                 </v-col>
                               </v-row>
                             </v-col>
                           </v-row>
                         </v-form>
-                    </div>
+                      </div>
                     </v-col>
-                </v-row>
+                  </v-row>
                 </v-card>
-            </div>
+              </div>
             </v-row>
-        </div>
+          </div>
         </v-container>
       </v-layout>
     </section>
   </div>    
 </template>
 <script>
-import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL } from '@/constants/settings';
-import { VERIFIKASI_PESERTA_MUTATION, GET_USERDATA, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_SELF_ASESOR } from '@/constants/graphql';
+import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL } from '@/constants/settings'
+import { VERIFIKASI_PESERTA_MUTATION, GET_USERDATA, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_SELF_ASESOR } from '@/constants/graphql'
 
 export default {
-    name: 'profile-asesor',
-    layout: 'App_asesor',
-    data() {
-      return {
-        peserta_id: this.$route.params.peserta,
-        headers: [
-          { text: 'Syarat', value: 'syarat' },
-          { text: 'Aksi', value: 'actions' },
-        ],
-        editDialog: false,
-        items: [
-          { title: 'Edit Profil' , icon: 'edit', link: '/asesor/edit-profile'},
-          // { title: 'Ubah Password' , icon: 'lock', link: '/change-password'},
-          // { title: 'Overview' , icon: 'bar_chart', link: '/dashboard-asesi'},
-        ],
-        status: [
-            {
-                id: -1,
-                status: 'Ditolak'
-            },
-            {
-                id: 0,
-                status: 'Belum'
-            },
-            {
-                id: 1,
-                status: 'Disetujui'
-            }
-        ],
-        state: {
-          skeleton: true
+  name: 'ProfileAsesor',
+  layout: 'App_asesor',
+  data() {
+    return {
+      peserta_id: this.$route.params.peserta,
+      headers: [
+        { text: 'Syarat', value: 'syarat' },
+        { text: 'Aksi', value: 'actions' },
+      ],
+      editDialog: false,
+      items: [
+        { title: 'Edit Profil' , icon: 'edit', link: '/asesor/edit-profile'},
+        // { title: 'Ubah Password' , icon: 'lock', link: '/change-password'},
+        // { title: 'Overview' , icon: 'bar_chart', link: '/dashboard-asesi'},
+      ],
+      status: [
+        {
+          id: -1,
+          status: 'Ditolak'
         },
-        alert:{
-          show: false,
-          type: '',
-          message: '',
+        {
+          id: 0,
+          status: 'Belum'
         },
-        rules: [
-          value => !value || value.size < 1000000 || 'Ukuran gambar harus kurang dari 1 MB!',
-        ],
-        date: new Date().toISOString().substr(0, 10),
-        menu: false,
-        modal: false,
-        menu2: false,
-        gender: [
-          {
-            kode: "L",
-            jk: "Laki-laki"
-          },
-          {
-            kode: "P",
-            jk: "Perempuan"
-          }
-        ],
-        pesertas: {
-            asesi: {
-                image: null
-            }
+        {
+          id: 1,
+          status: 'Disetujui'
         }
-      };
-    },  
-    async mounted() {
-        await this.getpesertaDetails();
-    },
-    methods: {
-    //  get peserta
-      async verifikasiPeserta() {
-        this.alert.show = false;
-        const { pesertas: {id, status} } = this.$data;
-        const note = this.pesertas.note_apl1;
-        const result = await this.$apollo.mutate({
-              mutation: VERIFIKASI_PESERTA_MUTATION,
-              variables: {
-                id, status, note
-              }
-        }).then(({ data }) => {
-            // this.showAlert('success', 'Peserta berhasil diverifikasi');
-            this.state.skeleton = true;
-            this.getpesertaDetails();
-        }).catch(({graphQLErrors}) => {
-            console.log(graphQLErrors);
-            // this.showAlert('error', graphQLErrors[0].message);
-        }).finally(() => {
-          this.editDialog = false;
-        });
+      ],
+      state: {
+        skeleton: true
       },
-      async getpesertaDetails() {
-        const id = this.peserta_id;
-        console.log(id);
-        const result = await this.$apollo.mutate({
-              mutation: GET_SELF_ASESOR
-        }).then(({ data }) => {
-            this.asesor = data.checkselfAsesor;
-            console.log(data);
-        }).catch((error) => {
-          console.log(error);
-        }).finally(() => {
-          this.state.skeleton = false;
-        });
+      alert:{
+        show: false,
+        type: '',
+        message: '',
       },
+      rules: [
+        value => !value || value.size < 1000000 || 'Ukuran gambar harus kurang dari 1 MB!',
+      ],
+      date: new Date().toISOString().substr(0, 10),
+      menu: false,
+      modal: false,
+      menu2: false,
+      gender: [
+        {
+          kode: "L",
+          jk: "Laki-laki"
+        },
+        {
+          kode: "P",
+          jk: "Perempuan"
+        }
+      ],
+      pesertas: {
+        asesi: {
+          image: null
+        }
+      }
     }
-  };
+  },  
+  async mounted() {
+    await this.getpesertaDetails()
+  },
+  methods: {
+    //  get peserta
+    async verifikasiPeserta() {
+      this.alert.show = false
+      const { pesertas: {id, status} } = this.$data
+      const note = this.pesertas.note_apl1
+      const result = await this.$apollo.mutate({
+        mutation: VERIFIKASI_PESERTA_MUTATION,
+        variables: {
+          id, status, note
+        }
+      }).then(({ data }) => {
+        // this.showAlert('success', 'Peserta berhasil diverifikasi');
+        this.state.skeleton = true
+        this.getpesertaDetails()
+      }).catch(({graphQLErrors}) => {
+        console.log(graphQLErrors)
+        // this.showAlert('error', graphQLErrors[0].message);
+      }).finally(() => {
+        this.editDialog = false
+      })
+    },
+    async getpesertaDetails() {
+      const id = this.peserta_id
+      console.log(id)
+      const result = await this.$apollo.mutate({
+        mutation: GET_SELF_ASESOR
+      }).then(({ data }) => {
+        this.asesor = data.checkselfAsesor
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      }).finally(() => {
+        this.state.skeleton = false
+      })
+    },
+  }
+}
 
 </script>
 <style lang="scss" scoped>

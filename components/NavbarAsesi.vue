@@ -14,13 +14,13 @@
           bottom
           offset-y
         >
-          <template v-slot:activator="{ on }">
+          <template #activator="{ on }">
             <v-btn text v-on="on">
               <v-list-item-avatar class="ml-0">
                 <img :src="profile.image">
               </v-list-item-avatar>
-              <span class="d-none d-sm-flex" v-if="profile.nama.length < 20">{{profile.nama}}</span>
-              <span class="d-none d-sm-flex" v-else>{{profile.nama.substring(0,20)+"..."}}</span>
+              <span v-if="profile.nama.length < 20" class="d-none d-sm-flex">{{ profile.nama }}</span>
+              <span v-else class="d-none d-sm-flex">{{ profile.nama.substring(0,20)+"..." }}</span>
             </v-btn>
           </template>
           <v-list dense shaped>
@@ -38,7 +38,7 @@
               </v-list-item-content>
             </v-list-item>
             <v-dialog v-model="passwordDialog" max-width="600px">
-              <template v-slot:activator="{ on }">
+              <template #activator="{ on }">
                 <v-list-item v-on="on">
                   <v-list-item-icon>
                     <v-icon color="orange lighten-1">lock</v-icon>
@@ -49,7 +49,7 @@
                 </v-list-item>
               </template>
               <v-form>
-                <v-card >
+                <v-card>
                   <v-card-title>
                     <span>Ubah Password</span>
                   </v-card-title>
@@ -59,21 +59,21 @@
                         <!-- <div >
                           
                         </div> -->
-                        <v-col cols="12" sm="12" md="12" class="pb-0" v-if="alert.show">
+                        <v-col v-if="alert.show" cols="12" sm="12" md="12" class="pb-0">
                           <v-alert v-model="alert.show" :type="alert.type" dismissible>
-                              <div class="white--text">
+                            <div class="white--text">
                               {{ alert.message }}
-                              </div>
+                            </div>
                           </v-alert>
                         </v-col>
                         <v-col cols="12" sm="12" md="12">
-                          <v-text-field type="password" v-model="form.old_password" label="Password Lama" required></v-text-field>
+                          <v-text-field v-model="form.old_password" type="password" label="Password Lama" required></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="12" md="12">
-                          <v-text-field type="password" v-model="form.password" label="Password Baru" required></v-text-field>
+                          <v-text-field v-model="form.password" type="password" label="Password Baru" required></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="12" md="12">
-                          <v-text-field type="password" v-model="form.password_confirmation" label="Konfirmasi Password Baru" required></v-text-field>
+                          <v-text-field v-model="form.password_confirmation" type="password" label="Konfirmasi Password Baru" required></v-text-field>
                         </v-col>
                         <!-- <v-col cols="12" sm="6" md="6">
                             <v-select
@@ -90,12 +90,12 @@
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="grey" text @click="passwordDialog = false">Batal</v-btn>
-                    <v-btn color="blue darken-1" text @click='changePassword'>Ubah Password</v-btn>
+                    <v-btn color="blue darken-1" text @click="changePassword">Ubah Password</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-form>
             </v-dialog>
-            <v-list-item @click='logout'>
+            <v-list-item @click="logout">
               <v-list-item-icon>
                 <v-icon color="orange lighten-1">exit_to_app</v-icon>
               </v-list-item-icon>
@@ -133,9 +133,9 @@
         dense
       >
         <v-list-item
-          class="mx-0"
           v-for="item in items"
           :key="item.title"
+          class="mx-0"
           :to="item.link"
           link
           :exact="item.exact"
@@ -168,8 +168,8 @@
   </nav>
 </template>
 <script>
-import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL, LSP_USERNAME } from '../constants/settings';
-import { GET_USERDATA, GET_SELF_ASESI, UPDATE_SELF_USER } from '../constants/graphql';
+import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL, LSP_USERNAME } from '../constants/settings'
+import { GET_USERDATA, GET_SELF_ASESI, UPDATE_SELF_USER } from '../constants/graphql'
 
 export default {
   name: "NavbarAsesi",
@@ -200,66 +200,66 @@ export default {
       navItems: [
         { title: 'Profile', icon: 'person', link: '/asesi/profile' },
       ],
-    };
+    }
   },
   mounted () {
-    this.checkAsesiData();
+    this.checkAsesiData()
   },
   methods: {
     onClick() {
 
     },
     showAlert(type, message) {
-      this.alert = { show: true, type, message };
+      this.alert = { show: true, type, message }
     },
     async checkAsesiData() {
-        const user_id = localStorage.getItem('lsp-user-id');
-        const result = await this.$apollo.mutate({
-            mutation: GET_SELF_ASESI
-        }).then(({ data }) => {
-            if (data.checkselfAsesi.user.role.role != 'asesi') {
-              return this.logout();
-            }
-            this.profile = data.checkselfAsesi;
-            console.log(data);
-        }).catch((error) => {
-            console.log(error);
-        }).finally(() => {
-          this.state.loading = false;
-        });
+      const user_id = localStorage.getItem('lsp-user-id')
+      const result = await this.$apollo.mutate({
+        mutation: GET_SELF_ASESI
+      }).then(({ data }) => {
+        if (data.checkselfAsesi.user.role.role != 'asesi') {
+          return this.logout()
+        }
+        this.profile = data.checkselfAsesi
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      }).finally(() => {
+        this.state.loading = false
+      })
     },
     async changePassword() {
-        const { form: {password, password_confirmation, old_password} } = this.$data;
-        const email = this.profile.user.email;
-        const result = await this.$apollo.mutate({
-            mutation: UPDATE_SELF_USER,
-            variables: {
-              email, password, password_confirmation, old_password
-            }
-        }).then(({ data }) => {
-            console.log(data);
-            this.showAlert('success', 'Password baru berhasil disimpan');
-        }).catch(({graphQLErrors}) => {
-            this.showAlert('error', graphQLErrors[0].message);
-        }).finally(() => {
-          this.state.loading = false;
-        });
+      const { form: {password, password_confirmation, old_password} } = this.$data
+      const email = this.profile.user.email
+      const result = await this.$apollo.mutate({
+        mutation: UPDATE_SELF_USER,
+        variables: {
+          email, password, password_confirmation, old_password
+        }
+      }).then(({ data }) => {
+        console.log(data)
+        this.showAlert('success', 'Password baru berhasil disimpan')
+      }).catch(({graphQLErrors}) => {
+        this.showAlert('error', graphQLErrors[0].message)
+      }).finally(() => {
+        this.state.loading = false
+      })
     },
     saveUserData(username) {
-        localStorage.setItem(LSP_USERNAME, username);
-        this.profile.username = localStorage.getItem('lsp-username');
+      localStorage.setItem(LSP_USERNAME, username)
+      this.profile.username = localStorage.getItem('lsp-username')
     },
     gotoPage(page) {
-        this.$router.push(page);
+      this.$router.push(page)
     },
     logout () {
-        localStorage.removeItem(LSP_USER_ID);
-        localStorage.removeItem(LSP_AUTH_TOKEN);
-        this.$apolloHelpers.onLogout();
-        this.gotoPage('/signin');
+      localStorage.removeItem(LSP_USER_ID)
+      localStorage.removeItem(LSP_AUTH_TOKEN)
+      this.$apolloHelpers.onLogout()
+      this.gotoPage('/signin')
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 </style>

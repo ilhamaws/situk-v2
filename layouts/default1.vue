@@ -7,22 +7,22 @@
   </v-app>
 </template>
 <script>
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
 
 export default {
-  name: "default",
+  name: "Default",
   components: { Navbar },
   data() {
     return {
 
-    };
+    }
   },
   methods: {
     gotoPage(page) {
-      this.$router.push(page);
+      this.$router.push(page)
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 </style>

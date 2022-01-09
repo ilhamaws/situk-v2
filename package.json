@@ -12,9 +12,7 @@
     "@babel/eslint-parser": "^7.16.3",
     "@nuxtjs/apollo": "^4.0.1-rc.5",
     "@nuxtjs/eslint-module": "^3.0.2",
-    "babel-eslint": "^10.1.0",
     "core-js": "^3.19.1",
-    "eslint": "^7.32.0",
     "eslint-plugin-nuxt": "^3.0.0",
     "graphql-tag": "^2.12.6",
     "nuxt": "^2.15.8",
@@ -23,6 +21,13 @@
     "vuetify": "^2.5.14"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.12.1"
+    "@nuxtjs/vuetify": "^1.12.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.2.0",
+    "prettier": "^2.5.1"
   }
 }

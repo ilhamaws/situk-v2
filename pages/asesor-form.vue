@@ -46,12 +46,12 @@
                           <v-col md="6" class="py-0">
                             <label for=""><b>Skema</b></label>
                             <v-select
-                            class="mt-2"
-                            v-model="form.skema_id"
-                            :items="skemas"
-                            label="Pilih skema"
-                            item-value="id" item-text="skema"
-                            solo
+                              v-model="form.skema_id"
+                              class="mt-2"
+                              :items="skemas"
+                              label="Pilih skema"
+                              item-value="id" item-text="skema"
+                              solo
                             />
                           </v-col>
                         </v-row>
@@ -111,14 +111,14 @@
                               offset-y
                               min-width="290px"
                             >
-                              <template v-slot:activator="{ on }">
+                              <template #activator="{ on }">
                                 <v-text-field
                                   v-model="form.exp_sertifikat"
                                   class="mt-2"
                                   label="Exp. Sertifikat"
-                                  v-on="on"
                                   solo
                                   readonly
+                                  v-on="on"
                                 ></v-text-field>
                               </template>
                               <v-date-picker v-model="form.exp_sertifikat" no-title scrollable>
@@ -135,24 +135,24 @@
                             <v-row v-if="form.image != null">
                               <v-col md="7">
                                 <v-card>
-                                <v-img
-                                  :src="form.image"
-                                  :lazy-src="form.image"
-                                  aspect-ratio="1"
-                                  class="grey lighten-2"
-                                ></v-img>
-                              </v-card>
+                                  <v-img
+                                    :src="form.image"
+                                    :lazy-src="form.image"
+                                    aspect-ratio="1"
+                                    class="grey lighten-2"
+                                  ></v-img>
+                                </v-card>
                               </v-col>
                             </v-row>
                             <v-row>
                               <v-col md="7">
-                                <v-text-field readonly label="Edit Foto" v-model='image.imageName' @click='pickImage' prepend-icon='mdi-camera' solo></v-text-field>
+                                <v-text-field v-model="image.imageName" readonly label="Edit Foto" prepend-icon="mdi-camera" solo @click="pickImage"></v-text-field>
                                 <input
-                                    type="file"
-                                    style="display: none"
-                                    ref="image"
-                                    accept="image/png, image/jpeg"
-                                    @change="onImageSelected"
+                                  ref="image"
+                                  type="file"
+                                  style="display: none"
+                                  accept="image/png, image/jpeg"
+                                  @change="onImageSelected"
                                 >
                               </v-col>
                             </v-row>
@@ -162,13 +162,13 @@
                             <v-row v-if="form.ttd != null">
                               <v-col md="7">
                                 <v-card>
-                                <v-img
-                                  :src="form.ttd"
-                                  :lazy-src="form.ttd"
-                                  aspect-ratio="1"
-                                  class="white"
-                                ></v-img>
-                              </v-card>
+                                  <v-img
+                                    :src="form.ttd"
+                                    :lazy-src="form.ttd"
+                                    aspect-ratio="1"
+                                    class="white"
+                                  ></v-img>
+                                </v-card>
                               </v-col>
                             </v-row>
                             <v-row>
@@ -183,22 +183,22 @@
                                   <v-card>
                                     <VueSignaturePad
                                       id="signature"
+                                      ref="signaturePad"
                                       width="100%"
                                       height="200px"
-                                      ref="signaturePad"
                                       :options="{onBegin: () => {$refs.signaturePad.resizeCanvas()}}"
                                     />
                                   </v-card>
                                 </v-card-text>
                                 <v-card-text>
-                                  <v-btn color="primary" @click="undo()" class="mr-2" outlined dark><v-icon left>undo</v-icon>Undo</v-btn>
-                                  <v-btn color="primary" @click="clear()" outlined dark><v-icon left>clear</v-icon>Clear</v-btn>
+                                  <v-btn color="primary" class="mr-2" outlined dark @click="undo()"><v-icon left>undo</v-icon>Undo</v-btn>
+                                  <v-btn color="primary" outlined dark @click="clear()"><v-icon left>clear</v-icon>Clear</v-btn>
                                 </v-card-text>
                                 <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="grey" text @click="editDialog = false">Batal</v-btn>
-                                <v-btn color="primary" text @click='save'>Simpan Ttd</v-btn>
-                              </v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn color="grey" text @click="editDialog = false">Batal</v-btn>
+                                  <v-btn color="primary" text @click="save">Simpan Ttd</v-btn>
+                                </v-card-actions>
                               </v-card>
                             </v-dialog>
                           </v-col>
@@ -206,22 +206,22 @@
                         <v-row>
                           <v-spacer></v-spacer>
                           <v-btn
-                          @click='createAsesor'
-                          class="mt-5"
-                          width="200"
-                          large
-                          rounded
-                          color="primary"
-                          dark>
-                          <v-progress-circular
+                            class="mt-5"
+                            width="200"
+                            large
+                            rounded
+                            color="primary"
+                            dark
+                            @click="createAsesor">
+                            <v-progress-circular
+                              v-if="state.loading"
                               :size="20"
                               :width="2"
                               indeterminate
                               color="white"
-                              v-if="state.loading"
                               class="mr-2"
-                          ></v-progress-circular>
-                          Simpan
+                            ></v-progress-circular>
+                            Simpan
                           </v-btn>
                         </v-row>
                       </v-form>
@@ -332,242 +332,242 @@
 
 </template>
 <script>
-import { LSP_USER_ID, LSP_AUTH_TOKEN } from '@/constants/settings';
-import { CREATE_ASESI_MUTATION, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, CREATE_ASESOR_MUTATION } from '@/constants/graphql';
-import { GET_SKEMAS } from '../constants/graphql';
+import { LSP_USER_ID, LSP_AUTH_TOKEN } from '@/constants/settings'
+import { CREATE_ASESI_MUTATION, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, CREATE_ASESOR_MUTATION } from '@/constants/graphql'
+import { GET_SKEMAS } from '../constants/graphql'
 
 export default {
-    name: 'index',
-    layout: 'App_blank',
-    data() {
-      return {
-        state:{
-          loading: false
-        },
-        alert:{
-          show: false,
-          type: '',
-          message: '',
-        },
-        rules: [
-          value => !value || value.size < 2000000 || 'Ukuran gambar harus kurang dari 2 MB!',
-        ],
-        date: new Date().toISOString().substr(0, 10),
-        menu: false,
-        modal: false,
-        menu2: false,
-        gender: [
-          {
-            kode: "L",
-            jk: "Laki-laki"
-          },
-          {
-            kode: "P",
-            jk: "Perempuan"
-          }
-        ],
-        form: {
-          name: '',
-          skema_id: '',
-          no_registrasi: '',
-          no_sertifikat: '',
-          no_blanko: '',
-          exp_sertifikat: new Date().toISOString().substr(0, 10),
-          alamat: '',
-          image: null,
-          ttd: null,
-        },
-        selectedImage: "",
-        selectedTtd: "",
-        city: [],
-        province: [],
-        lembaga: [],
-        pekerjaan: [],
-        pendidikan: [],
-        skemas: [],
-        editDialog : false,
-        image: {
-            imageName: '',
-            imageUrl: null,
-            imageFile: ''
-        },
-        ttd: {
-            ttdName: '',
-            ttdUrl: null,
-            ttdFile: ''
-        },
-      };
-    },
-    mounted() {
-      this.getSkemas();
-    },
-    methods: {
-      // onPhotoSelected(e) {
-      //   const imgFile = e.target.files[0];
-      //   const reader = new FileReader();
-
-      //   reader.onloadend = (imgFile) => {
-      //     this.form.image = reader.result;
-      //   };
-      //   reader.readAsDataURL(imgFile);
-      // },
-
-      // onTtdSelected(e) {
-      //   const ttdFile = e.target.files[0];
-      //   const reader = new FileReader();
-
-      //   reader.onloadend = (ttdFile) => {
-      //     this.form.ttd = reader.result;
-      //   };
-      //   reader.readAsDataURL(ttdFile);
-      // },
-
-      undo() {
-        this.$refs.signaturePad.undoSignature();
+  name: 'Index',
+  layout: 'App_blank',
+  data() {
+    return {
+      state:{
+        loading: false
       },
-      clear() {
-        this.$refs.signaturePad.clearSignature();
+      alert:{
+        show: false,
+        type: '',
+        message: '',
       },
-      save() {
-        const { isEmpty, data } = this.$refs.signaturePad.saveSignature();
-        this.form.ttd = data;
-        this.ttd.ttdUrl = data;
-        this.editDialog = false;
-        // alert("Open DevTools see the save data.");
-        // console.log(isEmpty);
-        // console.log(data);
-      },
-      showAlert(type, message) {
-        this.alert = { show: true, type, message };
-      },
-      pickImage() {
-            this.$refs.image.click();
-      },
-      onImageSelected(e) {
-        const imageFile = e.target.files;
-
-        if(imageFile[0] !== undefined) {
-            this.image.imageName = imageFile[0].name;
-            if(this.image.imageName.lastIndexOf('.') <= 0) {
-                return;
-            }
-            const fr = new FileReader ();
-            fr.readAsDataURL(imageFile[0]);
-            fr.addEventListener('load', () => {
-                this.image.imageUrl = fr.result;
-                this.form.image = fr.result;
-                this.image.imageFile = imageFile[0]; // this is an ttd file that can be sent to server...
-            });
-        } else {
-            this.form.image = null;
-            this.image.imageName = '';
-            this.image.imageFile = '';
-            this.image.imageUrl = null;
+      rules: [
+        value => !value || value.size < 2000000 || 'Ukuran gambar harus kurang dari 2 MB!',
+      ],
+      date: new Date().toISOString().substr(0, 10),
+      menu: false,
+      modal: false,
+      menu2: false,
+      gender: [
+        {
+          kode: "L",
+          jk: "Laki-laki"
+        },
+        {
+          kode: "P",
+          jk: "Perempuan"
         }
+      ],
+      form: {
+        name: '',
+        skema_id: '',
+        no_registrasi: '',
+        no_sertifikat: '',
+        no_blanko: '',
+        exp_sertifikat: new Date().toISOString().substr(0, 10),
+        alamat: '',
+        image: null,
+        ttd: null,
       },
-      pickTtd() {
-            // this.$refs.ttd.click();
-            this.editDialog = true;
+      selectedImage: "",
+      selectedTtd: "",
+      city: [],
+      province: [],
+      lembaga: [],
+      pekerjaan: [],
+      pendidikan: [],
+      skemas: [],
+      editDialog : false,
+      image: {
+        imageName: '',
+        imageUrl: null,
+        imageFile: ''
       },
-
-      async getSkemas() {
-          const result = await this.$apollo.mutate({
-              mutation: GET_SKEMAS
-        }).then(({ data }) => {
-            this.skemas = data.skemas;
-        }).catch((error) => {
-          console.log(error);
-        });
+      ttd: {
+        ttdName: '',
+        ttdUrl: null,
+        ttdFile: ''
       },
-
-      async getLembagas() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_LEMBAGAS
-        }).then(({ data }) => {
-          this.lembaga = data.lembagas;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getPekerjaans() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PEKERJAANS
-        }).then(({ data }) => {
-          this.pekerjaan = data.pekerjaans;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getPendidikans() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PENDIDIKANS
-        }).then(({ data }) => {
-          this.pendidikan = data.pendidikans;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getProvinsis() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PROVINSIS
-        }).then(({ data }) => {
-          this.province = data.provinsis;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getKotas() {
-        const id = this.form.provinsi_id;
-        const result = await this.$apollo.mutate({
-            mutation: GET_KOTAS,
-            variables: {
-                id
-            }
-        }).then(({ data }) => {
-          this.city = data.provinsi.kota;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      showAlert(type, message) {
-        this.alert = { show: true, type, message };
-      },
-
-      async createAsesor(e) {
-        e.preventDefault();
-        const { state: { loading } } = this;
-
-        if (!loading) {
-          this.alert.show = false;
-          this.state.loading = true;
-          const { form: {name, skema_id, no_registrasi, no_sertifikat, no_blanko, exp_sertifikat, alamat, image, ttd} } = this.$data;
-          const user_id = null;
-          const result = await this.$apollo.mutate({
-            mutation: CREATE_ASESOR_MUTATION,
-            variables: {
-                user_id, name, skema_id, no_registrasi, no_sertifikat, no_blanko, exp_sertifikat, alamat, image, ttd
-            }
-          }).then(({ data }) => {
-            console.log(data);
-            this.showAlert('success', 'Data berhasil dibuat');
-            this.gotoPage('asesor');
-          }).catch(({graphQLErrors}) => {
-            this.showAlert('error', graphQLErrors[0].message);
-          }).finally(() => {
-            this.state.loading = false;
-          });
-        }
-      },
-      gotoPage(page) {
-        this.$router.push(page);
-      }
     }
-  };
+  },
+  mounted() {
+    this.getSkemas()
+  },
+  methods: {
+    // onPhotoSelected(e) {
+    //   const imgFile = e.target.files[0];
+    //   const reader = new FileReader();
+
+    //   reader.onloadend = (imgFile) => {
+    //     this.form.image = reader.result;
+    //   };
+    //   reader.readAsDataURL(imgFile);
+    // },
+
+    // onTtdSelected(e) {
+    //   const ttdFile = e.target.files[0];
+    //   const reader = new FileReader();
+
+    //   reader.onloadend = (ttdFile) => {
+    //     this.form.ttd = reader.result;
+    //   };
+    //   reader.readAsDataURL(ttdFile);
+    // },
+
+    undo() {
+      this.$refs.signaturePad.undoSignature()
+    },
+    clear() {
+      this.$refs.signaturePad.clearSignature()
+    },
+    save() {
+      const { isEmpty, data } = this.$refs.signaturePad.saveSignature()
+      this.form.ttd = data
+      this.ttd.ttdUrl = data
+      this.editDialog = false
+      // alert("Open DevTools see the save data.");
+      // console.log(isEmpty);
+      // console.log(data);
+    },
+    showAlert(type, message) {
+      this.alert = { show: true, type, message }
+    },
+    pickImage() {
+      this.$refs.image.click()
+    },
+    onImageSelected(e) {
+      const imageFile = e.target.files
+
+      if(imageFile[0] !== undefined) {
+        this.image.imageName = imageFile[0].name
+        if(this.image.imageName.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader ()
+        fr.readAsDataURL(imageFile[0])
+        fr.addEventListener('load', () => {
+          this.image.imageUrl = fr.result
+          this.form.image = fr.result
+          this.image.imageFile = imageFile[0] // this is an ttd file that can be sent to server...
+        })
+      } else {
+        this.form.image = null
+        this.image.imageName = ''
+        this.image.imageFile = ''
+        this.image.imageUrl = null
+      }
+    },
+    pickTtd() {
+      // this.$refs.ttd.click();
+      this.editDialog = true
+    },
+
+    async getSkemas() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_SKEMAS
+      }).then(({ data }) => {
+        this.skemas = data.skemas
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getLembagas() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_LEMBAGAS
+      }).then(({ data }) => {
+        this.lembaga = data.lembagas
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getPekerjaans() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PEKERJAANS
+      }).then(({ data }) => {
+        this.pekerjaan = data.pekerjaans
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getPendidikans() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PENDIDIKANS
+      }).then(({ data }) => {
+        this.pendidikan = data.pendidikans
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getProvinsis() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PROVINSIS
+      }).then(({ data }) => {
+        this.province = data.provinsis
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getKotas() {
+      const id = this.form.provinsi_id
+      const result = await this.$apollo.mutate({
+        mutation: GET_KOTAS,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        this.city = data.provinsi.kota
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    showAlert(type, message) {
+      this.alert = { show: true, type, message }
+    },
+
+    async createAsesor(e) {
+      e.preventDefault()
+      const { state: { loading } } = this
+
+      if (!loading) {
+        this.alert.show = false
+        this.state.loading = true
+        const { form: {name, skema_id, no_registrasi, no_sertifikat, no_blanko, exp_sertifikat, alamat, image, ttd} } = this.$data
+        const user_id = null
+        const result = await this.$apollo.mutate({
+          mutation: CREATE_ASESOR_MUTATION,
+          variables: {
+            user_id, name, skema_id, no_registrasi, no_sertifikat, no_blanko, exp_sertifikat, alamat, image, ttd
+          }
+        }).then(({ data }) => {
+          console.log(data)
+          this.showAlert('success', 'Data berhasil dibuat')
+          this.gotoPage('asesor')
+        }).catch(({graphQLErrors}) => {
+          this.showAlert('error', graphQLErrors[0].message)
+        }).finally(() => {
+          this.state.loading = false
+        })
+      }
+    },
+    gotoPage(page) {
+      this.$router.push(page)
+    }
+  }
+}
 
 </script>
 <style lang="scss" scoped>

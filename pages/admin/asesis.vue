@@ -28,19 +28,19 @@
                       hide-details
                     ></v-text-field>
                     <v-data-table
-                        :headers="headers"
-                        :items="asesis"
-                        :search="search"
-                        :items-per-page="5"
-                        :line-numbers="true"
+                      :headers="headers"
+                      :items="asesis"
+                      :search="search"
+                      :items-per-page="5"
+                      :line-numbers="true"
                     >
-                    <template v-slot:item.actions="{ item }">
-                      <nuxt-link :to="`/informasi-asesmen/${item.id}`">
-                        <v-btn rounded x-small color="primary">Detail</v-btn>
-                      </nuxt-link>
-                    </template>
+                      <template #item.actions="{ item }">
+                        <nuxt-link :to="`/informasi-asesmen/${item.id}`">
+                          <v-btn rounded x-small color="primary">Detail</v-btn>
+                        </nuxt-link>
+                      </template>
                     </v-data-table>
-                      <!-- <v-data-table
+                    <!-- <v-data-table
                           headers="headers"
                           items="items"
                           hide-actions
@@ -64,48 +64,48 @@
 
 </template>
 <script>
-import { GET_USERS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS } from '@/constants/graphql';
-import { GET_ASESIS } from '../../constants/graphql';
+import { GET_USERS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS } from '@/constants/graphql'
+import { GET_ASESIS } from '../../constants/graphql'
 
-  export default {
-    name: 'users',
-    layout: 'App_admin',
-    data() {
-      return {
-        search: '',
-        profile: {
-          username: ''
-        },
-        headers: [
-          { text: 'id', value: 'id' },
-          { text: 'NIK', value: 'nik' },
-          { text: 'Nama', value: 'nama' },
-          { text: 'Telepon', value: 'telepon' },
-          { text: 'Alamat', value: 'alamat' },
-          { text: 'Aksi', value: 'actions' },
-        ],
-        asesis: [
-        ]
-      };
-    },
-    mounted() {
-      this.getTuks();
-    },
-    methods: {
-      async getTuks() {
-          const user_id = localStorage.getItem('lsp-user-id');
-          const result = await this.$apollo.mutate({
-              mutation: GET_ASESIS
-        }).then(({ data }) => {
-            // this.items = data.checkselfAsesi.peserta;
-            this.asesis = data.asesis;
-            console.log(data);
-        }).catch((error) => {
-          console.log(error);
-        });
-      }
+export default {
+  name: 'Users',
+  layout: 'App_admin',
+  data() {
+    return {
+      search: '',
+      profile: {
+        username: ''
+      },
+      headers: [
+        { text: 'id', value: 'id' },
+        { text: 'NIK', value: 'nik' },
+        { text: 'Nama', value: 'nama' },
+        { text: 'Telepon', value: 'telepon' },
+        { text: 'Alamat', value: 'alamat' },
+        { text: 'Aksi', value: 'actions' },
+      ],
+      asesis: [
+      ]
     }
-  };
+  },
+  mounted() {
+    this.getTuks()
+  },
+  methods: {
+    async getTuks() {
+      const user_id = localStorage.getItem('lsp-user-id')
+      const result = await this.$apollo.mutate({
+        mutation: GET_ASESIS
+      }).then(({ data }) => {
+        // this.items = data.checkselfAsesi.peserta;
+        this.asesis = data.asesis
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+  }
+}
 
 </script>
 <style lang="scss" scoped>

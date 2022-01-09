@@ -7,7 +7,7 @@
   </v-app>
 </template>
 <script>
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
 
 export default {
   name: "App",
@@ -15,14 +15,14 @@ export default {
   data() {
     return {
 
-    };
+    }
   },
   methods: {
     gotoPage(page) {
-      this.$router.push(page);
+      this.$router.push(page)
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 </style>

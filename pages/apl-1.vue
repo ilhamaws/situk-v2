@@ -32,240 +32,240 @@
                       </div>
                       <!-- End alert section -->
                       <v-form ref="form">
-                          <v-row>
-                            <v-col md="12" class="py-0">
-                              <label for=""><b>Nama Lengkap</b></label>
-                              <v-text-field
-                                v-model="form.nama"
-                                class="mt-2"
-                                label="Nama Lengkap"
-                                type="text"
-                                solo
-                                
-                              />
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col md="12" class="py-0">
-                              <label for=""><b>NIK</b></label>
-                              <v-text-field
-                                v-model="form.nik"
-                                class="mt-2"
-                                label="NIK"
-                                type="number"
-                                solo
-                                
-                              />
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col md="12" class="py-0">
-                              <label for=""><b>No. Telepon</b></label>
-                              <v-text-field
-                                v-model="form.telepon"
-                                class="mt-2"
-                                label="No. Telepon"
-                                type="number"
-                                solo
-                                
-                              />
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col md="4" class="py-0">
-                              <label for=""><b>Tempat Lahir</b></label>
-                              <v-text-field
-                                v-model="form.tempat_lahir"
-                                class="mt-2"
-                                label="Tempat Lahir"
-                                type="text"
-                                solo
-                                
-                              />
-                            </v-col>
-                            <v-col md="4" class="py-0">
-                              <label for=""><b>Tanggal Lahir</b></label>
-                              <v-menu
-                                ref="menu"
-                                v-model="menu"
-                                :close-on-content-click="false"
-                                :return-value.sync="date"
-                                transition="scale-transition"
-                                offset-y
-                                min-width="290px"
-                              >
-                                <template v-slot:activator="{ on }">
-                                  <v-text-field
-                                    v-model="form.tanggal_lahir"
-                                    class="mt-2"
-                                    label="Tanggal lahir"
-                                    v-on="on"
-                                    solo
-                                    readonly
-                                  ></v-text-field>
-                                </template>
-                                <v-date-picker v-model="form.tanggal_lahir" no-title scrollable>
-                                  <v-spacer></v-spacer>
-                                  <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                                  <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                                </v-date-picker>
-                              </v-menu>
-                            </v-col>
-                            <v-col md="4" class="py-0">
-                              <label for=""><b>Jenis Kelamin</b></label>
-                              <v-select
-                                v-model="form.jenis_kelamin"
-                                class="mt-2"
-                                :items="gender"
-                                item-text="jk"
-                                item-value="kode"
-                                label="Jenis Kelamin"
-                                solo
-                                
-                                append-icon
-                              />
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col md="8" class="py-0">
-                              <label for=""><b>Alamat</b></label>
-                              <v-text-field
-                                v-model="form.alamat"
-                                class="mt-2"
-                                label="Alamat"
-                                type="text"
-                                solo
-                              />
-                            </v-col>
-                            <v-col md="4" class="py-0">
-                              <label for=""><b>Kode Pos</b></label>
-                              <v-text-field
-                                v-model="form.kodepos"
-                                class="mt-2"
-                                label="Kodepos"
-                                type="text"
-                                solo
-                              />
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col md="6" class="py-0">
-                              <label for=""><b>Provinsi</b></label>
-                              <v-select
+                        <v-row>
+                          <v-col md="12" class="py-0">
+                            <label for=""><b>Nama Lengkap</b></label>
+                            <v-text-field
+                              v-model="form.nama"
                               class="mt-2"
-                              @input='getKotas'
+                              label="Nama Lengkap"
+                              type="text"
+                              solo
+                                
+                            />
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col md="12" class="py-0">
+                            <label for=""><b>NIK</b></label>
+                            <v-text-field
+                              v-model="form.nik"
+                              class="mt-2"
+                              label="NIK"
+                              type="number"
+                              solo
+                                
+                            />
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col md="12" class="py-0">
+                            <label for=""><b>No. Telepon</b></label>
+                            <v-text-field
+                              v-model="form.telepon"
+                              class="mt-2"
+                              label="No. Telepon"
+                              type="number"
+                              solo
+                                
+                            />
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col md="4" class="py-0">
+                            <label for=""><b>Tempat Lahir</b></label>
+                            <v-text-field
+                              v-model="form.tempat_lahir"
+                              class="mt-2"
+                              label="Tempat Lahir"
+                              type="text"
+                              solo
+                                
+                            />
+                          </v-col>
+                          <v-col md="4" class="py-0">
+                            <label for=""><b>Tanggal Lahir</b></label>
+                            <v-menu
+                              ref="menu"
+                              v-model="menu"
+                              :close-on-content-click="false"
+                              :return-value.sync="date"
+                              transition="scale-transition"
+                              offset-y
+                              min-width="290px"
+                            >
+                              <template #activator="{ on }">
+                                <v-text-field
+                                  v-model="form.tanggal_lahir"
+                                  class="mt-2"
+                                  label="Tanggal lahir"
+                                  solo
+                                  readonly
+                                  v-on="on"
+                                ></v-text-field>
+                              </template>
+                              <v-date-picker v-model="form.tanggal_lahir" no-title scrollable>
+                                <v-spacer></v-spacer>
+                                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                                <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                              </v-date-picker>
+                            </v-menu>
+                          </v-col>
+                          <v-col md="4" class="py-0">
+                            <label for=""><b>Jenis Kelamin</b></label>
+                            <v-select
+                              v-model="form.jenis_kelamin"
+                              class="mt-2"
+                              :items="gender"
+                              item-text="jk"
+                              item-value="kode"
+                              label="Jenis Kelamin"
+                              solo
+                                
+                              append-icon
+                            />
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col md="8" class="py-0">
+                            <label for=""><b>Alamat</b></label>
+                            <v-text-field
+                              v-model="form.alamat"
+                              class="mt-2"
+                              label="Alamat"
+                              type="text"
+                              solo
+                            />
+                          </v-col>
+                          <v-col md="4" class="py-0">
+                            <label for=""><b>Kode Pos</b></label>
+                            <v-text-field
+                              v-model="form.kodepos"
+                              class="mt-2"
+                              label="Kodepos"
+                              type="text"
+                              solo
+                            />
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col md="6" class="py-0">
+                            <label for=""><b>Provinsi</b></label>
+                            <v-select
                               v-model="form.provinsi_id"
+                              class="mt-2"
                               :items="province"
                               label="Provinsi"
-                              item-value="id" item-text="provinsi"
-                              solo
-                              />
-                            </v-col>
-                            <v-col md="6" class="py-0">
-                              <label for=""><b>Kota</b></label>
-                              <v-select
-                              class="mt-2"
+                              item-value="id"
+                              item-text="provinsi" solo
+                              @input="getKotas"
+                            />
+                          </v-col>
+                          <v-col md="6" class="py-0">
+                            <label for=""><b>Kota</b></label>
+                            <v-select
                               v-model="form.kota_id"
+                              class="mt-2"
                               :items="city"
                               label="Kota"
                               item-value="id" item-text="kota"
                               solo
-                              />
-                            </v-col>
-                          </v-row>
+                            />
+                          </v-col>
+                        </v-row>
 
-                          <v-row>
-                            <v-col md="4" class="py-0">
-                              <label for=""><b>Kebangsaan</b></label>
-                              <v-text-field
-                                v-model="form.kebangsaan"
-                                class="mt-2"
-                                label="Kebangsaan"
-                                type="text"
-                                solo
-                                disabled
-                              />
-                            </v-col>
-                            <v-col md="4" class="py-0">
-                              <label for=""><b>Pekerjaan</b></label>
-                              <v-select
+                        <v-row>
+                          <v-col md="4" class="py-0">
+                            <label for=""><b>Kebangsaan</b></label>
+                            <v-text-field
+                              v-model="form.kebangsaan"
+                              class="mt-2"
+                              label="Kebangsaan"
+                              type="text"
+                              solo
+                              disabled
+                            />
+                          </v-col>
+                          <v-col md="4" class="py-0">
+                            <label for=""><b>Pekerjaan</b></label>
+                            <v-select
                               v-model="form.pekerjaan_id"
                               class="mt-2"
                               :items="pekerjaan"
                               label="Pekerjaan"
                               item-value="id" item-text="pekerjaan"
                               solo
-                              />
-                            </v-col>
-                            <v-col md="4" class="py-0">
-                              <label for=""><b>Pendidikan</b></label>
-                              <v-select
+                            />
+                          </v-col>
+                          <v-col md="4" class="py-0">
+                            <label for=""><b>Pendidikan</b></label>
+                            <v-select
                               v-model="form.pendidikan_id"
                               class="mt-2"
                               :items="pendidikan"
                               label="Pendidikan"
                               item-value="id" item-text="pendidikan"
                               solo
-                              />
-                            </v-col>
-                          </v-row>
+                            />
+                          </v-col>
+                        </v-row>
 
-                          <v-row v-if="form.pekerjaan_id == 3">
-                            <v-col md="4" xs="12" class="py-0">
-                              <label for=""><b>NPM</b></label>
-                              <v-text-field
-                                v-model="form.npm"
-                                class="mt-2"
-                                label="NPM Mahasiswa"
-                                type="text"
-                                solo
-                              />
-                            </v-col>
-                            <v-col md="4" xs="12" class="py-0">
-                              <label for=""><b>Fakultas</b></label>
-                              <v-select
-                              @input='getJurusans'
+                        <v-row v-if="form.pekerjaan_id == 3">
+                          <v-col md="4" xs="12" class="py-0">
+                            <label for=""><b>NPM</b></label>
+                            <v-text-field
+                              v-model="form.npm"
                               class="mt-2"
+                              label="NPM Mahasiswa"
+                              type="text"
+                              solo
+                            />
+                          </v-col>
+                          <v-col md="4" xs="12" class="py-0">
+                            <label for=""><b>Fakultas</b></label>
+                            <v-select
                               v-model="form.fakultas_id"
+                              class="mt-2"
                               :items="fakultass"
                               label="Fakultas"
-                              item-value="id" item-text="fakultas"
-                              solo
-                              />
-                            </v-col>
-                            <v-col md="4" xs="12" class="py-0">
-                              <label for=""><b>Jurusan</b></label>
-                              <v-select
-                              class="mt-2"
+                              item-value="id"
+                              item-text="fakultas" solo
+                              @input="getJurusans"
+                            />
+                          </v-col>
+                          <v-col md="4" xs="12" class="py-0">
+                            <label for=""><b>Jurusan</b></label>
+                            <v-select
                               v-model="form.jurusan_id"
+                              class="mt-2"
                               :items="jurusans"
                               label="Jurusan"
                               item-value="id" item-text="jurusan"
                               solo
-                              />
-                            </v-col>
-                          </v-row>
+                            />
+                          </v-col>
+                        </v-row>
 
-                          <v-row>
-                            <v-col md="12" class="py-0">
-                              <label for=""><b>Lembaga</b></label>
-                              <v-select
-                              class="mt-2"
+                        <v-row>
+                          <v-col md="12" class="py-0">
+                            <label for=""><b>Lembaga</b></label>
+                            <v-select
                               v-model="form.lembaga_id"
+                              class="mt-2"
                               :items="lembaga"
                               label="Lembaga"
                               item-value="id" item-text="nama"
                               solo
-                              />
-                            </v-col>
-                          </v-row>
+                            />
+                          </v-col>
+                        </v-row>
 
-                          <v-row>
-                            <v-col md="6" class="py-0">
-                              <label for=""><b>Foto</b></label>
-                              <v-row v-if="form.image != null">
-                                <v-col md="7">
-                                  <v-card>
+                        <v-row>
+                          <v-col md="6" class="py-0">
+                            <label for=""><b>Foto</b></label>
+                            <v-row v-if="form.image != null">
+                              <v-col md="7">
+                                <v-card>
                                   <v-img
                                     :src="form.image"
                                     :lazy-src="form.image"
@@ -273,26 +273,26 @@
                                     class="grey lighten-2"
                                   ></v-img>
                                 </v-card>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col md="7">
-                                  <v-text-field readonly label="Edit Foto" v-model='image.imageName' @click='pickImage' prepend-icon='mdi-camera' solo></v-text-field>
-                                  <input
-                                      type="file"
-                                      style="display: none"
-                                      ref="image"
-                                      accept="image/png, image/jpeg"
-                                      @change="onPhotoSelected"
-                                  >
-                                </v-col>
-                              </v-row>
-                            </v-col>
-                            <v-col md="6" class="py-0">
-                              <label for=""><b>Tanda tangan</b></label>
-                              <v-row v-if="form.ttd != null">
-                                <v-col md="7">
-                                  <v-card>
+                              </v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col md="7">
+                                <v-text-field v-model="image.imageName" readonly label="Edit Foto" prepend-icon="mdi-camera" solo @click="pickImage"></v-text-field>
+                                <input
+                                  ref="image"
+                                  type="file"
+                                  style="display: none"
+                                  accept="image/png, image/jpeg"
+                                  @change="onPhotoSelected"
+                                >
+                              </v-col>
+                            </v-row>
+                          </v-col>
+                          <v-col md="6" class="py-0">
+                            <label for=""><b>Tanda tangan</b></label>
+                            <v-row v-if="form.ttd != null">
+                              <v-col md="7">
+                                <v-card>
                                   <v-img
                                     :src="form.ttd"
                                     :lazy-src="form.ttd"
@@ -300,43 +300,43 @@
                                     class="white"
                                   ></v-img>
                                 </v-card>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col md="7">
-                                  <v-btn block large color="primary" outlined dark @click="pickTtd"><v-icon left>edit</v-icon>Edit Ttd</v-btn>
-                                </v-col>
-                              </v-row>
-                              <v-dialog v-model="editDialog" persistent max-width="600px">
-                                <v-card>
-                                  <v-card-title class="headline">Edit Tanda Tangan</v-card-title>
-                                  <v-card-text>
-                                    <v-card>
-                                      <VueSignaturePad
-                                        id="signature"
-                                        width="100%"
-                                        height="200px"
-                                        ref="signaturePad"
-                                        :options="{onBegin: () => {$refs.signaturePad.resizeCanvas()}}"
-                                      />
-                                    </v-card>
-                                  </v-card-text>
-                                  <v-card-text>
-                                    <v-btn color="primary" @click="undo()" class="mr-2" outlined dark><v-icon left>undo</v-icon>Undo</v-btn>
-                                    <v-btn color="primary" @click="clear()" outlined dark><v-icon left>clear</v-icon>Clear</v-btn>
-                                  </v-card-text>
-                                  <v-card-actions>
+                              </v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col md="7">
+                                <v-btn block large color="primary" outlined dark @click="pickTtd"><v-icon left>edit</v-icon>Edit Ttd</v-btn>
+                              </v-col>
+                            </v-row>
+                            <v-dialog v-model="editDialog" persistent max-width="600px">
+                              <v-card>
+                                <v-card-title class="headline">Edit Tanda Tangan</v-card-title>
+                                <v-card-text>
+                                  <v-card>
+                                    <VueSignaturePad
+                                      id="signature"
+                                      ref="signaturePad"
+                                      width="100%"
+                                      height="200px"
+                                      :options="{onBegin: () => {$refs.signaturePad.resizeCanvas()}}"
+                                    />
+                                  </v-card>
+                                </v-card-text>
+                                <v-card-text>
+                                  <v-btn color="primary" class="mr-2" outlined dark @click="undo()"><v-icon left>undo</v-icon>Undo</v-btn>
+                                  <v-btn color="primary" outlined dark @click="clear()"><v-icon left>clear</v-icon>Clear</v-btn>
+                                </v-card-text>
+                                <v-card-actions>
                                   <v-spacer></v-spacer>
                                   <v-btn color="grey" text @click="editDialog = false">Batal</v-btn>
-                                  <v-btn color="primary" text @click='saveTtd'>Simpan Ttd</v-btn>
+                                  <v-btn color="primary" text @click="saveTtd">Simpan Ttd</v-btn>
                                 </v-card-actions>
-                                </v-card>
-                              </v-dialog>
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col md="12" class="justify-end d-flex">
-                              <!-- <v-spacer></v-spacer>
+                              </v-card>
+                            </v-dialog>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col md="12" class="justify-end d-flex">
+                            <!-- <v-spacer></v-spacer>
                               <v-tooltip bottom>
                                 <template v-slot:activator="{ on }">
                                   <v-btn class="mr-2" v-on="on" large rounded color="grey" text @click="resetForm()" target="_blank">
@@ -345,25 +345,25 @@
                                 </template>
                                 <span>Reset form ke awal</span>
                               </v-tooltip> -->
-                              <v-btn
-                                @click='createAsesi'
-                                large
-                                rounded
-                                color="primary"
-                                dark>
-                                <v-progress-circular
-                                  :size="20"
-                                  :width="2"
-                                  indeterminate
-                                  color="white"
-                                  v-if="state.loading"
-                                  class="mr-2"
-                                ></v-progress-circular>
-                                Simpan Perubahan
-                              </v-btn>
-                            </v-col>
-                          </v-row>
-                        </v-form>
+                            <v-btn
+                              large
+                              rounded
+                              color="primary"
+                              dark
+                              @click="createAsesi">
+                              <v-progress-circular
+                                v-if="state.loading"
+                                :size="20"
+                                :width="2"
+                                indeterminate
+                                color="white"
+                                class="mr-2"
+                              ></v-progress-circular>
+                              Simpan Perubahan
+                            </v-btn>
+                          </v-col>
+                        </v-row>
+                      </v-form>
                       <!-- <v-form>
                         <v-text-field
                           v-model="form.nama"
@@ -520,278 +520,278 @@
 
 </template>
 <script>
-import { LSP_USER_ID, LSP_AUTH_TOKEN } from '@/constants/settings';
-import { CREATE_ASESI_MUTATION, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_JURUSANS, GET_FAKULTASS } from '@/constants/graphql';
+import { LSP_USER_ID, LSP_AUTH_TOKEN } from '@/constants/settings'
+import { CREATE_ASESI_MUTATION, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_JURUSANS, GET_FAKULTASS } from '@/constants/graphql'
 
 export default {
-    name: 'index',
-    layout: 'App_blank',
-    data() {
-      return {
-        editDialog: false,
-        state:{
-          loading: false
-        },
-        alert:{
-          show: false,
-          type: '',
-          message: '',
-        },
-        rules: [
-          value => !value || value.size < 1000000 || 'Ukuran gambar harus kurang dari 1 MB!',
-        ],
-        date: new Date().toISOString().substr(0, 10),
-        menu: false,
-        modal: false,
-        menu2: false,
-        gender: [
-          {
-            kode: "L",
-            jk: "Laki-laki"
-          },
-          {
-            kode: "P",
-            jk: "Perempuan"
-          }
-        ],
-        form: {
-          nama: '',
-          nik: '',
-          tempat_lahir: '',
-          kebangsaan: 'indonesia',
-          alamat: '',
-          kodepos: '',
-          telepon: '',
-          fakultas_id: 10,
-          jurusan_id: 28,
-          image: null,
-          ttd: null,
-          jenis_kelamin: null,
-          kota_id: null,
-          provinsi_id: null,
-          lembaga_id: null,
-          pekerjaan_id: '3',
-          pendidikan_id: null,
-        },
-        selectedImage: "",
-        selectedTtd: "",
-        city: [],
-        province: [],
-        lembaga: [],
-        pekerjaan: [],
-        pendidikan: [],
-        image: {
-            imageName: '',
-            imageUrl: null,
-            imageFile: ''
-        },
-        ttd: {
-            ttdName: '',
-            ttdUrl: null,
-            ttdFile: ''
-        },
-        fakultass: [],
-        jurusans: []
-      };
-    },
-    mounted() {
-      this.getLembagas();
-      this.getPekerjaans();
-      this.getPendidikans();
-      this.getProvinsis();
-      this.getFakultass();
-    },
-    methods: {
-      undo() {
-        this.$refs.signaturePad.undoSignature();
+  name: 'Index',
+  layout: 'App_blank',
+  data() {
+    return {
+      editDialog: false,
+      state:{
+        loading: false
       },
-      clear() {
-        this.$refs.signaturePad.clearSignature();
+      alert:{
+        show: false,
+        type: '',
+        message: '',
       },
-      saveTtd() {
-        const { isEmpty, data } = this.$refs.signaturePad.saveSignature();
-        this.form.ttd = data;
-        this.ttd.ttdUrl = data;
-        this.editDialog = false;
-        // alert("Open DevTools see the save data.");
-        // console.log(isEmpty);
-        // console.log(data);
-      },
-      onPhotoSelected(e) {
-        const files = e.target.files;
-        // const reader = new FileReader();
-
-        if(files[0] !== undefined) {
-            this.image.imageName = files[0].name;
-            if(this.image.imageName.lastIndexOf('.') <= 0) {
-                return;
-            }
-            const fr = new FileReader ();
-            fr.readAsDataURL(files[0]);
-            fr.addEventListener('load', () => {
-                this.image.imageUrl = fr.result;
-                this.form.image = fr.result;
-                this.image.imageFile = files[0]; // this is an image file that can be sent to server...
-            });
-        } else {
-            this.image.imageName = '';
-            this.image.imageFile = '';
-            this.image.imageUrl = '';
+      rules: [
+        value => !value || value.size < 1000000 || 'Ukuran gambar harus kurang dari 1 MB!',
+      ],
+      date: new Date().toISOString().substr(0, 10),
+      menu: false,
+      modal: false,
+      menu2: false,
+      gender: [
+        {
+          kode: "L",
+          jk: "Laki-laki"
+        },
+        {
+          kode: "P",
+          jk: "Perempuan"
         }
-
-        // reader.onloadend = (imgFile) => {
-        //   this.image = reader.result;
-        // };
-        // reader.readAsDataURL(imgFile);
+      ],
+      form: {
+        nama: '',
+        nik: '',
+        tempat_lahir: '',
+        kebangsaan: 'indonesia',
+        alamat: '',
+        kodepos: '',
+        telepon: '',
+        fakultas_id: 10,
+        jurusan_id: 28,
+        image: null,
+        ttd: null,
+        jenis_kelamin: null,
+        kota_id: null,
+        provinsi_id: null,
+        lembaga_id: null,
+        pekerjaan_id: '3',
+        pendidikan_id: null,
       },
-      pickImage() {
-            this.$refs.image.click();
+      selectedImage: "",
+      selectedTtd: "",
+      city: [],
+      province: [],
+      lembaga: [],
+      pekerjaan: [],
+      pendidikan: [],
+      image: {
+        imageName: '',
+        imageUrl: null,
+        imageFile: ''
       },
-      pickTtd() {
-        // this.$nextTick(() => {
-        //   this.$refs.signaturePad.resizeCanvas();
-        // });
-        this.editDialog = true;
-            // this.$refs.ttd.click();
+      ttd: {
+        ttdName: '',
+        ttdUrl: null,
+        ttdFile: ''
       },
-      // onPhotoSelected(e) {
-      //   const imgFile = e.target.files[0];
-      //   const reader = new FileReader();
-
-      //   reader.onloadend = (imgFile) => {
-      //     this.form.image = reader.result;
-      //   };
-      //   reader.readAsDataURL(imgFile);
-      // },
-
-      // onTtdSelected(e) {
-      //   const ttdFile = e.target.files[0];
-      //   const reader = new FileReader();
-
-      //   reader.onloadend = (ttdFile) => {
-      //     this.form.ttd = reader.result;
-      //   };
-      //   reader.readAsDataURL(ttdFile);
-      // },
-
-      async getLembagas() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_LEMBAGAS
-        }).then(({ data }) => {
-          this.lembaga = data.lembagas;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getPekerjaans() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PEKERJAANS
-        }).then(({ data }) => {
-          this.pekerjaan = data.pekerjaans;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getPendidikans() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PENDIDIKANS
-        }).then(({ data }) => {
-          this.pendidikan = data.pendidikans;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getProvinsis() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_PROVINSIS
-        }).then(({ data }) => {
-          this.province = data.provinsis;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getKotas() {
-        // const { selectedProvince } = this.$data;
-        const id = this.form.provinsi_id;
-        const result = await this.$apollo.mutate({
-            mutation: GET_KOTAS,
-            variables: {
-                id
-            }
-        }).then(({ data }) => {
-          this.city = data.provinsi.kota;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getFakultass() {
-        const result = await this.$apollo.mutate({
-            mutation: GET_FAKULTASS
-        }).then(({ data }) => {
-          console.log(data);
-          this.fakultass = data.fakultass;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      async getJurusans() {
-        const id = this.form.fakultas_id;
-        const result = await this.$apollo.mutate({
-            mutation: GET_JURUSANS,
-            variables: {
-                id
-            }
-        }).then(({ data }) => {
-          console.log(data);
-          this.jurusans = data.fakultas.jurusan;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-
-      showAlert(type, message) {
-        this.alert = { show: true, type, message };
-      },
-
-      async createAsesi(e) {
-        e.preventDefault();
-        const { state: { loading } } = this;
-
-        if (!loading) {
-          this.alert.show = false;
-          this.state.loading = true;
-          const { form: {lembaga_id, jurusan_id, npm, pendidikan_id, pekerjaan_id, kota_id, nik, 
-                nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd} } = this.$data;
-          const result = await this.$apollo.mutate({
-            mutation: CREATE_ASESI_MUTATION,
-            variables: {
-                lembaga_id, pendidikan_id, pekerjaan_id, npm, kota_id, nik, jurusan_id,
-                nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd
-            }
-          }).then(({ data }) => {
-            // console.log(data);
-            window.scrollTo(0,0);
-            this.showAlert('success', 'Data berhasil dibuat');
-            this.gotoPage('asesi');
-          }).catch(({graphQLErrors}) => {
-            window.scrollTo(0,0);
-            this.showAlert('error', graphQLErrors[0].message);
-          }).finally(() => {
-            this.state.loading = false;
-          });
-        }
-      },
-      gotoPage(page) {
-        this.$router.push(page);
-      }
+      fakultass: [],
+      jurusans: []
     }
-  };
+  },
+  mounted() {
+    this.getLembagas()
+    this.getPekerjaans()
+    this.getPendidikans()
+    this.getProvinsis()
+    this.getFakultass()
+  },
+  methods: {
+    undo() {
+      this.$refs.signaturePad.undoSignature()
+    },
+    clear() {
+      this.$refs.signaturePad.clearSignature()
+    },
+    saveTtd() {
+      const { isEmpty, data } = this.$refs.signaturePad.saveSignature()
+      this.form.ttd = data
+      this.ttd.ttdUrl = data
+      this.editDialog = false
+      // alert("Open DevTools see the save data.");
+      // console.log(isEmpty);
+      // console.log(data);
+    },
+    onPhotoSelected(e) {
+      const files = e.target.files
+      // const reader = new FileReader();
+
+      if(files[0] !== undefined) {
+        this.image.imageName = files[0].name
+        if(this.image.imageName.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader ()
+        fr.readAsDataURL(files[0])
+        fr.addEventListener('load', () => {
+          this.image.imageUrl = fr.result
+          this.form.image = fr.result
+          this.image.imageFile = files[0] // this is an image file that can be sent to server...
+        })
+      } else {
+        this.image.imageName = ''
+        this.image.imageFile = ''
+        this.image.imageUrl = ''
+      }
+
+      // reader.onloadend = (imgFile) => {
+      //   this.image = reader.result;
+      // };
+      // reader.readAsDataURL(imgFile);
+    },
+    pickImage() {
+      this.$refs.image.click()
+    },
+    pickTtd() {
+      // this.$nextTick(() => {
+      //   this.$refs.signaturePad.resizeCanvas();
+      // });
+      this.editDialog = true
+      // this.$refs.ttd.click();
+    },
+    // onPhotoSelected(e) {
+    //   const imgFile = e.target.files[0];
+    //   const reader = new FileReader();
+
+    //   reader.onloadend = (imgFile) => {
+    //     this.form.image = reader.result;
+    //   };
+    //   reader.readAsDataURL(imgFile);
+    // },
+
+    // onTtdSelected(e) {
+    //   const ttdFile = e.target.files[0];
+    //   const reader = new FileReader();
+
+    //   reader.onloadend = (ttdFile) => {
+    //     this.form.ttd = reader.result;
+    //   };
+    //   reader.readAsDataURL(ttdFile);
+    // },
+
+    async getLembagas() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_LEMBAGAS
+      }).then(({ data }) => {
+        this.lembaga = data.lembagas
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getPekerjaans() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PEKERJAANS
+      }).then(({ data }) => {
+        this.pekerjaan = data.pekerjaans
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getPendidikans() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PENDIDIKANS
+      }).then(({ data }) => {
+        this.pendidikan = data.pendidikans
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getProvinsis() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_PROVINSIS
+      }).then(({ data }) => {
+        this.province = data.provinsis
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getKotas() {
+      // const { selectedProvince } = this.$data;
+      const id = this.form.provinsi_id
+      const result = await this.$apollo.mutate({
+        mutation: GET_KOTAS,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        this.city = data.provinsi.kota
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getFakultass() {
+      const result = await this.$apollo.mutate({
+        mutation: GET_FAKULTASS
+      }).then(({ data }) => {
+        console.log(data)
+        this.fakultass = data.fakultass
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    async getJurusans() {
+      const id = this.form.fakultas_id
+      const result = await this.$apollo.mutate({
+        mutation: GET_JURUSANS,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        console.log(data)
+        this.jurusans = data.fakultas.jurusan
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+
+    showAlert(type, message) {
+      this.alert = { show: true, type, message }
+    },
+
+    async createAsesi(e) {
+      e.preventDefault()
+      const { state: { loading } } = this
+
+      if (!loading) {
+        this.alert.show = false
+        this.state.loading = true
+        const { form: {lembaga_id, jurusan_id, npm, pendidikan_id, pekerjaan_id, kota_id, nik, 
+          nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd} } = this.$data
+        const result = await this.$apollo.mutate({
+          mutation: CREATE_ASESI_MUTATION,
+          variables: {
+            lembaga_id, pendidikan_id, pekerjaan_id, npm, kota_id, nik, jurusan_id,
+            nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd
+          }
+        }).then(({ data }) => {
+          // console.log(data);
+          window.scrollTo(0,0)
+          this.showAlert('success', 'Data berhasil dibuat')
+          this.gotoPage('asesi')
+        }).catch(({graphQLErrors}) => {
+          window.scrollTo(0,0)
+          this.showAlert('error', graphQLErrors[0].message)
+        }).finally(() => {
+          this.state.loading = false
+        })
+      }
+    },
+    gotoPage(page) {
+      this.$router.push(page)
+    }
+  }
+}
 
 </script>
 <style lang="scss" scoped>

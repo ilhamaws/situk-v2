@@ -14,7 +14,7 @@
             elevation="2"
           >
           <h3 class="mt-0"><strong>Selamat Datang</strong></h3>
-          Hai <strong>{{ this.profile.username }}</strong>, selamat datang di halaman LSP UPN Jatim Assesmen Online. Silahkan klik menu untuk mengelola website.
+          Hai <strong>{{ this.profile.username }}</strong>, selamat datang di halaman LSP TIFA Assesmen Online. Silahkan klik menu untuk mengelola website.
           </v-alert>
           <v-row>
           <div class="col-lg-6 col-xs-12">
@@ -29,7 +29,7 @@
               </v-toolbar>
               <div class="px-5">
                 <v-card-text>
-                  Untuk dapat mengikuti Uji Kompetensi LSP UPN Jatim Anda harus mendaftar uji dengan klik tombol <strong>Daftar Uji</strong>
+                  Untuk dapat mengikuti Uji Kompetensi LSP TIFA Anda harus mendaftar uji dengan klik tombol <strong>Daftar Uji</strong>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>

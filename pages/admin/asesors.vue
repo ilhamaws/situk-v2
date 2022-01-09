@@ -26,19 +26,19 @@
                   hide-details
                 ></v-text-field>
                 <v-data-table
-                    :headers="headers"
-                    :items="asesors"
-                    :search="search"
-                    :items-per-page="5"
-                    :line-numbers="true"
+                  :headers="headers"
+                  :items="asesors"
+                  :search="search"
+                  :items-per-page="5"
+                  :line-numbers="true"
                 >
-                <template v-slot:item.actions="{ item }">
-                  <nuxt-link :to="`/informasi-asesmen/${item.id}`">
-                    <v-btn rounded x-small color="primary">Detail</v-btn>
-                  </nuxt-link>
-                </template>
+                  <template #item.actions="{ item }">
+                    <nuxt-link :to="`/informasi-asesmen/${item.id}`">
+                      <v-btn rounded x-small color="primary">Detail</v-btn>
+                    </nuxt-link>
+                  </template>
                 </v-data-table>
-                  <!-- <v-data-table
+                <!-- <v-data-table
                       headers="headers"
                       items="items"
                       hide-actions
@@ -60,50 +60,50 @@
 
 </template>
 <script>
-import { GET_USERS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS } from '@/constants/graphql';
-import { GET_ASESORS } from '../../constants/graphql';
+import { GET_USERS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS } from '@/constants/graphql'
+import { GET_ASESORS } from '../../constants/graphql'
 
-  export default {
-    name: 'users',
-    layout: 'App_admin',
-    data() {
-      return {
-        search: '',
-        profile: {
-          username: ''
-        },
-        headers: [
-          { text: 'id', value: 'id' },
-          { text: 'Nama', value: 'name' },
-          { text: 'Email', value: 'email' },
-          { text: 'no_registrasi', value: 'no_registrasi' },
-          { text: 'Alamat', value: 'alamat' },
-          { text: 'Aksi', value: 'actions' },
-        ],
-        form: {
+export default {
+  name: 'Users',
+  layout: 'App_admin',
+  data() {
+    return {
+      search: '',
+      profile: {
+        username: ''
+      },
+      headers: [
+        { text: 'id', value: 'id' },
+        { text: 'Nama', value: 'name' },
+        { text: 'Email', value: 'email' },
+        { text: 'no_registrasi', value: 'no_registrasi' },
+        { text: 'Alamat', value: 'alamat' },
+        { text: 'Aksi', value: 'actions' },
+      ],
+      form: {
           
-        },
-        asesors: [
-        ]
-      };
-    },
-    mounted() {
-      this.getAsesors();
-    },
-    methods: {
-      async getAsesors() {
-          const user_id = localStorage.getItem('lsp-user-id');
-          const result = await this.$apollo.mutate({
-              mutation: GET_ASESORS
-        }).then(({ data }) => {
-            this.asesors = data.asesors;
-            console.log(data);
-        }).catch((error) => {
-          console.log(error);
-        });
-      }
+      },
+      asesors: [
+      ]
     }
-  };
+  },
+  mounted() {
+    this.getAsesors()
+  },
+  methods: {
+    async getAsesors() {
+      const user_id = localStorage.getItem('lsp-user-id')
+      const result = await this.$apollo.mutate({
+        mutation: GET_ASESORS
+      }).then(({ data }) => {
+        this.asesors = data.asesors
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+  }
+}
 
 </script>
 <style lang="scss" scoped>

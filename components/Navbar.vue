@@ -7,9 +7,9 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn v-on:click="gotoPage('/')" text>Beranda</v-btn>
+        <v-btn text @click="gotoPage('/')">Beranda</v-btn>
         <v-btn text>Tentang</v-btn>
-        <v-btn v-on:click="gotoPage('/signin')" text>
+        <v-btn text @click="gotoPage('/signin')">
           <span>Sign In</span>
           <v-icon right>exit_to_app</v-icon>
         </v-btn>
@@ -36,14 +36,14 @@ export default {
           src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
         },
       ],
-    };
+    }
   },
   methods: {
     gotoPage(page) {
-      this.$router.push(page);
+      this.$router.push(page)
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 </style>

@@ -31,53 +31,53 @@
         <v-container fluid>
           <v-card>
             <v-card-title class="px-8 ">
-            <!-- <v-avatar size="30" color="warning lighten-2">
+              <!-- <v-avatar size="30" color="warning lighten-2">
                 <span class="white--text">APL.1</span>
             </v-avatar> -->
-                <span class="headline">FR.AI.01. Ceklis Observasi Untuk Aktivitas di Tempat Kerja Simulasi</span>
+              <span class="headline">FR.AI.01. Ceklis Observasi Untuk Aktivitas di Tempat Kerja Simulasi</span>
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text class="px-8 py-8">
-            <v-list v-if="ujikompetensi != null">
-              <v-simple-table>
-                <tbody>
-                  <tr>
-                    <td width="20%"><b>Nama:</b></td>
-                    <td>{{ ujikompetensi.peserta.asesi.nama }}</td>
-                  </tr>
-                  <tr>
-                    <td width="20%"><b>Unit kompetensi:</b></td>
-                    <td>{{ ujikompetensi.unitKompetensi.unit }}</td>
-                  </tr>
-                  <tr>
-                    <td width="20%"><b>Nama asesor:</b></td>
-                    <td>{{ ujikompetensi.peserta.asesor.nama }}</td>
-                  </tr>
-                  <tr>
-                    <td width="20%"><b>Tempat Uji Kompetensi:</b></td>
-                    <td>{{ ujikompetensi.peserta.jadwal.tempatUk.nama }}</td>
-                  </tr>
-                </tbody>
-              </v-simple-table>
-            </v-list>
-            <div v-if="ujikompetensi != null" class="pt-5">
+              <v-list v-if="ujikompetensi != null">
                 <v-simple-table>
-                    <template v-slot:default>
+                  <tbody>
+                    <tr>
+                      <td width="20%"><b>Nama:</b></td>
+                      <td>{{ ujikompetensi.peserta.asesi.nama }}</td>
+                    </tr>
+                    <tr>
+                      <td width="20%"><b>Unit kompetensi:</b></td>
+                      <td>{{ ujikompetensi.unitKompetensi.unit }}</td>
+                    </tr>
+                    <tr>
+                      <td width="20%"><b>Nama asesor:</b></td>
+                      <td>{{ ujikompetensi.peserta.asesor.nama }}</td>
+                    </tr>
+                    <tr>
+                      <td width="20%"><b>Tempat Uji Kompetensi:</b></td>
+                      <td>{{ ujikompetensi.peserta.jadwal.tempatUk.nama }}</td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+              </v-list>
+              <div v-if="ujikompetensi != null" class="pt-5">
+                <v-simple-table>
+                  <template #default>
                     <thead>
-                        <tr>
-                            <th width="10"><b>No</b></th>
-                            <th><b>Kriteria Unjuk Kerja</b></th>
-                            <th width="10%" class="text-center"><b>Kompeten</b></th>
-                            <th width="10%" class="text-center"><b>Belum Kompeten</b></th>
-                            <th width="30%" class="text-center"><b>Penilaian Lanjut</b></th>
-                        </tr>
+                      <tr>
+                        <th width="10"><b>No</b></th>
+                        <th><b>Kriteria Unjuk Kerja</b></th>
+                        <th width="10%" class="text-center"><b>Kompeten</b></th>
+                        <th width="10%" class="text-center"><b>Belum Kompeten</b></th>
+                        <th width="30%" class="text-center"><b>Penilaian Lanjut</b></th>
+                      </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr>
+                      <!-- <tr>
                             <td></td>
                             <td colspan="5" width="20">Kriteria Unjuk Kerja :</td>
                         </tr> -->
-                        <!-- <tr v-for="(kuk, kukIndex) in ujikompetensi.asesmen" :key="kuk.id">
+                      <!-- <tr v-for="(kuk, kukIndex) in ujikompetensi.asesmen" :key="kuk.id">
                             <td width="5%">{{kukIndex+1}}</td>
                             <td>{{ kuk.kriteriaUk.kriteria}}</td>
                             <td class="text-center">
@@ -102,29 +102,29 @@
                         </tr> -->
                     </tbody>
                     <tbody v-for="(elemen, elemenIndex) in ujikompetensi.unitKompetensi.element" :key="elemen.id">
-                        <tr>
-                          <th>{{ elemenIndex+1 }}</th>
-                          <th colspan="4">Elemen: {{ elemen.elemen }}</th>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td colspan="4" width="20">Kriteria Unjuk Kerja :</td>
-                        </tr>
-                        <tr v-for="(kuk, kukIndex) in elemen.kriteriaUk" :key="kuk.id">
-                          <td></td>
-                          <!-- <td width="5%">{{elemenIndex+1}}.{{kukIndex+1}}</td> -->
-                          <td>{{ kuk.kriteria}}</td>
-                          <td colspan="2">
-                            <v-radio-group row v-model="ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].observasi">
-                              <v-col cols="6">
-                                <v-radio class="justify-center" :value= "1"></v-radio>
-                              </v-col>
-                              <v-col cols="6">
-                                <v-radio class="justify-center" :value= "-1"></v-radio>
-                              </v-col>
-                            </v-radio-group>
-                          </td>
-                          <!-- <td class="text-center">
+                      <tr>
+                        <th>{{ elemenIndex+1 }}</th>
+                        <th colspan="4">Elemen: {{ elemen.elemen }}</th>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td colspan="4" width="20">Kriteria Unjuk Kerja :</td>
+                      </tr>
+                      <tr v-for="(kuk, kukIndex) in elemen.kriteriaUk" :key="kuk.id">
+                        <td></td>
+                        <!-- <td width="5%">{{elemenIndex+1}}.{{kukIndex+1}}</td> -->
+                        <td>{{ kuk.kriteria }}</td>
+                        <td colspan="2">
+                          <v-radio-group v-model="ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].observasi" row>
+                            <v-col cols="6">
+                              <v-radio class="justify-center" :value="1"></v-radio>
+                            </v-col>
+                            <v-col cols="6">
+                              <v-radio class="justify-center" :value="-1"></v-radio>
+                            </v-col>
+                          </v-radio-group>
+                        </td>
+                        <!-- <td class="text-center">
                             <v-radio-group v-model="ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].observasi">
                                 <v-radio class="justify-center" :value = "-1"></v-radio>
                             </v-radio-group>
@@ -134,57 +134,57 @@
                                 <v-radio class="justify-center" :value = "1"></v-radio>
                             </v-radio-group>
                           </td> -->
-                          <td class="text-center">
-                            <v-text-field
-                                class="mt-5"
-                                v-model="ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].penelitian_lanjut"
-                                label="Penilaian lanjut"
-                                type="text"
-                                solo
-                            />
-                          </td>
-                        </tr>
+                        <td class="text-center">
+                          <v-text-field
+                            v-model="ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].penelitian_lanjut"
+                            class="mt-5"
+                            label="Penilaian lanjut"
+                            type="text"
+                            solo
+                          />
+                        </td>
+                      </tr>
                     </tbody>
-                    </template>
+                  </template>
                 </v-simple-table>
                 <v-row>
-                    <v-col cols="12" class="px-5 pt-5">
+                  <v-col cols="12" class="px-5 pt-5">
                     <label for=""><b>Umpan balik</b></label>
                     <v-text-field
-                        class="mt-2"
-                        v-model="umpan_balik"
-                        label="Isikan umpan balik untuk peserta"
-                        type="text"
-                        solo
+                      v-model="umpan_balik"
+                      class="mt-2"
+                      label="Isikan umpan balik untuk peserta"
+                      type="text"
+                      solo
                     />
-                    </v-col>
+                  </v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="12" class="d-flex justify-end">
-                      <v-btn
-                        @click='observasi'
-                        class="mt-5"
-                        width="200"
-                        large
-                        rounded
-                        color="primary"
-                        dark>
-                        <v-progress-circular
-                          :size="20"
-                          :width="2"
-                          indeterminate
-                          color="white"
-                          v-if="state.loading"
-                          class="mr-2"
-                        ></v-progress-circular>
-                        Observasi
-                      </v-btn>
+                  <v-col cols="12" class="d-flex justify-end">
+                    <v-btn
+                      class="mt-5"
+                      width="200"
+                      large
+                      rounded
+                      color="primary"
+                      dark
+                      @click="observasi">
+                      <v-progress-circular
+                        v-if="state.loading"
+                        :size="20"
+                        :width="2"
+                        indeterminate
+                        color="white"
+                        class="mr-2"
+                      ></v-progress-circular>
+                      Observasi
+                    </v-btn>
                     <!-- <v-btn @click="observasi" large color="blue darken-3 mt-5 px-10" dark rounded>Observasi</v-btn> -->
-                    </v-col>
+                  </v-col>
                 </v-row>
-            </div>
+              </div>
             </v-card-text>
-        </v-card>
+          </v-card>
         </v-container>
       </v-layout>
     </section>
@@ -192,236 +192,236 @@
 
 </template>
 <script>
-import { GET_JADWALS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS, GET_REPORT_DETAIL, UPLOAD_SYARAT, GET_PESERTAS_DETAIL, GET_UJIKOMPETENSI_DETAIL, OBSERVASI_MUTATION } from '@/constants/graphql';
-import { ASESMEN_MANDIRI_MUTATION } from '../../../constants/graphql';
+import { GET_JADWALS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS, GET_REPORT_DETAIL, UPLOAD_SYARAT, GET_PESERTAS_DETAIL, GET_UJIKOMPETENSI_DETAIL, OBSERVASI_MUTATION } from '@/constants/graphql'
+import { ASESMEN_MANDIRI_MUTATION } from '../../../constants/graphql'
 
-  export default {
-    name: 'index',
-    layout: 'App_asesor',
-    data() {
-      return {
-        asesmen: [],
-        tambahDialog: false,
-        search: '',
-        headers: [
-          { text: 'Syarat', value: 'syarat' },
-          // { text: 'File', value: 'file'},
-          { text: 'Aksi', value: 'actions' },
-        ],
-        peserta_id: this.$route.params.id,
-        state:{
-          loading: false,
-          skeleton: true
-        },
-        radios: '',
-        alert:{
-          show: false,
-          type: '',
-          message: '',
-        },
-        valid: true,
-        e1: 1,
-        profile: {
-          username: ''
-        },
-        skema: [],
-        syarat: [],
-        syaratUpload: [],
-        input: {},
-        items: [
-        ],
-        peserta: [],
-        skema: [],
-        asesi: [],
-        ujikompetensi: null,
-        e11: {},
-        status: [
-            {
-                id: -1,
-                status: 'Ditolak'
-            },
-            {
-                id: 0,
-                status: 'Belum'
-            },
-            {
-                id: 1,
-                status: 'Disetujui'
-            }
-        ],
-        umpan_balik: null
-      };
-    },
-    mounted() {
-      this.getpesertaDetails();
-      // this.getAsesi();
-    },
-    methods: {
-      asesmenkuk(uji, kuk, value, ujiIndex, elemenIndex, kukIndex ) {
-        const val = `${value}`;
-        if (val === this.ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag) {
-          return this.ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag = "0";
-        }
-        // this.editedIndex = this.skemas.indexOf(item);
-        // this.input.asesmen.push({kuk_id: kuk.id, asesmen_mandiri: value});
-        // this.input = Object.assign(this.input, {uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}});
-        // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
-        // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
-        // this.input = { 
-        //   ...this.input, 
-        //   [uji.id]: {
-        //     uji_kompetensi_id: uji.id, 
-        //     asesmen: { [kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}
-        //     }
-        //   }};
-        let kukData = (this.input[uji.id] || {}).asesmen;
-        if (kukData == null) {
-            kukData = {};
-        }
-        this.input = { 
-          ...this.input, 
-          [uji.id]: {
-            uji_kompetensi_id: uji.id,
-            asesmen: {
-             ...kukData,
-              [kuk.id]:{
-              kuk_id: kuk.id,   asesmen_mandiri: value
-              }
-            }
-          }};
-        return this.ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag = `${value}`;
+export default {
+  name: 'Index',
+  layout: 'App_asesor',
+  data() {
+    return {
+      asesmen: [],
+      tambahDialog: false,
+      search: '',
+      headers: [
+        { text: 'Syarat', value: 'syarat' },
+        // { text: 'File', value: 'file'},
+        { text: 'Aksi', value: 'actions' },
+      ],
+      peserta_id: this.$route.params.id,
+      state:{
+        loading: false,
+        skeleton: true
       },
-      showAlert(type, message) {
-        this.alert = { show: true, type, message };
+      radios: '',
+      alert:{
+        show: false,
+        type: '',
+        message: '',
       },
-      async getpesertaDetails() {
-        const id = this.peserta_id;
-        console.log(id);
+      valid: true,
+      e1: 1,
+      profile: {
+        username: ''
+      },
+      skema: [],
+      syarat: [],
+      syaratUpload: [],
+      input: {},
+      items: [
+      ],
+      peserta: [],
+      skema: [],
+      asesi: [],
+      ujikompetensi: null,
+      e11: {},
+      status: [
+        {
+          id: -1,
+          status: 'Ditolak'
+        },
+        {
+          id: 0,
+          status: 'Belum'
+        },
+        {
+          id: 1,
+          status: 'Disetujui'
+        }
+      ],
+      umpan_balik: null
+    }
+  },
+  mounted() {
+    this.getpesertaDetails()
+    // this.getAsesi();
+  },
+  methods: {
+    asesmenkuk(uji, kuk, value, ujiIndex, elemenIndex, kukIndex ) {
+      const val = `${value}`
+      if (val === this.ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag) {
+        return this.ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag = "0"
+      }
+      // this.editedIndex = this.skemas.indexOf(item);
+      // this.input.asesmen.push({kuk_id: kuk.id, asesmen_mandiri: value});
+      // this.input = Object.assign(this.input, {uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}});
+      // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
+      // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
+      // this.input = { 
+      //   ...this.input, 
+      //   [uji.id]: {
+      //     uji_kompetensi_id: uji.id, 
+      //     asesmen: { [kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}
+      //     }
+      //   }};
+      let kukData = (this.input[uji.id] || {}).asesmen
+      if (kukData == null) {
+        kukData = {}
+      }
+      this.input = { 
+        ...this.input, 
+        [uji.id]: {
+          uji_kompetensi_id: uji.id,
+          asesmen: {
+            ...kukData,
+            [kuk.id]:{
+              kuk_id: kuk.id, asesmen_mandiri: value
+            }
+          }
+        }}
+      return this.ujikompetensi.unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag = `${value}`
+    },
+    showAlert(type, message) {
+      this.alert = { show: true, type, message }
+    },
+    async getpesertaDetails() {
+      const id = this.peserta_id
+      console.log(id)
+      const result = await this.$apollo.mutate({
+        mutation: GET_UJIKOMPETENSI_DETAIL,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        // this.pesertas = data.peserta;
+        this.ujikompetensi = data.ujikompetensi
+        for (let i = 0; i < this.ujikompetensi.unitKompetensi.element.length; i++) {
+          for (let j = 0; j < this.ujikompetensi.unitKompetensi.element[i].kriteriaUk.length; j++) {
+            const kuk = this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j]
+            this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].observasi = null
+            this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].penelitian_lanjut = null
+            // for (let k = 0; k < this.ujikompetensi.asesmen.length; k++) {
+            //   this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].observasi = null;
+            //   this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].penelitian_lanjut = null;
+            //   if (this.ujikompetensi.asesmen[k].kriteriaUk.id == kuk.id) {
+            //     this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].asesmen_mandiri = this.ujikompetensi.asesmen[k].asesmen_mandiri;
+            //     this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].observasi = null;
+            //     this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].penelitian_lanjut = null;
+            //   }
+            // }
+          }
+        }
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      }).finally(() => {
+        this.state.skeleton = false
+      })
+    },
+    async getSyarat() {
+      const { id } = this.$data
+      const result = await this.$apollo.mutate({
+        mutation: GET_REPORT_DETAIL
+      }).then(({ data }) => {
+        this.peserta = data.peserta
+        this.items = data.peserta.syaratPeserta
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    // async asesmenMandiri() {
+    //     const asesmen = Object.values(this.input.asesmen);
+    //     const uji_kompetensi_id = null;
+    //     console.log(asesmen);
+    //     const result = await this.$apollo.mutate({
+    //         mutation: ASESMEN_MANDIRI_MUTATION,
+    //         variables: {
+    //           asesmen, uji_kompetensi_id
+    //         }
+    //   }).then(({ data }) => {
+    //       console.log(data);
+    //   }).catch((error) => {
+    //     console.log(error);
+    //   });
+    // },
+    async observasi(){
+      const { state: { loading } } = this
+      if (!loading) {
+        this.state.loading = true
+        // console.log(this.ujikompetensi[ujiIndex].asesmen.length);
+        // const asesmenData = this.ujikompetensi[ujiIndex].asesmen;
+        // const uji_kompetensi_id = this.ujikompetensi[ujiIndex].id;
+        // let rekomendasi_am = this.ujikompetensi[ujiIndex].rekomendasi_am;
+        // if (rekomendasi_am === undefined) {
+        //   rekomendasi_am = null;
+        // }
+        const asesmenData = this.ujikompetensi.asesmen
+        const observasi = []
+        // const asesmen = [];
+        // for (let indexAsesmen = 0; indexAsesmen < asesmenData.length; indexAsesmen++) {
+        //   const element = Object.assign({}, {kuk_id: asesmenData[indexAsesmen].kriteriaUk.id, observasi: asesmenData[indexAsesmen].observasi, penelitian_lanjut: asesmenData[indexAsesmen].penelitian_lanjut});
+        //   observasi.push(element);
+        // }
+        for (let i = 0; i < this.ujikompetensi.unitKompetensi.element.length; i++) {
+          for (let j = 0; j < this.ujikompetensi.unitKompetensi.element[i].kriteriaUk.length; j++) {
+            const element = Object.assign({}, {kuk_id: this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].id, observasi: this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].observasi, penelitian_lanjut: this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].penelitian_lanjut})
+            observasi.push(element)
+          }
+        }
+        console.log(observasi)
+        const uji_kompetensi_id = this.ujikompetensi.id
+        const umpan_balik = this.umpan_balik
         const result = await this.$apollo.mutate({
-              mutation: GET_UJIKOMPETENSI_DETAIL,
-              variables: {
-                id
-              }
+          mutation: OBSERVASI_MUTATION,
+          variables: {
+            uji_kompetensi_id, umpan_balik, observasi
+          }
         }).then(({ data }) => {
-            // this.pesertas = data.peserta;
-            this.ujikompetensi = data.ujikompetensi;
-            for (let i = 0; i < this.ujikompetensi.unitKompetensi.element.length; i++) {
-              for (let j = 0; j < this.ujikompetensi.unitKompetensi.element[i].kriteriaUk.length; j++) {
-                const kuk = this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j];
-                this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].observasi = null;
-                this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].penelitian_lanjut = null;
-                // for (let k = 0; k < this.ujikompetensi.asesmen.length; k++) {
-                //   this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].observasi = null;
-                //   this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].penelitian_lanjut = null;
-                //   if (this.ujikompetensi.asesmen[k].kriteriaUk.id == kuk.id) {
-                //     this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].asesmen_mandiri = this.ujikompetensi.asesmen[k].asesmen_mandiri;
-                //     this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].observasi = null;
-                //     this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].penelitian_lanjut = null;
-                //   }
-                // }
-              }
-            }
-            console.log(data);
-        }).catch((error) => {
-          console.log(error);
+          this.showAlert('success', 'peserta berhasil diobservasi')
+          console.log(data)
+          this.$router.go(-1)
+        }).catch(({graphQLErrors}) => {
+          this.showAlert('error', graphQLErrors[0].message)
         }).finally(() => {
-          this.state.skeleton = false;
-        });
-      },
-      async getSyarat() {
-          const { id } = this.$data;
-          const result = await this.$apollo.mutate({
-              mutation: GET_REPORT_DETAIL
-        }).then(({ data }) => {
-            this.peserta = data.peserta;
-            this.items = data.peserta.syaratPeserta;
-            console.log(data);
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      // async asesmenMandiri() {
-      //     const asesmen = Object.values(this.input.asesmen);
-      //     const uji_kompetensi_id = null;
-      //     console.log(asesmen);
-      //     const result = await this.$apollo.mutate({
-      //         mutation: ASESMEN_MANDIRI_MUTATION,
-      //         variables: {
-      //           asesmen, uji_kompetensi_id
-      //         }
-      //   }).then(({ data }) => {
-      //       console.log(data);
-      //   }).catch((error) => {
-      //     console.log(error);
-      //   });
-      // },
-      async observasi(){
-        const { state: { loading } } = this;
-        if (!loading) {
-          this.state.loading = true;
-          // console.log(this.ujikompetensi[ujiIndex].asesmen.length);
-          // const asesmenData = this.ujikompetensi[ujiIndex].asesmen;
-          // const uji_kompetensi_id = this.ujikompetensi[ujiIndex].id;
-          // let rekomendasi_am = this.ujikompetensi[ujiIndex].rekomendasi_am;
-          // if (rekomendasi_am === undefined) {
-          //   rekomendasi_am = null;
-          // }
-          const asesmenData = this.ujikompetensi.asesmen;
-          const observasi = [];
-          // const asesmen = [];
-          // for (let indexAsesmen = 0; indexAsesmen < asesmenData.length; indexAsesmen++) {
-          //   const element = Object.assign({}, {kuk_id: asesmenData[indexAsesmen].kriteriaUk.id, observasi: asesmenData[indexAsesmen].observasi, penelitian_lanjut: asesmenData[indexAsesmen].penelitian_lanjut});
-          //   observasi.push(element);
-          // }
-          for (let i = 0; i < this.ujikompetensi.unitKompetensi.element.length; i++) {
-            for (let j = 0; j < this.ujikompetensi.unitKompetensi.element[i].kriteriaUk.length; j++) {
-              const element = Object.assign({}, {kuk_id: this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].id, observasi: this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].observasi, penelitian_lanjut: this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].penelitian_lanjut});
-              observasi.push(element);
-            }
-          }
-          console.log(observasi);
-          const uji_kompetensi_id = this.ujikompetensi.id;
-          const umpan_balik = this.umpan_balik;
-          const result = await this.$apollo.mutate({
-                mutation: OBSERVASI_MUTATION,
-                variables: {
-                  uji_kompetensi_id, umpan_balik, observasi
-                }
-          }).then(({ data }) => {
-              this.showAlert('success', 'peserta berhasil diobservasi');
-              console.log(data);
-              this.$router.go(-1);
-          }).catch(({graphQLErrors}) => {
-              this.showAlert('error', graphQLErrors[0].message);
-          }).finally(() => {
-            this.state.skeleton = false;
-            this.state.loading = false;
-          });
-        }
-      },
-      async asesmenMandiri() {
-          const ujiData = Object.values(this.input);
-          if (ujiData.length > 0) {
-            for (let index = 0; index < ujiData.length; index++) {
-              const asesmen = Object.values(ujiData[index].asesmen);
-              const uji_kompetensi_id =  ujiData[index].uji_kompetensi_id;
-              console.log(asesmen);
+          this.state.skeleton = false
+          this.state.loading = false
+        })
+      }
+    },
+    async asesmenMandiri() {
+      const ujiData = Object.values(this.input)
+      if (ujiData.length > 0) {
+        for (let index = 0; index < ujiData.length; index++) {
+          const asesmen = Object.values(ujiData[index].asesmen)
+          const uji_kompetensi_id = ujiData[index].uji_kompetensi_id
+          console.log(asesmen)
 
-              const result = await this.$apollo.mutate({
-                mutation: ASESMEN_MANDIRI_MUTATION,
-                variables: {
-                  asesmen, uji_kompetensi_id
-                }
-              }).then(({ data }) => {
-                console.log(data);
-              }).catch((error) => {
-                console.log(error);
-              });
+          const result = await this.$apollo.mutate({
+            mutation: ASESMEN_MANDIRI_MUTATION,
+            variables: {
+              asesmen, uji_kompetensi_id
             }
-          }
+          }).then(({ data }) => {
+            console.log(data)
+          }).catch((error) => {
+            console.log(error)
+          })
+        }
       }
     }
-  };
+  }
+}
 
 </script>
 <style lang="scss" scoped>

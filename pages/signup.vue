@@ -1,13 +1,13 @@
 <template>
   <div
-  class="bg-image"
-  fluid
-  id="signinPage"
-  style="background: url('/images/signup-img.jpg');"
+    id="signinPage"
+    class="bg-image"
+    fluid
+    style="background: url('/images/signup-img.jpg');"
   >
     <div
-    class="fill-height bg-black-op"
-    fluid
+      class="fill-height bg-black-op"
+      fluid
     >
       <div class="d-flex justify-end">
         <v-col md="4" xs="12" class="hero-static bg-white animated fadeInRight d-flex align-center justify-center animated fadeInRight">
@@ -16,9 +16,9 @@
               <a href="/">
                 <img class="img-responsive" src="@/assets/img/lsp_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 15px; right: 40px;">
               </a>
-              <a href="/">
+              <!-- <a href="/">
                 <img class="img-responsive" src="@/assets/img/upn_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 20px; right: 120px;">
-              </a>
+              </a> -->
               <h1><strong>Buat akun.</strong></h1>
               <h3 class="mt-0 pb-2">Isi data Anda dengan lengkap</h3>
               <!-- Alert section -->
@@ -90,18 +90,18 @@
                 <v-checkbox v-model="register.terms" label="Setuju dengan Peraturan dan Syarat Penggunaan">
                 </v-checkbox>
                 <v-btn
-                  @click='registerUser'
                   large
                   block
                   rounded
                   color="success"
-                  dark>
+                  dark
+                  @click="registerUser">
                   <v-progress-circular
+                    v-if="state.loading"
                     :size="20"
                     :width="2"
                     indeterminate
                     color="white"
-                    v-if="state.loading"
                     class="mr-2"
                   ></v-progress-circular>
                   Sign up
@@ -112,9 +112,9 @@
                   <div class="divider"></div>
                 </div>
                 <div class="text-center">
-                  <a v-on:click="gotoPage('/signin')">Masuk</a>
+                  <a @click="gotoPage('/signin')">Masuk</a>
                   <span class="mx-2">-</span>
-                  <a v-on:click="gotoPage('/forgot-password')">Kebijakan privasi</a>
+                  <a @click="gotoPage('/forgot-password')">Kebijakan privasi</a>
                 </div>
               </v-form>
             </div>
@@ -125,11 +125,11 @@
   </div>
 </template>
 <script>
-import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL } from '../constants/settings';
-import { SIGNUP_MUTATION } from '../constants/graphql';
+import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL } from '../constants/settings'
+import { SIGNUP_MUTATION } from '../constants/graphql'
 
 export default {
-  name: 'signin',
+  name: 'Signin',
   layout: 'App_blank',
   data() {
     return {
@@ -150,47 +150,47 @@ export default {
         type: '',
         message: ''
       }
-    };
+    }
   },
   mounted() {
   },
   methods: {
     showAlert(type, message) {
-      this.alert = { show: true, type, message };
+      this.alert = { show: true, type, message }
     },
     async registerUser(e) {
-      e.preventDefault();
-      const { state: { loading } } = this;
-      const { register: { email, password, password_confirm} } = this.$data;
+      e.preventDefault()
+      const { state: { loading } } = this
+      const { register: { email, password, password_confirm} } = this.$data
       if (!this.register.terms) {
-        return this.showAlert('error', 'Syarat dan ketentuan harus disetujui');
+        return this.showAlert('error', 'Syarat dan ketentuan harus disetujui')
       }
       if (!loading) {
         // set page status
-        this.alert.show = false;
-        this.state.loading = true;
+        this.alert.show = false
+        this.state.loading = true
         const result = await this.$apollo.mutate({
-            mutation: SIGNUP_MUTATION,
-            variables: {
-                email,
-                password,
-                password_confirm
-            }
+          mutation: SIGNUP_MUTATION,
+          variables: {
+            email,
+            password,
+            password_confirm
+          }
         }).then(({ data }) => {
-            console.log(data);
-            this.gotoPage('activate');
+          console.log(data)
+          this.gotoPage('activate')
         }).catch(({graphQLErrors}) => {
-            this.showAlert('error', graphQLErrors[0].message);
+          this.showAlert('error', graphQLErrors[0].message)
         }).finally(() => {
-          this.state.loading = false;
-        });
+          this.state.loading = false
+        })
       }
     },
     gotoPage(page) {
-      this.$router.push(page);
+      this.$router.push(page)
     },
   }
-};
+}
 
 </script>
 <style lang="scss" scoped>

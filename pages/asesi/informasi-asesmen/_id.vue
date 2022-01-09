@@ -30,7 +30,7 @@
             </v-alert>
           </div> -->
           <!-- End alert section -->
-          <div v-if="!this.state.skeleton">
+          <div v-if="!state.skeleton">
             <v-row>
               <div class="col-md-4 col-xs-12 pt-0">
                 <v-card> 
@@ -46,7 +46,7 @@
                     <div>
                       <v-card-title
                         class="headline"
-                      >{{peserta.asesi.nama}}</v-card-title>
+                      >{{ peserta.asesi.nama }}</v-card-title>
                       <v-card-subtitle class="py-0">status asesi:</v-card-subtitle>
                       <v-card-actions>
                         <v-btn v-if="peserta.status == -2" text color="error">Belum Kompeten</v-btn>
@@ -86,14 +86,14 @@
                     </v-simple-table>
                   </v-card-text>
                   <v-card-actions v-if="peserta.status == 2 || peserta.status == -2" class="d-flex justify-center pb-8 pt-0">
-                      <nuxt-link :to="`/asesi/hasil-asesmen/${peserta.id}`">
-                          <v-btn color="success" rounded>Lihat Hasil Sertifikasi</v-btn>
-                      </nuxt-link>
+                    <nuxt-link :to="`/asesi/hasil-asesmen/${peserta.id}`">
+                      <v-btn color="success" rounded>Lihat Hasil Sertifikasi</v-btn>
+                    </nuxt-link>
                   </v-card-actions>
                   <v-card-actions v-if="peserta.status == 1" class="d-flex justify-center pb-8 pt-0">
-                      <nuxt-link :to="`/asesi/asesmen-mandiri/${peserta.id}`">
-                          <v-btn color="warning" rounded>Menuju Asesmen Mandiri</v-btn>
-                      </nuxt-link>
+                    <nuxt-link :to="`/asesi/asesmen-mandiri/${peserta.id}`">
+                      <v-btn color="warning" rounded>Menuju Asesmen Mandiri</v-btn>
+                    </nuxt-link>
                   </v-card-actions>
                 </v-card>
               </div>
@@ -238,12 +238,12 @@
                             text
                             prominent
                             type="info"
-                            >
+                          >
                             <v-row align="center">
                               <v-col class="grow">Proses Asesmen anda telah selesai, silahkan mengisi Form FR.AK.03 Umpan Balik dan Catatan Asesmen</v-col>
                               <v-col class="shrink">
                                 <v-dialog v-model="umpanDialog" persistent max-width="1000">
-                                  <template v-slot:activator="{ on }">
+                                  <template #activator="{ on }">
                                     <v-btn color="primary" outlined v-on="on">Lihat Form</v-btn>
                                   </template>
                                   <v-form>
@@ -292,8 +292,8 @@
                                           <v-col cols="12">
                                             <label for=""><b>Catatan umpan balik</b></label>
                                             <v-text-field
-                                              class="mt-2"
                                               v-model="catatan"
+                                              class="mt-2"
                                               solo
                                             ></v-text-field>
                                           </v-col>
@@ -302,7 +302,7 @@
                                       <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn color="grey" text @click="umpanDialog = false">Batal</v-btn>
-                                        <v-btn color="blue darken-1" text @click='createUmpanBalikPeserta'>Kirimkan</v-btn>
+                                        <v-btn color="blue darken-1" text @click="createUmpanBalikPeserta">Kirimkan</v-btn>
                                       </v-card-actions>
                                     </v-card>
                                   </v-form>
@@ -319,7 +319,7 @@
                             icon="info"
                             text
                             type="warning"
-                            >
+                          >
                             Isi syarat sesuai dengan panduan yang tersedia untuk melanjutkan proses asesmen
                           </v-alert>
                           <v-alert
@@ -327,7 +327,7 @@
                             icon="info"
                             text
                             type="warning"
-                            >
+                          >
                             Silahkan mengisi form asesmen mandiri jika belum
                           </v-alert>
                           <v-alert
@@ -335,63 +335,63 @@
                             icon="info"
                             text
                             type="success"
-                            >
+                          >
                             Silahkan melihat hasil Asesmen Kompetensi
                           </v-alert>
                           <v-row>
                             <v-col md="3">
                               <v-card :to="`/asesi/apl-1/${peserta.id}`" text link>
                                 <v-card-actions class="justify-center fill-height">
-                                    <v-list-item two-line >
-                                      <v-list-item-content class="text-center">
-                                          <v-list-item-title class="headline mb-2">
-                                              <v-icon size="30" color="primary" >person</v-icon>
-                                          </v-list-item-title>
-                                          <v-list-item-title>Detil APL 1</v-list-item-title>
-                                      </v-list-item-content>
-                                    </v-list-item>
+                                  <v-list-item two-line>
+                                    <v-list-item-content class="text-center">
+                                      <v-list-item-title class="headline mb-2">
+                                        <v-icon size="30" color="primary">person</v-icon>
+                                      </v-list-item-title>
+                                      <v-list-item-title>Detil APL 1</v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
                                 </v-card-actions>
                               </v-card>
                             </v-col>
                             <v-col md="3">
                               <v-card :disabled="!peserta.ujiKompetensi.length" :to="`/asesi/asesmen-mandiri/hasil/${peserta.id}`" text link>
                                 <v-card-actions class="justify-center fill-height">
-                                    <v-list-item two-line >
-                                      <v-list-item-content class="text-center">
-                                          <v-list-item-title class="headline mb-2">
-                                              <v-icon size="30" color="warning" >subject</v-icon>
-                                          </v-list-item-title>
-                                          <v-list-item-title>Asesmen Mandiri</v-list-item-title>
-                                      </v-list-item-content>
-                                    </v-list-item>
+                                  <v-list-item two-line>
+                                    <v-list-item-content class="text-center">
+                                      <v-list-item-title class="headline mb-2">
+                                        <v-icon size="30" color="warning">subject</v-icon>
+                                      </v-list-item-title>
+                                      <v-list-item-title>Asesmen Mandiri</v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
                                 </v-card-actions>
                               </v-card>
                             </v-col>
                             <v-col md="3">
                               <v-card :disabled="peserta.asesor == null" :to="`/asesi/hasil-observasi/${peserta.id}`" text link>
                                 <v-card-actions class="justify-center fill-height">
-                                    <v-list-item two-line >
-                                      <v-list-item-content class="text-center">
-                                          <v-list-item-title class="headline mb-2">
-                                              <v-icon size="30" color="error" >wrap_text</v-icon>
-                                          </v-list-item-title>
-                                          <v-list-item-title>Hasil observasi</v-list-item-title>
-                                      </v-list-item-content>
-                                    </v-list-item>
+                                  <v-list-item two-line>
+                                    <v-list-item-content class="text-center">
+                                      <v-list-item-title class="headline mb-2">
+                                        <v-icon size="30" color="error">wrap_text</v-icon>
+                                      </v-list-item-title>
+                                      <v-list-item-title>Hasil observasi</v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
                                 </v-card-actions>
                               </v-card>
                             </v-col>
                             <v-col md="3">
                               <v-card :disabled="disabledMenu" :to="`/asesi/hasil-asesmen/${peserta.id}`" text link>
                                 <v-card-actions class="justify-center fill-height">
-                                    <v-list-item two-line >
-                                      <v-list-item-content class="text-center">
-                                          <v-list-item-title class="headline mb-2">
-                                              <v-icon size="30" color="success" >playlist_add_check</v-icon>
-                                          </v-list-item-title>
-                                          <v-list-item-title>Rekaman Asesmen</v-list-item-title>
-                                      </v-list-item-content>
-                                    </v-list-item>
+                                  <v-list-item two-line>
+                                    <v-list-item-content class="text-center">
+                                      <v-list-item-title class="headline mb-2">
+                                        <v-icon size="30" color="success">playlist_add_check</v-icon>
+                                      </v-list-item-title>
+                                      <v-list-item-title>Rekaman Asesmen</v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
                                 </v-card-actions>
                               </v-card>
                             </v-col>
@@ -414,7 +414,7 @@
                             icon="info"
                             text
                             type="info"
-                            >
+                          >
                             Isi syarat sesuai dengan panduan yang tersedia, dan tunggu persetujuan dari admin
                           </v-alert>
                           <div class="px-5 py-5">
@@ -477,119 +477,119 @@
                             >
                             </v-skeleton-loader>
                             <v-data-table
-                                v-if="!state.skeleton"
-                                :headers="headers"
-                                :items="peserta.syaratPeserta"
-                                :search="search"
-                                :items-per-page="5"
-                                :line-numbers="true"
-                                hide-default-footer
+                              v-if="!state.skeleton"
+                              :headers="headers"
+                              :items="peserta.syaratPeserta"
+                              :search="search"
+                              :items-per-page="5"
+                              :line-numbers="true"
+                              hide-default-footer
                             >
-                            <template v-slot:top>
-                              <v-dialog v-model="syaratDialog" persistent max-width="600px">
-                                <v-form>
-                                  <v-card>
-                                    <v-card-title>
-                                      <span class="headline">Upload Syarat</span>
-                                    </v-card-title>
-                                    <v-card-text>
-                                      <v-container>
-                                        <v-row>
-                                          <v-col cols="12" sm="12" md="12">
-                                            <label for=""><b>Jenis Syarat*</b></label>
-                                            <v-text-field class="mt-2" solo v-model="editedSyarat.syarat.syarat" disabled label="Masukkan Jenis Syarat yang sesuai" required></v-text-field>
-                                          </v-col>
-                                          <v-col cols="12" sm="12" md="12" class="pt-0">
-                                            <label for=""><b>File Syarat*</b></label>
-                                            <v-text-field persistent-hint hint="PDF (maks 2MB)" class="mt-2" solo readonly label="Pilih Syarat" v-model='syarats.syaratName' @click='pickSyarat' prepend-icon='attach_file'></v-text-field>
-                                            <input
+                              <template #top>
+                                <v-dialog v-model="syaratDialog" persistent max-width="600px">
+                                  <v-form>
+                                    <v-card>
+                                      <v-card-title>
+                                        <span class="headline">Upload Syarat</span>
+                                      </v-card-title>
+                                      <v-card-text>
+                                        <v-container>
+                                          <v-row>
+                                            <v-col cols="12" sm="12" md="12">
+                                              <label for=""><b>Jenis Syarat*</b></label>
+                                              <v-text-field v-model="editedSyarat.syarat.syarat" class="mt-2" solo disabled label="Masukkan Jenis Syarat yang sesuai" required></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" sm="12" md="12" class="pt-0">
+                                              <label for=""><b>File Syarat*</b></label>
+                                              <v-text-field v-model="syarats.syaratName" persistent-hint hint="PDF (maks 2MB)" class="mt-2" solo readonly label="Pilih Syarat" prepend-icon="attach_file" @click="pickSyarat"></v-text-field>
+                                              <input
+                                                ref="syarat"
                                                 type="file"
                                                 style="display: none"
-                                                ref="syarat"
                                                 accept="application/pdf"
                                                 @change="onSyaratSelected"
-                                            >
-                                          </v-col>
-                                        </v-row>
-                                      </v-container>
-                                      <small>*Wajib diisi</small>
+                                              >
+                                            </v-col>
+                                          </v-row>
+                                        </v-container>
+                                        <small>*Wajib diisi</small>
+                                      </v-card-text>
+                                      <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="grey" text @click="syaratDialog = false">Close</v-btn>
+                                        <v-btn color="blue darken-1" text @click="uploadSyarat">Upload Syarat</v-btn>
+                                      </v-card-actions>
+                                    </v-card>
+                                  </v-form>
+                                </v-dialog>
+                                <v-dialog v-model="deletesyaratDialog" persistent max-width="600px">
+                                  <v-card>
+                                    <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+
+                                    <v-card-text>
+                                      Peringatan! Syarat yang telah dihapus tidak dapat kembali lagi.
                                     </v-card-text>
+
                                     <v-card-actions>
                                       <v-spacer></v-spacer>
-                                      <v-btn color="grey" text @click="syaratDialog = false">Close</v-btn>
-                                      <v-btn color="blue darken-1" text @click='uploadSyarat'>Upload Syarat</v-btn>
+                                      <v-btn color="grey" text @click="deletesyaratDialog = false">Batal</v-btn>
+                                      <v-btn color="red darken-1" text @click="deleteSyarat">Delete Syarat</v-btn>
                                     </v-card-actions>
                                   </v-card>
-                                </v-form>
-                              </v-dialog>
-                              <v-dialog v-model="deletesyaratDialog" persistent max-width="600px">
-                                <v-card>
-                                  <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
-
-                                  <v-card-text>
-                                    Peringatan! Syarat yang telah dihapus tidak dapat kembali lagi.
-                                  </v-card-text>
-
-                                  <v-card-actions>
-                                  <v-spacer></v-spacer>
-                                  <v-btn color="grey" text @click="deletesyaratDialog = false">Batal</v-btn>
-                                  <v-btn color="red darken-1" text @click='deleteSyarat'>Delete Syarat</v-btn>
-                                </v-card-actions>
-                                </v-card>
-                              </v-dialog>
-                            </template>
-                            <template v-slot:item.file="{ item }">
+                                </v-dialog>
+                              </template>
+                              <template #item.file="{ item }">
                                 <span v-if="item.file != null">{{ item.file.substr(item.file.lastIndexOf('/') + 1) }}</span>
-                            </template>
-                            <template v-slot:item.status="{ item }">
+                              </template>
+                              <template #item.status="{ item }">
                                 <v-chip v-if="item.status == -2" small color="red darken-1" dark>Tidak Lulus</v-chip>
                                 <v-chip v-if="item.status == -1" small color="red darken-1" dark>Ditolak</v-chip>
                                 <v-chip v-if="item.status == 0" small color="grey" dark>Belum</v-chip>
                                 <v-chip v-if="item.status == 1" small color="blue lighten-2" dark>Disetujui</v-chip>
                                 <v-chip v-if="item.status == 2" small color="success" dark>Lulus</v-chip>
-                            </template>
-                            <template v-slot:item.actions="{ item }">
-                              <v-tooltip bottom>
-                                <template v-slot:activator="{ on }">
-                                  <v-btn class="mr-2" v-on="on" icon color="pink darken-3" @click="editedSyaratDialog(item)" target="_blank">
-                                    <v-icon>
-                                      mdi-pencil
-                                    </v-icon>
-                                  </v-btn>
-                                </template>
-                                <span>Upload Syarat</span>
-                              </v-tooltip>
-                              <v-tooltip bottom>
-                                <template v-slot:activator="{ on }">
-                                  <v-btn class="mr-2" v-on="on" icon color="primary" :href="item.file">
-                                    <v-icon>
-                                      cloud_download
-                                    </v-icon>
-                                  </v-btn>
-                                </template>
-                                <span>Download file</span>
-                              </v-tooltip>
-                              <v-tooltip bottom>
-                                <template v-slot:activator="{ on }">
-                                  <v-btn class="mr-2" v-on="on" icon color="orange lightern-1" :href="item.file" target="_blank">
-                                    <v-icon>
-                                      remove_red_eye
-                                    </v-icon>
-                                  </v-btn>
-                                </template>
-                                <span>Lihat file</span>
-                              </v-tooltip>
-                              <v-tooltip bottom>
-                                <template v-slot:activator="{ on }">
-                                  <v-btn class="mr-2" v-on="on" icon color="pink darken-3" @click="deleteSyaratDialog(item)" target="_blank">
-                                    <v-icon>
-                                      mdi-delete
-                                    </v-icon>
-                                  </v-btn>
-                                </template>
-                                <span>Delete</span>
-                              </v-tooltip>
-                            </template>
+                              </template>
+                              <template #item.actions="{ item }">
+                                <v-tooltip bottom>
+                                  <template #activator="{ on }">
+                                    <v-btn class="mr-2" icon color="pink darken-3" target="_blank" v-on="on" @click="editedSyaratDialog(item)">
+                                      <v-icon>
+                                        mdi-pencil
+                                      </v-icon>
+                                    </v-btn>
+                                  </template>
+                                  <span>Upload Syarat</span>
+                                </v-tooltip>
+                                <v-tooltip bottom>
+                                  <template #activator="{ on }">
+                                    <v-btn class="mr-2" icon color="primary" :href="item.file" v-on="on">
+                                      <v-icon>
+                                        cloud_download
+                                      </v-icon>
+                                    </v-btn>
+                                  </template>
+                                  <span>Download file</span>
+                                </v-tooltip>
+                                <v-tooltip bottom>
+                                  <template #activator="{ on }">
+                                    <v-btn class="mr-2" icon color="orange lightern-1" :href="item.file" target="_blank" v-on="on">
+                                      <v-icon>
+                                        remove_red_eye
+                                      </v-icon>
+                                    </v-btn>
+                                  </template>
+                                  <span>Lihat file</span>
+                                </v-tooltip>
+                                <v-tooltip bottom>
+                                  <template #activator="{ on }">
+                                    <v-btn class="mr-2" icon color="pink darken-3" target="_blank" v-on="on" @click="deleteSyaratDialog(item)">
+                                      <v-icon>
+                                        mdi-delete
+                                      </v-icon>
+                                    </v-btn>
+                                  </template>
+                                  <span>Delete</span>
+                                </v-tooltip>
+                              </template>
                             </v-data-table>
                           </div>
                         </v-col>
@@ -610,13 +610,13 @@
                             icon="info"
                             text
                             type="info"
-                            >
+                          >
                             Upload portofolio yang berkaitan dengan skema ini. <b>Dilakukan saat proses asesmen bersama Asesor!</b>
                           </v-alert>
                           <div class="px-5 py-5">
                             <v-row>
                               <v-dialog v-model="portofolioDialog" persistent max-width="600px">
-                                <template v-slot:activator="{ on }">
+                                <template #activator="{ on }">
                                   <v-btn color="blue darken-3" outlined rounded dark v-on="on">Upload Portofolio</v-btn>
                                 </template>
                                 <v-form>
@@ -642,8 +642,8 @@
                                           <v-col md="12" xs="12" class="py-0">
                                             <label for=""><b>Unit Kompetensi</b></label>
                                             <v-select
-                                              class="mt-2"
                                               v-model="portofolios.uji_kompetensi_id"
+                                              class="mt-2"
                                               :items="peserta.ujiKompetensi"
                                               label="Pilih unit berkaitan dengan portofolio"
                                               item-value="id" item-text="unitKompetensi.unit"
@@ -654,11 +654,11 @@
                                         <v-row>
                                           <v-col md="12">
                                             <label for=""><b>Upload File</b></label>
-                                            <v-text-field readonly class="mt-2" solo label="Pilih Portofolio" hint="Ukuran file Maks. 2MB (PDF)" persistent-hint v-model='portofolios.portofolioName' @click='pickPortofolio' prepend-icon='attach_file'></v-text-field>
+                                            <v-text-field v-model="portofolios.portofolioName" readonly class="mt-2" solo label="Pilih Portofolio" hint="Ukuran file Maks. 2MB (PDF)" persistent-hint prepend-icon="attach_file" @click="pickPortofolio"></v-text-field>
                                             <input
+                                              ref="portofolio"
                                               type="file"
                                               style="display: none"
-                                              ref="portofolio"
                                               accept="application/pdf"
                                               @change="onPortofolioSelected"
                                             >
@@ -670,7 +670,7 @@
                                     <v-card-actions>
                                       <v-spacer></v-spacer>
                                       <v-btn color="grey" text @click="portofolioDialog = false">Close</v-btn>
-                                      <v-btn color="blue darken-1" text @click='uploadPortofolio'>Upload portofolio</v-btn>
+                                      <v-btn color="blue darken-1" text @click="uploadPortofolio">Upload portofolio</v-btn>
                                     </v-card-actions>
                                   </v-card>
                                 </v-form>
@@ -694,52 +694,52 @@
                             >
                             </v-skeleton-loader>
                             <v-data-table
-                                v-if="!state.skeleton"
-                                :headers="portofoliosHeaders"
-                                :items="peserta.portofolio"
-                                :search="searchPortofolio"
-                                :items-per-page="5"
-                                :line-numbers="true"
-                                hide-default-footer
+                              v-if="!state.skeleton"
+                              :headers="portofoliosHeaders"
+                              :items="peserta.portofolio"
+                              :search="searchPortofolio"
+                              :items-per-page="5"
+                              :line-numbers="true"
+                              hide-default-footer
                             >
-                            <template v-slot:top>
-                              <v-dialog v-model="deleteportofolioDialog" persistent max-width="600px">
-                                <v-card>
-                                  <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+                              <template #top>
+                                <v-dialog v-model="deleteportofolioDialog" persistent max-width="600px">
+                                  <v-card>
+                                    <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
 
-                                  <v-card-text>
-                                    Peringatan! Portofolio yang telah dihapus tidak dapat kembali lagi.
-                                  </v-card-text>
+                                    <v-card-text>
+                                      Peringatan! Portofolio yang telah dihapus tidak dapat kembali lagi.
+                                    </v-card-text>
 
-                                  <v-card-actions>
-                                  <v-spacer></v-spacer>
-                                  <v-btn color="grey" text @click="deleteportofolioDialog = false">Batal</v-btn>
-                                  <v-btn color="red darken-1" text @click='deletePortofolio'>Delete Portofolio</v-btn>
-                                </v-card-actions>
-                                </v-card>
-                              </v-dialog>
-                            </template>
-                            <template v-slot:item.valid="{ item }">
+                                    <v-card-actions>
+                                      <v-spacer></v-spacer>
+                                      <v-btn color="grey" text @click="deleteportofolioDialog = false">Batal</v-btn>
+                                      <v-btn color="red darken-1" text @click="deletePortofolio">Delete Portofolio</v-btn>
+                                    </v-card-actions>
+                                  </v-card>
+                                </v-dialog>
+                              </template>
+                              <template #item.valid="{ item }">
                                 <v-chip v-if="item.valid == -1" small color="red darken-1" dark>tidak</v-chip>
                                 <v-chip v-if="item.valid == 0" small color="grey" dark>-</v-chip>
                                 <v-chip v-if="item.valid == 1" small color="primary" dark>Ya</v-chip>
-                            </template>
-                            <template v-slot:item.memadai="{ item }">
+                              </template>
+                              <template #item.memadai="{ item }">
                                 <v-chip v-if="item.memadai == -1" small color="red darken-1" dark>tidak</v-chip>
                                 <v-chip v-if="item.memadai == 0" small color="grey" dark>-</v-chip>
                                 <v-chip v-if="item.memadai == 1" small color="primary" dark>Ya</v-chip>
-                            </template>
-                            <template v-slot:item.asli="{ item }">
+                              </template>
+                              <template #item.asli="{ item }">
                                 <v-chip v-if="item.asli == -1" small color="red darken-1" dark>tidak</v-chip>
                                 <v-chip v-if="item.asli == 0" small color="grey" dark>-</v-chip>
                                 <v-chip v-if="item.asli == 1" small color="primary" dark>Ya</v-chip>
-                            </template>
-                            <template v-slot:item.terkini="{ item }">
+                              </template>
+                              <template #item.terkini="{ item }">
                                 <v-chip v-if="item.terkini == -1" small color="red darken-1" dark>tidak</v-chip>
                                 <v-chip v-if="item.terkini == 0" small color="grey" dark>-</v-chip>
                                 <v-chip v-if="item.terkini == 1" small color="primary" dark>Ya</v-chip>
-                            </template>
-                            <template v-slot:item.actions="{ item }">
+                              </template>
+                              <template #item.actions="{ item }">
                                 <v-btn icon color="blue darken-3" :to="item.file" download target="_blank">
                                   <v-icon
                                     class="mr-2"
@@ -761,7 +761,7 @@
                                 >
                                   mdi-delete
                                 </v-icon>
-                            </template>
+                              </template>
                             </v-data-table>
                           </div>
                         </v-col>
@@ -779,457 +779,457 @@
 
 </template>
 <script>
-import { ACC_PERSETUJUAN_PESERTA_MUTATION, CREATE_UMPAN_BALIK_PESERTA_MUTATION, GET_JADWALS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS, GET_REPORT_DETAIL, UPLOAD_SYARAT, UPLOAD_PORTOFOLIO, DELETE_SYARAT_PESERTA_MUTATION, DELETE_PORTOFOLIO_MUTATION } from '@/constants/graphql';
-import { GET_UMPAN_BALIKS, } from '../../../constants/graphql';
+import { ACC_PERSETUJUAN_PESERTA_MUTATION, CREATE_UMPAN_BALIK_PESERTA_MUTATION, GET_JADWALS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS, GET_REPORT_DETAIL, UPLOAD_SYARAT, UPLOAD_PORTOFOLIO, DELETE_SYARAT_PESERTA_MUTATION, DELETE_PORTOFOLIO_MUTATION } from '@/constants/graphql'
+import { GET_UMPAN_BALIKS, } from '../../../constants/graphql'
 
-  export default {
-    name: 'index',
-    layout: 'App_asesi',
-    data() {
-      return {
-        umpanDialog: false,
-        tambahDialog: false,
-        portofolioDialog: false,
-        deleteportofolioDialog: false,
-        deletesyaratDialog: false,
-        search: '',
-        searchPortofolio: '',
-        headers: [
-          { text: 'Syarat', value: 'syarat.syarat' },
-          { text: 'File', value: 'file'},
-          { text: 'Status', value: 'status'},
-          { text: 'Aksi', value: 'actions' },
-        ],
-        portofoliosHeaders: [ 
-          { text: 'Nama', value: 'nama' },
-          { text: 'Valid', value: 'valid' },
-          { text: 'Memadai', value: 'memadai' },
-          { text: 'Keaslian', value: 'asli' },
-          { text: 'terkini', value: 'terkini' },
-          // { text: 'File', value: 'file'},
-          { text: 'Aksi', value: 'actions' },
-        ],
-        catatan: null,
-        editedSyarat: {
-          id: '',
-          file: null,
-          syarat: {
-            syarat: null
-          }
-        },
-        syarats: {
-            syarat: '',
-            syaratName: '',
-            syaratUrl: null,
-            syaratFile: ''
-        },
-        syaratDialog: false,
-        portofolios: {
-            nama: null,
-            uji_kompetensi_id: null,
-            portofolioName: '',
-            portofolioUrl: null,
-            portofolioFile: ''
-        },
-        id: this.$route.params.id,
-        deletedPortofolio:{},
-        deletedSyarat:{},
-        state:{
-          loading: false,
-          skeleton: true
-        },
-        alert:{
-          show: false,
-          type: '',
-          message: '',
-        },
-        valid: true,
-        e1: 1,
-        profile: {
-          username: ''
-        },
-        checkbox: null,
-        disabledMenu: true,
-        skema: [],
-        syarat: [],
-        syaratUpload: [],
-        portofolio: [],
-        portofolioUpload: [],
-        form: {
-          tulis: null,
-          lisan: null
-        },
-        items: [
-        ],
-        umpan_balik: [],
-        umpanBaliks: [],
-        peserta: [],
-        asesi: [],
-        e11: {},
-      };
-    },
-    mounted() {
-      this.getJadwal();
-    },
-    methods: {
-      deleteSyaratDialog(item){
-        // this.deletedIndex = this.kriteriauks.indexOf(item);
-        this.deletedSyarat = Object.assign({}, item);
-        this.deletesyaratDialog = true;
-      },
-      deletePortofolioDialog(item){
-        // this.deletedIndex = this.kriteriauks.indexOf(item);
-        this.deletedPortofolio = Object.assign({}, item);
-        this.deleteportofolioDialog = true;
-      },
-      getIndex(list, id) {
-        return list.findIndex((e) => e.id == id);
-      },
-      pickSyarat() {
-            this.$refs.syarat.click();
-      },
-      pickPortofolio() {
-            this.$refs.portofolio.click();
-      },
-      editedSyaratDialog(item) {
-        console.log('hello');
-        this.editedSyarat = Object.assign({}, item);
-        this.syaratDialog = true;
-      },
-      onSyaratSelected(e) {
-        const syaratFile = e.target.files;
-
-        if(syaratFile[0] !== undefined) {
-            this.syarats.syaratName = syaratFile[0].name;
-            if(this.syarats.syaratName.lastIndexOf('.') <= 0) {
-                return;
-            }
-            const fr = new FileReader ();
-            fr.readAsDataURL(syaratFile[0]);
-            fr.addEventListener('load', () => {
-                this.syarats.syaratUrl = fr.result;
-                this.syarats.syaratFile = syaratFile[0]; // this is an ttd file that can be sent to server...
-            });
-        } else {
-            this.syarats.syaratName = '';
-            this.syarats.syaratFile = '';
-            this.syarats.syaratUrl = '';
+export default {
+  name: 'Index',
+  layout: 'App_asesi',
+  data() {
+    return {
+      umpanDialog: false,
+      tambahDialog: false,
+      portofolioDialog: false,
+      deleteportofolioDialog: false,
+      deletesyaratDialog: false,
+      search: '',
+      searchPortofolio: '',
+      headers: [
+        { text: 'Syarat', value: 'syarat.syarat' },
+        { text: 'File', value: 'file'},
+        { text: 'Status', value: 'status'},
+        { text: 'Aksi', value: 'actions' },
+      ],
+      portofoliosHeaders: [ 
+        { text: 'Nama', value: 'nama' },
+        { text: 'Valid', value: 'valid' },
+        { text: 'Memadai', value: 'memadai' },
+        { text: 'Keaslian', value: 'asli' },
+        { text: 'terkini', value: 'terkini' },
+        // { text: 'File', value: 'file'},
+        { text: 'Aksi', value: 'actions' },
+      ],
+      catatan: null,
+      editedSyarat: {
+        id: '',
+        file: null,
+        syarat: {
+          syarat: null
         }
       },
-      onPortofolioSelected(e) {
-        const portofolioFile = e.target.files;
-
-        if(portofolioFile[0] !== undefined) {
-            this.portofolios.portofolioName = portofolioFile[0].name;
-            if(this.portofolios.portofolioName.lastIndexOf('.') <= 0) {
-                return;
-            }
-            const fr = new FileReader ();
-            fr.readAsDataURL(portofolioFile[0]);
-            fr.addEventListener('load', () => {
-                this.portofolios.portofolioUrl = fr.result;
-                this.portofolios.portofolioFile = portofolioFile[0]; // this is an ttd file that can be sent to server...
-            });
-        } else {
-            this.portofolios.portofolioName = '';
-            this.portofolios.portofolioFile = '';
-            this.portofolios.portofolioUrl = '';
-        }
+      syarats: {
+        syarat: '',
+        syaratName: '',
+        syaratUrl: null,
+        syaratFile: ''
       },
-      // onSyaratSelected(index, e) {
-      //   if (this.syarats[index] == null) {
-      //       this.syarats[index] = {};
-      //   }
-      //   const syaratFile = e.target.files;
+      syaratDialog: false,
+      portofolios: {
+        nama: null,
+        uji_kompetensi_id: null,
+        portofolioName: '',
+        portofolioUrl: null,
+        portofolioFile: ''
+      },
+      id: this.$route.params.id,
+      deletedPortofolio:{},
+      deletedSyarat:{},
+      state:{
+        loading: false,
+        skeleton: true
+      },
+      alert:{
+        show: false,
+        type: '',
+        message: '',
+      },
+      valid: true,
+      e1: 1,
+      profile: {
+        username: ''
+      },
+      checkbox: null,
+      disabledMenu: true,
+      skema: [],
+      syarat: [],
+      syaratUpload: [],
+      portofolio: [],
+      portofolioUpload: [],
+      form: {
+        tulis: null,
+        lisan: null
+      },
+      items: [
+      ],
+      umpan_balik: [],
+      umpanBaliks: [],
+      peserta: [],
+      asesi: [],
+      e11: {},
+    }
+  },
+  mounted() {
+    this.getJadwal()
+  },
+  methods: {
+    deleteSyaratDialog(item){
+      // this.deletedIndex = this.kriteriauks.indexOf(item);
+      this.deletedSyarat = Object.assign({}, item)
+      this.deletesyaratDialog = true
+    },
+    deletePortofolioDialog(item){
+      // this.deletedIndex = this.kriteriauks.indexOf(item);
+      this.deletedPortofolio = Object.assign({}, item)
+      this.deleteportofolioDialog = true
+    },
+    getIndex(list, id) {
+      return list.findIndex((e) => e.id == id)
+    },
+    pickSyarat() {
+      this.$refs.syarat.click()
+    },
+    pickPortofolio() {
+      this.$refs.portofolio.click()
+    },
+    editedSyaratDialog(item) {
+      console.log('hello')
+      this.editedSyarat = Object.assign({}, item)
+      this.syaratDialog = true
+    },
+    onSyaratSelected(e) {
+      const syaratFile = e.target.files
+
+      if(syaratFile[0] !== undefined) {
+        this.syarats.syaratName = syaratFile[0].name
+        if(this.syarats.syaratName.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader ()
+        fr.readAsDataURL(syaratFile[0])
+        fr.addEventListener('load', () => {
+          this.syarats.syaratUrl = fr.result
+          this.syarats.syaratFile = syaratFile[0] // this is an ttd file that can be sent to server...
+        })
+      } else {
+        this.syarats.syaratName = ''
+        this.syarats.syaratFile = ''
+        this.syarats.syaratUrl = ''
+      }
+    },
+    onPortofolioSelected(e) {
+      const portofolioFile = e.target.files
+
+      if(portofolioFile[0] !== undefined) {
+        this.portofolios.portofolioName = portofolioFile[0].name
+        if(this.portofolios.portofolioName.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader ()
+        fr.readAsDataURL(portofolioFile[0])
+        fr.addEventListener('load', () => {
+          this.portofolios.portofolioUrl = fr.result
+          this.portofolios.portofolioFile = portofolioFile[0] // this is an ttd file that can be sent to server...
+        })
+      } else {
+        this.portofolios.portofolioName = ''
+        this.portofolios.portofolioFile = ''
+        this.portofolios.portofolioUrl = ''
+      }
+    },
+    // onSyaratSelected(index, e) {
+    //   if (this.syarats[index] == null) {
+    //       this.syarats[index] = {};
+    //   }
+    //   const syaratFile = e.target.files;
         
-      //   if(syaratFile[0] !== undefined) {
-      //       this.syarats[index].syaratName = syaratFile[0].name;
-      //       if(this.syarats[index].syaratName.lastIndexOf('.') <= 0) {
-      //           return;
-      //       }
-      //       const fr = new FileReader ();
-      //       fr.readAsDataURL(syaratFile[0]);
-      //       fr.addEventListener('load', () => {
-      //           this.syarats[index].syaratUrl = fr.result;
-      //           this.syarats[index].syaratFile = syaratFile[0]; 
-      //       });
-      //   } else {
-      //       this.syarats[index].syaratName = '';
-      //       this.syarats[index].syaratFile = '';
-      //       this.syarats[index].syaratUrl = '';
-      //   }
-      // },
-      // pickSyarat(id) {
-      //   console.log(id);
-      //   this.$refs[id][0].click();
-      // },
-      async getumpanBaliks () {
-        const result = await this.$apollo.mutate({
-            mutation: GET_UMPAN_BALIKS
-        }).then(({ data }) => {
-            this.umpanBaliks = data.umpanBaliks;
-            for (let i = 0; i < data.umpanBaliks.length; i++) {
-              this.umpan_balik.push({
-                umpan_balik_id: data.umpanBaliks[i].id,
-                hasil: null,
-                catatan: null
-              });
-            }
-            console.log(data);
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      pickImage() {
-        this.$refs.image.click();
-      },
-      showAlert(type, message) {
-        this.alert = { show: true, type, message };
-      },
-      async getJadwal() {
-          // this.alert.show = false;
-          const { id } = this.$data;
-        const result = await this.$apollo.mutate({
-            mutation: GET_REPORT_DETAIL,
-            variables: {
-              id
-            }
-        }).then(({ data }) => {
-            if (data.peserta.status == 2 || data.peserta.status == -2) {
-              this.disabledMenu = false;
-            }
-            this.peserta = data.peserta;
-            // this.items = data.peserta.syaratPeserta;
-            console.log(data);
-        }).catch((error) => {
-          console.log(error);
-        }).finally(() => {
-          this.state.skeleton = false;
-          this.getumpanBaliks();
-        });
-      },
-      async accPersetujuanPeserta() {
-        // const jenis_tes = '';
-        if (this.form.tulis != null) {
-          this.jenis_tes = '1';
+    //   if(syaratFile[0] !== undefined) {
+    //       this.syarats[index].syaratName = syaratFile[0].name;
+    //       if(this.syarats[index].syaratName.lastIndexOf('.') <= 0) {
+    //           return;
+    //       }
+    //       const fr = new FileReader ();
+    //       fr.readAsDataURL(syaratFile[0]);
+    //       fr.addEventListener('load', () => {
+    //           this.syarats[index].syaratUrl = fr.result;
+    //           this.syarats[index].syaratFile = syaratFile[0]; 
+    //       });
+    //   } else {
+    //       this.syarats[index].syaratName = '';
+    //       this.syarats[index].syaratFile = '';
+    //       this.syarats[index].syaratUrl = '';
+    //   }
+    // },
+    // pickSyarat(id) {
+    //   console.log(id);
+    //   this.$refs[id][0].click();
+    // },
+    async getumpanBaliks () {
+      const result = await this.$apollo.mutate({
+        mutation: GET_UMPAN_BALIKS
+      }).then(({ data }) => {
+        this.umpanBaliks = data.umpanBaliks
+        for (let i = 0; i < data.umpanBaliks.length; i++) {
+          this.umpan_balik.push({
+            umpan_balik_id: data.umpanBaliks[i].id,
+            hasil: null,
+            catatan: null
+          })
         }
-        if (this.form.lisan != null) {
-          this.jenis_tes = '2';
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    pickImage() {
+      this.$refs.image.click()
+    },
+    showAlert(type, message) {
+      this.alert = { show: true, type, message }
+    },
+    async getJadwal() {
+      // this.alert.show = false;
+      const { id } = this.$data
+      const result = await this.$apollo.mutate({
+        mutation: GET_REPORT_DETAIL,
+        variables: {
+          id
         }
-        if (this.form.lisan && this.form.tulis != null) {
-          this.jenis_tes = '3';
+      }).then(({ data }) => {
+        if (data.peserta.status == 2 || data.peserta.status == -2) {
+          this.disabledMenu = false
         }
-        const jenis_tes = this.jenis_tes;
-        const peserta_id = this.$route.params.id;
-        const result = await this.$apollo.mutate({
-              mutation: ACC_PERSETUJUAN_PESERTA_MUTATION,
-              variables: {
-                peserta_id, jenis_tes
-              }
-        }).then(({ data }) => {
-            this.showAlert('success', 'Form FR.AK.01 berhasil dikirim');
-            console.log(data);
-            this.getJadwal();
-        }).catch(({graphQLErrors}) => {
-            this.showAlert('error', graphQLErrors[0].message);
-        }).finally(() => {
-          this.state.skeleton = false;
-          this.tambahDialog = false;
-        });
-        // console.log(jenis_tes);
-      },
-      async createUmpanBalikPeserta() {
-        const peserta_id = this.$route.params.id;
-        const catatan = this.catatan;
-        const umpan_balik = this.umpan_balik;
-        const result = await this.$apollo.mutate({
-              mutation:  CREATE_UMPAN_BALIK_PESERTA_MUTATION,
-              variables: {
-                peserta_id, umpan_balik, catatan
-              }
-        }).then(({ data }) => {
-            this.showAlert('success', 'Form FR.AK.03 berhasil dikirim');
-            console.log(data);
-            this.getJadwal();
-        }).catch(({graphQLErrors}) => {
-            this.showAlert('error', graphQLErrors[0].message);
-        }).finally(() => {
-          this.state.skeleton = false;
-          this.umpanDialog = false;
-        });
-        // console.log(jenis_tes);
-      },
-      async getSyarat() {
-          const { id } = this.$data;
-          const result = await this.$apollo.mutate({
-              mutation: GET_REPORT_DETAIL
-        }).then(({ data }) => {
-            this.peserta = data.peserta;
-            this.items = data.peserta.syaratPeserta;
-            console.log(data);
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      async uploadSyarat() {
-        const { state: { loading } } = this;
-        if (!loading) {
-          this.state.loading = true;
-          console.log(this.items.length);
+        this.peserta = data.peserta
+        // this.items = data.peserta.syaratPeserta;
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      }).finally(() => {
+        this.state.skeleton = false
+        this.getumpanBaliks()
+      })
+    },
+    async accPersetujuanPeserta() {
+      // const jenis_tes = '';
+      if (this.form.tulis != null) {
+        this.jenis_tes = '1'
+      }
+      if (this.form.lisan != null) {
+        this.jenis_tes = '2'
+      }
+      if (this.form.lisan && this.form.tulis != null) {
+        this.jenis_tes = '3'
+      }
+      const jenis_tes = this.jenis_tes
+      const peserta_id = this.$route.params.id
+      const result = await this.$apollo.mutate({
+        mutation: ACC_PERSETUJUAN_PESERTA_MUTATION,
+        variables: {
+          peserta_id, jenis_tes
+        }
+      }).then(({ data }) => {
+        this.showAlert('success', 'Form FR.AK.01 berhasil dikirim')
+        console.log(data)
+        this.getJadwal()
+      }).catch(({graphQLErrors}) => {
+        this.showAlert('error', graphQLErrors[0].message)
+      }).finally(() => {
+        this.state.skeleton = false
+        this.tambahDialog = false
+      })
+      // console.log(jenis_tes);
+    },
+    async createUmpanBalikPeserta() {
+      const peserta_id = this.$route.params.id
+      const catatan = this.catatan
+      const umpan_balik = this.umpan_balik
+      const result = await this.$apollo.mutate({
+        mutation:  CREATE_UMPAN_BALIK_PESERTA_MUTATION,
+        variables: {
+          peserta_id, umpan_balik, catatan
+        }
+      }).then(({ data }) => {
+        this.showAlert('success', 'Form FR.AK.03 berhasil dikirim')
+        console.log(data)
+        this.getJadwal()
+      }).catch(({graphQLErrors}) => {
+        this.showAlert('error', graphQLErrors[0].message)
+      }).finally(() => {
+        this.state.skeleton = false
+        this.umpanDialog = false
+      })
+      // console.log(jenis_tes);
+    },
+    async getSyarat() {
+      const { id } = this.$data
+      const result = await this.$apollo.mutate({
+        mutation: GET_REPORT_DETAIL
+      }).then(({ data }) => {
+        this.peserta = data.peserta
+        this.items = data.peserta.syaratPeserta
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    async uploadSyarat() {
+      const { state: { loading } } = this
+      if (!loading) {
+        this.state.loading = true
+        console.log(this.items.length)
           
-          const id = this.editedSyarat.id;
-          // const syarat = this.syarats.syarat;
-          const file = this.syarats.syaratUrl;
+        const id = this.editedSyarat.id
+        // const syarat = this.syarats.syarat;
+        const file = this.syarats.syaratUrl
 
-          const result = await this.$apollo.mutate({
+        const result = await this.$apollo.mutate({
           mutation: UPLOAD_SYARAT,
           variables: {
-              id,
-              file
+            id,
+            file
           }
-          }).then(({ data }) => {
-              this.showAlert('success', 'Data anda telah berhasil diupload');
-              console.log(data);
-          }).catch(({graphQLErrors}) => {
-              this.showAlert('error', graphQLErrors[0].message);
-              console.log(graphQLErrors);
-          }).finally(() => {
-            this.state.loading = false;
-            this.syaratDialog = false;
-            this.getJadwal();
-          });
-        }
-      },
-      // async uploadSyarat() {
-      //   const { state: { loading } } = this;
-      //   if (!loading) {
-      //     this.state.loading = true;
-      //     console.log(this.items.length);
+        }).then(({ data }) => {
+          this.showAlert('success', 'Data anda telah berhasil diupload')
+          console.log(data)
+        }).catch(({graphQLErrors}) => {
+          this.showAlert('error', graphQLErrors[0].message)
+          console.log(graphQLErrors)
+        }).finally(() => {
+          this.state.loading = false
+          this.syaratDialog = false
+          this.getJadwal()
+        })
+      }
+    },
+    // async uploadSyarat() {
+    //   const { state: { loading } } = this;
+    //   if (!loading) {
+    //     this.state.loading = true;
+    //     console.log(this.items.length);
           
-      //     const peserta_id = this.peserta.id;
-      //     const syarat = this.syarats.syarat;
-      //     const file = this.syarats.syaratUrl;
+    //     const peserta_id = this.peserta.id;
+    //     const syarat = this.syarats.syarat;
+    //     const file = this.syarats.syaratUrl;
 
-      //     const result = await this.$apollo.mutate({
-      //     mutation: UPLOAD_SYARAT,
-      //     variables: {
-      //         peserta_id,
-      //         file,
-      //         syarat
-      //     }
-      //     }).then(({ data }) => {
-      //         this.showAlert('success', 'Data anda telah berhasil diupload');
-      //         console.log(data);
-      //     }).catch(({graphQLErrors}) => {
-      //         this.showAlert('error', graphQLErrors[0].message);
-      //         console.log(graphQLErrors);
-      //     }).finally(() => {
-      //       this.state.loading = false;
-      //       this.tambahDialog = false;
-      //       this.getJadwal();
-      //     });
-      //   }
-      // },
-      async uploadPortofolio() {
-        const { state: { loading } } = this;
-        if (!loading) {
-          this.state.loading = true;          
-          const peserta_id = this.peserta.id;
-          const { portofolios: {nama, uji_kompetensi_id} } = this.$data;
-          const file = this.portofolios.portofolioUrl;
+    //     const result = await this.$apollo.mutate({
+    //     mutation: UPLOAD_SYARAT,
+    //     variables: {
+    //         peserta_id,
+    //         file,
+    //         syarat
+    //     }
+    //     }).then(({ data }) => {
+    //         this.showAlert('success', 'Data anda telah berhasil diupload');
+    //         console.log(data);
+    //     }).catch(({graphQLErrors}) => {
+    //         this.showAlert('error', graphQLErrors[0].message);
+    //         console.log(graphQLErrors);
+    //     }).finally(() => {
+    //       this.state.loading = false;
+    //       this.tambahDialog = false;
+    //       this.getJadwal();
+    //     });
+    //   }
+    // },
+    async uploadPortofolio() {
+      const { state: { loading } } = this
+      if (!loading) {
+        this.state.loading = true          
+        const peserta_id = this.peserta.id
+        const { portofolios: {nama, uji_kompetensi_id} } = this.$data
+        const file = this.portofolios.portofolioUrl
 
-          const result = await this.$apollo.mutate({
+        const result = await this.$apollo.mutate({
           mutation: UPLOAD_PORTOFOLIO,
           variables: {
-              nama,
-              peserta_id,
-              uji_kompetensi_id,
-              file
+            nama,
+            peserta_id,
+            uji_kompetensi_id,
+            file
           }
-          }).then(({ data }) => {
-              this.showAlert('success', 'Data anda telah berhasil diupload');
-              console.log(data);
-          }).catch(({graphQLErrors}) => {
-              this.showAlert('error', graphQLErrors[0].message);
-              console.log(graphQLErrors);
-          }).finally(() => {
-            this.state.loading = false;
-            this.portofolioDialog = false;
-            this.getJadwal();
-          });
+        }).then(({ data }) => {
+          this.showAlert('success', 'Data anda telah berhasil diupload')
+          console.log(data)
+        }).catch(({graphQLErrors}) => {
+          this.showAlert('error', graphQLErrors[0].message)
+          console.log(graphQLErrors)
+        }).finally(() => {
+          this.state.loading = false
+          this.portofolioDialog = false
+          this.getJadwal()
+        })
+      }
+    },
+    async deleteSyarat() {
+      this.alert.show = false
+      const { deletedSyarat: {id} } = this.$data
+      const result = await this.$apollo.mutate({
+        mutation: DELETE_SYARAT_PESERTA_MUTATION,
+        variables: {
+          id
         }
-      },
-      async deleteSyarat() {
-        this.alert.show = false;
-        const { deletedSyarat: {id} } = this.$data;
-        const result = await this.$apollo.mutate({
-              mutation: DELETE_SYARAT_PESERTA_MUTATION,
-              variables: {
-                id
-              }
-        }).then(({ data }) => {
-            this.showAlert('success', 'Syarat berhasil dihapus');
-            this.state.skeleton = true;
-            this.getJadwal();
-        }).catch(({graphQLErrors}) => {
-          console.log(graphQLErrors);
-          this.showAlert('error', graphQLErrors[0].message);
-        }).finally(() => {
-          this.state.skeleton = false;
-          this.deletesyaratDialog = false;
-        });
-      },
-      async deletePortofolio() {
-        this.alert.show = false;
-        const { deletedPortofolio: {id} } = this.$data;
-        const result = await this.$apollo.mutate({
-              mutation: DELETE_PORTOFOLIO_MUTATION,
-              variables: {
-                id
-              }
-        }).then(({ data }) => {
-            this.showAlert('success', 'Portofolio berhasil dihapus');
-            this.state.skeleton = true;
-            this.getJadwal();
-        }).catch(({graphQLErrors}) => {
-          console.log(graphQLErrors);
-          this.showAlert('error', graphQLErrors[0].message);
-        }).finally(() => {
-          this.state.skeleton = false;
-          this.deleteportofolioDialog = false;
-        });
-      },
-      // async uploadSyarat() {
-      //   const { state: { loading } } = this;
-      //   if (!loading) {
-      //     this.state.loading = true;
-      //     console.log(this.items.length);
-      //     if (this.items.length >= 1) {
-      //       for (let index = 0; index < this.items.length; index++) {
-      //         const id = this.items[index].id;
-      //         const file = this.syarats[index].syaratUrl;
+      }).then(({ data }) => {
+        this.showAlert('success', 'Syarat berhasil dihapus')
+        this.state.skeleton = true
+        this.getJadwal()
+      }).catch(({graphQLErrors}) => {
+        console.log(graphQLErrors)
+        this.showAlert('error', graphQLErrors[0].message)
+      }).finally(() => {
+        this.state.skeleton = false
+        this.deletesyaratDialog = false
+      })
+    },
+    async deletePortofolio() {
+      this.alert.show = false
+      const { deletedPortofolio: {id} } = this.$data
+      const result = await this.$apollo.mutate({
+        mutation: DELETE_PORTOFOLIO_MUTATION,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        this.showAlert('success', 'Portofolio berhasil dihapus')
+        this.state.skeleton = true
+        this.getJadwal()
+      }).catch(({graphQLErrors}) => {
+        console.log(graphQLErrors)
+        this.showAlert('error', graphQLErrors[0].message)
+      }).finally(() => {
+        this.state.skeleton = false
+        this.deleteportofolioDialog = false
+      })
+    },
+    // async uploadSyarat() {
+    //   const { state: { loading } } = this;
+    //   if (!loading) {
+    //     this.state.loading = true;
+    //     console.log(this.items.length);
+    //     if (this.items.length >= 1) {
+    //       for (let index = 0; index < this.items.length; index++) {
+    //         const id = this.items[index].id;
+    //         const file = this.syarats[index].syaratUrl;
 
-      //         const result = await this.$apollo.mutate({
-      //         mutation: UPLOAD_SYARAT,
-      //         variables: {
-      //             id,
-      //             file
-      //         }
-      //         }).then(({ data }) => {
-      //             this.showAlert('success', 'Data anda telah berhasil diupload');
-      //             console.log(data);
-      //         }).catch(({graphQLErrors}) => {
-      //             this.showAlert('error', graphQLErrors[0].message);
-      //             console.log(graphQLErrors);
-      //         }).finally(() => {
-      //           this.state.loading = false;
-      //         });
-      //       }
-      //     }
-      //   }
-      // }
-    }
-  };
+    //         const result = await this.$apollo.mutate({
+    //         mutation: UPLOAD_SYARAT,
+    //         variables: {
+    //             id,
+    //             file
+    //         }
+    //         }).then(({ data }) => {
+    //             this.showAlert('success', 'Data anda telah berhasil diupload');
+    //             console.log(data);
+    //         }).catch(({graphQLErrors}) => {
+    //             this.showAlert('error', graphQLErrors[0].message);
+    //             console.log(graphQLErrors);
+    //         }).finally(() => {
+    //           this.state.loading = false;
+    //         });
+    //       }
+    //     }
+    //   }
+    // }
+  }
+}
 
 </script>
 <style lang="scss" scoped>

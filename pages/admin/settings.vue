@@ -15,8 +15,8 @@
               color="primary accent-4"
               elevation="2"
             >
-            <h3 class="mt-0"><strong>Selamat Datang Admin</strong></h3>
-            Hai <strong>{{ this.profile.username }}</strong>, selamat datang di halaman LSP UPN Jatim Assesmen Online. Silahkan klik menu untuk mengelola website.
+              <h3 class="mt-0"><strong>Selamat Datang Admin</strong></h3>
+              Hai <strong>{{ profile.username }}</strong>, selamat datang di halaman LSP TIFA Assesmen Online. Silahkan klik menu untuk mengelola website.
             </v-alert>
             <div class="col-lg-6 col-xs-12">
               <v-card>
@@ -30,7 +30,7 @@
                 </v-toolbar>
                 <div class="px-5">
                   <v-card-text>
-                    Untuk dapat mengikuti Uji Kompetensi LSP UPN Jatim Anda harus mendaftar uji dengan klik tombol <strong>Daftar Uji</strong>
+                    Untuk dapat mengikuti Uji Kompetensi LSP TIFA Anda harus mendaftar uji dengan klik tombol <strong>Daftar Uji</strong>
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -48,27 +48,27 @@
 </template>
 <script>
 
-  export default {
-    name: 'index',
-    layout: 'App_admin',
-    data() {
-      return {
-        profile: {
-          username: ''
-        },
-        items: [
-        ]
-      };
-    },
-    mounted() {
-    //   this.checkAsesiData();
-    },
-    methods: {
-      checkAsesiData() {
-        this.profile.username = localStorage.getItem('lsp-username');
-      }
+export default {
+  name: 'Index',
+  layout: 'App_admin',
+  data() {
+    return {
+      profile: {
+        username: ''
+      },
+      items: [
+      ]
     }
-  };
+  },
+  mounted() {
+    //   this.checkAsesiData();
+  },
+  methods: {
+    checkAsesiData() {
+      this.profile.username = localStorage.getItem('lsp-username')
+    }
+  }
+}
 
 </script>
 <style lang="scss" scoped>

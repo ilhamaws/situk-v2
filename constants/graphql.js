@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const CREATE_ASESI_MUTATION = gql `
 mutation createAsesi($lembaga_id: ID!, $npm: String, $jurusan_id: ID!, $pendidikan_id: ID!, $pekerjaan_id: ID!, $kota_id: Int!, $nik: String!, 
@@ -26,7 +26,7 @@ mutation createAsesi($lembaga_id: ID!, $npm: String, $jurusan_id: ID!, $pendidik
     nama
   }
 }
-`;
+`
 
 export const CREATE_ASESOR_MUTATION = gql `
 mutation createAsesor($user_id: ID, $name: String!, $skema_id: ID!, $no_registrasi: String, $no_sertifikat: String, 
@@ -46,7 +46,7 @@ mutation createAsesor($user_id: ID, $name: String!, $skema_id: ID!, $no_registra
     id
   }
 }
-`;
+`
 
 export const UPDATE_ASESOR_MUTATION = gql `
 mutation updateAsesor($user_id: ID, $nama: String!, $skema_id: ID!, $no_registrasi: String, $no_sertifikat: String, 
@@ -66,7 +66,7 @@ mutation updateAsesor($user_id: ID, $nama: String!, $skema_id: ID!, $no_registra
     id
   }
 }
-`;
+`
 
 export const SIGNIN_MUTATION = gql `
 mutation($email: String!, $password: String!) {
@@ -86,7 +86,7 @@ mutation($email: String!, $password: String!) {
       }
     }
   }
-`;
+`
 
 export const SIGNUP_MUTATION = gql `
 mutation($email: String!, $password: String!, $password_confirm: String!) {
@@ -96,7 +96,7 @@ mutation($email: String!, $password: String!, $password_confirm: String!) {
     password_confirmation : $password_confirm
   )
 }
-`;
+`
 
 export const UPDATE_SELF_USER = gql `
 mutation($email: String, $old_password: String, $password: String, $password_confirmation: String) {
@@ -107,7 +107,7 @@ mutation($email: String, $old_password: String, $password: String, $password_con
     password_confirmation : $password_confirmation
   )
 }
-`;
+`
 
 export const CREATE_USER_MUTATION = gql `
 mutation($email: String!, $password: String!, $role_id: ID) {
@@ -119,7 +119,7 @@ mutation($email: String!, $password: String!, $role_id: ID) {
     email
   }
 }
-`;
+`
 
 export const UPDATE_USER_MUTATION = gql `
 mutation($id: ID!, $email: String!, $password: String!) {
@@ -131,7 +131,7 @@ mutation($id: ID!, $email: String!, $password: String!) {
     email
   }
 }
-`;
+`
 
 export const DELETE_USER_MUTATION = gql `
 mutation deleteUser($id: ID!){
@@ -139,7 +139,7 @@ mutation deleteUser($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const ACC_PERSETUJUAN_PESERTA_MUTATION = gql `
 mutation accPersetujuanPeserta($peserta_id: ID!, $jenis_tes: Int){
@@ -148,7 +148,7 @@ mutation accPersetujuanPeserta($peserta_id: ID!, $jenis_tes: Int){
     jenis_tes: $jenis_tes
   )
 }
-`;
+`
 
 export const ACC_PERSETUJUAN_ASESOR_MUTATION = gql `
 mutation accPersetujuanAsesor($peserta_id: ID!){
@@ -156,7 +156,7 @@ mutation accPersetujuanAsesor($peserta_id: ID!){
     peserta_id: $peserta_id
   )
 }
-`;
+`
 
 export const ACTIVATE_ACCOUNT_MUTATION = gql `
 mutation activate($email: String, $activation: String){
@@ -165,7 +165,7 @@ mutation activate($email: String, $activation: String){
     activation : $activation
   )
 }
-`;
+`
 
 export const VERIFIKASI_PESERTA_MUTATION = gql `
 mutation verifikasiPeserta($id: ID!, $status: Int, $note: String){
@@ -175,7 +175,7 @@ mutation verifikasiPeserta($id: ID!, $status: Int, $note: String){
     note : $note
   )
 }
-`;
+`
 
 export const VERIFIKASI_FILEINPUT_MUTATION = gql `
 mutation verifikasiSyarat(
@@ -187,7 +187,7 @@ mutation verifikasiSyarat(
     status: $status
   )
 }
-`;
+`
 
 export const OBSERVASI_MUTATION = gql `
 mutation observasi($observasi: [observasi]!, $uji_kompetensi_id: ID!, $umpan_balik: String){
@@ -197,7 +197,7 @@ mutation observasi($observasi: [observasi]!, $uji_kompetensi_id: ID!, $umpan_bal
     umpan_balik: $umpan_balik
   )
 }
-`;
+`
 
 export const EVALUASI_PORTOFOLIO_MUTATION = gql `
 mutation evaluasiPortofolio(
@@ -215,7 +215,7 @@ mutation evaluasiPortofolio(
     terkini: $terkini
   )
 }
-`;
+`
 
 export const RESEND_OTP_MUTATION = gql `
 mutation resendOtp($email: String){
@@ -223,7 +223,7 @@ mutation resendOtp($email: String){
     email : $email
   )
 }
-`;
+`
 
 export const RESET_PASSWORD_MUTATION = gql `
 mutation resetPassword($email: String){
@@ -231,7 +231,7 @@ mutation resetPassword($email: String){
     email : $email
   )
 }
-`;
+`
 
 export const CREATE_SKEMA_MUTATION = gql `
 mutation createSkema($kode: String!, $skema: String!, $kategori: String, $bidang: String, $panduan: String, $default_tuk: ID!, $mea: String){
@@ -247,7 +247,7 @@ mutation createSkema($kode: String!, $skema: String!, $kategori: String, $bidang
     skema
   }
 }
-`;
+`
 
 export const UPDATE_SKEMA_MUTATION = gql `
 mutation updateSkema($id: ID!, $kode: String!, $skema: String!, $kategori: String, $bidang: String, $panduan: String, $default_tuk: ID!, $mea: String){
@@ -264,7 +264,7 @@ mutation updateSkema($id: ID!, $kode: String!, $skema: String!, $kategori: Strin
     skema
   }
 }
-`;
+`
 
 export const DELETE_SKEMA_MUTATION = gql `
 mutation deleteSkema($id: ID!){
@@ -272,7 +272,7 @@ mutation deleteSkema($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const CREATE_SYARAT_MUTATION = gql `
 mutation createSyarat($syarat: String!, $skema_id: ID!){
@@ -283,7 +283,7 @@ mutation createSyarat($syarat: String!, $skema_id: ID!){
     id
   }
 }
-`;
+`
 
 export const UPDATE_SYARAT_MUTATION = gql `
 mutation updateSyarat($syarat: String, $id: ID!, $status: Int){
@@ -295,7 +295,7 @@ mutation updateSyarat($syarat: String, $id: ID!, $status: Int){
     id
   }
 }
-`;
+`
 
 export const CREATE_LEMBAGA_MUTATION = gql `
 mutation createlembaga(
@@ -316,7 +316,7 @@ mutation createlembaga(
     nama
   }
 }
-`;
+`
 
 export const UPDATE_LEMBAGA_MUTATION = gql `
 mutation updatelembaga(
@@ -339,7 +339,7 @@ mutation updatelembaga(
     nama
   }
 }
-`;
+`
 
 export const DELETE_LEMBAGA_MUTATION = gql `
 mutation deleteLembaga($id: ID!){
@@ -347,7 +347,7 @@ mutation deleteLembaga($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const CREATE_TUK_MUTATION = gql `
 mutation createTUK(
@@ -365,7 +365,7 @@ mutation createTUK(
     kode
   }
 }
-`;
+`
 
 export const UPDATE_TUK_MUTATION = gql `
 mutation updateTUK(
@@ -385,7 +385,7 @@ mutation updateTUK(
     kode
   }
 }
-`;
+`
 
 export const DELETE_TUK_MUTATION = gql `
 mutation deleteTUK($id: ID!){
@@ -393,7 +393,7 @@ mutation deleteTUK($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const CREATE_FAKULTAS_MUTATION = gql `
 mutation createFakultas(
@@ -405,7 +405,7 @@ mutation createFakultas(
     id
   }
 }
-`;
+`
 
 export const UPDATE_FAKULTAS_MUTATION = gql `
 mutation updateFakultas(
@@ -419,7 +419,7 @@ mutation updateFakultas(
     id
   }
 }
-`;
+`
 
 export const DELETE_FAKULTAS_MUTATION = gql `
 mutation deleteFakultas($id: ID!){
@@ -427,7 +427,7 @@ mutation deleteFakultas($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const CREATE_JURUSAN_MUTATION = gql `
 mutation createJurusan(
@@ -441,7 +441,7 @@ mutation createJurusan(
     id
   }
 }
-`;
+`
 
 export const UPDATE_JURUSAN_MUTATION = gql `
 mutation updateJurusan(
@@ -457,7 +457,7 @@ mutation updateJurusan(
     id
   }
 }
-`;
+`
 
 export const DELETE_JURUSAN_MUTATION = gql `
 mutation deleteJurusan($id: ID!){
@@ -465,7 +465,7 @@ mutation deleteJurusan($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const CREATE_UMPAN_BALIK_MUTATION = gql `
 mutation createUmpanBalik(
@@ -477,7 +477,7 @@ mutation createUmpanBalik(
     id
   }
 }
-`;
+`
 
 export const CREATE_UMPAN_BALIK_PESERTA_MUTATION = gql `
 mutation createUmpanBalikPeserta(
@@ -491,7 +491,7 @@ mutation createUmpanBalikPeserta(
     umpan_balik: $umpan_balik
   )
 }
-`;
+`
 
 export const UPDATE_UMPAN_BALIK_MUTATION = gql `
 mutation updateUmpanBalik(
@@ -507,7 +507,7 @@ mutation updateUmpanBalik(
     id
   }
 }
-`;
+`
 
 export const DELETE_UMPAN_BALIK_MUTATION = gql `
 mutation deleteUmpanBalik(
@@ -517,7 +517,7 @@ mutation deleteUmpanBalik(
     id: $id
   )
 }
-`;
+`
 
 export const UPDATE_ASESOR_PESERTA_MUTATION = gql `
 mutation updateAsesorPeserta($id: ID!, $asesor_id: ID!){
@@ -526,7 +526,7 @@ mutation updateAsesorPeserta($id: ID!, $asesor_id: ID!){
     asesor_id: $asesor_id
   )
 }
-`;
+`
 
 export const RANDOM_ASESOR_MUTATION = gql `
 mutation randomAsesor($asesor_id: [ID], $jadwal_id: ID!){
@@ -535,7 +535,7 @@ mutation randomAsesor($asesor_id: [ID], $jadwal_id: ID!){
     jadwal_id: $jadwal_id
   )
 }
-`;
+`
 
 export const CREATE_JADWAL_MUTATION = gql `
 mutation createJadwal(
@@ -557,7 +557,7 @@ mutation createJadwal(
     id
   }
 }
-`;
+`
 
 export const UPDATE_JADWAL_MUTATION = gql `
 mutation updateJadwal(
@@ -583,7 +583,7 @@ mutation updateJadwal(
     kuota
   }
 }
-`;
+`
 
 export const CANCEL_JADWAL_MUTATION = gql `
 mutation cancelJadwal(
@@ -595,7 +595,7 @@ mutation cancelJadwal(
     id
   }
 }
-`;
+`
 
 // START DELETE MUTATION
 
@@ -605,7 +605,7 @@ mutation deleteElement($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const DELETE_JADWAL_MUTATION = gql `
 mutation deleteJadwal($id: ID!){
@@ -613,7 +613,7 @@ mutation deleteJadwal($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const DELETE_KRITERIAUK_MUTATION = gql `
 mutation deleteKriteriaUK($id: ID!){
@@ -621,7 +621,7 @@ mutation deleteKriteriaUK($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const DELETE_PESERTA_MUTATION = gql `
 mutation deletePeserta($id: ID!){
@@ -629,7 +629,7 @@ mutation deletePeserta($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 // export const DELETE_PESERTABYADMIN_MUTATION = gql `
 // mutation PesertabyAdmin($id: ID!){
@@ -645,7 +645,7 @@ mutation deletePesertabyAdmin($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const DELETE_PORTOFOLIO_MUTATION = gql `
 mutation deletePortofolio($id: ID!){
@@ -653,7 +653,7 @@ mutation deletePortofolio($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const DELETE_SYARAT_MUTATION = gql `
 mutation deleteSyarat($id: ID!){
@@ -661,7 +661,7 @@ mutation deleteSyarat($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const DELETE_SYARAT_PESERTA_MUTATION = gql `
 mutation deleteSyaratPeserta($id: ID!){
@@ -669,7 +669,7 @@ mutation deleteSyaratPeserta($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 export const UPDATE_DATE_PESERTA = gql `
 mutation updateDatePeserta($id: ID!, $date: String){
@@ -678,7 +678,7 @@ mutation updateDatePeserta($id: ID!, $date: String){
     date: $date
   )
 }
-`;
+`
 
 export const CREATE_UNITKOMPETENSI_MUTATION = gql `
 mutation createUnitKompetensi(
@@ -698,7 +698,7 @@ mutation createUnitKompetensi(
     id
   }
 }
-`;
+`
 
 export const CREATE_ELEMENT_MUTATION = gql `
 mutation createElement(
@@ -712,7 +712,7 @@ mutation createElement(
     id
   }
 }
-`;
+`
 
 export const UPDATE_ELEMENT_MUTATION = gql `
 mutation updateElement(
@@ -730,7 +730,7 @@ mutation updateElement(
     id
   }
 }
-`;
+`
 
 export const CREATE_KRITERIAUK_MUTATION = gql `
 mutation createKriteriaUK(
@@ -744,7 +744,7 @@ mutation createKriteriaUK(
     id
   }
 }
-`;
+`
 
 export const UPDATE_KRITERIAUK_MUTATION = gql `
 mutation updateKriteriaUK(
@@ -762,7 +762,7 @@ mutation updateKriteriaUK(
     id
   }
 }
-`;
+`
 
 export const UPDATE_UNITKOMPETENSI_MUTATION = gql `
 mutation updateUnitKompetensi(
@@ -786,7 +786,7 @@ mutation updateUnitKompetensi(
     id
   }
 }
-`;
+`
 
 export const DELETE_UNITKOMPETENSI_MUTATION = gql `
 mutation deleteUnitKompetensi($id: ID!){
@@ -794,7 +794,7 @@ mutation deleteUnitKompetensi($id: ID!){
     id: $id
   )
 }
-`;
+`
 
 // END DELETE
 
@@ -825,7 +825,7 @@ mutation updateAsesi($npm: String, $jurusan_id: ID, $lembaga_id: ID!, $pendidika
     nama
   }
 }
-`;
+`
 
 // export const UPDATE_ASESI_MUTATION = gql `
 // mutation updateAsesi($lembaga: ID!, $pendidikan: ID!, $pekerjaan: ID!, $kota: Int!, $nik: String!, 
@@ -864,7 +864,7 @@ mutation registerJadwal($id: ID!, $tujuan: String){
     tindak_lanjut
   }
 }
-`;
+`
 
 export const UPLOAD_SYARAT = gql `
 mutation uploadSyaratPeserta($id: ID!, $file: String){
@@ -873,7 +873,7 @@ mutation uploadSyaratPeserta($id: ID!, $file: String){
     file : $file
   )
 }
-`;
+`
 
 export const VALIDASI_UNIT_PESERTA = gql `
 mutation validasiUnitPeserta($peserta_id: ID!){
@@ -881,7 +881,7 @@ mutation validasiUnitPeserta($peserta_id: ID!){
     peserta_id: $peserta_id
   )
 }
-`;
+`
 
 // export const UPLOAD_SYARAT = gql `
 // mutation createSyarat($peserta_id: ID!, $file: String, $syarat: String){
@@ -906,7 +906,7 @@ mutation createPortofolio($nama: String, $peserta_id: ID!, $uji_kompetensi_id: I
     id
   }
 }
-`;
+`
 
 export const ASESMEN_MANDIRI_MUTATION = gql `
 mutation asesmenMandiri(
@@ -918,7 +918,7 @@ mutation asesmenMandiri(
     uji_kompetensi_id : $uji_kompetensi_id
   )
 }
-`;
+`
 
 export const VERIFIKASI_ASESMEN_MANDIRI_MUTATION = gql `
 mutation verifikasiAsesmenMandiri(
@@ -932,7 +932,7 @@ mutation verifikasiAsesmenMandiri(
     rekomendasi_am: $rekomendasi_am
   )
 }
-`;
+`
 
 // export const OBSERVASI_MUTATION = gql `
 // mutation{
@@ -968,7 +968,7 @@ mutation rekamamAsesmenKompetensi(
     uji_kompetensi: $uji_kompetensi
   )
 }
-`;
+`
 
 
 // Form data apl 1
@@ -988,7 +988,7 @@ export const GET_LEMBAGAS = gql `
     }
   }
 }
-`;
+`
 
 export const GET_PEKERJAANS = gql `
 {
@@ -997,7 +997,7 @@ export const GET_PEKERJAANS = gql `
     pekerjaan
   }
 }
-`;
+`
 
 export const GET_PENDIDIKANS = gql `
 {
@@ -1006,7 +1006,7 @@ export const GET_PENDIDIKANS = gql `
     pendidikan
   }
 }
-`;
+`
 
 export const GET_PROVINSIS = gql `
 {
@@ -1015,7 +1015,7 @@ export const GET_PROVINSIS = gql `
     provinsi
   }
 }
-`;
+`
 
 export const GET_KOTAS = gql `
 query($id: ID!) {
@@ -1026,7 +1026,7 @@ query($id: ID!) {
     }
   }
 }
-`;
+`
 
 export const GET_FAKULTASS = gql `
 {
@@ -1035,7 +1035,7 @@ export const GET_FAKULTASS = gql `
     fakultas
   }
 }
-`;
+`
 
 export const GET_ALL_JURUSANS = gql `
 {
@@ -1044,7 +1044,7 @@ export const GET_ALL_JURUSANS = gql `
     jurusan
   }
 }
-`;
+`
 
 export const GET_JURUSANS = gql `
 query($id: ID!) {
@@ -1056,7 +1056,7 @@ query($id: ID!) {
     }
   }
 }
-`;
+`
 
 export const GET_ACCOUNT = gql `
 {
@@ -1068,7 +1068,7 @@ export const GET_ACCOUNT = gql `
     }
   }
 }
-`;
+`
 
 // Get Self Asesi
 // export const GET_SELF_ASESI = gql`
@@ -1159,7 +1159,7 @@ export const GET_SELF_ASESOR = gql`
     }
   }
 }
-`;
+`
 
 export const GET_SELF_ASESI = gql `
 {
@@ -1237,7 +1237,7 @@ export const GET_SELF_ASESI = gql `
     }
   }
 }
-`;
+`
 
 // Get User Data
 export const GET_USERDATA = gql`
@@ -1287,7 +1287,7 @@ query($user_id: ID!) {
     }
   }
 }
-`;
+`
 
 export const GET_SYARATS = gql `
 query($skema_id: ID!) {
@@ -1305,7 +1305,7 @@ query($skema_id: ID!) {
     }
   }
 }
-`;
+`
 
 export const GET_SKEMAS = gql `
 {
@@ -1323,7 +1323,7 @@ export const GET_SKEMAS = gql `
     }
   }
 }
-`;
+`
 
 export const GET_UMPAN_BALIKS = gql `
 {
@@ -1333,7 +1333,7 @@ export const GET_UMPAN_BALIKS = gql `
     status
   }
 }
-`;
+`
 
 export const GET_TUKS = gql `
 {
@@ -1345,7 +1345,7 @@ export const GET_TUKS = gql `
     alamat
   }
 }
-`;
+`
 
 export const GET_ANGGARANS = gql `
 {
@@ -1354,7 +1354,7 @@ export const GET_ANGGARANS = gql `
     anggaran
   }
 }
-`;
+`
 
 export const GET_USERS = gql `
 {
@@ -1367,7 +1367,7 @@ export const GET_USERS = gql `
     }
   }
 }
-`;
+`
 
 export const GET_ASESIS = gql `
 {
@@ -1395,7 +1395,7 @@ export const GET_ASESIS = gql `
     }
   }
 }
-`;
+`
 
 export const GET_ASESORS = gql `
 {
@@ -1409,7 +1409,7 @@ export const GET_ASESORS = gql `
     exp_sertifikat
   }
 }
-`;
+`
 
 export const CHECK_USER_DATA = gql `
 query ($id: ID!){
@@ -1431,7 +1431,7 @@ query ($id: ID!){
     }
   }
 }
-`;
+`
 
 export const GET_ASESORS_BYSKEMA = gql `
 query($id: ID!){
@@ -1473,7 +1473,7 @@ query($id: ID!){
       }
   }
 }
-`;
+`
 
 export const GET_SKEMAS_BYJADWAL = gql `
 query($id: ID!){
@@ -1490,7 +1490,7 @@ query($id: ID!){
     }
   }
 }
-`;
+`
 
 export const GET_ROLES = gql `
 {
@@ -1499,7 +1499,7 @@ export const GET_ROLES = gql `
     role
   }
 }
-`;
+`
 
 export const GET_JADWALS = gql `
 {
@@ -1532,7 +1532,7 @@ export const GET_JADWALS = gql `
     }
   }
 }
-`;
+`
 
 export const GET_ACTIVE_JADWALS = gql `
 query($jurusan_id: ID!){
@@ -1569,7 +1569,7 @@ query($jurusan_id: ID!){
     }
   }
 }
-`;
+`
 
 export const GET_STANDARS = gql `
 {
@@ -1578,7 +1578,7 @@ export const GET_STANDARS = gql `
     standar
   }
 }
-`;
+`
 
 export const GET_ELEMENTS = gql `
 {
@@ -1596,7 +1596,7 @@ export const GET_ELEMENTS = gql `
     }
   }
 }
-`;
+`
 
 export const GET_ELEMENT_BY_ID = gql `
 query($id: ID!){
@@ -1621,7 +1621,7 @@ query($id: ID!){
     }
   }
 }
-`;
+`
 
 
 export const GET_KRITERIAUKS = gql `
@@ -1636,7 +1636,7 @@ export const GET_KRITERIAUKS = gql `
     }
   }
 }
-`;
+`
 
 
 // export const GET_REPORTS = gql `
@@ -1704,7 +1704,7 @@ export const GET_PESERTAS = gql `
     }
   }
 }
-`;
+`
 
 export const GET_PESERTAS_ASESOR = gql `
 query($id: ID!){
@@ -1797,7 +1797,7 @@ query($id: ID!){
       }
     }
   }
-`;
+`
 
 export const GET_JADWALS_ASESOR = gql `
 {
@@ -1826,7 +1826,7 @@ export const GET_JADWALS_ASESOR = gql `
     }
   }
 }
-`;
+`
 
 export const GET_JADWALS_BYSKEMA = gql `
 query($id: ID!){
@@ -1862,7 +1862,7 @@ query($id: ID!){
     }
   }
 }
-`;
+`
 
 export const GET_SKEMA_BYID = gql `
 query($id: ID!){
@@ -1876,6 +1876,33 @@ query($id: ID!){
       id
       syarat
       status
+    }
+    unitKompetensi {
+      id
+      kode
+      unit
+      bankSoalObservasi {
+        id
+        soal
+        opsi_k
+        opsi_bk
+        unitKompetensi {
+          id
+          unit
+          kode
+        }
+      }
+      SoalObservasi {
+        id
+        soal
+        opsi_k
+        opsi_bk
+        unitKompetensi {
+          id
+          unit
+          kode
+        }
+      }
     }
     jadwal {
       id
@@ -1898,7 +1925,7 @@ query($id: ID!){
     }
   }
 }
-`;
+`
 
 export const GET_PESERTAS_DETAIL = gql `
 query($id: ID!){
@@ -2086,7 +2113,7 @@ query($id: ID!){
       }
     }
   }
-`;
+`
 
 export const GET_UJIKOMPETENSI_DETAIL = gql `
 query($id: ID!){
@@ -2222,7 +2249,7 @@ query($id: ID!){
       }
     }
   }
-`;
+`
 
 export const GET_REPORT_DETAIL = gql `
 query($id: ID!) {
@@ -2397,7 +2424,7 @@ query($id: ID!) {
       }
     }
 }
-`;
+`
 
 // export const GET_REPORT_DETAIL = gql `
 // query($id: ID!) {
@@ -2492,7 +2519,7 @@ export const GET_UNIT_KOMPETENSIS = gql `
     }
   }
 }
-`;
+`
 
 export const GET_UNIT_KOMPETENSI_BY_ID = gql `
 query($id: ID!){
@@ -2527,7 +2554,7 @@ query($id: ID!){
     }
   }
 }
-`;
+`
 
 export const GET_UNIT_KOMPETENSIS_BYSKEMA = gql `
 query($id: ID!){
@@ -2554,5 +2581,5 @@ query($id: ID!){
     }
   }
 }
-`;
+`
 // export default {SIGNIN_MUTATION, CREATE_ASESI_MUTATION, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS};

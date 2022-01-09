@@ -42,8 +42,12 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
   ],
+
+  eslint: {
+    fix: true
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -55,7 +59,7 @@ export default {
     clientConfigs: {
       // default: '~/plugins/apollo-error-handler.js'
       default: {
-        httpEndpoint: 'https://test2.apisituk.igsindonesia.org/graphql',
+        httpEndpoint: 'https://apisituk.igsindonesia.org/graphql',
       }
     }
   },
@@ -95,6 +99,18 @@ export default {
       })
     ],
     extend (config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue|ts)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
+          options: {
+            fix: true
+          }
+        })
+      }
     }
   }
 }

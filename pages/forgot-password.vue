@@ -1,13 +1,13 @@
 <template>
   <div
-  class="bg-image"
-  fluid
-  id="signinPage"
-  style="background: url('/images/forgot-password.jpg');"
+    id="signinPage"
+    class="bg-image"
+    fluid
+    style="background: url('/images/forgot-password.jpg');"
   >
     <div
-    class="fill-height bg-black-op"
-    fluid
+      class="fill-height bg-black-op"
+      fluid
     >
       <div class="d-flex justify-end">
         <v-col md="4" xs="12" class="hero-static bg-white animated fadeInRight d-flex align-center justify-center animated fadeInRight">
@@ -16,9 +16,9 @@
               <a href="/">
                 <img class="img-responsive" src="@/assets/img/lsp_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 15px; right: 40px;">
               </a>
-              <a href="/">
+              <!-- <a href="/">
                 <img class="img-responsive" src="@/assets/img/upn_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 20px; right: 120px;">
-              </a>
+              </a> -->
               <h1><strong>Lupa password?</strong></h1>
               <h3 class="mt-0 pb-2">Silahkan masukkan email yang terdaftar</h3>
               <!-- Alert section -->
@@ -32,25 +32,25 @@
               <!-- End alert section -->
               <v-form>
                 <v-text-field
-                  label="Email"
                   v-model="resetPassword.email"
+                  label="Email"
                   name="email"
                   type="email"
                 />
                 <v-btn
                   class="mt-5"
-                  @click='forgotPassword'
                   large
                   block
                   rounded
                   color="warning"
-                  dark>
+                  dark
+                  @click="forgotPassword">
                   <v-progress-circular
+                    v-if="state.loading"
                     :size="20"
                     :width="2"
                     indeterminate
                     color="white"
-                    v-if="state.loading"
                     class="mr-2"
                   ></v-progress-circular>
                   Reset Password
@@ -61,9 +61,9 @@
                   <div class="divider"></div>
                 </div>
                 <div class="text-center">
-                  <a v-on:click="gotoPage('/signup')">Buat akun</a>
+                  <a @click="gotoPage('/signup')">Buat akun</a>
                   <span class="mx-2">-</span>
-                  <a v-on:click="gotoPage('/signin')">Masuk</a>
+                  <a @click="gotoPage('/signin')">Masuk</a>
                 </div>
               </v-form>
             </div>
@@ -74,9 +74,9 @@
   </div>
 </template>
 <script>
-import { RESET_PASSWORD_MUTATION } from '../constants/graphql';
+import { RESET_PASSWORD_MUTATION } from '../constants/graphql'
 export default {
-  name: 'forgot-password',
+  name: 'ForgotPassword',
   layout: 'App_blank',
   data() {
     return {
@@ -91,39 +91,39 @@ export default {
         type: '',
         message: ''
       }
-    };
+    }
   },
   methods: {
     showAlert(type, message) {
-      this.alert = { show: true, type, message };
+      this.alert = { show: true, type, message }
     },
     async forgotPassword(e) {
-      e.preventDefault();
-      const { state: { loading } } = this;
-      const { resetPassword: { email } } = this.$data;
+      e.preventDefault()
+      const { state: { loading } } = this
+      const { resetPassword: { email } } = this.$data
       if (!loading) {
-        this.alert.show = false;
-        this.state.loading = true;
+        this.alert.show = false
+        this.state.loading = true
         const result = await this.$apollo.mutate({
           mutation: RESET_PASSWORD_MUTATION,
           variables: {
             email
           }
         }).then(({ data }) => {
-            this.showAlert('success', 'Silahkan cek email anda');
+          this.showAlert('success', 'Silahkan cek email anda')
         }).catch(({graphQLErrors}) => {
-            this.showAlert('error', graphQLErrors[0].message);
-            console.log(graphQLErrors);
+          this.showAlert('error', graphQLErrors[0].message)
+          console.log(graphQLErrors)
         }).finally(() => {
-            this.state.loading = false;
-        });
+          this.state.loading = false
+        })
       }
     },
     gotoPage(page) {
-      this.$router.push(page);
+      this.$router.push(page)
     }
   }
-};
+}
 
 </script>
 <style lang="scss" scoped>

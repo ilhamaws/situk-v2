@@ -1,13 +1,13 @@
 <template>
   <div
-  class="bg-image"
-  fluid
-  id="signinPage"
-  style="background: url('/images/activate-img.jpg');"
+    id="signinPage"
+    class="bg-image"
+    fluid
+    style="background: url('/images/activate-img.jpg');"
   >
     <div
-    class="fill-height bg-black-op"
-    fluid
+      class="fill-height bg-black-op"
+      fluid
     >
       <div class="d-flex justify-end">
         <v-col md="4" xs="12" class="hero-static bg-white animated fadeInRight d-flex align-center justify-center animated fadeInRight">
@@ -16,9 +16,9 @@
               <a href="/">
                 <img class="img-responsive" src="@/assets/img/lsp_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 15px; right: 40px;">
               </a>
-              <a href="/">
+              <!-- <a href="/">
                 <img class="img-responsive" src="@/assets/img/upn_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 20px; right: 120px;">
-              </a>
+              </a> -->
               <h1><strong>Aktivasi Akun.</strong></h1>
               <h3 class="mt-0 pb-2">Silahkan masukkan kode verifikasi</h3>
               <!-- Alert section -->
@@ -32,8 +32,8 @@
               <!-- End alert section -->
               <v-form>
                 <v-text-field
-                  label="Email"
                   v-model="activate.email"
+                  label="Email"
                   name="email"
                   type="email"
                 />
@@ -46,19 +46,19 @@
                   type="password"
                 />
                 <v-btn
-                  @click='activateAccount'
                   class="mt-5"
                   large
                   block
                   rounded
                   color="error"
-                  dark>
+                  dark
+                  @click="activateAccount">
                   <v-progress-circular
+                    v-if="state.loading"
                     :size="20"
                     :width="2"
                     indeterminate
                     color="white"
-                    v-if="state.loading"
                     class="mr-2"
                   ></v-progress-circular>
                   Aktifkan
@@ -69,9 +69,9 @@
                   <div class="divider"></div>
                 </div>
                 <div class="text-center">
-                  <a v-on:click="dialog = true">Kirim ulang kode</a>
+                  <a @click="dialog = true">Kirim ulang kode</a>
                   <span class="mx-2">-</span>
-                  <a v-on:click="gotoPage('/signin')">Masuk</a>
+                  <a @click="gotoPage('/signin')">Masuk</a>
                 </div>
               </v-form>
             </div>
@@ -96,8 +96,8 @@
           <!-- End alert section -->
           <v-form>
             <v-text-field
-              label="Email"
               v-model="activate.email"
+              label="Email"
               name="email"
               type="email"
             />
@@ -105,7 +105,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click='resendActivation' text color="red">kirim ulang</v-btn>
+          <v-btn text color="red" @click="resendActivation">kirim ulang</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -113,9 +113,9 @@
 </template>
 <script>
 
-import { ACTIVATE_ACCOUNT_MUTATION, RESEND_OTP_MUTATION } from '../constants/graphql';
+import { ACTIVATE_ACCOUNT_MUTATION, RESEND_OTP_MUTATION } from '../constants/graphql'
 export default {
-  name: 'activatePage',
+  name: 'ActivatePage',
   layout: 'App_blank',
   data() {
     return {
@@ -137,22 +137,22 @@ export default {
         type: '',
         message: ''
       }
-    };
+    }
   },
   methods: {
     showAlert(type, message) {
-      this.alert = { show: true, type, message };
+      this.alert = { show: true, type, message }
     },
     showAlertDialog(type, message) {
-      this.alertDialog = { show: true, type, message };
+      this.alertDialog = { show: true, type, message }
     },
     async activateAccount(e) {
-      e.preventDefault();
-      const { state: { loading } } = this;
-      const { activate: { email, activation } } = this.$data;
+      e.preventDefault()
+      const { state: { loading } } = this
+      const { activate: { email, activation } } = this.$data
       if (!loading) {
-        this.alert.show = false;
-        this.state.loading = true;
+        this.alert.show = false
+        this.state.loading = true
         const result = await this.$apollo.mutate({
           mutation: ACTIVATE_ACCOUNT_MUTATION,
           variables: {
@@ -160,33 +160,33 @@ export default {
             activation
           }
         }).then(({ data }) => {
-            this.showAlert('success', 'Akun anda telah aktif, Silahkan menuju halaman Singin');
+          this.showAlert('success', 'Akun anda telah aktif, Silahkan menuju halaman Singin')
         }).catch(({graphQLErrors}) => {
-            this.showAlert('error', graphQLErrors[0].message);
+          this.showAlert('error', graphQLErrors[0].message)
         }).finally(() => {
-            this.state.loading = false;
-        });
+          this.state.loading = false
+        })
       }
     },
     async resendActivation() {
-      this.alertDialog.show = false;
-      const { activate: { email } } = this.$data;
+      this.alertDialog.show = false
+      const { activate: { email } } = this.$data
       const result = await this.$apollo.mutate({
-          mutation: RESEND_OTP_MUTATION,
-          variables: {
-            email
-          }
+        mutation: RESEND_OTP_MUTATION,
+        variables: {
+          email
+        }
       }).then(({ data }) => {
-          this.showAlertDialog('success', 'Silahkan cek email anda');
+        this.showAlertDialog('success', 'Silahkan cek email anda')
       }).catch(({graphQLErrors}) => {
-          this.showAlertDialog('error', graphQLErrors[0].message);
-      });
+        this.showAlertDialog('error', graphQLErrors[0].message)
+      })
     },
     gotoPage(page) {
-      this.$router.push(page);
+      this.$router.push(page)
     }
   }
-};
+}
 
 </script>
 <style lang="scss" scoped>
