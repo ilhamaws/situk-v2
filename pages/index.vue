@@ -245,7 +245,7 @@ export default {
     }
   },
   async created() {
-    this.$router.push('/signin')
+    console.log(this.$router.name)
   },
 }
 

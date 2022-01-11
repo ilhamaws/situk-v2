@@ -896,11 +896,10 @@ mutation validasiUnitPeserta($peserta_id: ID!){
 // `;
 
 export const UPLOAD_PORTOFOLIO = gql `
-mutation createPortofolio($nama: String, $peserta_id: ID!, $uji_kompetensi_id: ID!, $file: String){
+mutation createPortofolio($nama: String, $peserta_id: ID!, $file: String){
   createPortofolio(
     nama : $nama
     peserta_id : $peserta_id
-    uji_kompetensi_id: $uji_kompetensi_id
     file : $file
   ) {
     id
@@ -1177,14 +1176,9 @@ export const GET_SELF_ASESI = gql `
     image
     ttd
     npm
-    jurusan {
-      id
-      jurusan
-      fakultas {
-        id
-        fakultas
-      }
-    }
+    jurusan
+    fakultas
+    universitas
     user {
       id
       email
@@ -1526,10 +1520,6 @@ export const GET_JADWALS = gql `
       id
       anggaran
     }
-    jurusan {
-      id
-      jurusan
-    }
   }
 }
 `
@@ -1732,14 +1722,7 @@ query($id: ID!){
           telepon
           image
           ttd
-          jurusan {
-            id
-            jurusan
-            fakultas {
-              id
-              fakultas
-            }
-          }
+          jurusan
           user {
             id
             email
@@ -1855,10 +1838,6 @@ query($id: ID!){
         id
         anggaran
       }
-      jurusan {
-        id
-        jurusan
-      }
     }
   }
 }
@@ -1954,19 +1933,12 @@ query($id: ID!){
         telepon
         image
         ttd
-        jurusan {
-          id
-          jurusan
-          fakultas {
-            id
-            fakultas
-          }
-        }
+        jurusan
         user {
           id
           email
           role {
-            id
+            id 
             role
           }
         }
@@ -2029,30 +2001,6 @@ query($id: ID!){
         memadai
         asli
         terkini
-        ujiKompetensi {
-          id
-          unitKompetensi {
-            id
-            kode
-            unit
-            tahun
-            flag
-            element {
-              id
-              elemen
-              flag
-              kriteriaUk{
-                id
-                kriteria
-                flag
-              }
-            }
-            standar {
-              id
-              standar
-            }
-          }
-        }
       }
       ujiKompetensi {
         id
@@ -2089,6 +2037,14 @@ query($id: ID!){
           element {
             id
             elemen
+          }
+          portofolioAsesmen {
+            id
+            portofolio {
+              id
+              nama
+              file
+            }
           }
         }
         observasi {
@@ -2151,14 +2107,7 @@ query($id: ID!){
           telepon
           image
           ttd
-          jurusan {
-            id
-            jurusan
-            fakultas {
-              id
-              fakultas
-            }
-          }
+          jurusan
           user {
             id
             email
@@ -2279,14 +2228,7 @@ query($id: ID!) {
         telepon
         image
         ttd
-        jurusan {
-          id
-          jurusan
-          fakultas {
-            id
-            fakultas
-          }
-        }
+        jurusan
         user {
           id
           email
@@ -2363,30 +2305,6 @@ query($id: ID!) {
         memadai
         asli
         terkini
-        ujiKompetensi {
-          id
-          unitKompetensi {
-            id
-            kode
-            unit
-            tahun
-            flag
-            element {
-              id
-              elemen
-              flag
-              kriteriaUk{
-                id
-                kriteria
-                flag
-              }
-            }
-            standar {
-              id
-              standar
-            }
-          }
-        }
       }
       ujiKompetensi {
         id

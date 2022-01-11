@@ -1,363 +1,325 @@
 <template>
-  <div class="">
-    <section>
-      <v-layout
-        column
-        wrap
-      >
-        <v-card class="rounded-lg">
-          <v-card-title>
-            <!-- <v-avatar size="30" color="warning lighten-2">
-              <span class="white--text">APL.1</span>
-            </v-avatar> -->
-            <span class="headline px-5">Informasi Jadwal</span>
-            <v-spacer></v-spacer>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-row>
-            <v-col cols="12" class="px-10 py-5">
-              <div class="px-5 py-5">
-                <!-- Alert section -->
-                <div v-if="alert.show">
-                  <v-alert :type="alert.type" dismissible class="mb-10">
-                    <div class="white--text">
-                      {{ alert.message }}
-                    </div>
-                  </v-alert>
-                </div>
-                <!-- End alert section -->
-                <v-form ref="form">
-                  <v-row>
-                    <v-dialog v-model="tambahDialog" persistent max-width="600px">
-                      <template #activator="{ on }">
-                        <v-btn color="primary" outlined rounded dark v-on="on">Tambah Jadwal</v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title>
-                          <span class="headline">Tambah Jadwal</span>
-                        </v-card-title>
-                        <v-card-text>
-                          <v-container>
-                            <v-row>
-                              <v-col cols="12" sm="12" md="12">
-                                <v-select
-                                  v-model="form.skema_id"
-                                  :items="skemas"
-                                  label="Skema*"
-                                  item-value="id" item-text="skema"
-                                />
-                              </v-col>
-                              <!-- <v-col md="6" xs="12" class="py-0">
-                                <v-select
-                                @input='getJurusans'
-                                class="mt-2"
-                                v-model="form.fakultas_id"
-                                :items="fakultass"
-                                label="Fakultas"
-                                item-value="id" item-text="fakultas"
-                                />
-                              </v-col> -->
-                              <v-col md="12" xs="12" class="py-0">
-                                <v-select
-                                  v-model="form.jurusan_id"
-                                  :items="jurusans"
-                                  class="mt-2"
-                                  label="Jurusan"
-                                  item-value="id"
-                                  item-text="jurusan"
-                                  :menu-props="{ top: false, offsetY: true}"
-                                  multiple
-                                ></v-select>
-                                <!-- <v-select
-                                class="mt-2"
-                                v-model="form.jurusan_id"
-                                :items="jurusans"
-                                label="Program Studi"
-                                item-value="id" item-text="jurusan"
-                                /> -->
-                              </v-col>
-                              <v-col cols="12" sm="12" md="12">
-                                <v-text-field
-                                  id="id"
-                                  v-model="form.keterangan"
-                                  name="Keterangan"
-                                  label="Keterangan"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="12" md="12">
-                                <v-select
-                                  v-model="form.tempat_uk_id"
-                                  :items="tuks"
-                                  label="Tempat Uji Kompetensi (TUK)*"
-                                  item-value="id" item-text="nama"
-                                />
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
-                                <v-select
-                                  v-model="form.anggaran_id"
-                                  :items="anggarans"
-                                  label="Anggaran*"
-                                  item-value="id" item-text="anggaran"
-                                />
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
-                                <!-- date -->
-                                <v-menu
-                                  ref="menu"
-                                  v-model="dateMenu"
-                                  :close-on-content-click="false"
-                                  :return-value.sync="form.tanggal"
-                                  transition="scale-transition"
-                                  offset-y
-                                  min-width="290px"
-                                >
-                                  <template #activator="{ on }">
-                                    <v-text-field
-                                      v-model="form.tanggal"
-                                      label="Tanggal Uji Kompetensi"
-                                      v-on="on"
-                                    ></v-text-field>
-                                  </template>
-                                  <v-date-picker v-model="date" no-title scrollable>
-                                    <v-spacer></v-spacer>
-                                    <v-btn text color="primary" @click="dateMenu = false">Cancel</v-btn>
-                                    <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                                  </v-date-picker>
-                                </v-menu>
-                                <!-- date -->
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                          <small>*Wajib diisi</small>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="grey" text @click="reset">Batal</v-btn>
-                          <v-btn color="blue darken-1" text @click="createJadwal">Tambah Jadwal</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                    <!-- <v-btn 
-                      color="primary"
-                      outlined
-                      rounded
-                    >Tambah Skema</v-btn> -->
-                    <v-spacer></v-spacer>
-                    <v-text-field
-                      v-model="search"
-                      append-icon="search"
-                      label="Search"
-                      class="shrink"
-                      rounded
-                      outlined
-                      dense
-                    ></v-text-field>
-                  </v-row>
-                </v-form>
-                <v-skeleton-loader
-                  v-if="state.skeleton"
-                  ref="skeleton"
-                  type="table-thead, table-tbody"
-                  class="mx-auto"
-                ></v-skeleton-loader>
-                <v-data-table
-                  v-if="!state.skeleton"
-                  :headers="headers"
-                  :items="jadwals"
-                  :search="search"
-                  :items-per-page="5"
-                  :line-numbers="true"
-                  :width="headers.width"
-                >
-                  <template #top>
-                    <v-dialog v-model="editDialog" persistent max-width="600px">
-                      <v-card>
-                        <v-card-title>
-                          <span class="headline">Edit Jadwals</span>
-                        </v-card-title>
-                        <v-card-text>
-                          <v-container>
-                            <v-row>
-                              <v-col cols="12" sm="12" md="12">
-                                <v-select
-                                  v-model="editedJadwals.skema.id"
-                                  :items="skemas"
-                                  label="Skema*"
-                                  item-value="id" item-text="skema"
-                                  disabled
-                                />
-                              </v-col>
-                              <!-- <v-col md="6" xs="12" class="py-0">
-                              <v-select
-                              @input='getJurusans'
-                              class="mt-2"
-                              v-model="form.fakultas_id"
-                              :items="fakultass"
-                              label="Fakultas"
-                              item-value="id" item-text="fakultas"
-                              />
-                            </v-col> -->
-                              <v-col md="12" xs="12" class="py-0">
-                                <v-select
-                                  v-model="editedJadwals.jurusan"
-                                  :items="jurusans"
-                                  class="shrink mt-2"
-                                  label="Jurusan"
-                                  item-value="id"
-                                  item-text="jurusan"
-                                  :menu-props="{ top: false, offsetY: true}"
-                                  multiple
-                                ></v-select>
-                              <!-- <v-select
-                                class="mt-2"
-                                v-model="editedJadwals.jurusan.id"
-                                :items="jurusans"
-                                label="Program Studi"
-                                item-value="id" item-text="jurusan"
-                              /> -->
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
-                                <v-select
-                                  v-model="editedJadwals.tempatUk.id"
-                                  :items="tuks"
-                                  label="Tempat Uji Kompetensi (TUK)*"
-                                  item-value="id" item-text="nama"
-                                />
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
-                                <v-text-field
-                                  v-model="editedJadwals.kuota"
-                                  label="Kuota"
-                                  type="number"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
-                                <v-select
-                                  v-model="editedJadwals.anggaran.id"
-                                  :items="anggarans"
-                                  label="Anggaran*"
-                                  item-value="id" item-text="anggaran"
-                                />
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
-                                <!-- date -->
-                                <v-menu
-                                  ref="menu"
-                                  v-model="dateMenu2"
-                                  :close-on-content-click="false"
-                                  :return-value.sync="editedJadwals.tanggal"
-                                  transition="scale-transition"
-                                  offset-y
-                                  min-width="290px"
-                                >
-                                  <template #activator="{ on }">
-                                    <v-text-field
-                                      v-model="editedJadwals.tanggal"
-                                      label="Tanggal Uji Kompetensi"
-                                      v-on="on"
-                                    ></v-text-field>
-                                  </template>
-                                  <v-date-picker v-model="date" no-title scrollable>
-                                    <v-spacer></v-spacer>
-                                    <v-btn text color="grey" @click="dateMenu2 = false">Cancel</v-btn>
-                                    <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                                  </v-date-picker>
-                                </v-menu>
-                                <!-- date -->
-                              </v-col>
-                              <v-col v-if="editedJadwals.status != 0" cols="12" sm="6" md="6">
-                                <v-btn color="success" rounded outlined @click="updateJadwal(2)">Jadwal Selesai</v-btn>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                          <small>*Wajib diisi</small>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="grey" text @click="editDialog = false">Batal</v-btn>
-                          <v-btn color="blue darken-1" text @click="updateJadwal(1)">Edit Jadwal</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                    <v-dialog v-model="deleteDialog" persistent max-width="600px">
-                      <v-card>
-                        <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
-
-                        <v-card-text>
-                          Peringatan! Data yang telah dihapus tidak dapat kembali lagi.
-                        </v-card-text>
-
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="grey" text @click="deleteDialog = false">Batal</v-btn>
-                          <v-btn color="red darken-1" text @click="deleteJadwal">Delete Jadwal</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </template>
-                  <template #item.tempatUk.nama="{ item }">
-                    <span v-if="item.tempatUk == null">-</span>
-                    <span v-else>{{ item.tempatUk.nama }}</span>
-                  </template>
-                  <template #item.status="{ item }">
-                    <v-chip v-if="item.status == 0" small color="red darken-1" dark>Batal</v-chip>
-                    <v-chip v-if="item.status == 1" small color="primary">Aktif</v-chip>
-                    <v-chip v-if="item.status == 2" small color="success" dark>Selesai</v-chip>
-                  </template>
-                  <!-- <template v-slot:item.tempatUk.id="{ item }">
-                    <span :items="tuks" item-value="id" item-text="nama">{{ item.nama }}</span>
-                </template> -->
-                  <template #item.actions="{ item }">
-                    <v-icon
-                      small
-                      class="mr-2"
-                      @click="editItem(item)"
-                    >
-                      mdi-pencil
-                    </v-icon>
-                    <v-icon
-                      small
-                      class="mr-2"
-                      @click="deleteItem(item)"
-                    >
-                      mdi-delete
-                    </v-icon>
-                  <!-- <nuxt-link :to="`/informasi-asesmen/${item.id}`">
-                    <v-btn rounded x-small color="primary">Detail</v-btn>
-                  </nuxt-link> -->
-                  </template>
-                  <template #item.skema.skema="{ item }">
-                    <nuxt-link :to="`/admin/jadwal/${item.id}`">
-                      <span>{{ item.skema.skema }}</span>
-                    </nuxt-link>
-                  </template>
-                  <template #item.sisa="{ item }">
-                    <v-chip v-if="countVerified(item) == 0" small color="red darken-1" dark>Penuh</v-chip>
-                    <span v-else>{{ countVerified(item) }}</span>
-                  </template>
-                  <template #item.peserta="{ item }">
-                    <span>{{ item.peserta.length }}</span>
-                  </template>
-                  <template #item.jurusan.jurusan="{ item }">
-                    <ul>
-                      <li v-for="(jurusan, i) in item.jurusan" :key="i">
-                        <span>{{ jurusan.jurusan }}</span>
-                      </li>
-                    </ul>
-                  </template>
-                </v-data-table>
+  <v-layout
+    column
+    wrap
+  >
+    <v-card class="rounded-lg">
+      <v-card-subtitle class="font-weight-bold">
+        <!-- <v-avatar size="30" color="warning lighten-2">
+          <span class="white--text">APL.1</span>
+        </v-avatar> -->
+        Informasi Jadwal
+      </v-card-subtitle>
+      <v-divider></v-divider>
+      <v-row>
+        <v-col cols="12">
+          <v-card-text>
+            <div class="px-5 py-5">
+              <!-- Alert section -->
+              <div v-if="alert.show">
+                <v-alert :type="alert.type" dismissible class="mb-10">
+                  <div class="white--text">
+                    {{ alert.message }}
+                  </div>
+                </v-alert>
               </div>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-layout>
-    </section>
-  </div>
+              <!-- End alert section -->
+              <v-form ref="form">
+                <v-row class="mb-3">
+                  <v-dialog v-model="tambahDialog" persistent max-width="600px">
+                    <template #activator="{ on }">
+                      <v-btn color="primary" outlined dark v-on="on">Tambah Jadwal</v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-title>
+                        <span class="subtitle">Tambah Jadwal</span>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-container>
+                          <v-row>
+                            <v-col cols="12" sm="12" md="12">
+                              <v-select
+                                outlined
+                                dense
+                                v-model="form.skema_id"
+                                :items="skemas"
+                                label="Skema*"
+                                item-value="id" item-text="skema"
+                              />
+                            </v-col>
+                            <v-col cols="12">
+                              <v-text-field
+                                outlined
+                                dense
+                                v-model="form.kuota"
+                                label="Kuota"
+                                type="number"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="12" md="12">
+                              <v-text-field
+                                outlined
+                                dense
+                                id="id"
+                                v-model="form.keterangan"
+                                name="Keterangan"
+                                label="Keterangan"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="12" md="12">
+                              <v-select
+                                outlined
+                                dense
+                                v-model="form.tempat_uk_id"
+                                :items="tuks"
+                                label="Tempat Uji Kompetensi (TUK)*"
+                                item-value="id" item-text="nama"
+                              />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                              <v-select
+                                outlined
+                                dense
+                                v-model="form.anggaran_id"
+                                :items="anggarans"
+                                label="Anggaran*"
+                                item-value="id" item-text="anggaran"
+                              />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                              <!-- date -->
+                              <v-menu
+                                ref="menu"
+                                v-model="dateMenu"
+                                :close-on-content-click="false"
+                                :return-value.sync="form.tanggal"
+                                transition="scale-transition"
+                                offset-y
+                                min-width="290px"
+                              >
+                                <template #activator="{ on }">
+                                  <v-text-field
+                                    outlined
+                                    dense
+                                    v-model="form.tanggal"
+                                    label="Tanggal Uji Kompetensi"
+                                    v-on="on"
+                                  ></v-text-field>
+                                </template>
+                                <v-date-picker v-model="date" no-title scrollable>
+                                  <v-spacer></v-spacer>
+                                  <v-btn text color="primary" @click="dateMenu = false">Cancel</v-btn>
+                                  <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                                </v-date-picker>
+                              </v-menu>
+                              <!-- date -->
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                        <small>*Wajib diisi</small>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="reset">Batal</v-btn>
+                        <v-btn color="blue darken-1" text @click="createJadwal">Tambah Jadwal</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <v-spacer></v-spacer>
+                  <v-text-field
+                    v-model="search"
+                    append-icon="search"
+                    label="Search"
+                    class="shrink"
+                    outlined
+                    dense
+                  ></v-text-field>
+                </v-row>
+              </v-form>
+              <v-skeleton-loader
+                v-if="state.skeleton"
+                ref="skeleton"
+                type="table-thead, table-tbody"
+                class="mx-auto"
+              ></v-skeleton-loader>
+              <v-data-table
+                v-if="!state.skeleton"
+                :headers="headers"
+                :items="jadwals"
+                :search="search"
+                :items-per-page="5"
+                :line-numbers="true"
+                :width="headers.width"
+              >
+                <template #top>
+                  <v-dialog v-model="editDialog" persistent max-width="600px">
+                    <v-card>
+                      <v-card-title>
+                        <span class="headline">Edit Jadwals</span>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-container>
+                          <v-row>
+                            <v-col cols="12" sm="12" md="12">
+                              <v-select
+                                outlined
+                                dense
+                                v-model="editedJadwals.skema.id"
+                                :items="skemas"
+                                label="Skema*"
+                                item-value="id" item-text="skema"
+                                disabled
+                              />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                              <v-select
+                                outlined
+                                dense
+                                v-model="editedJadwals.tempatUk.id"
+                                :items="tuks"
+                                label="Tempat Uji Kompetensi (TUK)*"
+                                item-value="id" item-text="nama"
+                              />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                              <v-text-field
+                                outlined
+                                dense
+                                v-model="editedJadwals.kuota"
+                                label="Kuota"
+                                type="number"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                              <v-select
+                                outlined
+                                dense
+                                v-model="editedJadwals.anggaran.id"
+                                :items="anggarans"
+                                label="Anggaran*"
+                                item-value="id" item-text="anggaran"
+                              />
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6">
+                              <!-- date -->
+                              <v-menu
+                                ref="menu"
+                                v-model="dateMenu2"
+                                :close-on-content-click="false"
+                                :return-value.sync="editedJadwals.tanggal"
+                                transition="scale-transition"
+                                offset-y
+                                min-width="290px"
+                              >
+                                <template #activator="{ on }">
+                                  <v-text-field
+                                    outlined
+                                    dense
+                                    readonly
+                                    v-model="editedJadwals.tanggal"
+                                    label="Tanggal Uji Kompetensi"
+                                    v-on="on"
+                                  ></v-text-field>
+                                </template>
+                                <v-date-picker v-model="date" no-title scrollable>
+                                  <v-spacer></v-spacer>
+                                  <v-btn text color="grey" @click="dateMenu2 = false">Cancel</v-btn>
+                                  <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                                </v-date-picker>
+                              </v-menu>
+                              <!-- date -->
+                            </v-col>
+                            <v-col v-if="editedJadwals.status != 0" cols="12" sm="6" md="6">
+                              <v-btn color="success" outlined @click="updateJadwal(2)">Selesaikan jadwal</v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                        <small>*Wajib diisi</small>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="editDialog = false">Batal</v-btn>
+                        <v-btn color="blue darken-1" text @click="updateJadwal(1)">Edit Jadwal</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                  <v-dialog v-model="deleteDialog" persistent max-width="600px">
+                    <v-card>
+                      <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
 
+                      <v-card-text>
+                        Peringatan! Data yang telah dihapus tidak dapat kembali lagi.
+                      </v-card-text>
+
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="deleteDialog = false">Batal</v-btn>
+                        <v-btn color="red darken-1" text @click="deleteJadwal">Delete Jadwal</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </template>
+                <template #item.tempatUk.nama="{ item }">
+                  <span v-if="item.tempatUk == null">-</span>
+                  <span v-else>{{ item.tempatUk.nama }}</span>
+                </template>
+                <template #item.status="{ item }">
+                  <v-chip v-if="item.status == 0" small color="red darken-1" dark>Batal</v-chip>
+                  <v-chip v-if="item.status == 1" small color="primary">Aktif</v-chip>
+                  <v-chip v-if="item.status == 2" small color="success" dark>Selesai</v-chip>
+                </template>
+                <!-- <template v-slot:item.tempatUk.id="{ item }">
+                  <span :items="tuks" item-value="id" item-text="nama">{{ item.nama }}</span>
+              </template> -->
+                <template #item.actions="{ item }">
+                  <v-icon
+                    small
+                    class="mr-2"
+                    @click="editItem(item)"
+                  >
+                    mdi-pencil
+                  </v-icon>
+                  <v-icon
+                    small
+                    class="mr-2"
+                    @click="deleteItem(item)"
+                  >
+                    mdi-delete
+                  </v-icon>
+                <!-- <nuxt-link :to="`/informasi-asesmen/${item.id}`">
+                  <v-btn rounded x-small color="primary">Detail</v-btn>
+                </nuxt-link> -->
+                </template>
+                <template #item.skema.skema="{ item }">
+                  <nuxt-link :to="`/admin/jadwal/${item.id}`">
+                    <span>{{ item.skema.skema }}</span>
+                  </nuxt-link>
+                </template>
+                <template #item.sisa="{ item }">
+                  <v-chip v-if="countVerified(item) == 0" small color="red darken-1" dark>Penuh</v-chip>
+                  <span v-else>{{ countVerified(item) }}</span>
+                </template>
+                <template #item.peserta="{ item }">
+                  <span>{{ item.peserta.length }}</span>
+                </template>
+                <template #item.jurusan.jurusan="{ item }">
+                  <ul>
+                    <li v-for="(jurusan, i) in item.jurusan" :key="i">
+                      <span>{{ jurusan.jurusan }}</span>
+                    </li>
+                  </ul>
+                </template>
+              </v-data-table>
+            </div>
+          </v-card-text>
+        </v-col>
+      </v-row>
+    </v-card>
+  </v-layout>
 </template>
 <script>
-import { GET_SKEMAS, GET_ALL_JURUSANS, GET_JURUSANS, GET_FAKULTASS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS, GET_TUKS, CREATE_JADWAL_MUTATION, UPDATE_JADWAL_MUTATION, DELETE_JADWAL_MUTATION, CANCEL_JADWAL_MUTATION } from '@/constants/graphql'
-import { GET_JADWALS, GET_ANGGARANS } from '../../../constants/graphql'
+import { GET_SKEMAS, GET_ALL_JURUSANS, GET_JURUSANS, GET_FAKULTASS, GET_TUKS, GET_JADWALS, GET_ANGGARANS } from '@/constants/graphql'
+import { CREATE_JADWAL_NO_JURUSAN_MUTATION, UPDATE_JADWAL_MUTATION, DELETE_JADWAL_MUTATION, CANCEL_JADWAL_MUTATION } from '@/constants/jadwal'
 
 export default {
   name: 'Jadwal',
@@ -424,6 +386,7 @@ export default {
         anggaran_id: '',
         tanggal: '',
         keterangan: '',
+        kuota: '',
         // jurusan_id: ''
         jurusan_id: []
       },
@@ -433,7 +396,7 @@ export default {
         { text: 'Tanggal', value: 'tanggal' },
         // { text: 'Tempat TUK', value: 'tempatUk.nama' },
         // { text: 'Anggaran', value: 'anggaran.anggaran' },
-        { text: 'Jurusan', value: 'jurusan.jurusan', width: '20%' },
+        // { text: 'Jurusan', value: 'jurusan.jurusan', width: '20%' },
         { text: 'Status', value: 'status' },
         { text: 'Kuota', value: 'kuota' },
         { text: 'Sisa', value: 'sisa' },
@@ -561,11 +524,11 @@ export default {
     },
     async createJadwal() {
       this.alert.show = false
-      const { form: {keterangan, tempat_uk_id, skema_id, anggaran_id, tanggal, jurusan_id} } = this.$data
+      const { form: {keterangan, tempat_uk_id, skema_id, anggaran_id, tanggal, kuota} } = this.$data
       const result = await this.$apollo.mutate({
-        mutation: CREATE_JADWAL_MUTATION,
+        mutation: CREATE_JADWAL_NO_JURUSAN_MUTATION,
         variables: {
-          tempat_uk_id, skema_id, anggaran_id, tanggal, keterangan, jurusan_id
+          tempat_uk_id, skema_id, anggaran_id, tanggal, keterangan, kuota
         }
       }).then(({ data }) => {
         this.showAlert('success', 'Jadwal baru berhasil dibuat')
@@ -614,7 +577,7 @@ export default {
       const result = await this.$apollo.mutate({
         mutation: GET_ALL_JURUSANS
       }).then(({ data }) => {
-        console.log('hello00000000000', data)
+        console.log('hello', data)
         this.jurusans = data.jurusans
       }).catch((error) => {
         console.log(error)

@@ -49,6 +49,9 @@ export default {
     fix: true
   },
 
+  router: {
+  },
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/apollo',
@@ -99,7 +102,6 @@ export default {
       })
     ],
     extend (config, ctx) {
-      // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',

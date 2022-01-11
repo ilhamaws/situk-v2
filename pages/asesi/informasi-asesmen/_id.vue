@@ -638,7 +638,7 @@
                                             />
                                           </v-col>
                                         </v-row>
-                                        <v-row>
+                                        <!-- <v-row>
                                           <v-col md="12" xs="12" class="py-0">
                                             <label for=""><b>Unit Kompetensi</b></label>
                                             <v-select
@@ -650,7 +650,7 @@
                                               solo
                                             />
                                           </v-col>
-                                        </v-row>
+                                        </v-row> -->
                                         <v-row>
                                           <v-col md="12">
                                             <label for=""><b>Upload File</b></label>
@@ -826,7 +826,6 @@ export default {
       syaratDialog: false,
       portofolios: {
         nama: null,
-        uji_kompetensi_id: null,
         portofolioName: '',
         portofolioUrl: null,
         portofolioFile: ''
@@ -1135,7 +1134,7 @@ export default {
       if (!loading) {
         this.state.loading = true          
         const peserta_id = this.peserta.id
-        const { portofolios: {nama, uji_kompetensi_id} } = this.$data
+        const { portofolios: {nama} } = this.$data
         const file = this.portofolios.portofolioUrl
 
         const result = await this.$apollo.mutate({
@@ -1143,7 +1142,6 @@ export default {
           variables: {
             nama,
             peserta_id,
-            uji_kompetensi_id,
             file
           }
         }).then(({ data }) => {

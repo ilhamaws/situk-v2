@@ -16,6 +16,9 @@ export default {
 
     }
   },
+  unmounted() {
+    this.style.remove()
+  },
   methods: {
     gotoPage(page) {
       this.$router.push(page)

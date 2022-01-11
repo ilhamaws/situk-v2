@@ -3,7 +3,7 @@
     <v-snackbar
       v-model="alert.show"
       :color="alert.type"
-      :timeout="0"
+      :timeout="-1"
       top
       dense
     >
@@ -46,6 +46,305 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col class="mb-5" cols="12" v-for="(unit, i) in skemas.unitKompetensi" :key="i">
+        <v-card>
+          <v-row>
+            <v-col>
+              <v-card-text>
+								<v-simple-table class="mb-3">
+									<tbody>
+											<tr>
+											<td width="10%"><b>Unit:</b></td>
+											<td>{{ unit.unit }}</td>
+											</tr>
+											<tr>
+											<td width="10%"><b>Kode:</b></td>
+											<td>{{ unit.kode }}</td>
+											</tr>
+									</tbody>
+								</v-simple-table>
+                <v-row>
+                  <v-col cols="12" class="d-flex mb-3">
+                    <v-spacer></v-spacer>
+										<v-btn @click="tambahItem(unit)" class="mr-5" color="primary" outlined dark
+										>Tambah Soal</v-btn>
+                  </v-col>
+                </v-row>
+                <v-data-table
+                  v-if="!state.skeleton"
+                  :headers="headers"
+                  :width="width"
+                  :items="unit.SoalObservasi"
+                  :items-per-page="10"
+                  :line-numbers="true"
+                >
+                  <!-- <template #top>
+                    <v-dialog
+                      v-model="editDialog"
+                      persistent
+                      max-width="800px"
+                    >
+                      <v-form>
+                        <v-card>
+                          <v-card-subtitle class="font-weight-bold">
+                            Edit soal observasi
+                          </v-card-subtitle>
+                          <v-divider></v-divider>
+                          <v-card-text>
+                            <v-autocomplete
+                              v-model="
+                                editedSoalObservasi.unitKompetensi.id
+                              "
+                              :items="skemas.unitKompetensi"
+                              disabled
+                              outlined
+                              dense
+                              item-text="unit"
+                              item-value="id"
+                              label="Unit kompetensi"
+                            ></v-autocomplete>
+                            <v-textarea
+                              v-model="editedSoalObservasi.soal"
+                              label="Soal observasi"
+                              placeholder="Isilah dengan soal untuk pertanyaan observasi"
+                              dense
+                              outlined
+                              textarea
+                            ></v-textarea>
+                            <v-alert text dense color="primary" :value="true">
+                              Isian dibawah ini adalah jawaban yang diharapkan
+                              untuk membantu asesor menentukan kompeten
+                            </v-alert>
+                            <v-textarea
+                              v-model="editedSoalObservasi.opsi_k"
+                              label="Jawaban kompeten"
+                              placeholder="Jawaban yang diharapkan oleh penguji"
+                              dense
+                              outlined
+                              textarea
+                            ></v-textarea>
+                            <v-alert text dense color="error" :value="true">
+                              Isian dibawah ini adalah jawaban yang tidak
+                              diharapkan untuk membantu asesor menentukan
+                              kompeten
+                            </v-alert>
+                            <v-textarea
+                              v-model="editedSoalObservasi.opsi_bk"
+                              label="Jawaban belum kompeten"
+                              placeholder="Jawaban yang tidak diharapkan oleh penguji"
+                              dense
+                              outlined
+                              textarea
+                            ></v-textarea>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              color="grey"
+                              text
+                              @click="editDialog = false"
+                            >Batal</v-btn
+                            >
+                            <v-btn
+                              color="blue darken-1"
+                              text
+                              @click="updateBankSoalObservasi"
+                            >Edit soal</v-btn
+                            >
+                          </v-card-actions>
+                        </v-card>
+                      </v-form>
+                    </v-dialog>
+                    <v-dialog
+                      v-model="deleteDialog"
+                      persistent
+                      max-width="600px"
+                    >
+                      <v-card>
+                        <v-card-title class="subtitle"
+                        >Apakah anda yakin menghapus Data?</v-card-title
+                        >
+
+                        <v-card-text>
+                          Peringatan! Data yang telah dihapus tidak dapat
+                          kembali lagi.
+                        </v-card-text>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="grey" text @click="deleteDialog = false"
+                          >Batal</v-btn
+                          >
+                          <v-btn
+                            color="red darken-1"
+                            text
+                            @click="deleteBankSoalObservasi"
+                          >Delete Soal</v-btn
+                          >
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </template> -->
+                  <template #item.actions="{ item }">
+                    <v-icon small class="mr-2" @click="editItem(item)">
+                      mdi-eye
+                    </v-icon>
+                    <v-icon small class="mr-2" @click="deleteItem(item)">
+                      mdi-delete
+                    </v-icon>
+                  </template>
+                </v-data-table>
+              </v-card-text>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
+		<v-dialog
+			v-model="tambahDialog"
+			persistent
+			max-width="800px"
+		>
+			<v-form>
+				<v-card>
+					<v-card-subtitle class="font-weight-bold">
+						Tambah soal observasi
+					</v-card-subtitle>
+					<v-divider></v-divider>
+					<v-card-text>
+						<v-autocomplete
+							v-model="
+								create_soal_observasi.bank_soal_id
+							"
+							:items="tambahSoalObservasi"
+							outlined
+							dense
+							item-text="soal"
+							item-value="id"
+							label="Unit kompetensi"
+						></v-autocomplete>
+					</v-card-text>
+					<v-card-actions>
+						<v-spacer></v-spacer>
+						<v-btn
+							color="grey"
+							text
+							@click="tambahDialog = false"
+						>Batal</v-btn
+						>
+						<v-btn
+							color="blue darken-1"
+							text
+							@click="createSoalObservasi"
+						>Tambah soal</v-btn
+						>
+					</v-card-actions>
+				</v-card>
+			</v-form>
+		</v-dialog>
+		<v-dialog
+			v-model="editDialog"
+			persistent
+			max-width="800px"
+		>
+			<v-form>
+				<v-card>
+					<v-card-subtitle class="font-weight-bold">
+						Detil soal observasi
+					</v-card-subtitle>
+					<v-divider></v-divider>
+					<v-card-text>
+						<v-simple-table class="mb-5">
+							<tbody>
+									<tr>
+									<td width="10%"><b>Unit:</b></td>
+									<td>{{ editedSoalObservasi.unitKompetensi.unit }}</td>
+									</tr>
+									<tr>
+									<td width="10%"><b>Kode:</b></td>
+									<td>{{ editedSoalObservasi.unitKompetensi.kode }}</td>
+									</tr>
+							</tbody>
+						</v-simple-table>
+						<v-textarea
+							readonly
+							v-model="editedSoalObservasi.soal"
+							label="Soal observasi"
+							placeholder="Isilah dengan soal untuk pertanyaan observasi"
+							dense
+							outlined
+							textarea
+						></v-textarea>
+						<v-alert text dense color="primary" :value="true">
+							Isian dibawah ini adalah jawaban yang diharapkan
+							untuk membantu asesor menentukan kompeten
+						</v-alert>
+						<v-textarea
+							readonly
+							v-model="editedSoalObservasi.opsi_k"
+							label="Jawaban kompeten"
+							placeholder="Jawaban yang diharapkan oleh penguji"
+							dense
+							outlined
+							textarea
+						></v-textarea>
+						<v-alert text dense color="error" :value="true">
+							Isian dibawah ini adalah jawaban yang tidak
+							diharapkan untuk membantu asesor menentukan
+							kompeten
+						</v-alert>
+						<v-textarea
+							readonly
+							v-model="editedSoalObservasi.opsi_bk"
+							label="Jawaban belum kompeten"
+							placeholder="Jawaban yang tidak diharapkan oleh penguji"
+							dense
+							outlined
+							textarea
+						></v-textarea>
+					</v-card-text>
+					<v-card-actions>
+						<v-spacer></v-spacer>
+						<v-btn
+							color="grey"
+							text
+							@click="editDialog = false"
+						>Batal</v-btn
+						>
+					</v-card-actions>
+				</v-card>
+			</v-form>
+		</v-dialog>
+		<v-dialog
+			v-model="deleteDialog"
+			persistent
+			max-width="600px"
+		>
+			<v-card>
+				<v-card-title class="subtitle"
+				>Apakah anda yakin menghapus Data?</v-card-title
+				>
+
+				<v-card-text>
+					Peringatan! Data yang telah dihapus tidak dapat
+					kembali lagi.
+				</v-card-text>
+
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-btn color="grey" text @click="deleteDialog = false"
+					>Batal</v-btn
+					>
+					<v-btn
+						color="red darken-1"
+						text
+						@click="deleteSoalObservasi"
+					>Delete Soal</v-btn
+					>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
+    <!-- <v-row>
       <v-col cols="12">
         <v-card>
           <v-row>
@@ -274,12 +573,12 @@
           </v-row>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-layout>
 </template>
 <script>
 import { GET_SKEMA_BYID } from "@/constants/graphql"
-import { CREATE_BANK_SOAL_OBSERVASI_MUTATION, UPDATE_BANK_SOAL_OBSERVASI_MUTATION, DELETE_BANK_SOAL_OBSERVASI_MUTATION } from "@/constants/observasi"
+import { CREATE_SOAL_OBSERVASI_MUTATION, DELETE_SOAL_OBSERVASI_MUTATION } from "@/constants/observasi"
 
 export default {
   name: "bank-soal",
@@ -301,9 +600,9 @@ export default {
       editDialog: false,
       deleteDialog: false,
       headers: [
-        { text: "Soal", value: "soal", width: "35%" },
-        { text: "Unit Kompetensi", value: "unitKompetensi.unit", width: "25%" },
-        { text: "Kode Unit", value: "unitKompetensi.kode", width: "25%" },
+        { text: "Soal", value: "soal", width: "85%" },
+        // { text: "kriteria kompeten", value: "opsi_k", width: "25%" },
+        // { text: "kriteria tidak kompeten", value: "opsi_bk", width: "25%" },
         { text: "Aksi", value: "actions", width: "15%" },
       ],
       editedIndex: -1,
@@ -313,15 +612,14 @@ export default {
       dateMenu: false,
       deletedIndex: -1,
       deletedSoalObservasi: {},
+      tambahSoalObservasi: [],
       elements: [],
       skemas: [],
       unitkompetensis: [],
       bank_soal: [],
-      create_bank_soal_observasi: {
+      create_soal_observasi: {
         unit_kompetensi_id: "",
-        soal: "",
-        opsi_k: "",
-        opsi_bk: "",
+        bank_soal_id: ""
       },
     }
   },
@@ -331,6 +629,11 @@ export default {
   methods: {
     showAlert(type, message) {
       this.alert = { show: true, type, message }
+    },
+    tambahItem(item) {
+      this.create_soal_observasi.unit_kompetensi_id = item.id
+      this.tambahSoalObservasi = item.bankSoalObservasi
+      this.tambahDialog = true
     },
     editItem(item) {
       this.editedIndex = this.bank_soal.indexOf(item)
@@ -363,32 +666,27 @@ export default {
           this.state.skeleton = false
         })
     },
-    async createBankSoalObservasi() {
+    async createSoalObservasi() {
       this.alert.show = false
       const {
-        create_bank_soal_observasi: {
+        create_soal_observasi: {
           unit_kompetensi_id,
-          soal,
-          opsi_k,
-          opsi_bk,
+          bank_soal_id,
         },
       } = this.$data
       const result = await this.$apollo
         .mutate({
-          mutation: CREATE_BANK_SOAL_OBSERVASI_MUTATION,
+          mutation: CREATE_SOAL_OBSERVASI_MUTATION,
           variables: {
             unit_kompetensi_id,
-            soal,
-            opsi_k,
-            opsi_bk,
+            bank_soal_id,
           },
         })
         .then(({ data }) => {
           console.log(data)
-          this.showAlert("success", "Bank soal berhasil dibuat")
+          this.showAlert("success", "Soal berhasil ditambahkan")
         })
         .catch(({ graphQLErrors }) => {
-          console.log(graphQLError)
           this.showAlert("error", graphQLErrors[0].message)
         })
         .finally(() => {
@@ -396,44 +694,11 @@ export default {
           this.getSkemas()
         })
     },
-    async updateBankSoalObservasi() {
-      this.alert.show = false
-      const {
-        editedSoalObservasi: {
-          id,
-          soal,
-          opsi_k,
-          opsi_bk,
-        },
-      } = this.$data
-      const result = await this.$apollo
-        .mutate({
-          mutation: UPDATE_BANK_SOAL_OBSERVASI_MUTATION,
-          variables: {
-            id,
-            soal,
-            opsi_k,
-            opsi_bk,
-          },
-        })
-        .then(({ data }) => {
-          console.log(data)
-          this.showAlert("success", "Bank soal berhasil diedit")
-        })
-        .catch(({ graphQLErrors }) => {
-          console.log(graphQLError)
-          this.showAlert("error", graphQLErrors[0].message)
-        })
-        .finally(() => {
-          this.editDialog = false
-          this.getSkemas()
-        })
-    },
-    async deleteBankSoalObservasi() {
+    async deleteSoalObservasi() {
       this.alert.show = false
       const id = this.deletedSoalObservasi.id
       const result = await this.$apollo.mutate({
-        mutation: DELETE_BANK_SOAL_OBSERVASI_MUTATION,
+        mutation: DELETE_SOAL_OBSERVASI_MUTATION,
         variables: {
           id
         }
