@@ -21,17 +21,450 @@
               Close
             </v-btn>
           </v-snackbar>
-          <!-- Alert section -->
-          <!-- <div v-if="alert.show">
-            <v-alert :type="alert.type" dismissible class="mb-10">
-              <div class="white--text">
-                {{ alert.message }}
-              </div>
-            </v-alert>
-          </div> -->
-          <!-- End alert section -->
           <div v-if="!state.skeleton">
             <v-row>
+              <v-col cols="12">
+                <v-card> 
+                  <div class="d-flex flex-no-wrap">
+                    <v-avatar
+                      class="mt-5 ml-5"
+                      size="125"
+                      style="border-radius: .42rem;"
+                      tile
+                    >
+                      <v-img :src="peserta.asesi.image"></v-img>
+                    </v-avatar>
+                    <div>
+                      <v-card-title
+                        class="headline"
+                      >{{ peserta.asesi.nama }}</v-card-title>
+                      <v-card-subtitle class="py-0">status asesi:</v-card-subtitle>
+                      <v-card-actions>
+                        <v-btn v-if="peserta.status == -2" text color="error">Belum Kompeten</v-btn>
+                        <v-btn v-if="peserta.status == -1" text color="danger">Ditolak</v-btn>
+                        <v-btn v-if="peserta.status == 0" text color="grey">Belum Diverifikasi</v-btn>
+                        <v-btn v-if="peserta.status == 1" text color="primary">Disetujui</v-btn>
+                        <v-btn v-if="peserta.status == 2" text color="success">Direkomendasi Kompeten</v-btn>
+                      </v-card-actions>
+                    </div>
+                  </div>
+                  <v-card-text class="px-5">
+                    <v-simple-table>
+                      <tbody>
+                        <tr>
+                          <td width="10%"><b>Nama:</b></td>
+                          <td>{{ peserta.asesi.nama }}</td>
+                        </tr>
+                        <tr>
+                          <td width="10%"><b>Skema:</b></td>
+                          <td>{{ peserta.jadwal.skema.skema }}</td>
+                        </tr>
+                        <tr>
+                          <td width="10%"><b>Jadwal:</b></td>
+                          <td>{{ peserta.jadwal.tanggal }}</td>
+                        </tr>
+                        <tr>
+                          <td width="10%"><b>Pelaksanaan:</b></td>
+                          <td v-if="peserta.asesmen_date != null">{{ peserta.asesmen_date }}</td>
+                          <td v-if="peserta.asesmen_date == null">Belum Ditentukan</td>
+                        </tr>
+                        <tr>
+                          <td width="10%"><b>Asesor:</b></td>
+                          <td v-if="peserta.asesor != null">{{ peserta.asesor.nama }}</td>
+                          <td v-if="peserta.asesor == null">Belum Ditentukan</td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card-text>
+                  <v-card-actions v-if="peserta.status == 2 || peserta.status == -2" class="d-flex justify-center pb-8 pt-0">
+                    <nuxt-link :to="`/asesi/hasil-asesmen/${peserta.id}`">
+                      <v-btn color="success">Lihat Hasil Sertifikasi</v-btn>
+                    </nuxt-link>
+                  </v-card-actions>
+                  <v-card-actions v-if="peserta.status == 1" class="d-flex justify-center pb-8 pt-0">
+                    <nuxt-link :to="`/asesi/asesmen-mandiri/${peserta.id}`">
+                      <v-btn color="warning">Menuju Asesmen Mandiri</v-btn>
+                    </nuxt-link>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" class="col-md-3 col-xs-12 col-sm-6">
+                <v-card :to="`/asesi/apl-1/${peserta.id}`" link dark color="primary" class="rounded-lg">
+                  <v-card-title>
+                    <p class="ma-0">APL 1</p>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    Detail profile peserta
+                  </v-card-subtitle>
+                  <v-card-text class="d-flex justify-end align-center">
+                    <v-icon size="80">person</v-icon>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" class="col-md-3 col-xs-12 col-sm-6">
+                <v-card :disabled="!peserta.ujiKompetensi.length" :to="`/asesi/asesmen-mandiri/hasil/${peserta.id}`" link dark color="primary" class="rounded-lg">
+                  <v-card-title>
+                    <p class="ma-0">Asesmen Mandiri</p>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    Form dan hasil asesmen mandiri
+                  </v-card-subtitle>
+                  <v-card-text class="d-flex justify-end align-center">
+                    <v-icon size="80">subject</v-icon>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" class="col-md-3 col-xs-12 col-sm-6">
+                <v-card :disabled="peserta.asesor == null" :to="`/asesi/hasil-observasi/${peserta.id}`" link dark color="primary" class="rounded-lg">
+                  <v-card-title>
+                    <p class="ma-0">Hasil observasi</p>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    Hasil observasi dengan asesor
+                  </v-card-subtitle>
+                  <v-card-text class="d-flex justify-end align-center">
+                    <v-icon size="80">wrap_text</v-icon>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" class="col-md-3 col-xs-12 col-sm-6">
+                <v-card :disabled="disabledMenu" :to="`/asesi/hasil-asesmen/${peserta.id}`" link dark color="primary" class="rounded-lg">
+                  <v-card-title>
+                    <p class="ma-0">Rekaman Asesmen</p>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    Hasil akhir uji kompetensi
+                  </v-card-subtitle>
+                  <v-card-text class="d-flex justify-end align-center">
+                    <v-icon size="80">playlist_add_check</v-icon>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row class="mt-3">
+              <v-col cols="12">
+                <v-card class="rounded-lg">
+                  <v-card-title>
+                    <span class="headline px-5">Syarat</span>
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-divider></v-divider>
+                  <v-row>
+                    <v-col cols="12" class="px-10 py-5">
+                      <v-alert
+                        v-if="peserta.status == 0 || peserta.status == -1"
+                        icon="info"
+                        text
+                        type="info"
+                      >
+                        Isi syarat sesuai dengan panduan yang tersedia, dan tunggu persetujuan dari admin
+                      </v-alert>
+                      <div class="px-5 py-5">
+                        <v-row>
+                          <v-col cols="12">
+                            <v-spacer></v-spacer>
+                            <v-text-field
+                              v-model="search"
+                              append-icon="search"
+                              label="Search"
+                              class="shrink"
+                              rounded
+                              outlined
+                              dense
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <v-skeleton-loader
+                          v-if="state.skeleton"
+                          ref="skeleton"
+                          type="table-thead, table-tbody"
+                          class="mx-auto"
+                        >
+                        </v-skeleton-loader>
+                        <v-data-table
+                          v-if="!state.skeleton"
+                          :headers="headers"
+                          :items="peserta.syaratPeserta"
+                          :search="search"
+                          :items-per-page="5"
+                          :line-numbers="true"
+                          hide-default-footer
+                        >
+                          <template #top>
+                            <v-dialog v-model="syaratDialog" persistent max-width="600px">
+                              <v-form>
+                                <v-card>
+                                  <v-card-title>
+                                    <span class="headline">Upload Syarat</span>
+                                  </v-card-title>
+                                  <v-card-text>
+                                    <v-container>
+                                      <v-row>
+                                        <v-col cols="12" sm="12" md="12">
+                                          <label for=""><b>Jenis Syarat*</b></label>
+                                          <v-text-field v-model="editedSyarat.syarat.syarat" class="mt-2" solo disabled label="Masukkan Jenis Syarat yang sesuai" required></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="12" md="12" class="pt-0">
+                                          <label for=""><b>File Syarat*</b></label>
+                                          <v-text-field v-model="syarats.syaratName" persistent-hint hint="PDF (maks 2MB)" class="mt-2" solo readonly label="Pilih Syarat" prepend-icon="attach_file" @click="pickSyarat"></v-text-field>
+                                          <input
+                                            ref="syarat"
+                                            type="file"
+                                            style="display: none"
+                                            accept="application/pdf"
+                                            @change="onSyaratSelected"
+                                          >
+                                        </v-col>
+                                      </v-row>
+                                    </v-container>
+                                    <small>*Wajib diisi</small>
+                                  </v-card-text>
+                                  <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="grey" text @click="syaratDialog = false">Close</v-btn>
+                                    <v-btn color="blue darken-1" text @click="uploadSyarat">Upload Syarat</v-btn>
+                                  </v-card-actions>
+                                </v-card>
+                              </v-form>
+                            </v-dialog>
+                            <v-dialog v-model="deletesyaratDialog" persistent max-width="600px">
+                              <v-card>
+                                <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+
+                                <v-card-text>
+                                  Peringatan! Syarat yang telah dihapus tidak dapat kembali lagi.
+                                </v-card-text>
+
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn color="grey" text @click="deletesyaratDialog = false">Batal</v-btn>
+                                  <v-btn color="red darken-1" text @click="deleteSyarat">Delete Syarat</v-btn>
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+                          </template>
+                          <template #item.file="{ item }">
+                            <span v-if="item.file != null">{{ item.file.substr(item.file.lastIndexOf('/') + 1) }}</span>
+                          </template>
+                          <template #item.status="{ item }">
+                            <v-chip v-if="item.status == -2" small color="red darken-1" dark>Tidak Lulus</v-chip>
+                            <v-chip v-if="item.status == -1" small color="red darken-1" dark>Ditolak</v-chip>
+                            <v-chip v-if="item.status == 0" small color="grey" dark>Belum</v-chip>
+                            <v-chip v-if="item.status == 1" small color="blue lighten-2" dark>Disetujui</v-chip>
+                            <v-chip v-if="item.status == 2" small color="success" dark>Lulus</v-chip>
+                          </template>
+                          <template #item.actions="{ item }">
+                            <v-tooltip bottom>
+                              <template #activator="{ on }">
+                                <v-btn class="mr-2" icon color="pink darken-3" target="_blank" v-on="on" @click="editedSyaratDialog(item)">
+                                  <v-icon>
+                                    mdi-pencil
+                                  </v-icon>
+                                </v-btn>
+                              </template>
+                              <span>Upload Syarat</span>
+                            </v-tooltip>
+                            <v-tooltip bottom>
+                              <template #activator="{ on }">
+                                <v-btn class="mr-2" icon color="primary" :href="item.file" v-on="on">
+                                  <v-icon>
+                                    cloud_download
+                                  </v-icon>
+                                </v-btn>
+                              </template>
+                              <span>Download file</span>
+                            </v-tooltip>
+                            <v-tooltip bottom>
+                              <template #activator="{ on }">
+                                <v-btn class="mr-2" icon color="orange lightern-1" :href="item.file" target="_blank" v-on="on">
+                                  <v-icon>
+                                    remove_red_eye
+                                  </v-icon>
+                                </v-btn>
+                              </template>
+                              <span>Lihat file</span>
+                            </v-tooltip>
+                            <v-tooltip bottom>
+                              <template #activator="{ on }">
+                                <v-btn class="mr-2" icon color="pink darken-3" target="_blank" v-on="on" @click="deleteSyaratDialog(item)">
+                                  <v-icon>
+                                    mdi-delete
+                                  </v-icon>
+                                </v-btn>
+                              </template>
+                              <span>Delete</span>
+                            </v-tooltip>
+                          </template>
+                        </v-data-table>
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col v-if="peserta.status >= 1" cols="12" class="mt-3">
+                <v-card class="rounded-lg">
+                  <v-card-title>
+                    <span class="headline px-5">Portofolio</span>
+                    <v-spacer></v-spacer>
+                  </v-card-title>
+                  <v-divider></v-divider>
+                  <v-row>
+                    <v-col cols="12" class="px-10 py-5">
+                      <v-alert
+                        icon="info"
+                        text
+                        type="info"
+                      >
+                        Upload portofolio yang berkaitan dengan skema ini. <b>Dilakukan saat proses asesmen bersama Asesor!</b>
+                      </v-alert>
+                      <div class="px-5 py-5">
+                        <v-row>
+                          <v-dialog v-model="portofolioDialog" persistent max-width="600px">
+                            <template #activator="{ on }">
+                              <v-btn color="blue darken-3" outlined rounded dark v-on="on">Upload Portofolio</v-btn>
+                            </template>
+                            <v-form>
+                              <v-card>
+                                <v-card-title>
+                                  <span class="headline">Upload Portofolio</span>
+                                </v-card-title>
+                                <v-card-text>
+                                  <v-container>
+                                    <v-row>
+                                      <v-col md="12" xs="12" class="py-0">
+                                        <label for=""><b>Nama</b></label>
+                                        <v-text-field
+                                          v-model="portofolios.nama"
+                                          class="mt-2"
+                                          label="Nama Berkas"
+                                          type="text"
+                                          solo
+                                        />
+                                      </v-col>
+                                    </v-row>
+                                    <v-row>
+                                      <v-col md="12">
+                                        <label for=""><b>Upload File</b></label>
+                                        <v-text-field v-model="portofolios.portofolioName" readonly class="mt-2" solo label="Pilih Portofolio" hint="Ukuran file Maks. 2MB (PDF)" persistent-hint prepend-icon="attach_file" @click="pickPortofolio"></v-text-field>
+                                        <input
+                                          ref="portofolio"
+                                          type="file"
+                                          style="display: none"
+                                          accept="application/pdf"
+                                          @change="onPortofolioSelected"
+                                        >
+                                      </v-col>
+                                    </v-row>
+                                  </v-container>
+                                  <small>*Wajib diisi</small>
+                                </v-card-text>
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn color="grey" text @click="portofolioDialog = false">Close</v-btn>
+                                  <v-btn color="blue darken-1" text @click="uploadPortofolio">Upload portofolio</v-btn>
+                                </v-card-actions>
+                              </v-card>
+                            </v-form>
+                          </v-dialog>
+                          <v-spacer></v-spacer>
+                          <v-text-field
+                            v-model="searchPortofolio"
+                            append-icon="search"
+                            label="Search"
+                            class="shrink"
+                            rounded
+                            outlined
+                            dense
+                          ></v-text-field>
+                        </v-row>
+                        <v-skeleton-loader
+                          v-if="state.skeleton"
+                          ref="skeleton"
+                          type="table-thead, table-tbody"
+                          class="mx-auto"
+                        >
+                        </v-skeleton-loader>
+                        <v-data-table
+                          v-if="!state.skeleton"
+                          :headers="portofoliosHeaders"
+                          :items="peserta.portofolio"
+                          :search="searchPortofolio"
+                          :items-per-page="5"
+                          :line-numbers="true"
+                          hide-default-footer
+                        >
+                          <template #top>
+                            <v-dialog v-model="deleteportofolioDialog" persistent max-width="600px">
+                              <v-card>
+                                <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+
+                                <v-card-text>
+                                  Peringatan! Portofolio yang telah dihapus tidak dapat kembali lagi.
+                                </v-card-text>
+
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn color="grey" text @click="deleteportofolioDialog = false">Batal</v-btn>
+                                  <v-btn color="red darken-1" text @click="deletePortofolio">Delete Portofolio</v-btn>
+                                </v-card-actions>
+                              </v-card>
+                            </v-dialog>
+                          </template>
+                          <template #item.valid="{ item }">
+                            <v-chip v-if="item.valid == -1" small color="red darken-1" dark>tidak</v-chip>
+                            <v-chip v-if="item.valid == 0" small color="grey" dark>-</v-chip>
+                            <v-chip v-if="item.valid == 1" small color="primary" dark>Ya</v-chip>
+                          </template>
+                          <template #item.memadai="{ item }">
+                            <v-chip v-if="item.memadai == -1" small color="red darken-1" dark>tidak</v-chip>
+                            <v-chip v-if="item.memadai == 0" small color="grey" dark>-</v-chip>
+                            <v-chip v-if="item.memadai == 1" small color="primary" dark>Ya</v-chip>
+                          </template>
+                          <template #item.asli="{ item }">
+                            <v-chip v-if="item.asli == -1" small color="red darken-1" dark>tidak</v-chip>
+                            <v-chip v-if="item.asli == 0" small color="grey" dark>-</v-chip>
+                            <v-chip v-if="item.asli == 1" small color="primary" dark>Ya</v-chip>
+                          </template>
+                          <template #item.terkini="{ item }">
+                            <v-chip v-if="item.terkini == -1" small color="red darken-1" dark>tidak</v-chip>
+                            <v-chip v-if="item.terkini == 0" small color="grey" dark>-</v-chip>
+                            <v-chip v-if="item.terkini == 1" small color="primary" dark>Ya</v-chip>
+                          </template>
+                          <template #item.actions="{ item }">
+                            <v-btn icon color="blue darken-3" :to="item.file" download target="_blank">
+                              <v-icon
+                                class="mr-2"
+                              >
+                                cloud_download
+                              </v-icon>
+                            </v-btn>
+                            <v-btn icon color="orange lightern-1" :href="item.file" target="_blank">
+                              <v-icon
+                                class="mr-2"
+                              >
+                                remove_red_eye
+                              </v-icon>
+                            </v-btn>
+                            <v-icon
+                              color="pink darken-3"
+                              class="mr-2"
+                              @click="deletePortofolioDialog(item)"
+                            >
+                              mdi-delete
+                            </v-icon>
+                          </template>
+                        </v-data-table>
+                      </div>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+            </v-row>
+            <!-- <v-row>
               <div class="col-md-4 col-xs-12 pt-0">
                 <v-card> 
                   <div class="d-flex flex-no-wrap">
@@ -108,130 +541,6 @@
                       <v-divider></v-divider>
                       <v-row>
                         <v-col cols="12" class="px-10 py-5">
-                          <!-- <v-alert
-                            v-if="peserta.persetujuan == 0"
-                            icon="info"
-                            text
-                            prominent
-                            type="info"
-                            class="mb-0"
-                            >
-                            <v-row align="center">
-                              <v-col class="grow">Form APL-2 telah diverifikasi. Kirimkan FR.AK.01 persetujuan asesmen dan kerahasiaan</v-col>
-                              <v-col class="shrink">
-                                <v-dialog v-model="tambahDialog" persistent max-width="1000">
-                                  <template v-slot:activator="{ on }">
-                                    <v-btn color="primary" outlined v-on="on">Lihat Form</v-btn>
-                                  </template>
-                                  <v-form>
-                                    <v-card>
-                                      <v-card-title>
-                                        <span>FR.AK.01 - PERSETUJUAN ASESMEN DAN KERAHASIAN</span>
-                                      </v-card-title>
-                                      <v-card-text>
-                                        <v-simple-table>
-                                          <tbody>
-                                            <tr>
-                                              <td colspan="5">
-                                                Persetujuan Asesmen ini untuk menjamin bahwa Asesi telah diberi arahan secara rinci tentang perencanaan dan proses asesmen
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td rowspan="2" width="30%">Skema Sertifikasi <br> (KKNI/Okupasi/Klaster)</td>
-                                              <td width="10%">Judul: </td>
-                                              <td colspan="3">{{ peserta.jadwal.skema.skema }}</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Nomor: </td>
-                                              <td colspan="3">{{ peserta.jadwal.skema.kode }}</td>
-                                            </tr>
-                                            <tr>
-                                              <td colspan="2" class="text-right">Klaster teknisi (?)</td>
-                                              <td>
-                                                <v-checkbox label="Pratama" v-model="value" value="value"></v-checkbox>
-                                              </td>
-                                              <td>
-                                                <v-checkbox label="Madya" v-model="value" value="value"></v-checkbox>
-                                              </td>
-                                              <td>
-                                                <v-checkbox label="Ahli" v-model="value" value="value"></v-checkbox>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td colspan="2">TUK</td>
-                                              <td colspan="3">Sewaktu/Tempat Kerja/Mandiri*</td>
-                                            </tr>
-                                            <tr>
-                                              <td colspan="2">Nama Asesor</td>
-                                              <td class="text-capitalize" colspan="3">{{ peserta.asesor.nama}}</td>
-                                            </tr>
-                                            <tr>
-                                              <td colspan="2">Nama Asesi</td>
-                                              <td class="text-capitalize" colspan="3">{{ peserta.asesi.nama }}</td>
-                                            </tr>
-                                            <tr>
-                                              <td rowspan="2" colspan="2" width="30%">Bukti yang akan dikumpulkan</td>
-                                              <td colspan="3">
-                                                <v-row>
-                                                  <v-col cols="6">
-                                                    <v-checkbox label="TL : Verifikasi Portofolio" v-model="value" value="value"></v-checkbox>
-                                                  </v-col>
-                                                  <v-col cols="6">
-                                                    <v-checkbox label="TL : Verifikasi Portofolio" v-model="value" value="value"></v-checkbox>
-                                                  </v-col>
-                                                </v-row>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td colspan="3">
-                                                <v-checkbox class="py-0" label="T: Hasil Tes Tulis" v-model="form.tulis" value="1"></v-checkbox><br>
-                                                <v-checkbox class="my-0 py-0" label="T: Hasil Tes Lisan" v-model="form.lisan" value="1"></v-checkbox><br>
-                                                <v-checkbox class="my-0 py-0" input-value="true" label="T: Hasil Wawancara" value disabled></v-checkbox>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td rowspan="3" colspan="2">Pelaksanaan asesmen disepakati pada:</td>
-                                              <td>Hari/ Tanggal</td>
-                                              <td colspan="2">{{ peserta.asesmen_date }}</td>
-                                            </tr>
-                                            <tr>
-                                              <td>Waktu</td>
-                                              <td colspan="2">07:00 - Selesai</td>
-                                            </tr>
-                                            <tr>
-                                              <td>TUK</td>
-                                              <td colspan="2"></td>
-                                            </tr>
-                                            <tr>
-                                              <td class="py-2" colspan="5">
-                                                <b>Asesi:</b><br>
-                                                Bahwa Saya Sudah Mendapatkan Penjelasan hak dan Prosedur Banding Oleh Asesor.
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td class="py-2 text-justify" colspan="5">
-                                                <b>Asesor:</b><br>
-                                                Menyatakan tidak akan membuka hasil pekerjaan yang saya peroleh karena penugasan saya sebagai Asesor 
-                                                dalam pekerjaan Asesmen kepada siapapun atau organisasi apapun selain kepada pihak yang berwenang sehubungan 
-                                                dengan kewajiban saya sebagai Asesor yang ditugaskan oleh LSP.
-                                              </td>
-                                            </tr>
-                                          </tbody>
-                                        </v-simple-table>
-                                        <v-container>
-                                        </v-container>
-                                      </v-card-text>
-                                      <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="grey" text @click="tambahDialog = false">Batal</v-btn>
-                                        <v-btn color="blue darken-1" text @click='accPersetujuanPeserta'>Kirimkan</v-btn>
-                                      </v-card-actions>
-                                    </v-card>
-                                  </v-form>
-                                </v-dialog>
-                              </v-col>
-                            </v-row>
-                          </v-alert> -->
                           <v-alert
                             v-if="peserta.umpan_balik_date == null && peserta.status == -1 || peserta.status == 2"
                             icon="info"
@@ -307,10 +616,6 @@
                                     </v-card>
                                   </v-form>
                                 </v-dialog>
-                                <!-- <v-btn
-                                outlined
-                                color="primary"
-                                >Lihat Form</v-btn> -->
                               </v-col>
                             </v-row>
                           </v-alert>
@@ -344,7 +649,7 @@
                                 <v-card-actions class="justify-center fill-height">
                                   <v-list-item two-line>
                                     <v-list-item-content class="text-center">
-                                      <v-list-item-title class="headline mb-2">
+                                      <v-list-item-title class="headline mb-2"> 
                                         <v-icon size="30" color="primary">person</v-icon>
                                       </v-list-item-title>
                                       <v-list-item-title>Detil APL 1</v-list-item-title>
@@ -400,377 +705,9 @@
                       </v-row>
                     </v-card>
                   </v-col>
-                  <v-col cols="12">
-                    <v-card>
-                      <v-card-title>
-                        <span class="headline px-5">Syarat</span>
-                        <v-spacer></v-spacer>
-                      </v-card-title>
-                      <v-divider></v-divider>
-                      <v-row>
-                        <v-col cols="12" class="px-10 py-5">
-                          <v-alert
-                            v-if="peserta.status == 0 || peserta.status == -1"
-                            icon="info"
-                            text
-                            type="info"
-                          >
-                            Isi syarat sesuai dengan panduan yang tersedia, dan tunggu persetujuan dari admin
-                          </v-alert>
-                          <div class="px-5 py-5">
-                            <v-row>
-                              <!-- <v-dialog v-model="tambahDialog" persistent max-width="600px">
-                                <template v-slot:activator="{ on }">
-                                  <v-btn v-if="peserta.status == 0 || peserta.status == -1" color="blue darken-3" outlined rounded dark v-on="on">Upload Syarat</v-btn>
-                                </template>
-                                <v-form>
-                                  <v-card>
-                                    <v-card-title>
-                                      <span class="headline">Upload Syarat</span>
-                                    </v-card-title>
-                                    <v-card-text>
-                                      <v-container>
-                                        <v-row>
-                                          <v-col cols="12" sm="12" md="12">
-                                            <label for=""><b>Jenis Syarat*</b></label>
-                                            <v-text-field class="mt-2" solo v-model="syarats.syarat" label="Masukkan Jenis Syarat yang sesuai" required></v-text-field>
-                                          </v-col>
-                                          <v-col cols="12" sm="12" md="12" class="pt-0">
-                                            <label for=""><b>File Syarat*</b></label>
-                                            <v-text-field persistent-hint hint="PDF (maks 2MB)" class="mt-2" solo readonly label="Pilih Syarat" v-model='syarats.syaratName' @click='pickSyarat' prepend-icon='attach_file'></v-text-field>
-                                            <input
-                                                type="file"
-                                                style="display: none"
-                                                ref="syarat"
-                                                accept="image/png, image/jpeg, application/pdf"
-                                                @change="onSyaratSelected"
-                                            >
-                                          </v-col>
-                                        </v-row>
-                                      </v-container>
-                                      <small>*Wajib diisi</small>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                      <v-spacer></v-spacer>
-                                      <v-btn color="grey" text @click="tambahDialog = false">Close</v-btn>
-                                      <v-btn color="blue darken-1" text @click='uploadSyarat'>Upload Syarat</v-btn>
-                                    </v-card-actions>
-                                  </v-card>
-                                </v-form>
-                              </v-dialog> -->
-                              <v-spacer></v-spacer>
-                              <v-text-field
-                                v-model="search"
-                                append-icon="search"
-                                label="Search"
-                                class="shrink"
-                                rounded
-                                outlined
-                                dense
-                              ></v-text-field>
-                            </v-row>
-                            <v-skeleton-loader
-                              v-if="state.skeleton"
-                              ref="skeleton"
-                              type="table-thead, table-tbody"
-                              class="mx-auto"
-                            >
-                            </v-skeleton-loader>
-                            <v-data-table
-                              v-if="!state.skeleton"
-                              :headers="headers"
-                              :items="peserta.syaratPeserta"
-                              :search="search"
-                              :items-per-page="5"
-                              :line-numbers="true"
-                              hide-default-footer
-                            >
-                              <template #top>
-                                <v-dialog v-model="syaratDialog" persistent max-width="600px">
-                                  <v-form>
-                                    <v-card>
-                                      <v-card-title>
-                                        <span class="headline">Upload Syarat</span>
-                                      </v-card-title>
-                                      <v-card-text>
-                                        <v-container>
-                                          <v-row>
-                                            <v-col cols="12" sm="12" md="12">
-                                              <label for=""><b>Jenis Syarat*</b></label>
-                                              <v-text-field v-model="editedSyarat.syarat.syarat" class="mt-2" solo disabled label="Masukkan Jenis Syarat yang sesuai" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="12" md="12" class="pt-0">
-                                              <label for=""><b>File Syarat*</b></label>
-                                              <v-text-field v-model="syarats.syaratName" persistent-hint hint="PDF (maks 2MB)" class="mt-2" solo readonly label="Pilih Syarat" prepend-icon="attach_file" @click="pickSyarat"></v-text-field>
-                                              <input
-                                                ref="syarat"
-                                                type="file"
-                                                style="display: none"
-                                                accept="application/pdf"
-                                                @change="onSyaratSelected"
-                                              >
-                                            </v-col>
-                                          </v-row>
-                                        </v-container>
-                                        <small>*Wajib diisi</small>
-                                      </v-card-text>
-                                      <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="grey" text @click="syaratDialog = false">Close</v-btn>
-                                        <v-btn color="blue darken-1" text @click="uploadSyarat">Upload Syarat</v-btn>
-                                      </v-card-actions>
-                                    </v-card>
-                                  </v-form>
-                                </v-dialog>
-                                <v-dialog v-model="deletesyaratDialog" persistent max-width="600px">
-                                  <v-card>
-                                    <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
-
-                                    <v-card-text>
-                                      Peringatan! Syarat yang telah dihapus tidak dapat kembali lagi.
-                                    </v-card-text>
-
-                                    <v-card-actions>
-                                      <v-spacer></v-spacer>
-                                      <v-btn color="grey" text @click="deletesyaratDialog = false">Batal</v-btn>
-                                      <v-btn color="red darken-1" text @click="deleteSyarat">Delete Syarat</v-btn>
-                                    </v-card-actions>
-                                  </v-card>
-                                </v-dialog>
-                              </template>
-                              <template #item.file="{ item }">
-                                <span v-if="item.file != null">{{ item.file.substr(item.file.lastIndexOf('/') + 1) }}</span>
-                              </template>
-                              <template #item.status="{ item }">
-                                <v-chip v-if="item.status == -2" small color="red darken-1" dark>Tidak Lulus</v-chip>
-                                <v-chip v-if="item.status == -1" small color="red darken-1" dark>Ditolak</v-chip>
-                                <v-chip v-if="item.status == 0" small color="grey" dark>Belum</v-chip>
-                                <v-chip v-if="item.status == 1" small color="blue lighten-2" dark>Disetujui</v-chip>
-                                <v-chip v-if="item.status == 2" small color="success" dark>Lulus</v-chip>
-                              </template>
-                              <template #item.actions="{ item }">
-                                <v-tooltip bottom>
-                                  <template #activator="{ on }">
-                                    <v-btn class="mr-2" icon color="pink darken-3" target="_blank" v-on="on" @click="editedSyaratDialog(item)">
-                                      <v-icon>
-                                        mdi-pencil
-                                      </v-icon>
-                                    </v-btn>
-                                  </template>
-                                  <span>Upload Syarat</span>
-                                </v-tooltip>
-                                <v-tooltip bottom>
-                                  <template #activator="{ on }">
-                                    <v-btn class="mr-2" icon color="primary" :href="item.file" v-on="on">
-                                      <v-icon>
-                                        cloud_download
-                                      </v-icon>
-                                    </v-btn>
-                                  </template>
-                                  <span>Download file</span>
-                                </v-tooltip>
-                                <v-tooltip bottom>
-                                  <template #activator="{ on }">
-                                    <v-btn class="mr-2" icon color="orange lightern-1" :href="item.file" target="_blank" v-on="on">
-                                      <v-icon>
-                                        remove_red_eye
-                                      </v-icon>
-                                    </v-btn>
-                                  </template>
-                                  <span>Lihat file</span>
-                                </v-tooltip>
-                                <v-tooltip bottom>
-                                  <template #activator="{ on }">
-                                    <v-btn class="mr-2" icon color="pink darken-3" target="_blank" v-on="on" @click="deleteSyaratDialog(item)">
-                                      <v-icon>
-                                        mdi-delete
-                                      </v-icon>
-                                    </v-btn>
-                                  </template>
-                                  <span>Delete</span>
-                                </v-tooltip>
-                              </template>
-                            </v-data-table>
-                          </div>
-                        </v-col>
-                      </v-row>
-                    </v-card>
-                  </v-col>
-                  <v-col v-if="peserta.status >= 1" cols="12">
-                    <v-card>
-                      <v-card-title>
-                        <span class="headline px-5">Portofolio</span>
-                        <v-spacer></v-spacer>
-                      </v-card-title>
-                      <v-divider></v-divider>
-                      <!-- portofolio -->
-                      <v-row>
-                        <v-col cols="12" class="px-10 py-5">
-                          <v-alert
-                            icon="info"
-                            text
-                            type="info"
-                          >
-                            Upload portofolio yang berkaitan dengan skema ini. <b>Dilakukan saat proses asesmen bersama Asesor!</b>
-                          </v-alert>
-                          <div class="px-5 py-5">
-                            <v-row>
-                              <v-dialog v-model="portofolioDialog" persistent max-width="600px">
-                                <template #activator="{ on }">
-                                  <v-btn color="blue darken-3" outlined rounded dark v-on="on">Upload Portofolio</v-btn>
-                                </template>
-                                <v-form>
-                                  <v-card>
-                                    <v-card-title>
-                                      <span class="headline">Upload Portofolio</span>
-                                    </v-card-title>
-                                    <v-card-text>
-                                      <v-container>
-                                        <v-row>
-                                          <v-col md="12" xs="12" class="py-0">
-                                            <label for=""><b>Nama</b></label>
-                                            <v-text-field
-                                              v-model="portofolios.nama"
-                                              class="mt-2"
-                                              label="Nama Berkas"
-                                              type="text"
-                                              solo
-                                            />
-                                          </v-col>
-                                        </v-row>
-                                        <!-- <v-row>
-                                          <v-col md="12" xs="12" class="py-0">
-                                            <label for=""><b>Unit Kompetensi</b></label>
-                                            <v-select
-                                              v-model="portofolios.uji_kompetensi_id"
-                                              class="mt-2"
-                                              :items="peserta.ujiKompetensi"
-                                              label="Pilih unit berkaitan dengan portofolio"
-                                              item-value="id" item-text="unitKompetensi.unit"
-                                              solo
-                                            />
-                                          </v-col>
-                                        </v-row> -->
-                                        <v-row>
-                                          <v-col md="12">
-                                            <label for=""><b>Upload File</b></label>
-                                            <v-text-field v-model="portofolios.portofolioName" readonly class="mt-2" solo label="Pilih Portofolio" hint="Ukuran file Maks. 2MB (PDF)" persistent-hint prepend-icon="attach_file" @click="pickPortofolio"></v-text-field>
-                                            <input
-                                              ref="portofolio"
-                                              type="file"
-                                              style="display: none"
-                                              accept="application/pdf"
-                                              @change="onPortofolioSelected"
-                                            >
-                                          </v-col>
-                                        </v-row>
-                                      </v-container>
-                                      <small>*Wajib diisi</small>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                      <v-spacer></v-spacer>
-                                      <v-btn color="grey" text @click="portofolioDialog = false">Close</v-btn>
-                                      <v-btn color="blue darken-1" text @click="uploadPortofolio">Upload portofolio</v-btn>
-                                    </v-card-actions>
-                                  </v-card>
-                                </v-form>
-                              </v-dialog>
-                              <v-spacer></v-spacer>
-                              <v-text-field
-                                v-model="searchPortofolio"
-                                append-icon="search"
-                                label="Search"
-                                class="shrink"
-                                rounded
-                                outlined
-                                dense
-                              ></v-text-field>
-                            </v-row>
-                            <v-skeleton-loader
-                              v-if="state.skeleton"
-                              ref="skeleton"
-                              type="table-thead, table-tbody"
-                              class="mx-auto"
-                            >
-                            </v-skeleton-loader>
-                            <v-data-table
-                              v-if="!state.skeleton"
-                              :headers="portofoliosHeaders"
-                              :items="peserta.portofolio"
-                              :search="searchPortofolio"
-                              :items-per-page="5"
-                              :line-numbers="true"
-                              hide-default-footer
-                            >
-                              <template #top>
-                                <v-dialog v-model="deleteportofolioDialog" persistent max-width="600px">
-                                  <v-card>
-                                    <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
-
-                                    <v-card-text>
-                                      Peringatan! Portofolio yang telah dihapus tidak dapat kembali lagi.
-                                    </v-card-text>
-
-                                    <v-card-actions>
-                                      <v-spacer></v-spacer>
-                                      <v-btn color="grey" text @click="deleteportofolioDialog = false">Batal</v-btn>
-                                      <v-btn color="red darken-1" text @click="deletePortofolio">Delete Portofolio</v-btn>
-                                    </v-card-actions>
-                                  </v-card>
-                                </v-dialog>
-                              </template>
-                              <template #item.valid="{ item }">
-                                <v-chip v-if="item.valid == -1" small color="red darken-1" dark>tidak</v-chip>
-                                <v-chip v-if="item.valid == 0" small color="grey" dark>-</v-chip>
-                                <v-chip v-if="item.valid == 1" small color="primary" dark>Ya</v-chip>
-                              </template>
-                              <template #item.memadai="{ item }">
-                                <v-chip v-if="item.memadai == -1" small color="red darken-1" dark>tidak</v-chip>
-                                <v-chip v-if="item.memadai == 0" small color="grey" dark>-</v-chip>
-                                <v-chip v-if="item.memadai == 1" small color="primary" dark>Ya</v-chip>
-                              </template>
-                              <template #item.asli="{ item }">
-                                <v-chip v-if="item.asli == -1" small color="red darken-1" dark>tidak</v-chip>
-                                <v-chip v-if="item.asli == 0" small color="grey" dark>-</v-chip>
-                                <v-chip v-if="item.asli == 1" small color="primary" dark>Ya</v-chip>
-                              </template>
-                              <template #item.terkini="{ item }">
-                                <v-chip v-if="item.terkini == -1" small color="red darken-1" dark>tidak</v-chip>
-                                <v-chip v-if="item.terkini == 0" small color="grey" dark>-</v-chip>
-                                <v-chip v-if="item.terkini == 1" small color="primary" dark>Ya</v-chip>
-                              </template>
-                              <template #item.actions="{ item }">
-                                <v-btn icon color="blue darken-3" :to="item.file" download target="_blank">
-                                  <v-icon
-                                    class="mr-2"
-                                  >
-                                    cloud_download
-                                  </v-icon>
-                                </v-btn>
-                                <v-btn icon color="orange lightern-1" :href="item.file" target="_blank">
-                                  <v-icon
-                                    class="mr-2"
-                                  >
-                                    remove_red_eye
-                                  </v-icon>
-                                </v-btn>
-                                <v-icon
-                                  color="pink darken-3"
-                                  class="mr-2"
-                                  @click="deletePortofolioDialog(item)"
-                                >
-                                  mdi-delete
-                                </v-icon>
-                              </template>
-                            </v-data-table>
-                          </div>
-                        </v-col>
-                      </v-row>
-                    </v-card>
-                  </v-col>
                 </v-row>
               </div>
-            </v-row>
+            </v-row> -->
           </div>
         </v-container>
       </v-layout>
@@ -796,7 +733,7 @@ export default {
       searchPortofolio: '',
       headers: [
         { text: 'Syarat', value: 'syarat.syarat' },
-        { text: 'File', value: 'file'},
+        // { text: 'File', value: 'file'},
         { text: 'Status', value: 'status'},
         { text: 'Aksi', value: 'actions' },
       ],
@@ -935,33 +872,6 @@ export default {
         this.portofolios.portofolioUrl = ''
       }
     },
-    // onSyaratSelected(index, e) {
-    //   if (this.syarats[index] == null) {
-    //       this.syarats[index] = {};
-    //   }
-    //   const syaratFile = e.target.files;
-        
-    //   if(syaratFile[0] !== undefined) {
-    //       this.syarats[index].syaratName = syaratFile[0].name;
-    //       if(this.syarats[index].syaratName.lastIndexOf('.') <= 0) {
-    //           return;
-    //       }
-    //       const fr = new FileReader ();
-    //       fr.readAsDataURL(syaratFile[0]);
-    //       fr.addEventListener('load', () => {
-    //           this.syarats[index].syaratUrl = fr.result;
-    //           this.syarats[index].syaratFile = syaratFile[0]; 
-    //       });
-    //   } else {
-    //       this.syarats[index].syaratName = '';
-    //       this.syarats[index].syaratFile = '';
-    //       this.syarats[index].syaratUrl = '';
-    //   }
-    // },
-    // pickSyarat(id) {
-    //   console.log(id);
-    //   this.$refs[id][0].click();
-    // },
     async getumpanBaliks () {
       const result = await this.$apollo.mutate({
         mutation: GET_UMPAN_BALIKS
@@ -1099,36 +1009,6 @@ export default {
         })
       }
     },
-    // async uploadSyarat() {
-    //   const { state: { loading } } = this;
-    //   if (!loading) {
-    //     this.state.loading = true;
-    //     console.log(this.items.length);
-          
-    //     const peserta_id = this.peserta.id;
-    //     const syarat = this.syarats.syarat;
-    //     const file = this.syarats.syaratUrl;
-
-    //     const result = await this.$apollo.mutate({
-    //     mutation: UPLOAD_SYARAT,
-    //     variables: {
-    //         peserta_id,
-    //         file,
-    //         syarat
-    //     }
-    //     }).then(({ data }) => {
-    //         this.showAlert('success', 'Data anda telah berhasil diupload');
-    //         console.log(data);
-    //     }).catch(({graphQLErrors}) => {
-    //         this.showAlert('error', graphQLErrors[0].message);
-    //         console.log(graphQLErrors);
-    //     }).finally(() => {
-    //       this.state.loading = false;
-    //       this.tambahDialog = false;
-    //       this.getJadwal();
-    //     });
-    //   }
-    // },
     async uploadPortofolio() {
       const { state: { loading } } = this
       if (!loading) {

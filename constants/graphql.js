@@ -1089,7 +1089,6 @@ export const GET_SELF_ASESOR = gql`
     image
     ttd
     exp_sertifikat
-    flag
     skema {
       id
       skema
@@ -2010,12 +2009,34 @@ query($id: ID!){
         rekomendasi_am
         am_date
         umpan_balik_observasi
+        umpan_balik_uji
+        ujiObservasi {
+          id
+          hasil
+          tanggapan
+          soalObservasi {
+            id
+            soal
+          }
+        }
         unitKompetensi {
           id
           kode
           unit
           tahun
           flag
+          bankSoalObservasi {
+            id
+            soal
+            opsi_k
+            opsi_bk
+          }
+          SoalObservasi {
+            id
+            soal
+            opsi_k
+            opsi_bk
+          }
           element {
             id
             elemen

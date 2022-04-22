@@ -72,3 +72,17 @@ mutation deleteSoalObservasi($id: Int!){
   )
 }
 `
+
+export const UJIOBSERVASI_MUTATION = gql `
+mutation ujiobservasi(
+    $uji_kompetensi_id: ID!,
+    $umpan_balik_uji: String,
+    $uji_observasi: [ujiobservasi]!,
+    ) {
+        ujiobservasi(
+            uji_kompetensi_id: $uji_kompetensi_id,
+            umpan_balik_uji: $umpan_balik_uji,
+            uji_observasi: $uji_observasi,
+    )
+}
+`

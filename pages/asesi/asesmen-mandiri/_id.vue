@@ -118,14 +118,14 @@
                             <tr v-for="(porto, i) in elemen.portofolioAsesmen" :key="i">
                               <td></td>
                               <td>{{ i+1 }}</td>
-                              <td>{{ getPortoName(porto)}}</td>
+                              <td>{{ porto.nama }}</td>
                               <td colspan="4">
                                 <v-btn icon color="orange lightern-1" :href="porto.file" target="_blank">
                                   <v-icon>
                                     remove_red_eye
                                   </v-icon>
                                 </v-btn>
-                                <v-btn icon color="error" @click="removePortofolio(ujiIndex, elemenIndex, i)">
+                                <v-btn icon color="error" @click="preparedDeletePortofolio(ujiIndex, elemenIndex, i)">
                                   <v-icon>
                                     mdi-close
                                   </v-icon>
@@ -162,6 +162,7 @@
                         multiple
                         outlined
                         dense
+                        return-object
                         v-model="select_portofolio.elemen.portofolioAsesmen"
                         :items="peserta.portofolio"
                         label="Pilih Portofolio*"
@@ -172,6 +173,21 @@
                       <v-spacer></v-spacer>
                       <v-btn color="grey" text @click="tambahDialog = false">Batal</v-btn>
                       <v-btn color="blue darken-1" :disabled="select_portofolio.elemen.portofolioAsesmen && select_portofolio.elemen.portofolioAsesmen.length <= 0" text @click="savePortofolio">Tambah portofolio</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+                <v-dialog v-model="deleteDialog" persistent max-width="600px">
+                  <v-card>
+                    <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+
+                    <v-card-text>
+                      Peringatan! Data yang telah dihapus tidak dapat kembali lagi.
+                    </v-card-text>
+
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="grey" text @click="deleteDialog = false">Batal</v-btn>
+                      <v-btn color="red darken-1" text @click="deletePortofolio">Delete Portofolio</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -215,6 +231,7 @@ export default {
   data() {
     return {
       tambahDialog: false,
+      deleteDialog: false,
       search: '',
       headers: [
         { text: 'Syarat', value: 'syarat' },
@@ -251,6 +268,11 @@ export default {
           portofolioAsesmen: []
         }
       },
+      delete_portofolio : {
+        ujiIndex: null,
+        elemenIndex: null,
+        i: null
+      },
       input: [],
       skema: [],
       syarat: [],
@@ -270,8 +292,9 @@ export default {
     // this.getAsesi();
   },
   methods: {
-    removePortofolio(ujiIndex, elemenIndex, i) {
-      this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].portofolioAsesmen.splice(i, 1)
+    deletePortofolio() {
+      this.ujikompetensi[this.delete_portofolio.ujiIndex].unitKompetensi.element[this.delete_portofolio.elemenIndex].portofolioAsesmen.splice(this.delete_portofolio.elemenIndex, 1)
+      this.deleteDialog = false
     },
     getPortoName(id) {
       console.log(id)
@@ -283,6 +306,13 @@ export default {
       }
       this.select_portofolio = Object.assign({}, { elemen: {}})
       this.tambahDialog = false
+    },
+    preparedDeletePortofolio(ujiIndex, elemenIndex, i) {
+      // console.log(elemen, i)
+      this.$nextTick(() => {
+        this.delete_portofolio = Object.assign({}, { ujiIndex: ujiIndex, elemenIndex: elemenIndex, i: i })
+        this.deleteDialog = true
+      })
     },
     preparedSelectPortofolio(elemen, ujiIndex, elemenIndex) {
       // console.log(elemen, i)
@@ -306,18 +336,6 @@ export default {
       if (val === this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag) {
         return this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag = "0"
       }
-      // this.editedIndex = this.skemas.indexOf(item);
-      // this.input.asesmen.push({kuk_id: kuk.id, asesmen_mandiri: value});
-      // this.input = Object.assign(this.input, {uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}});
-      // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
-      // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
-      // this.input = { 
-      //   ...this.input, 
-      //   [uji.id]: {
-      //     uji_kompetensi_id: uji.id, 
-      //     asesmen: { [kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}
-      //     }
-      //   }};
       let kukData = (this.input[uji.id] || {}).asesmen
       if (kukData == null) {
         kukData = {}
@@ -363,7 +381,9 @@ export default {
                 this.ujikompetensi[x].unitKompetensi.element[i] = Object.assign({}, 
                   this.ujikompetensi[x].unitKompetensi.element[i], { 
                     asesmen_mandiri: `${this.ujikompetensi[x].asesmen[k].asesmen_mandiri}`,
-                    portofolioAsesmen: this.ujikompetensi[x].asesmen[k].portofolioAsesmen
+                    portofolioAsesmen: this.ujikompetensi[x].asesmen[k].portofolioAsesmen.map((item) => {
+                      return item.portofolio
+                    })
                   })
               }
             }
@@ -458,7 +478,11 @@ export default {
           const element = Object.assign({}, {
             element_id: this.ujikompetensi[ujiIndex].unitKompetensi.element[i].id,
             asesmen_mandiri: this.ujikompetensi[ujiIndex].unitKompetensi.element[i].asesmen_mandiri,
-            portofolio_id: typeof(this.ujikompetensi[ujiIndex].unitKompetensi.element[i].portofolioAsesmen) !== 'undefined' ? this.ujikompetensi[ujiIndex].unitKompetensi.element[i].portofolioAsesmen : []
+            portofolio_id: 
+              typeof(this.ujikompetensi[ujiIndex].unitKompetensi.element[i].portofolioAsesmen) !== 'undefined' 
+                ? this.ujikompetensi[ujiIndex].unitKompetensi.element[i].portofolioAsesmen.map((item) => {
+                  return item.id
+                }) : []
           })
           asesmen.push(element)
         }

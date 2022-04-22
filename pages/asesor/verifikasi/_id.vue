@@ -328,6 +328,20 @@
                               </v-card>
                             </v-col>
                             <v-col md="3">
+                              <v-card :to="`/asesor/soal-observasi/${pesertas.id}`" text link>
+                                <v-card-actions class="justify-center fill-height">
+                                  <v-list-item two-line>
+                                    <v-list-item-content class="text-center">
+                                      <v-list-item-title class="headline mb-2">
+                                        <v-icon size="30" color="indigo">edit</v-icon>
+                                      </v-list-item-title>
+                                      <v-list-item-title>Hasil observasi</v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
+                                </v-card-actions>
+                              </v-card>
+                            </v-col>
+                            <v-col md="3">
                               <v-card :to="`/asesor/hasil-observasi/${pesertas.id}`" text link>
                                 <v-card-actions class="justify-center fill-height">
                                   <v-list-item two-line>
@@ -393,7 +407,7 @@
                               text
                               type="info"
                             >
-                              Setelah proses verifikasi APL-2, silahkan tekan tombol konfirmasi jadwal untuk menginfokan Asesi mengenai jadwal Asesmen Offline!
+                              Setelah proses verifikasi APL-2, silahkan tekan tombol konfirmasi jadwal untuk menginfokan Asesi mengenai jadwal Asesmen Online!
                             </v-alert>
                             <label for="">Tanggal Asesmen</label>
                             <v-menu
@@ -451,7 +465,7 @@
                     </v-card>
                   </v-col>
 
-                  <v-col cols="12">
+                  <v-col v-show="false" cols="12">
                     <v-card>
                       <v-card-title class="px-8">
                         <span class="headline">
@@ -595,7 +609,7 @@
                     </v-card>
                   </v-col>
 
-                  <v-col cols="12">
+                  <v-col v-show="false" cols="12">
                     <v-card>
                       <v-card-title class="px-8 ">
                         <span class="headline">Syarat Peserta</span>
@@ -626,7 +640,7 @@
                       </v-menu> -->
                       </v-card-title>
                       <v-divider></v-divider>
-                      <v-card-text v-if="show === 'informasi'" class="px-8 py-8"> 
+                      <v-card-text v-show="false" v-if="show === 'informasi'" class="px-8 py-8"> 
                         <div>
                           <v-data-table
                             v-if="!state.skeleton"
@@ -709,7 +723,7 @@
                           </v-data-table>
                         </div>
                       </v-card-text>
-                      <v-card-text v-if="show === 'asesmen-mandiri'" class="px-8 py-8">
+                      <v-card-text v-show="false" v-if="show === 'asesmen-mandiri'" class="px-8 py-8">
                         <v-alert
                           icon="info"
                           text
@@ -801,7 +815,7 @@
                     </v-card>
                   </v-col>
 
-                  <v-col cols="12">
+                  <v-col v-show="false" cols="12">
                     <v-card>
                       <v-card-title class="px-8">
                         <span class="headline">

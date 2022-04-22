@@ -1,6 +1,6 @@
 <template>
-  <v-app light class="grey lighten-4">
-    <v-main>
+  <v-app>
+    <v-main class="bg-white" id="content">
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -9,12 +9,15 @@
 import Navbar from '../components/Navbar'
 
 export default {
-  name: "App",
+  name: "App_print",
   components: { Navbar },
   data() {
     return {
 
     }
+  },
+  unmounted() {
+    this.style.remove()
   },
   methods: {
     gotoPage(page) {

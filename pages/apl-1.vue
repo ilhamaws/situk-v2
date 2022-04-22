@@ -502,6 +502,7 @@ export default {
         ttd: null,
         jenis_kelamin: null,
         kota_id: null,
+        npm: null,
         provinsi_id: null,
         nama_lembaga: null,
         alamat_lembaga: null,
