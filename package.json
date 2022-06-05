@@ -12,6 +12,7 @@
     "@babel/eslint-parser": "^7.18.2",
     "@nuxtjs/apollo": "^4.0.1-rc.5",
     "@nuxtjs/eslint-module": "^3.1.0",
+    "colors": "^1.4.0",
     "core-js": "^3.22.8",
     "eslint-plugin-nuxt": "^3.2.0",
     "graphql-tag": "^2.12.6",
