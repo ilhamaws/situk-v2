@@ -7,16 +7,15 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title class="px-8 ">
+            <v-card-title>
               <!-- <v-avatar size="30" color="warning lighten-2">
                 <span class="white--text">APL.1</span>
               </v-avatar> -->
-              <v-icon class="mr-2" size="30" color="warning">subject</v-icon>
-              <span class="headline">Hasil Asesmen Mandiri</span>
+              <span class="font-weight-bold">FR.APL.02 Hasil Asesmen Mandiri</span>
               <v-spacer></v-spacer>
             </v-card-title>
             <v-divider></v-divider>
-            <v-card-text class="px-8 pb-8">
+            <v-card-text>
               <!-- Alert section -->
               <v-alert
                 v-if="peserta.persetujuan == 5"
@@ -55,18 +54,6 @@
                                   <td>Nomor: </td>
                                   <td colspan="3">{{ peserta.jadwal.skema.kode }}</td>
                                 </tr>
-                                <!-- <tr>
-                                  <td colspan="2" class="text-right">Klaster teknisi (?)</td>
-                                  <td>
-                                    <v-checkbox label="Pratama" v-model="value" value="value"></v-checkbox>
-                                  </td>
-                                  <td>
-                                    <v-checkbox label="Madya" v-model="value" value="value"></v-checkbox>
-                                  </td>
-                                  <td>
-                                    <v-checkbox label="Ahli" v-model="value" value="value"></v-checkbox>
-                                  </td>
-                                </tr> -->
                                 <tr>
                                   <td colspan="2">TUK</td>
                                   <td colspan="3">Sewaktu/Tempat Kerja/Mandiri*</td>
@@ -187,7 +174,7 @@
                   </template>
                 </v-snackbar>
               </div>
-              <div v-if="ujikompetensi != null" class="pt-5">
+              <div v-if="ujikompetensi != null">
                 <v-expansion-panels multiple accordion>
                   <v-expansion-panel
                     v-for="(uji, ujiIndex) in ujikompetensi"
@@ -298,16 +285,20 @@
                               <td width="5%">{{ elemenIndex+1 }}.{{ kukIndex+1 }}</td>
                               <td>{{ kuk.kriteria }}</td>
                               <td colspan="2"></td>
-                              <!-- <td colspan="2" class="text-center">
-                                      <v-radio-group readonly row v-model="ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].asesmen_mandiri">
-                                        <v-col cols="6">
-                                          <v-radio class="justify-center" value= "1"></v-radio>
-                                        </v-col>
-                                        <v-col cols="6">
-                                          <v-radio class="justify-center" value= "-1"></v-radio>
-                                        </v-col>
-                                      </v-radio-group>
-                                    </td> -->
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td class="" colspan="4" width="20">Bukti yang relevan (Portofolio) :
+                              </td>
+                            </tr>
+                            <tr v-for="(porto, i) in elemen.portofolioAsesmen" :key="i">
+                              <td></td>
+                              <td>{{ i+1 }}</td>
+                              <td colspan="4">
+                                <a :href="porto.portofolio.file" target="_blank">
+                                  {{ porto.portofolio.nama }}
+                                </a>
+                              </td>
                             </tr>
                           </tbody>
                         </template>
@@ -478,7 +469,10 @@ export default {
             const element = this.ujikompetensi[x].unitKompetensi.element[i]
             for (let k = 0; k < this.ujikompetensi[x].asesmen.length; k++) {
               if (this.ujikompetensi[x].asesmen[k].element.id == element.id) {
-                this.ujikompetensi[x].unitKompetensi.element[i] = Object.assign({}, this.ujikompetensi[x].unitKompetensi.element[i], { asesmen_mandiri: `${this.ujikompetensi[x].asesmen[k].asesmen_mandiri}` })
+                this.ujikompetensi[x].unitKompetensi.element[i] = Object.assign({}, this.ujikompetensi[x].unitKompetensi.element[i], {
+                  asesmen_mandiri: `${this.ujikompetensi[x].asesmen[k].asesmen_mandiri}`,
+                  portofolioAsesmen: this.ujikompetensi[x].asesmen[k].portofolioAsesmen
+                })
                 console.log(element.id)
               }
             }

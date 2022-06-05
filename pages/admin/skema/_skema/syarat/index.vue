@@ -10,7 +10,7 @@
             <!-- <v-avatar size="30" color="warning lighten-2">
             <span class="white--text">APL.1</span>
           </v-avatar> -->
-            <span class="headline px-5">Syarat</span>
+            <span class="font-weight-bold">Syarat Wajib Skema</span>
           </v-card-title>
           <v-divider></v-divider>
           <v-row>
@@ -44,7 +44,7 @@
                 <v-row>
                   <v-dialog v-model="tambahDialog" persistent max-width="600px">
                     <template #activator="{ on }">
-                      <v-btn color="primary" outlined rounded dark v-on="on">Tambah Syarat</v-btn>
+                      <v-btn color="primary" outlined dark v-on="on">Tambah Syarat</v-btn>
                     </template>
                     <v-form>
                       <v-card>
@@ -103,7 +103,6 @@
                     append-icon="search"
                     label="Search"
                     class="shrink"
-                    rounded
                     outlined
                     dense
                   ></v-text-field>

@@ -49,6 +49,9 @@ export default {
     fix: true
   },
 
+  router: {
+  },
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/apollo',
@@ -77,7 +80,7 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: colors.blue.darken2,
+          primary: colors.indigo.darken4,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
@@ -99,7 +102,6 @@ export default {
       })
     ],
     extend (config, ctx) {
-      // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',

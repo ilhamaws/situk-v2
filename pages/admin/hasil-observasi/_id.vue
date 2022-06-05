@@ -6,11 +6,8 @@
         wrap
       >
         <v-card>
-          <v-card-title class="px-8 ">
-            <!-- <v-avatar size="30" color="warning lighten-2">
-                  <span class="white--text">APL.1</span>
-                </v-avatar> -->
-            <span class="headline">Hasil Observasi</span>
+          <v-card-title>
+            <span class="font-weight-bold">FR.IA.01 Ceklis Observasi Aktivitas di Tempat Kerja</span>
             <v-spacer></v-spacer>
           </v-card-title>
           <v-divider></v-divider>
@@ -34,7 +31,8 @@
                     <v-alert
                       icon="info"
                       text
-                      type="info"
+                      color="primary"
+                      dense
                     >
                       Hasil Observasi
                     </v-alert>

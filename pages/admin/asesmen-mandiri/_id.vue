@@ -10,7 +10,7 @@
             <!-- <v-avatar size="30" color="warning lighten-2">
                   <span class="white--text">APL.1</span>
                 </v-avatar> -->
-            <span class="headline">Hasil Asesmen Mandiri</span>
+            <span class="font-weight-bold">FR.APL.02 Asesmen Mandiri</span>
             <v-spacer></v-spacer>
             <v-dialog v-model="updateUnitDialog" persistent max-width="700px">
               <template #activator="{ on }">
@@ -52,7 +52,8 @@
                     <v-alert
                       icon="info"
                       text
-                      type="info"
+                      color="primary"
+                      dense
                     >
                       Hasil asesmen mandiri
                     </v-alert>

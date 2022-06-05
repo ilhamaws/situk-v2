@@ -593,7 +593,7 @@ export default {
       const result = await this.$apollo.mutate({
         mutation: GET_ALL_JURUSANS
       }).then(({ data }) => {
-        console.log('hello00000000000', data)
+        console.log('hello', data)
         this.jurusans = data.jurusans
       }).catch((error) => {
         console.log(error)

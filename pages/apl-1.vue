@@ -1,396 +1,88 @@
 <template>
-  <div class="">
-    <section>
-      <v-layout
-        column
-        wrap
-      >
-        <v-flex xs12>
-          <v-container grid-list-xl>
-            <div class="col-lg-12 col-xs-12">
-              <v-toolbar class="transparent mb-5" flat>
-                <v-avatar size="60" tile color="warning lighten-2">
-                  <span class="white--text"><b>APL.1</b></span>
-                </v-avatar>
-                <v-toolbar-title class="px-10">
-                  <b>Form APL 1</b>
-                </v-toolbar-title>
-              </v-toolbar>
-              <v-card
-                class="mx-auto"
-              >
-                <v-row>
-                  <v-col cols="12" class="px-10 py-10">
-                    <div class="px-7">
-                      <!-- Alert section -->
-                      <div v-if="alert.show">
-                        <v-alert :type="alert.type" dismissible>
-                          <div class="white--text">
-                            {{ alert.message }}
-                          </div>
-                        </v-alert>
+  <v-layout
+    column
+    wrap
+  >
+    <v-flex xs12>
+      <v-container grid-list-xl>
+        <div class="col-lg-12 col-xs-12">
+          <v-toolbar class="transparent mb-5" flat>
+            <v-avatar size="60" tile color="warning lighten-2">
+              <span class="white--text"><b>APL.1</b></span>
+            </v-avatar>
+            <v-toolbar-title class="px-10">
+              <b>Form APL 1</b>
+            </v-toolbar-title>
+          </v-toolbar>
+          <v-card
+            class="mx-auto"
+          >
+            <v-row>
+              <v-col cols="12" class="px-10 py-10">
+                <div class="px-7">
+                  <!-- Alert section -->
+                  <div v-if="alert.show">
+                    <v-alert :type="alert.type" dismissible>
+                      <div class="white--text">
+                        {{ alert.message }}
                       </div>
-                      <!-- End alert section -->
-                      <v-form ref="form">
-                        <v-row>
-                          <v-col md="12" class="py-0">
-                            <label for=""><b>Nama Lengkap</b></label>
-                            <v-text-field
-                              v-model="form.nama"
-                              class="mt-2"
-                              label="Nama Lengkap"
-                              type="text"
-                              solo
-                                
-                            />
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col md="12" class="py-0">
-                            <label for=""><b>NIK</b></label>
-                            <v-text-field
-                              v-model="form.nik"
-                              class="mt-2"
-                              label="NIK"
-                              type="number"
-                              solo
-                                
-                            />
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col md="12" class="py-0">
-                            <label for=""><b>No. Telepon</b></label>
-                            <v-text-field
-                              v-model="form.telepon"
-                              class="mt-2"
-                              label="No. Telepon"
-                              type="number"
-                              solo
-                                
-                            />
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col md="4" class="py-0">
-                            <label for=""><b>Tempat Lahir</b></label>
-                            <v-text-field
-                              v-model="form.tempat_lahir"
-                              class="mt-2"
-                              label="Tempat Lahir"
-                              type="text"
-                              solo
-                                
-                            />
-                          </v-col>
-                          <v-col md="4" class="py-0">
-                            <label for=""><b>Tanggal Lahir</b></label>
-                            <v-menu
-                              ref="menu"
-                              v-model="menu"
-                              :close-on-content-click="false"
-                              :return-value.sync="date"
-                              transition="scale-transition"
-                              offset-y
-                              min-width="290px"
-                            >
-                              <template #activator="{ on }">
-                                <v-text-field
-                                  v-model="form.tanggal_lahir"
-                                  class="mt-2"
-                                  label="Tanggal lahir"
-                                  solo
-                                  readonly
-                                  v-on="on"
-                                ></v-text-field>
-                              </template>
-                              <v-date-picker v-model="form.tanggal_lahir" no-title scrollable>
-                                <v-spacer></v-spacer>
-                                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                                <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                              </v-date-picker>
-                            </v-menu>
-                          </v-col>
-                          <v-col md="4" class="py-0">
-                            <label for=""><b>Jenis Kelamin</b></label>
-                            <v-select
-                              v-model="form.jenis_kelamin"
-                              class="mt-2"
-                              :items="gender"
-                              item-text="jk"
-                              item-value="kode"
-                              label="Jenis Kelamin"
-                              solo
-                                
-                              append-icon
-                            />
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col md="8" class="py-0">
-                            <label for=""><b>Alamat</b></label>
-                            <v-text-field
-                              v-model="form.alamat"
-                              class="mt-2"
-                              label="Alamat"
-                              type="text"
-                              solo
-                            />
-                          </v-col>
-                          <v-col md="4" class="py-0">
-                            <label for=""><b>Kode Pos</b></label>
-                            <v-text-field
-                              v-model="form.kodepos"
-                              class="mt-2"
-                              label="Kodepos"
-                              type="text"
-                              solo
-                            />
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col md="6" class="py-0">
-                            <label for=""><b>Provinsi</b></label>
-                            <v-select
-                              v-model="form.provinsi_id"
-                              class="mt-2"
-                              :items="province"
-                              label="Provinsi"
-                              item-value="id"
-                              item-text="provinsi" solo
-                              @input="getKotas"
-                            />
-                          </v-col>
-                          <v-col md="6" class="py-0">
-                            <label for=""><b>Kota</b></label>
-                            <v-select
-                              v-model="form.kota_id"
-                              class="mt-2"
-                              :items="city"
-                              label="Kota"
-                              item-value="id" item-text="kota"
-                              solo
-                            />
-                          </v-col>
-                        </v-row>
-
-                        <v-row>
-                          <v-col md="4" class="py-0">
-                            <label for=""><b>Kebangsaan</b></label>
-                            <v-text-field
-                              v-model="form.kebangsaan"
-                              class="mt-2"
-                              label="Kebangsaan"
-                              type="text"
-                              solo
-                              disabled
-                            />
-                          </v-col>
-                          <v-col md="4" class="py-0">
-                            <label for=""><b>Pekerjaan</b></label>
-                            <v-select
-                              v-model="form.pekerjaan_id"
-                              class="mt-2"
-                              :items="pekerjaan"
-                              label="Pekerjaan"
-                              item-value="id" item-text="pekerjaan"
-                              solo
-                            />
-                          </v-col>
-                          <v-col md="4" class="py-0">
-                            <label for=""><b>Pendidikan</b></label>
-                            <v-select
-                              v-model="form.pendidikan_id"
-                              class="mt-2"
-                              :items="pendidikan"
-                              label="Pendidikan"
-                              item-value="id" item-text="pendidikan"
-                              solo
-                            />
-                          </v-col>
-                        </v-row>
-
-                        <v-row v-if="form.pekerjaan_id == 3">
-                          <v-col md="4" xs="12" class="py-0">
-                            <label for=""><b>NPM</b></label>
-                            <v-text-field
-                              v-model="form.npm"
-                              class="mt-2"
-                              label="NPM Mahasiswa"
-                              type="text"
-                              solo
-                            />
-                          </v-col>
-                          <v-col md="4" xs="12" class="py-0">
-                            <label for=""><b>Fakultas</b></label>
-                            <v-select
-                              v-model="form.fakultas_id"
-                              class="mt-2"
-                              :items="fakultass"
-                              label="Fakultas"
-                              item-value="id"
-                              item-text="fakultas" solo
-                              @input="getJurusans"
-                            />
-                          </v-col>
-                          <v-col md="4" xs="12" class="py-0">
-                            <label for=""><b>Jurusan</b></label>
-                            <v-select
-                              v-model="form.jurusan_id"
-                              class="mt-2"
-                              :items="jurusans"
-                              label="Jurusan"
-                              item-value="id" item-text="jurusan"
-                              solo
-                            />
-                          </v-col>
-                        </v-row>
-
-                        <v-row>
-                          <v-col md="12" class="py-0">
-                            <label for=""><b>Lembaga</b></label>
-                            <v-select
-                              v-model="form.lembaga_id"
-                              class="mt-2"
-                              :items="lembaga"
-                              label="Lembaga"
-                              item-value="id" item-text="nama"
-                              solo
-                            />
-                          </v-col>
-                        </v-row>
-
-                        <v-row>
-                          <v-col md="6" class="py-0">
-                            <label for=""><b>Foto</b></label>
-                            <v-row v-if="form.image != null">
-                              <v-col md="7">
-                                <v-card>
-                                  <v-img
-                                    :src="form.image"
-                                    :lazy-src="form.image"
-                                    aspect-ratio="1"
-                                    class="grey lighten-2"
-                                  ></v-img>
-                                </v-card>
-                              </v-col>
-                            </v-row>
-                            <v-row>
-                              <v-col md="7">
-                                <v-text-field v-model="image.imageName" readonly label="Edit Foto" prepend-icon="mdi-camera" solo @click="pickImage"></v-text-field>
-                                <input
-                                  ref="image"
-                                  type="file"
-                                  style="display: none"
-                                  accept="image/png, image/jpeg"
-                                  @change="onPhotoSelected"
-                                >
-                              </v-col>
-                            </v-row>
-                          </v-col>
-                          <v-col md="6" class="py-0">
-                            <label for=""><b>Tanda tangan</b></label>
-                            <v-row v-if="form.ttd != null">
-                              <v-col md="7">
-                                <v-card>
-                                  <v-img
-                                    :src="form.ttd"
-                                    :lazy-src="form.ttd"
-                                    aspect-ratio="1"
-                                    class="white"
-                                  ></v-img>
-                                </v-card>
-                              </v-col>
-                            </v-row>
-                            <v-row>
-                              <v-col md="7">
-                                <v-btn block large color="primary" outlined dark @click="pickTtd"><v-icon left>edit</v-icon>Edit Ttd</v-btn>
-                              </v-col>
-                            </v-row>
-                            <v-dialog v-model="editDialog" persistent max-width="600px">
-                              <v-card>
-                                <v-card-title class="headline">Edit Tanda Tangan</v-card-title>
-                                <v-card-text>
-                                  <v-card>
-                                    <VueSignaturePad
-                                      id="signature"
-                                      ref="signaturePad"
-                                      width="100%"
-                                      height="200px"
-                                      :options="{onBegin: () => {$refs.signaturePad.resizeCanvas()}}"
-                                    />
-                                  </v-card>
-                                </v-card-text>
-                                <v-card-text>
-                                  <v-btn color="primary" class="mr-2" outlined dark @click="undo()"><v-icon left>undo</v-icon>Undo</v-btn>
-                                  <v-btn color="primary" outlined dark @click="clear()"><v-icon left>clear</v-icon>Clear</v-btn>
-                                </v-card-text>
-                                <v-card-actions>
-                                  <v-spacer></v-spacer>
-                                  <v-btn color="grey" text @click="editDialog = false">Batal</v-btn>
-                                  <v-btn color="primary" text @click="saveTtd">Simpan Ttd</v-btn>
-                                </v-card-actions>
-                              </v-card>
-                            </v-dialog>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col md="12" class="justify-end d-flex">
-                            <!-- <v-spacer></v-spacer>
-                              <v-tooltip bottom>
-                                <template v-slot:activator="{ on }">
-                                  <v-btn class="mr-2" v-on="on" large rounded color="grey" text @click="resetForm()" target="_blank">
-                                    Reset form
-                                  </v-btn>
-                                </template>
-                                <span>Reset form ke awal</span>
-                              </v-tooltip> -->
-                            <v-btn
-                              large
-                              rounded
-                              color="primary"
-                              dark
-                              @click="createAsesi">
-                              <v-progress-circular
-                                v-if="state.loading"
-                                :size="20"
-                                :width="2"
-                                indeterminate
-                                color="white"
-                                class="mr-2"
-                              ></v-progress-circular>
-                              Simpan Perubahan
-                            </v-btn>
-                          </v-col>
-                        </v-row>
-                      </v-form>
-                      <!-- <v-form>
+                    </v-alert>
+                  </div>
+                  <!-- End alert section -->
+                  <v-form ref="form">
+                    <v-row>
+                      <v-col md="12" class="py-0">
+                        <label for=""><b>Nama Lengkap</b></label>
                         <v-text-field
                           v-model="form.nama"
+                          class="mt-2"
                           label="Nama Lengkap"
                           type="text"
+                          outlined
+                          dense
                         />
-
-                        <v-select
-                          v-model="form.jenis_kelamin"
-                          :items="gender"
-                          item-text="jk"
-                          item-value="kode"
-                          label="Jenis Kelamin"
-                        />
-
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="12" class="py-0">
+                        <label for=""><b>NIK</b></label>
                         <v-text-field
                           v-model="form.nik"
+                          class="mt-2"
                           label="NIK"
                           type="number"
+                          outlined
+                          dense
                         />
-
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="12" class="py-0">
+                        <label for=""><b>No. Telepon</b></label>
+                        <v-text-field
+                          v-model="form.telepon"
+                          class="mt-2"
+                          label="No. Telepon"
+                          type="number"
+                          outlined
+                          dense
+                        />
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="4" class="py-0">
+                        <label for=""><b>Tempat Lahir</b></label>
                         <v-text-field
                           v-model="form.tempat_lahir"
+                          class="mt-2"
                           label="Tempat Lahir"
                           type="text"
+                          outlined
+                          dense
                         />
-
+                      </v-col>
+                      <v-col md="4" class="py-0">
+                        <label for=""><b>Tanggal Lahir</b></label>
                         <v-menu
                           ref="menu"
                           v-model="menu"
@@ -400,10 +92,13 @@
                           offset-y
                           min-width="290px"
                         >
-                          <template v-slot:activator="{ on }">
+                          <template #activator="{ on }">
                             <v-text-field
                               v-model="form.tanggal_lahir"
+                              class="mt-2"
                               label="Tanggal lahir"
+                              outlined
+                              dense
                               readonly
                               v-on="on"
                             ></v-text-field>
@@ -414,120 +109,358 @@
                             <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
                           </v-date-picker>
                         </v-menu>
-
-                        <v-text-field
-                          v-model="form.kebangsaan"
-                          label="Kebangsaan"
-                          type="text"
+                      </v-col>
+                      <v-col md="4" class="py-0">
+                        <label for=""><b>Jenis Kelamin</b></label>
+                        <v-select
+                          v-model="form.jenis_kelamin"
+                          class="mt-2"
+                          :items="gender"
+                          item-text="jk"
+                          item-value="kode"
+                          label="Jenis Kelamin"
+                          outlined
+                          dense
+                          append-icon
                         />
-
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="8" class="py-0">
+                        <label for=""><b>Alamat</b></label>
                         <v-text-field
                           v-model="form.alamat"
+                          class="mt-2"
                           label="Alamat"
                           type="text"
+                          outlined
+                          dense
                         />
-
+                      </v-col>
+                      <v-col md="4" class="py-0">
+                        <label for=""><b>Kode Pos</b></label>
                         <v-text-field
                           v-model="form.kodepos"
-                          label="Kode pos"
-                          type="number"
+                          class="mt-2"
+                          label="Kodepos"
+                          type="text"
+                          outlined
+                          dense
                         />
-
-                        <v-text-field
-                          v-model="form.telepon"
-                          label="Telepon"
-                          type="number"
-                        />
-
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="6" class="py-0">
+                        <label for=""><b>Provinsi</b></label>
                         <v-select
-                          v-model="form.lembaga_id"
-                          :items="lembaga"
-                          label="Lembaga"
-                          item-value="id" item-text="nama"
-                        />
-
-                        <v-select
-                          v-model="form.pekerjaan_id"
-                          :items="pekerjaan"
-                          label="Pekerjaan"
-                          item-value="id" item-text="pekerjaan"
-                        />
-
-                        <v-select
-                          v-model="form.pendidikan_id"
-                          :items="pendidikan"
-                          label="Pendidikan"
-                          item-value="id" item-text="pendidikan"
-                        />
-
-                        <v-select
-                          @input='getKotas'
+                          outlined
+                          dense
                           v-model="form.provinsi_id"
+                          class="mt-2"
                           :items="province"
                           label="Provinsi"
-                          item-value="id" item-text="provinsi"
+                          item-value="id"
+                          item-text="provinsi"
+                          @input="getKotas"
                         />
-
+                      </v-col>
+                      <v-col md="6" class="py-0">
+                        <label for=""><b>Kota</b></label>
                         <v-select
                           v-model="form.kota_id"
+                          class="mt-2"
                           :items="city"
                           label="Kota"
                           item-value="id" item-text="kota"
+                          outlined
+                          dense
                         />
+                      </v-col>
+                    </v-row>
 
-                        <div class="form-group pb-5" >
-                          <label for="formImage" class="mr-5">Upload Foto</label>
-                          <input type="file" @change="onPhotoSelected" name="image" id="formImage">
-                        </div>
+                    <v-row>
+                      <v-col md="4" class="py-0">
+                        <label for=""><b>Kebangsaan</b></label>
+                        <v-text-field
+                          v-model="form.kebangsaan"
+                          class="mt-2"
+                          label="Kebangsaan"
+                          type="text"
+                          outlined
+                          disabled
+                          dense
+                        />
+                      </v-col>
+                      <v-col md="4" class="py-0">
+                        <label for=""><b>Pekerjaan</b></label>
+                        <v-select
+                          v-model="form.pekerjaan_id"
+                          class="mt-2"
+                          :items="pekerjaan"
+                          label="Pekerjaan"
+                          item-value="id" item-text="pekerjaan"
+                          outlined
+                          dense
+                        />
+                      </v-col>
+                      <v-col md="4" class="py-0">
+                        <label for=""><b>Pendidikan</b></label>
+                        <v-select
+                          v-model="form.pendidikan_id"
+                          class="mt-2"
+                          :items="pendidikan"
+                          label="Pendidikan"
+                          item-value="id" item-text="pendidikan"
+                          outlined
+                          dense
+                        />
+                      </v-col>
+                    </v-row>
 
-                        <div class="form-group">
-                          <label for="formTtd" class="mr-5">Upload Scan TTD</label>
-                          <input type="file" @change="onTtdSelected" name="ttd" id="formTtd">
-                        </div>
-
-                        <v-row>
-                          <v-spacer></v-spacer>
-                          <v-btn
-                            @click='createAsesi'
-                            class="mt-5"
-                            width="200"
-                            large
-                            rounded
-                            color="primary"
-                            dark>
-                            <v-progress-circular
-                              :size="20"
-                              :width="2"
-                              indeterminate
-                              color="white"
-                              v-if="state.loading"
-                              class="mr-2"
-                            ></v-progress-circular>
-                            Simpan
-                          </v-btn>
+                    <v-row v-if="form.pekerjaan_id == 3">
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>NPM</b></label>
+                        <v-text-field
+                          v-model="form.npm"
+                          class="mt-2"
+                          label="NPM Mahasiswa"
+                          type="text"
+                          outlined
+                          dense
+                        />
+                      </v-col>
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>Fakultas</b></label>
+                        <!-- <v-select
+                          v-model="form.fakultas_id"
+                          class="mt-2"
+                          :items="fakultass"
+                          label="Fakultas"
+                          item-value="id"
+                          item-text="fakultas"
+                          outlined
+                          dense
+                          @input="getJurusans"
+                        /> -->
+                        <v-text-field
+                          outlined
+                          dense
+                          v-model="form.fakultas"
+                          name="fakultas"
+                          label="Fakultas"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>Jurusan</b></label>
+                        <v-text-field
+                          outlined
+                          dense
+                          v-model="form.jurusan"
+                          name="jurusan"
+                          label="Jurusan"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="12" class="py-0">
+                        <label for=""><b>Universitas</b></label>
+                        <v-text-field
+                          outlined
+                          dense
+                          v-model="form.universitas"
+                          name="universitas"
+                          label="Universitas"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="12" class="py-0">
+                        <label for=""><b>Lembaga</b></label>
+                        <v-text-field
+                          outlined
+                          dense
+                          v-model="form.nama_lembaga"
+                          name="lembaga"
+                          label="Lembaga"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="12" class="py-0">
+                        <label for=""><b>Alamat Lembaga</b></label>
+                        <v-text-field
+                          outlined
+                          dense
+                          v-model="form.alamat_lembaga"
+                          name="alamat-lembaga"
+                          label="Alamat Lembaga"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>Email Lembaga</b></label>
+                        <v-text-field
+                          v-model="form.email_lembaga"
+                          class="mt-2"
+                          label="Email Lembaga"
+                          type="text"
+                          outlined
+                          dense
+                        />
+                      </v-col>
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>Kodepos Lembaga</b></label>
+                        <v-text-field
+                          outlined
+                          dense
+                          type="number"
+                          v-model="form.kodepos_lembaga"
+                          name="kodepos_lembaga"
+                          label="Kodepos Lembaga"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>Telepon Lembaga</b></label>
+                        <v-text-field
+                          outlined
+                          dense
+                          v-model="form.telepon_lembaga"
+                          name="telepon_lembaga"
+                          label="Telepon Lembaga"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col md="6" class="py-0">
+                        <label for=""><b>Foto</b></label>
+                        <v-row class="mt-3" v-if="form.image != null">
+                          <v-col md="7">
+                            <v-card>
+                              <v-img
+                                :src="form.image"
+                                :lazy-src="form.image"
+                                aspect-ratio="1"
+                                class="grey lighten-2"
+                              ></v-img>
+                            </v-card>
+                          </v-col>
                         </v-row>
-                      </v-form> -->
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-card>
-            </div>
-          </v-container>
-        </v-flex>
-      </v-layout>
-    </section>
-  </div>
-
+                        <v-row>
+                          <v-col md="7">
+                            <v-text-field dense v-model="image.imageName" readonly label="Edit Foto" prepend-icon="mdi-camera" outlined @click="pickImage"></v-text-field>
+                            <input
+                              ref="image"
+                              type="file"
+                              style="display: none"
+                              accept="image/png, image/jpeg"
+                              @change="onPhotoSelected"
+                            >
+                          </v-col>
+                        </v-row>
+                      </v-col>
+                      <v-col md="6" class="py-0">
+                        <label for=""><b>Tanda tangan</b></label>
+                        <v-row v-if="form.ttd != null">
+                          <v-col md="7">
+                            <v-card>
+                              <v-img
+                                :src="form.ttd"
+                                :lazy-src="form.ttd"
+                                aspect-ratio="1"
+                                class="white"
+                              ></v-img>
+                            </v-card>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col md="7">
+                            <v-btn block large color="primary" outlined dark @click="pickTtd"><v-icon left>edit</v-icon>Edit Ttd</v-btn>
+                          </v-col>
+                        </v-row>
+                        <v-dialog v-model="editDialog" persistent max-width="600px">
+                          <v-card>
+                            <v-card-title class="headline">Edit Tanda Tangan</v-card-title>
+                            <v-card-text>
+                              <v-card>
+                                <VueSignaturePad
+                                  id="signature"
+                                  ref="signaturePad"
+                                  width="100%"
+                                  height="450px"
+                                  :options="{onBegin: () => {$refs.signaturePad.resizeCanvas()}}"
+                                />
+                              </v-card>
+                            </v-card-text>
+                            <v-card-text>
+                              <v-btn color="primary" class="mr-2" outlined dark @click="undo()"><v-icon left>undo</v-icon>Undo</v-btn>
+                              <v-btn color="primary" outlined dark @click="clear()"><v-icon left>clear</v-icon>Clear</v-btn>
+                            </v-card-text>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="grey" text @click="editDialog = false">Batal</v-btn>
+                              <v-btn color="primary" text @click="saveTtd">Simpan Ttd</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </v-col>
+                    </v-row>
+                    <v-row> 
+                      <v-col md="12" class="justify-end d-flex">
+                        <!-- <v-spacer></v-spacer>
+                          <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                              <v-btn class="mr-2" v-on="on" large rounded color="grey" text @click="resetForm()" target="_blank">
+                                Reset form
+                              </v-btn>
+                            </template>
+                            <span>Reset form ke awal</span>
+                          </v-tooltip> -->
+                        <v-btn
+                          large
+                          rounded
+                          color="primary"
+                          dark
+                          @click="createAsesi">
+                          <v-progress-circular
+                            v-if="state.loading"
+                            :size="20"
+                            :width="2"
+                            indeterminate
+                            color="white"
+                            class="mr-2"
+                          ></v-progress-circular>
+                          Simpan Perubahan
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-form>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+        </div>
+      </v-container>
+    </v-flex>
+  </v-layout>
 </template>
 <script>
+
 import { LSP_USER_ID, LSP_AUTH_TOKEN } from '@/constants/settings'
 import { CREATE_ASESI_MUTATION, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_JURUSANS, GET_FAKULTASS } from '@/constants/graphql'
+import { CREATE_ASESI_MANUAL_MUTATION } from '@/constants/asesi'
 
 export default {
   name: 'Index',
   layout: 'App_blank',
   data() {
     return {
+      strokeOptions: {
+        size: 16,
+        thinning: 0.75,
+        smoothing: 0.5,
+        streamline: 0.5
+      },
       editDialog: false,
       state:{
         loading: false
@@ -562,14 +495,20 @@ export default {
         alamat: '',
         kodepos: '',
         telepon: '',
-        fakultas_id: 10,
-        jurusan_id: 28,
+        fakultas: null,
+        jurusan: null,
+        universitas: null,
         image: null,
         ttd: null,
         jenis_kelamin: null,
         kota_id: null,
+        npm: null,
         provinsi_id: null,
-        lembaga_id: null,
+        nama_lembaga: null,
+        alamat_lembaga: null,
+        kodepos_lembaga: null,
+        telepon_lembaga: null,
+        email_lembaga: null,
         pekerjaan_id: '3',
         pendidikan_id: null,
       },
@@ -649,8 +588,8 @@ export default {
     },
     pickTtd() {
       // this.$nextTick(() => {
-      //   this.$refs.signaturePad.resizeCanvas();
-      // });
+      //   this.$refs.signaturePad.resizeCanvas()
+      // })
       this.editDialog = true
       // this.$refs.ttd.click();
     },
@@ -697,7 +636,7 @@ export default {
     async getPendidikans() {
       const result = await this.$apollo.mutate({
         mutation: GET_PENDIDIKANS
-      }).then(({ data }) => {
+      }).then(({ data }) => { 
         this.pendidikan = data.pendidikans
       }).catch((error) => {
         console.log(error)
@@ -766,12 +705,14 @@ export default {
       if (!loading) {
         this.alert.show = false
         this.state.loading = true
-        const { form: {lembaga_id, jurusan_id, npm, pendidikan_id, pekerjaan_id, kota_id, nik, 
+        const { form: {nama_lembaga, alamat_lembaga, email_lembaga, telepon_lembaga, kodepos_lembaga,
+          jurusan, fakultas, universitas, npm, pendidikan_id, pekerjaan_id, kota_id, nik, 
           nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd} } = this.$data
         const result = await this.$apollo.mutate({
-          mutation: CREATE_ASESI_MUTATION,
+          mutation: CREATE_ASESI_MANUAL_MUTATION,
           variables: {
-            lembaga_id, pendidikan_id, pekerjaan_id, npm, kota_id, nik, jurusan_id,
+            nama_lembaga, alamat_lembaga, email_lembaga, telepon_lembaga, kodepos_lembaga,
+            jurusan, fakultas, universitas, npm, pendidikan_id, pekerjaan_id, kota_id, nik, 
             nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd
           }
         }).then(({ data }) => {

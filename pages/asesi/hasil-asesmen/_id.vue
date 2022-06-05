@@ -7,12 +7,11 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title class="px-8 ">
+            <v-card-title>
               <!-- <v-avatar size="30" color="warning lighten-2">
                 <span class="white--text">APL.1</span>
               </v-avatar> -->
-              <v-icon size="30" class="mr-2" color="success">playlist_add_check</v-icon>
-              <span class="headline">FR.AC.01. Formulir Rekaman Asesmen Kompetensi</span>
+              <span class="font-weight-bold">FR.AC.01. Formulir Rekaman Asesmen Kompetensi</span>
               <v-spacer></v-spacer>
             </v-card-title>
             <v-divider></v-divider>

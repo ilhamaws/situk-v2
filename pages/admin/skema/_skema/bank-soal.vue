@@ -279,7 +279,7 @@
 </template>
 <script>
 import { GET_SKEMA_BYID } from "@/constants/graphql"
-import { CREATE_BANK_SOAl_OBSERVASI_MUTATION, UPDATE_BANK_SOAl_OBSERVASI_MUTATION, DELETE_BANK_SOAl_OBSERVASI_MUTATION } from "@/constants/observasi"
+import { CREATE_BANK_SOAL_OBSERVASI_MUTATION, UPDATE_BANK_SOAL_OBSERVASI_MUTATION, DELETE_BANK_SOAL_OBSERVASI_MUTATION } from "@/constants/observasi"
 
 export default {
   name: "bank-soal",
@@ -375,7 +375,7 @@ export default {
       } = this.$data
       const result = await this.$apollo
         .mutate({
-          mutation: CREATE_BANK_SOAl_OBSERVASI_MUTATION,
+          mutation: CREATE_BANK_SOAL_OBSERVASI_MUTATION,
           variables: {
             unit_kompetensi_id,
             soal,
@@ -408,7 +408,7 @@ export default {
       } = this.$data
       const result = await this.$apollo
         .mutate({
-          mutation: UPDATE_BANK_SOAl_OBSERVASI_MUTATION,
+          mutation: UPDATE_BANK_SOAL_OBSERVASI_MUTATION,
           variables: {
             id,
             soal,
@@ -433,7 +433,7 @@ export default {
       this.alert.show = false
       const id = this.deletedSoalObservasi.id
       const result = await this.$apollo.mutate({
-        mutation: DELETE_BANK_SOAl_OBSERVASI_MUTATION,
+        mutation: DELETE_BANK_SOAL_OBSERVASI_MUTATION,
         variables: {
           id
         }

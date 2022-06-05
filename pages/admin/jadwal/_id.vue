@@ -96,14 +96,13 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                    <v-btn color="primary" outlined rounded dark @click="randomDialog = true">Acak Asesor</v-btn>
+                    <v-btn color="primary" outlined dark @click="randomDialog = true">Acak Asesor</v-btn>
                     <v-spacer></v-spacer>
                     <v-text-field
                       v-model="search"
                       append-icon="search"
                       label="Search"
                       class="shrink"
-                      rounded
                       outlined
                       dense
                     ></v-text-field>
@@ -175,33 +174,29 @@
                     <v-dialog v-model="asesorDialog" persistent max-width="600px">
                       <v-card>
                         <v-card-title>
-                          <span class="headline">Edit Asesor</span>
+                          Edit Asesor
                         </v-card-title>
                         <v-card-text>
-                          <v-container>
-                            <v-row>
-                              <v-col cols="12" sm="12" md="12">
-                                <v-select
-                                  v-model="editedAsesors.asesor.id"
-                                  :items="asesors"
-                                  label="Pilih Asesor*"
-                                  item-value="id" item-text="nama"
-                                />
-                              </v-col>
-                            </v-row>
-                          </v-container>
+                          <v-select
+                            outlined
+                            dense
+                            v-model="editedAsesors.asesor.id"
+                            :items="asesors"
+                            label="Pilih Asesor*"
+                            item-value="id" item-text="nama"
+                          />
                         </v-card-text>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn color="blue darken-1" text @click="asesorDialog = false">Batal</v-btn>
-                          <v-btn color="blue darken-1" text @click="updateAsesorPeserta">Simpan</v-btn>
+                          <v-btn color="grey" text @click="asesorDialog = false">Batal</v-btn>
+                          <v-btn color="primary" text @click="updateAsesorPeserta">Simpan</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
                     <v-dialog v-model="randomDialog" persistent max-width="600px">
                       <v-card>
                         <v-card-title>
-                          <span class="headline">Acak Asesor</span>
+                          Acak Asesor
                         </v-card-title>
                         <v-card-text>
                           <v-container>
@@ -212,6 +207,7 @@
                                   :items="asesors"
                                   class="shrink mr-5"
                                   dense
+                                  outlined
                                   :rules="[v => random.length <= 4 || 'maksimal 4']"
                                   label="Pilih Asesor"
                                   item-value="id"
@@ -225,8 +221,8 @@
                         </v-card-text>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn color="blue darken-1" text @click="randomDialog = false">Batal</v-btn>
-                          <v-btn color="blue darken-1" text @click="randomAsesor">Acak</v-btn>
+                          <v-btn color="grey" text @click="randomDialog = false">Batal</v-btn>
+                          <v-btn color="primary" text @click="randomAsesor">Acak</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -361,9 +357,9 @@ export default {
       headers: [
         { text: 'No', value:'index'},
         { text: 'Nama Asesi', value: 'asesi.nama' },
-        { text: 'NPM', value: 'asesi.npm'},
-        { text: 'Progdi', value: 'asesi.jurusan.jurusan' },
-        { text: 'Tanggal', value: 'jadwal.tanggal' },
+        // { text: 'NPM', value: 'asesi.npm'},
+        // { text: 'Progdi', value: 'asesi.jurusan.jurusan' },
+        { text: 'Tanggal Sertifikasi', value: 'jadwal.tanggal' },
         { text: 'Asesor', value: 'asesor' },
         { text: 'Status', value: 'status' },
         { text: 'Aksi', value: 'actions' },

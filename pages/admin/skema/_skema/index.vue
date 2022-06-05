@@ -4,9 +4,9 @@
     wrap
   >
     <v-card class="mb-5">
-      <v-card-subtitle class="font-weight-bold">
+      <v-card-title class="font-weight-bold">
         Menu Skema
-      </v-card-subtitle>
+      </v-card-title>
       <v-divider></v-divider>
       <v-row>
         <v-col>
@@ -97,7 +97,8 @@ export default {
         {menu:'Jadwal', link:'jadwal', desc:'Jadwal uji skema', icon:'date_range', color:'warning'},
         {menu:'Unit Kompetensi', link:'unit-kompetensi', desc:'Daftar unit pada skema', icon:'toc', color:'success'},
         {menu:'Asesor', link:'asesor', desc:'Daftar asesor pada skema', icon:'people', color:'error'},
-        {menu:'Bank Soal', link:'bank-soal', desc:'Kumpulan bank soal', icon:'inventory_2', color:'indigo'},
+        {menu:'Bank Soal Observasi', link:'bank-soal', desc:'Kumpulan bank soal', icon:'inventory_2', color:'indigo'},
+        {menu:'Soal Ujian Observasi', link:'soal-observasi', desc:'Soal yang akan dikerjakan', icon:'edit', color:'indigo'},
       ],
       elements: [],
       skemas: [],

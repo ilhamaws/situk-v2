@@ -140,7 +140,8 @@
                             class="mt-5"
                             label="Penilaian lanjut"
                             type="text"
-                            solo
+                            outlined
+                            dense
                           />
                         </td>
                       </tr>
@@ -149,13 +150,14 @@
                 </v-simple-table>
                 <v-row>
                   <v-col cols="12" class="px-5 pt-5">
-                    <label for=""><b>Umpan balik</b></label>
+                    <!-- <label for=""><b>Umpan balik</b></label> -->
                     <v-text-field
                       v-model="umpan_balik"
                       class="mt-2"
-                      label="Isikan umpan balik untuk peserta"
+                      label="Umpan balik"
                       type="text"
-                      solo
+                      outlined
+                      dense
                     />
                   </v-col>
                 </v-row>

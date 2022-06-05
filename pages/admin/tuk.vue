@@ -6,11 +6,11 @@
         wrap
       >
         <v-card>
-          <v-card-title>
+          <v-card-title class="font-weight-bold">
             <!-- <v-avatar size="30" color="warning lighten-2">
             <span class="white--text">APL.1</span>
           </v-avatar> -->
-            <span class="headline px-5">Informasi TUK</span>
+            <span class="font-weight-bold">Informasi TUK</span>
             <v-spacer></v-spacer>
           </v-card-title>
           <v-divider></v-divider>
@@ -29,7 +29,7 @@
                 <v-row>
                   <v-dialog v-model="tambahDialog" persistent max-width="600px">
                     <template #activator="{ on }">
-                      <v-btn color="primary" outlined rounded dark v-on="on">Tambah TUK</v-btn>
+                      <v-btn color="primary" outlined dark v-on="on">Tambah TUK</v-btn>
                     </template>
                     <v-form>
                       <v-card>
@@ -74,7 +74,6 @@
                     append-icon="search"
                     label="Search"
                     class="shrink"
-                    rounded
                     outlined
                     dense
                   ></v-text-field>
@@ -97,7 +96,7 @@
                     <v-dialog v-model="editDialog" persistent max-width="600px">
                       <v-card>
                         <v-card-title>
-                          <span class="headline">Edit Tuk</span>
+                          <span class="font-weight-bold">Edit Tuk</span>
                         </v-card-title>
                         <v-card-text>
                           <v-container>

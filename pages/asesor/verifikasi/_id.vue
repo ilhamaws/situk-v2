@@ -31,117 +31,110 @@
               </v-alert>
             </div> -->
             <v-row>
-              <div class="col-md-4 col-xs-12 pt-0">
-                <v-card>
-                  <div class="d-flex flex-no-wrap">
-                    <v-avatar
-                      class="ml-5 mt-5"
-                      size="125"
-                      style="border-radius: .42rem;"
-                      tile
-                    >
-                      <v-img :src="pesertas.asesi.image"></v-img>
-                    </v-avatar>
-                    <div>
-                      <v-card-title
-                        color="primary"
-                        class="headline"
-                        v-text="pesertas.asesi.nama"
-                      ></v-card-title>
-                      <v-card-subtitle class="py-0">status asesi:</v-card-subtitle>
-                      <v-card-actions>
-                        <v-btn v-if="pesertas.status == -2" text color="error">Tidak lulus sertifikasi</v-btn>
-                        <v-btn v-if="pesertas.status == -1" text color="danger">Ditolak</v-btn>
-                        <v-btn v-if="pesertas.status == 0" text color="grey">Belum</v-btn>
-                        <v-btn v-if="pesertas.status == 1" text color="primary">Disetujui</v-btn>
-                        <v-btn v-if="pesertas.status == 2" text color="success">Lulus sertifikasi</v-btn>
-                      </v-card-actions>
-                    </div>
-                  </div>
-                  <!-- <v-divider></v-divider> -->
-                  <v-card-text class="px-5">
-                    <v-simple-table>
-                      <tbody>
-                        <tr>
-                          <td width="20%"><b>Nama:</b></td>
-                          <td>{{ pesertas.asesi.nama }}</td>
-                        </tr>
-                        <tr>
-                          <td width="20%"><b>Skema:</b></td>
-                          <td>{{ pesertas.jadwal.skema.skema }}</td>
-                        </tr>
-                        <tr>
-                          <td width="20%"><b>Tanggal:</b></td>
-                          <td>{{ pesertas.jadwal.tanggal }}</td>
-                        </tr>
-                        <tr>
-                          <td width="20%"><b>Asesor:</b></td>
-                          <td>{{ pesertas.asesor.nama }}</td>
-                        </tr>
-                      </tbody>
-                    </v-simple-table>
-                  </v-card-text>
-                </v-card>
-              </div>
-              <div class="col-md-8 pt-0">
+              <v-col cols="12" md="8">
                 <v-row>
-                  <v-col cols="12" class="pt-0">
+                  <v-col>
+                    <v-card>
+                      <v-card-title class="font-weight-bold">
+                        Menu Uji Kompetensi
+                      </v-card-title>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-row>
+                      <v-col cols="12" class="col-md-4 col-xs-12 col-sm-6">
+                        <v-card link :to="`/asesor/apl-1/${pesertas.id}`" dark color="primary" class="rounded-lg">
+                          <v-card-title>
+                            <p class="ma-0">Permohonan Sertifikasi</p>
+                          </v-card-title>
+                          <v-card-subtitle>
+                            FR.APL.01
+                          </v-card-subtitle>
+                          <v-card-text class="d-flex justify-end align-center">
+                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
+                            <h1 class="font-weight-bold mt-0 px-5">1</h1>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                      <v-col cols="12" class="col-md-4 col-xs-12 col-sm-6">
+                        <v-card link :to="`/asesor/asesmen-mandiri/${pesertas.id}`" dark color="primary" class="rounded-lg">
+                          <v-card-title>
+                            <p class="ma-0">Asesmen Mandiri</p>
+                          </v-card-title>
+                          <v-card-subtitle>
+                            FR.APL.02
+                          </v-card-subtitle>
+                          <v-card-text class="d-flex justify-end align-center">
+                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
+                            <h1 class="font-weight-bold mt-0 px-5">2</h1>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                      <v-col cols="12" class="col-md-4 col-xs-12 col-sm-6">
+                        <v-card link :to="`/asesor/soal-observasi/${pesertas.id}`" dark color="primary" class="rounded-lg">
+                          <v-card-title>
+                            <p class="ma-0">Pertanyaan Observasi</p>
+                          </v-card-title>
+                          <v-card-subtitle>
+                            FR.IA.03
+                          </v-card-subtitle>
+                          <v-card-text class="d-flex justify-end align-center">
+                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
+                            <h1 class="font-weight-bold mt-0 px-5">3</h1>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                      <v-col cols="12" class="col-md-4 col-xs-12 col-sm-6">
+                        <v-card :to="`/asesor/hasil-observasi/${pesertas.id}`" link dark color="primary" class="rounded-lg">
+                          <v-card-title>
+                            <p class="ma-0">Ceklis Observasi</p>
+                          </v-card-title>
+                          <v-card-subtitle>
+                            FR.IA.01
+                          </v-card-subtitle>
+                          <v-card-text class="d-flex justify-end align-center">
+                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
+                            <h1 class="font-weight-bold mt-0 px-5">4</h1>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                      <v-col v-if="pesertas.status == 1" cols="12" class="col-md-4 col-xs-12 col-sm-6">
+                        <v-card link :to="`/asesor/rekaman-asesmen/${pesertas.id}`" dark color="error" class="rounded-lg">
+                          <v-card-title>
+                            <p class="ma-0">Lakukan Rekaman Asesmen</p>
+                          </v-card-title>
+                          <v-card-subtitle>
+                            FR.AK.02
+                          </v-card-subtitle>
+                          <v-card-text class="d-flex justify-end align-center">
+                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
+                            <h1 class="font-weight-bold mt-0 px-5">5</h1>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                      <v-col v-if="pesertas.status == 2 || pesertas.status == -2" cols="12" class="col-md-4 col-xs-12 col-sm-6">
+                        <v-card link :disabled="disabledMenu" :to="`/asesor/hasil-asesmen/${pesertas.id}`" dark color="primary" class="rounded-lg">
+                          <v-card-title>
+                            <p class="ma-0">Hasil Asesmen</p>
+                          </v-card-title>
+                          <v-card-subtitle>
+                            FR.AK.02
+                          </v-card-subtitle>
+                          <v-card-text class="d-flex justify-end align-center">
+                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
+                            <h1 class="font-weight-bold mt-0 px-5">5</h1>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                  <!-- <v-col cols="12" class="pt-0">
                     <v-card>
                       <v-card-title class="px-8">
                         <span class="headline">
                           Menu Asesmen Peserta
                         </span>
                       </v-card-title>
-                      <!-- <v-row>
-                        <v-col v-if="pesertas.status == 1" md="3">
-                          <nuxt-link :to="`/asesor/rekaman-asesmen/${pesertas.id}`">
-                            <v-card text link>
-                                <v-card-actions class="justify-center fill-height">
-                                      <v-list-item two-line >
-                                          <v-list-item-content class="text-center">
-                                              <v-list-item-title class="headline mb-2">
-                                                  <v-icon size="30" color="primary" >subject</v-icon>
-                                              </v-list-item-title>
-                                              <v-list-item-title>Rekaman Asesmen</v-list-item-title>
-                                          </v-list-item-content>
-                                      </v-list-item>
-                                </v-card-actions>
-                            </v-card>
-                          </nuxt-link>
-                        </v-col>
-                        <v-col v-if="pesertas.status == 2 || pesertas.status == -2" md="3">
-                          <nuxt-link :to="`/asesor/hasil-asesmen/${pesertas.id}`">
-                            <v-card text link>
-                                <v-card-actions class="justify-center fill-height">
-                                      <v-list-item two-line >
-                                          <v-list-item-content class="text-center">
-                                              <v-list-item-title class="headline mb-2">
-                                                  <v-icon size="30" color="primary" >playlist_add_check</v-icon>
-                                              </v-list-item-title>
-                                              <v-list-item-title>Hasil Asesmen</v-list-item-title>
-                                          </v-list-item-content>
-                                      </v-list-item>
-                                </v-card-actions>
-                            </v-card>
-                          </nuxt-link>
-                        </v-col>
-                        <v-col md="3">
-                          <nuxt-link :to="`/asesor/hasil-observasi/${pesertas.id}`">
-                            <v-card text link>
-                                <v-card-actions class="justify-center fill-height">
-                                      <v-list-item two-line >
-                                          <v-list-item-content class="text-center">
-                                              <v-list-item-title class="headline mb-2">
-                                                  <v-icon size="30" color="primary" >subject</v-icon>
-                                              </v-list-item-title>
-                                              <v-list-item-title>Rekaman Observasi</v-list-item-title>
-                                          </v-list-item-content>
-                                      </v-list-item>
-                                </v-card-actions>
-                            </v-card>
-                          </nuxt-link>
-                        </v-col>
-                      </v-row> -->
                       <v-row>
                         <v-col v-if="pesertas.persetujuan == 0" cols="12" class="px-10 ">
                           <v-alert
@@ -264,22 +257,7 @@
                                           </tbody>
                                         </v-simple-table>
                                         <v-container>
-                                        <!-- <v-row>
-                                          <v-col cols="12" sm="12" md="12">
-                                            <v-text-field v-model="form.nama" label="Nama Tempat Uji Kompetensi (TUK)*" required></v-text-field>
-                                          </v-col>
-                                          <v-col cols="12" sm="6" md="6">
-                                            <v-text-field v-model="form.kode" label="Kode TUK*" hint="example of helper text only on focus"></v-text-field>
-                                          </v-col>
-                                          <v-col cols="12" sm="6" md="6">
-                                            <v-text-field v-model="form.jenis" label="Jenis TUK*" hint="example of helper text only on focus"></v-text-field>
-                                          </v-col>
-                                          <v-col cols="12" sm="12" md="12">
-                                            <v-text-field v-model="form.alamat" label="Alamat*" hint="example of helper text only on focus"></v-text-field>
-                                          </v-col>
-                                        </v-row> -->
                                         </v-container>
-                                      <!-- <small>*Wajib diisi</small> -->
                                       </v-card-text>
                                       <v-card-actions>
                                         <v-spacer></v-spacer>
@@ -289,10 +267,6 @@
                                     </v-card>
                                   </v-form>
                                 </v-dialog>
-                              <!-- <v-btn
-                              outlined
-                              color="primary"
-                              >Lihat Form</v-btn> -->
                               </v-col>
                             </v-row>
                           </v-alert>
@@ -322,6 +296,20 @@
                                         <v-icon size="30" color="warning">subject</v-icon>
                                       </v-list-item-title>
                                       <v-list-item-title>Asesmen Mandiri</v-list-item-title>
+                                    </v-list-item-content>
+                                  </v-list-item>
+                                </v-card-actions>
+                              </v-card>
+                            </v-col>
+                            <v-col md="3">
+                              <v-card :to="`/asesor/soal-observasi/${pesertas.id}`" text link>
+                                <v-card-actions class="justify-center fill-height">
+                                  <v-list-item two-line>
+                                    <v-list-item-content class="text-center">
+                                      <v-list-item-title class="headline mb-2">
+                                        <v-icon size="30" color="indigo">edit</v-icon>
+                                      </v-list-item-title>
+                                      <v-list-item-title>Hasil observasi</v-list-item-title>
                                     </v-list-item-content>
                                   </v-list-item>
                                 </v-card-actions>
@@ -375,8 +363,7 @@
                         </v-col>
                       </v-row>
                     </v-card>
-                  </v-col>
-
+                  </v-col> -->
                   <v-col cols="12">
                     <v-card>
                       <v-card-title class="px-8">
@@ -393,7 +380,7 @@
                               text
                               type="info"
                             >
-                              Setelah proses verifikasi APL-2, silahkan tekan tombol konfirmasi jadwal untuk menginfokan Asesi mengenai jadwal Asesmen Offline!
+                              Setelah proses verifikasi APL-2, silahkan tekan tombol konfirmasi jadwal untuk menginfokan Asesi mengenai jadwal Asesmen Online!
                             </v-alert>
                             <label for="">Tanggal Asesmen</label>
                             <v-menu
@@ -451,7 +438,7 @@
                     </v-card>
                   </v-col>
 
-                  <v-col cols="12">
+                  <v-col v-show="false" cols="12">
                     <v-card>
                       <v-card-title class="px-8">
                         <span class="headline">
@@ -595,7 +582,7 @@
                     </v-card>
                   </v-col>
 
-                  <v-col cols="12">
+                  <v-col v-show="false" cols="12">
                     <v-card>
                       <v-card-title class="px-8 ">
                         <span class="headline">Syarat Peserta</span>
@@ -626,7 +613,7 @@
                       </v-menu> -->
                       </v-card-title>
                       <v-divider></v-divider>
-                      <v-card-text v-if="show === 'informasi'" class="px-8 py-8"> 
+                      <v-card-text v-show="false" v-if="show === 'informasi'" class="px-8 py-8"> 
                         <div>
                           <v-data-table
                             v-if="!state.skeleton"
@@ -709,7 +696,7 @@
                           </v-data-table>
                         </div>
                       </v-card-text>
-                      <v-card-text v-if="show === 'asesmen-mandiri'" class="px-8 py-8">
+                      <v-card-text v-show="false" v-if="show === 'asesmen-mandiri'" class="px-8 py-8">
                         <v-alert
                           icon="info"
                           text
@@ -801,7 +788,7 @@
                     </v-card>
                   </v-col>
 
-                  <v-col cols="12">
+                  <v-col v-show="false" cols="12">
                     <v-card>
                       <v-card-title class="px-8">
                         <span class="headline">
@@ -938,7 +925,120 @@
                     </v-card>
                   </v-col>
                 </v-row>
-              </div>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-card>
+                  <div class="d-flex flex-no-wrap">
+                    <v-avatar
+                      class="mx-auto mt-10"
+                      size="125"
+                      circle
+                    >
+                      <v-img :src="pesertas.asesi.image"></v-img>
+                    </v-avatar>
+                    <!-- <div>
+                      <v-card-title
+                        class="headline"
+                        v-text="pesertas.asesi.nama"
+                      ></v-card-title>
+                      <v-card-subtitle class="py-0">status asesi:</v-card-subtitle>
+                      <v-card-actions>
+                        <v-btn v-if="pesertas.status == -1" text color="danger">Ditolak</v-btn>
+                        <v-btn v-if="pesertas.status == 0" text color="grey">Belum</v-btn>
+                        <v-btn v-if="pesertas.status == 1" text color="primary">Disetujui</v-btn>
+                        <v-btn v-if="pesertas.status == 2" text color="success">Lulus Sertifikasi</v-btn>
+                      </v-card-actions>
+                    </div> -->
+                  </div>
+                  <div class="d-flex flex-no-wrap mt-5">
+                    <v-chip class="mx-auto" v-if="pesertas.status == -2" text small color="error">Belum Kompeten</v-chip>
+                    <v-chip class="mx-auto" v-if="pesertas.status == -1" text small color="danger">Ditolak</v-chip>
+                    <v-chip class="mx-auto" v-if="pesertas.status == 0" text small color="grey">Belum</v-chip>
+                    <v-chip class="mx-auto" v-if="pesertas.status == 1" text small color="primary">Disetujui</v-chip>
+                    <v-chip class="mx-auto" v-if="pesertas.status == 2" text small color="success">Kompeten</v-chip>
+                  </div>
+                  <!-- <v-divider></v-divider> -->
+                  <v-card-text class="px-5">
+                    <v-simple-table>
+                      <tbody>
+                        <tr>
+                          <td width="20%"><b>Nama:</b></td>
+                          <td>{{ pesertas.asesi.nama }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Skema:</b></td>
+                          <td>{{ pesertas.jadwal.skema.skema }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Tanggal:</b></td>
+                          <td>{{ pesertas.jadwal.tanggal }}</td>
+                        </tr>
+                        <tr>
+                          <td width="10%"><b>Asesor:</b></td>
+                          <td v-if="pesertas.asesor != null">{{ pesertas.asesor.nama }}</td>
+                          <td v-if="pesertas.asesor == null">Belum Ditentukan</td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card-text>
+                  <!-- <v-card-actions v-if="pesertas.status == 2 || pesertas.status == -2" class="d-flex justify-center pb-8 pt-0">
+                    <nuxt-link :to="`/admin/hasil-asesmen/${pesertas.id}`">
+                      <v-btn color="success" rounded>Lihat Hasil Sertifikasi</v-btn>
+                    </nuxt-link>
+                  </v-card-actions> -->
+                </v-card>
+              </v-col>
+              <!-- <div class="col-md-4 col-xs-12 pt-0">
+                <v-card>
+                  <div class="d-flex flex-no-wrap">
+                    <v-avatar
+                      class="ml-5 mt-5"
+                      size="125"
+                      style="border-radius: .42rem;"
+                      tile
+                    >
+                      <v-img :src="pesertas.asesi.image"></v-img>
+                    </v-avatar>
+                    <div>
+                      <v-card-title
+                        color="primary"
+                        class="headline"
+                        v-text="pesertas.asesi.nama"
+                      ></v-card-title>
+                      <v-card-subtitle class="py-0">status asesi:</v-card-subtitle>
+                      <v-card-actions>
+                        <v-btn v-if="pesertas.status == -2" text color="error">Tidak lulus sertifikasi</v-btn>
+                        <v-btn v-if="pesertas.status == -1" text color="danger">Ditolak</v-btn>
+                        <v-btn v-if="pesertas.status == 0" text color="grey">Belum</v-btn>
+                        <v-btn v-if="pesertas.status == 1" text color="primary">Disetujui</v-btn>
+                        <v-btn v-if="pesertas.status == 2" text color="success">Lulus sertifikasi</v-btn>
+                      </v-card-actions>
+                    </div>
+                  </div>
+                  <v-card-text class="px-5">
+                    <v-simple-table>
+                      <tbody>
+                        <tr>
+                          <td width="20%"><b>Nama:</b></td>
+                          <td>{{ pesertas.asesi.nama }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Skema:</b></td>
+                          <td>{{ pesertas.jadwal.skema.skema }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Tanggal:</b></td>
+                          <td>{{ pesertas.jadwal.tanggal }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Asesor:</b></td>
+                          <td>{{ pesertas.asesor.nama }}</td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card-text>
+                </v-card>
+              </div> -->
             </v-row>
           </div>
         </v-container>

@@ -47,21 +47,6 @@
               >
                 Isilah asesmen mandiri dibawah ini, usahakan telah menguasai bidang yang diujikan
               </v-alert>
-              <!-- End alert section -->
-              <!-- <v-row>
-              <v-col cols="3">
-                  <v-select
-                      :items="items"
-                      v-model="value"
-                      prepend-icon="date_range"
-                      label="Pilih Jadwal"
-                  ></v-select>
-              </v-col>
-              </v-row> -->
-              <!-- <v-radio-group v-model="radios" :mandatory="false">
-                <v-radio label="Radio 1" value="radio-1"></v-radio>
-                <v-radio label="Radio 2" value="radio-2"></v-radio>
-              </v-radio-group> -->
               <div v-if="ujikompetensi != null" class="pt-5">
                 <v-expansion-panels multiple accordion>
                   <v-expansion-panel
@@ -124,16 +109,34 @@
                               <td width="5%">{{ elemenIndex+1 }}.{{ kukIndex+1 }}</td>
                               <td>{{ kuk.kriteria }}</td>
                               <td colspan="2"></td>
-                              <!-- <td colspan="2" class="text-center">
-                                      <v-radio-group row v-model="ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].asesmen_mandiri">
-                                        <v-col cols="6">
-                                          <v-radio class="justify-center" value= "1"></v-radio>
-                                        </v-col>
-                                        <v-col cols="6">
-                                          <v-radio class="justify-center" value= "-1"></v-radio>
-                                        </v-col>
-                                      </v-radio-group>
-                                    </td> -->
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td class="" colspan="4" width="20">Bukti yang relevan (Portofolio) :
+                              </td>
+                            </tr>
+                            <tr v-for="(porto, i) in elemen.portofolioAsesmen" :key="i">
+                              <td></td>
+                              <td>{{ i+1 }}</td>
+                              <td>{{ porto.nama }}</td>
+                              <td colspan="4">
+                                <v-btn icon color="orange lightern-1" :href="porto.file" target="_blank">
+                                  <v-icon>
+                                    remove_red_eye
+                                  </v-icon>
+                                </v-btn>
+                                <v-btn icon color="error" @click="preparedDeletePortofolio(ujiIndex, elemenIndex, i)">
+                                  <v-icon>
+                                    mdi-close
+                                  </v-icon>
+                                </v-btn>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td colspan="4">
+                                <v-btn @click="preparedSelectPortofolio(elemen, ujiIndex, elemenIndex)" class="ml-10 my-3" color="blue darken-3" outlined dark>Tambahkan Portofolio</v-btn>
+                              </td>
                             </tr>
                           </tbody>
                         </template>
@@ -149,6 +152,45 @@
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>
+                <v-dialog v-model="tambahDialog" persistent max-width="600px">
+                  <v-card>
+                    <v-card-title>
+                      <span class="subtitle">Tambah Portofolio</span>
+                    </v-card-title>
+                    <v-card-text class="pb-0">
+                      <v-select
+                        multiple
+                        outlined
+                        dense
+                        return-object
+                        v-model="select_portofolio.elemen.portofolioAsesmen"
+                        :items="peserta.portofolio"
+                        label="Pilih Portofolio*"
+                        item-value="id" item-text="nama"
+                      />
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="grey" text @click="tambahDialog = false">Batal</v-btn>
+                      <v-btn color="blue darken-1" :disabled="select_portofolio.elemen.portofolioAsesmen && select_portofolio.elemen.portofolioAsesmen.length <= 0" text @click="savePortofolio">Tambah portofolio</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+                <v-dialog v-model="deleteDialog" persistent max-width="600px">
+                  <v-card>
+                    <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+
+                    <v-card-text>
+                      Peringatan! Data yang telah dihapus tidak dapat kembali lagi.
+                    </v-card-text>
+
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="grey" text @click="deleteDialog = false">Batal</v-btn>
+                      <v-btn color="red darken-1" text @click="deletePortofolio">Delete Portofolio</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
                 <!-- <v-row>
                     <v-col cols="12" class="d-flex justify-end">
                       <v-btn
@@ -189,9 +231,19 @@ export default {
   data() {
     return {
       tambahDialog: false,
+      deleteDialog: false,
       search: '',
       headers: [
         { text: 'Syarat', value: 'syarat' },
+        // { text: 'File', value: 'file'},
+        { text: 'Aksi', value: 'actions' },
+      ],
+      portofoliosHeaders: [ 
+        { text: 'Portofolio', value: 'nama' },
+        { text: 'Valid', value: 'valid' },
+        { text: 'Memadai', value: 'memadai' },
+        { text: 'Keaslian', value: 'asli' },
+        { text: 'terkini', value: 'terkini' },
         // { text: 'File', value: 'file'},
         { text: 'Aksi', value: 'actions' },
       ],
@@ -210,6 +262,16 @@ export default {
       e1: 1,
       profile: {
         username: ''
+      },
+      select_portofolio: {
+        elemen: {
+          portofolioAsesmen: []
+        }
+      },
+      delete_portofolio : {
+        ujiIndex: null,
+        elemenIndex: null,
+        i: null
       },
       input: [],
       skema: [],
@@ -230,6 +292,35 @@ export default {
     // this.getAsesi();
   },
   methods: {
+    deletePortofolio() {
+      this.ujikompetensi[this.delete_portofolio.ujiIndex].unitKompetensi.element[this.delete_portofolio.elemenIndex].portofolioAsesmen.splice(this.delete_portofolio.elemenIndex, 1)
+      this.deleteDialog = false
+    },
+    getPortoName(id) {
+      console.log(id)
+      console.log(this.peserta.portofolio.filter(x => x.id === id))
+    },
+    savePortofolio() {
+      if (typeof(this.select_portofolio.elemen.portofolioAsesmen) !== 'undefined') {
+        this.ujikompetensi[this.select_portofolio.ujiIndex].unitKompetensi.element[this.select_portofolio.elemenIndex].portofolioAsesmen = this.select_portofolio.elemen.portofolioAsesmen
+      }
+      this.select_portofolio = Object.assign({}, { elemen: {}})
+      this.tambahDialog = false
+    },
+    preparedDeletePortofolio(ujiIndex, elemenIndex, i) {
+      // console.log(elemen, i)
+      this.$nextTick(() => {
+        this.delete_portofolio = Object.assign({}, { ujiIndex: ujiIndex, elemenIndex: elemenIndex, i: i })
+        this.deleteDialog = true
+      })
+    },
+    preparedSelectPortofolio(elemen, ujiIndex, elemenIndex) {
+      // console.log(elemen, i)
+      this.$nextTick(() => {
+        this.select_portofolio = Object.assign({}, { elemen: {...elemen}, ujiIndex: ujiIndex, elemenIndex: elemenIndex })
+        this.tambahDialog = true
+      })
+    },
     radioasesmen(uji, kuk, value, ujiIndex, elemenIndex, kukIndex){
       const val = `${value}`
       // const val = value;
@@ -245,18 +336,6 @@ export default {
       if (val === this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag) {
         return this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag = "0"
       }
-      // this.editedIndex = this.skemas.indexOf(item);
-      // this.input.asesmen.push({kuk_id: kuk.id, asesmen_mandiri: value});
-      // this.input = Object.assign(this.input, {uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}});
-      // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
-      // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
-      // this.input = { 
-      //   ...this.input, 
-      //   [uji.id]: {
-      //     uji_kompetensi_id: uji.id, 
-      //     asesmen: { [kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}
-      //     }
-      //   }};
       let kukData = (this.input[uji.id] || {}).asesmen
       if (kukData == null) {
         kukData = {}
@@ -293,28 +372,24 @@ export default {
       }).then(({ data }) => {
         this.peserta = data.peserta
         this.ujikompetensi = data.peserta.ujiKompetensi
+        console.log(data.peserta.ujiKompetensi)
         for (let x = 0; x < this.ujikompetensi.length; x++) {
           for (let i = 0; i < this.ujikompetensi[x].unitKompetensi.element.length; i++) {
             const element = this.ujikompetensi[x].unitKompetensi.element[i]
             for (let k = 0; k < this.ujikompetensi[x].asesmen.length; k++) {
               if (this.ujikompetensi[x].asesmen[k].element.id == element.id) {
-                this.ujikompetensi[x].unitKompetensi.element[i] = Object.assign({}, this.ujikompetensi[x].unitKompetensi.element[i], { asesmen_mandiri: `${this.ujikompetensi[x].asesmen[k].asesmen_mandiri}` })
-                // console.log(element.id);
+                this.ujikompetensi[x].unitKompetensi.element[i] = Object.assign({}, 
+                  this.ujikompetensi[x].unitKompetensi.element[i], { 
+                    asesmen_mandiri: `${this.ujikompetensi[x].asesmen[k].asesmen_mandiri}`,
+                    portofolioAsesmen: this.ujikompetensi[x].asesmen[k].portofolioAsesmen.map((item) => {
+                      return item.portofolio
+                    })
+                  })
               }
             }
-            // for (let j = 0; j < this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk.length; j++) {
-            //   const kuk = this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j];
-            //   for (let k = 0; k < this.ujikompetensi[x].asesmen.length; k++) {
-            //     if (this.ujikompetensi[x].asesmen[k].kriteriaUk.id == kuk.id) {
-            //       this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j] = Object.assign({}, this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j], { asesmen_mandiri: `${this.ujikompetensi[x].asesmen[k].asesmen_mandiri}` });
-            //     }
-            //   }
-            // }
           }
         }
         this.input = {...this.ujikompetensi}
-        // console.log(data.peserta.ujiKompetensi.length);
-        // this.input.asesmen = data.peserta.ujiKompetensi.ujikompetensi.unitKompetensi.element;
       }).catch((error) => {
         // console.log(error);
       }).finally(() => {
@@ -333,21 +408,6 @@ export default {
         // console.log(error);
       })
     },
-    // async asesmenMandiri() {
-    //     const asesmen = Object.values(this.input.asesmen);
-    //     const uji_kompetensi_id = null;
-    //     console.log(asesmen);
-    //     const result = await this.$apollo.mutate({
-    //         mutation: ASESMEN_MANDIRI_MUTATION,
-    //         variables: {
-    //           asesmen, uji_kompetensi_id
-    //         }
-    //   }).then(({ data }) => {
-    //       console.log(data);
-    //   }).catch((error) => {
-    //     console.log(error);
-    //   });
-    // },
     async asesmenMandiri(e) {
       const { state: { loading } } = this
       // const ujiData = Object.values(this.input);
@@ -359,13 +419,13 @@ export default {
           const asesmen = []
           const uji_kompetensi_id = this.ujikompetensi[x].id
           for (let i = 0; i < this.ujikompetensi[x].unitKompetensi.element.length; i++) {
-            const element = Object.assign({}, {element_id: this.ujikompetensi[x].unitKompetensi.element[i].id, asesmen_mandiri: this.ujikompetensi[x].unitKompetensi.element[i].asesmen_mandiri})
+            const element = Object.assign({}, {
+              element_id: this.ujikompetensi[x].unitKompetensi.element[i].id,
+              asesmen_mandiri: this.ujikompetensi[x].unitKompetensi.element[i].asesmen_mandiri,
+              portofolio_id: []})
             asesmen.push(element)
-            // for (let j = 0; j < this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk.length; j++) {
-            //   const element = Object.assign({}, {kuk_id: this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j].id, asesmen_mandiri: this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j].asesmen_mandiri});
-            //   asesmen.push(element);
-            // }
           }
+          console.log(asesmen)
           const result = await this.$apollo.mutate({
             mutation: ASESMEN_MANDIRI_MUTATION,
             variables: {
@@ -415,12 +475,16 @@ export default {
         const asesmen = []
         // console.log(this.ujikompetensi.length);
         for (let i = 0; i < this.ujikompetensi[ujiIndex].unitKompetensi.element.length; i++) {
-          const element = Object.assign({}, {element_id: this.ujikompetensi[ujiIndex].unitKompetensi.element[i].id, asesmen_mandiri: this.ujikompetensi[ujiIndex].unitKompetensi.element[i].asesmen_mandiri})
+          const element = Object.assign({}, {
+            element_id: this.ujikompetensi[ujiIndex].unitKompetensi.element[i].id,
+            asesmen_mandiri: this.ujikompetensi[ujiIndex].unitKompetensi.element[i].asesmen_mandiri,
+            portofolio_id: 
+              typeof(this.ujikompetensi[ujiIndex].unitKompetensi.element[i].portofolioAsesmen) !== 'undefined' 
+                ? this.ujikompetensi[ujiIndex].unitKompetensi.element[i].portofolioAsesmen.map((item) => {
+                  return item.id
+                }) : []
+          })
           asesmen.push(element)
-          // for (let j = 0; j < this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk.length; j++) {
-          //   const element = Object.assign({}, {kuk_id: this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j].id, asesmen_mandiri: this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j].asesmen_mandiri});
-          //   asesmen.push(element);
-          // }
         }
         const result = await this.$apollo.mutate({
           mutation: ASESMEN_MANDIRI_MUTATION,

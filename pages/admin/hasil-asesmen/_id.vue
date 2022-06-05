@@ -6,15 +6,15 @@
         wrap
       >
         <v-card>
-          <v-card-title class="px-8 ">
+          <v-card-title>
             <!-- <v-avatar size="30" color="warning lighten-2">
               <span class="white--text">APL.1</span>
             </v-avatar> -->
-            <span class="headline">FR.AK.02. FORMULIR REKAMAN ASESMEN KOMPETENSI</span>
+            <span class="font-weight-bold">FR.AK.02. FORMULIR REKAMAN ASESMEN KOMPETENSI</span>
             <v-spacer></v-spacer>
           </v-card-title>
           <v-divider></v-divider>
-          <v-card-text v-if="!state.skeleton" class="px-8 py-8">
+          <v-card-text v-if="!state.skeleton">
             <div v-if="alert.show">
               <v-alert v-model="alert.show" :type="alert.type" dismissible class="mb-10">
                 <div class="white--text">
@@ -127,8 +127,8 @@
                 </tbody>
               </v-simple-table>
               <v-row>
-                <v-col class="d-flex justify-end">
-                  <v-btn target="_blank" :href="`/admin/print/rekaman-asesmen/${pesertas.id}`" color="primary" outlined dark><v-icon left>print</v-icon>Print</v-btn>
+                <v-col class="d-flex justify-end mt-5">
+                  <v-btn target="_blank" :href="`/admin/print/fr-ak-02/${pesertas.id}`" color="primary" outlined dark><v-icon left>print</v-icon>Print Dokumen</v-btn>
                 </v-col>
               </v-row>
               <!-- <v-row>

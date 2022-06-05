@@ -150,6 +150,26 @@
                           </tr>
                         </tbody>
                       </v-simple-table>
+                      <v-alert
+                        class="mt-3"
+                        icon="warning"
+                        text
+                        type="warning"
+                      >
+                        Baca dan pahami syarat yang harus dipenuhi
+                      </v-alert>
+                      <v-simple-table>
+                        <thead>
+                          <td><b>Syarat</b></td>
+                          <td><b>Sifat</b></td>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(syarat, i) in form.skema.syarat" :key="i">
+                            <td width="20%">{{ syarat.syarat }}</td>
+                            <td width="20%">Wajib</td>
+                          </tr>
+                        </tbody>
+                      </v-simple-table>
                       <v-row v-if="form.skema.panduan != null">
                         <v-col>
                           <v-btn :href="form.skema.panduan" target="_blank" color="red darken-3" outlined dark><v-icon left>picture_as_pdf</v-icon>Unduh buku panduan</v-btn>
@@ -193,6 +213,7 @@
 </template>
 <script>
 import { GET_JADWALS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS, GET_ACTIVE_JADWALS, GET_SELF_ASESI } from '@/constants/graphql'
+import { GET_ALL_ACTIVE_JADWALS } from '@/constants/jadwal'
 
 export default {
   name: 'Index',
@@ -317,15 +338,11 @@ export default {
       this.alert = { show: true, type, message }
     },
     async getJadwal() {
-      const jurusan_id = this.profile.jurusan.id
       const result = await this.$apollo.mutate({
-        mutation: GET_ACTIVE_JADWALS,
-        variables: {
-          jurusan_id
-        }
+        mutation: GET_ALL_ACTIVE_JADWALS
       }).then(({ data }) => {
-        this.skema = data.activejadwal
-        console.log(data.activejadwal)
+        this.skema = data.allactivejadwal
+        console.log(data.allactivejadwal)
       }).catch((error) => {
         console.log(error)
       })

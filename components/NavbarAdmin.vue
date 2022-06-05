@@ -23,10 +23,10 @@
     <v-navigation-drawer
       v-model="drawer"
       app
-      color="blue darken-4"
+      color="primary"
       dark
     >
-      <v-list-item two-line>
+      <!-- <v-list-item two-line>
         <v-list-item-content>
           <v-img
             :src="require('@/assets/img/lsp_logo.png')"
@@ -34,6 +34,10 @@
             contain
           ></v-img>
         </v-list-item-content>
+      </v-list-item> -->
+      <v-list-item class="text-uppercase text-h6">
+        <span class="font-weight-bold mr-1">LSP</span>
+        <span>TIFA</span>
       </v-list-item>
       <v-divider></v-divider>
       <v-list
@@ -78,9 +82,9 @@ export default {
         { title: 'Skema', icon: 'folder', link: '/admin/skema' },
         { title: 'Jadwal', icon: 'date_range', link: '/admin/jadwal' },
         { title: 'TUK', icon: 'location_on', link: '/admin/tuk' },
-        { title: 'Lembaga', icon: 'business', link: '/admin/lembaga' },
-        { title: 'Fakultas', icon: 'school', link: '/admin/fakultas' },
-        { title: 'Umpan Balik', icon: 'reply', link: '/admin/umpan-balik' },
+        // { title: 'Lembaga', icon: 'business', link: '/admin/lembaga' },
+        // { title: 'Fakultas', icon: 'school', link: '/admin/fakultas' },
+        // { title: 'Umpan Balik', icon: 'reply', link: '/admin/umpan-balik' },
         { title: 'User', icon: 'person_add', link: '/admin/users' },
         // { title: 'Unit Kompetensi', icon: 'toc', link: '/admin/unit-kompetensi' },
         // { title: 'Elemen', icon: 'menu_open', link: '/admin/element' },
