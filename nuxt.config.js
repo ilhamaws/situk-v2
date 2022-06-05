@@ -62,7 +62,7 @@ export default {
     clientConfigs: {
       // default: '~/plugins/apollo-error-handler.js'
       default: {
-        httpEndpoint: 'https://apisituk.igsindonesia.org/graphql',
+        httpEndpoint: process.env.API_BASE_URL || 'https://apisituk.igsindonesia.org/graphql',
       }
     }
   },
