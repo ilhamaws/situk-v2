@@ -2,8 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 import webpack from 'webpack'
 
 export default {
-  target: 'static',
-  
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - situk-web',
@@ -51,7 +50,9 @@ export default {
     fix: true
   },
 
+  ssr: false,
   router: {
+    mode: "hash"
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
