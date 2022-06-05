@@ -11,7 +11,7 @@
               <!-- <v-avatar size="30" color="warning lighten-2">
                 <span class="white--text">APL.1</span>
               </v-avatar> -->
-              <span class="headline px-5">Asesmen Peserta</span>
+              <span class="font-weight-bold">Informasi Asesi Yang Diuji</span>
               <v-spacer></v-spacer>
             </v-card-title>
             <v-divider></v-divider>
@@ -110,7 +110,6 @@
                         append-icon="search"
                         label="Search"
                         class="shrink"
-                        rounded
                         outlined
                         dense
                       ></v-text-field>

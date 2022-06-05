@@ -104,3 +104,18 @@ export const GET_ALL_ACTIVE_JADWALS = gql `
   }
 }
 `
+
+export const GET_ACTIVE_JADWAL_UJIAN = gql `
+{
+  activeJadwalUjian{
+    id
+    name
+    kuota
+    price
+    tanggal
+    tempat_ujian
+    keterangan
+    status
+  }
+}
+`

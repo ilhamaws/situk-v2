@@ -827,6 +827,40 @@ mutation updateAsesi($npm: String, $jurusan_id: ID, $lembaga_id: ID!, $pendidika
 }
 `
 
+export const UPDATE_ASESI_MANUAL_MUTATION = gql `
+mutation updateAsesiManual($pendidikan_i: ID!, $pekerjaan_id: ID!, $kota_id: Int!, $nik: String!, $nama: String, $npm: String, $jenis_kelamin: String, $tempat_lahir: String, $tanggal_lahir: String, $kebangasaan: String, $alamat: String,
+  $kodepos: String, $telepon: String, $jurusan: String, $fakultas: String, $universitas: String, $nama_lembaga: String, $alamat_lembaga: String,
+  $kodepos_lembaga: String, $telepon_lembaga: String, $email_lembaga: String, $image: String, $ttd: String) {
+  updateAsesiManual(
+    nik: $nik
+    nama: $nama
+    npm: $npm
+    jenis_kelamin: $Jenis_kelamin
+    tempat_lahir: $tempat_lahir
+    tanggal_lahir: $tanggal_lahir
+    kebangasaan: $kebangsaan
+    alamat: $alamat
+    kodepos: $kodepos
+    telepon: $telepon
+    jurusan: $jurusan
+    fakultas: $fakultas
+    universitas: $universitas
+    nama_lembaga: $nama_lembaga
+    alamat_lembaga: $alamat_lembaga
+    kodepos_lembaga: $Kodepos_lembaga
+    telepon_lembaga: $telepon_lembaga
+    email_lembaga: $email_lembaga
+    pendidikan_id: $pendidikan_id
+    pekerjaan_id: $pekerjaan_id
+    image: $image
+    ttd: $ttd
+  ){
+    id
+    nama
+  }
+}
+`
+
 // export const UPDATE_ASESI_MUTATION = gql `
 // mutation updateAsesi($lembaga: ID!, $pendidikan: ID!, $pekerjaan: ID!, $kota: Int!, $nik: String!, 
 //   $nama: String, $jenis_kelamin: String, $tempat_lahir: String, $tanggal_lahir: String, $kebangsaan: String, $alamat: String, 
@@ -1205,6 +1239,25 @@ export const GET_SELF_ASESI = gql `
     pekerjaan {
       id
       pekerjaan
+    }
+    pesertaUjian {
+      id
+      nilai
+      status
+      jadwalUjian {
+        id
+        name
+        price
+        kuota
+        status
+        tanggal
+        tempat_ujian
+        paketUjian {
+          id
+          paket
+          deskripsi
+        }
+      }
     }
     peserta{
       id
@@ -1918,6 +1971,8 @@ query($id: ID!){
       tindak_lanjut
       asesmen_date
       persetujuan
+      persetujuan_asesi_date
+      persetujuan_asesor_date
       jenis_tes
       asesi {
         id
@@ -1982,6 +2037,7 @@ query($id: ID!){
       asesor {
         id
         nama
+        ttd
       }
       syaratPeserta {
         id
@@ -2072,6 +2128,7 @@ query($id: ID!){
           id
           observasi
           penelitian_lanjut
+          penilaian_lanjut
           kriteriaUk {
             id
             kriteria

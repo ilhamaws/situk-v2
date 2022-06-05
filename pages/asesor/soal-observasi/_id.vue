@@ -333,11 +333,11 @@ export default {
           }
         }).then(({ data }) => {
           this.showAlert('success', 'Observasi telah tersimpan')
+          this.getpesertasDetail()
         }).catch(({graphQLErrors}) => {
           this.showAlert('error', graphQLErrors[0].message)
         }).finally(() => {
           this.state.loading = false
-          this.getpesertasDetail()
         })
       }
     },
@@ -353,6 +353,7 @@ export default {
         }
       }).then(({ data }) => {
         this.peserta = data.peserta
+        console.log(data)
         this.ujikompetensi = data.peserta.ujiKompetensi
         for (let x = 0; x < this.ujikompetensi.length; x++) {
           this.ujikompetensi[x].unitKompetensi = Object.assign(this.ujikompetensi[x].unitKompetensi, {umpan_balik_uji: null})

@@ -7,12 +7,11 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title class="px-8 ">
+            <v-card-title>
               <!-- <v-avatar size="30" color="warning lighten-2">
                 <span class="white--text">APL.1</span>
               </v-avatar> -->
-              <v-icon class="mr-2" size="30" color="error">wrap_text</v-icon>
-              <span class="headline">Hasil Observasi</span>
+              <span class="font-weight-bold">FR.IA.01 Hasil Ceklis Observasi</span>
               <v-spacer></v-spacer>
             </v-card-title>
             <v-divider></v-divider>
@@ -61,7 +60,8 @@
                         v-if="ujikompetensi[ujiIndex].observasi_date != null"
                         icon="info"
                         text
-                        type="info"
+                        color="primary"
+                        dense
                       >
                         Hasil Observasi
                       </v-alert>

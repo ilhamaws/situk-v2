@@ -8,9 +8,7 @@
       >
         <v-card>
           <v-card-title>
-            <span class="headline px-5">Informasi Peserta</span>
-            <v-spacer></v-spacer>
-            <v-btn color="indigo" outlined small readonly>{{ skemas.skema }}</v-btn>
+            <span class="headline px-5">Informasi Jadwal Ujian</span>
           </v-card-title>
           <v-divider></v-divider>
           <v-row>
@@ -25,89 +23,6 @@
                   </v-alert>
                 </div>
                 <!-- End alert section -->
-                <v-form ref="form">
-                  <v-row>
-                    <v-dialog v-model="tambahDialog" persistent max-width="600px">
-                      <v-card>
-                        <v-card-title>
-                          <span class="headline">Tambah Jadwal</span>
-                        </v-card-title>
-                        <v-card-text>
-                          <v-container>
-                            <v-row>
-                              <v-col cols="12" sm="12" md="12">
-                                <v-select
-                                  v-model="form.skema_id"
-                                  :items="skemas"
-                                  label="Skema*"
-                                  item-value="id" item-text="skema"
-                                />
-                              </v-col>
-                              <v-col cols="12" sm="12" md="12">
-                                <v-select
-                                  v-model="form.tempat_uk_id"
-                                  :items="tuks"
-                                  label="Tempat Uji Kompetensi (TUK)*"
-                                  item-value="id" item-text="nama"
-                                />
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
-                                <v-select
-                                  v-model="form.anggaran_id"
-                                  :items="anggarans"
-                                  label="Anggaran*"
-                                  item-value="id" item-text="anggaran"
-                                />
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
-                                <!-- date -->
-                                <v-menu
-                                  ref="menu"
-                                  v-model="dateMenu"
-                                  :close-on-content-click="false"
-                                  :return-value.sync="form.tanggal"
-                                  transition="scale-transition"
-                                  offset-y
-                                  min-width="290px"
-                                >
-                                  <template #activator="{ on }">
-                                    <v-text-field
-                                      v-model="form.tanggal"
-                                      label="Tanggal Uji Kompetensi"
-                                      v-on="on"
-                                    ></v-text-field>
-                                  </template>
-                                  <v-date-picker v-model="date" no-title scrollable>
-                                    <v-spacer></v-spacer>
-                                    <v-btn text color="primary" @click="dateMenu = false">Cancel</v-btn>
-                                    <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                                  </v-date-picker>
-                                </v-menu>
-                                <!-- date -->
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                          <small>*Wajib diisi</small>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="blue darken-1" text @click="reset">Close</v-btn>
-                          <v-btn color="blue darken-1" text @click="createJadwal">Tambah Jadwal</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                    <v-btn color="primary" outlined dark @click="randomDialog = true">Acak Asesor</v-btn>
-                    <v-spacer></v-spacer>
-                    <v-text-field
-                      v-model="search"
-                      append-icon="search"
-                      label="Search"
-                      class="shrink"
-                      outlined
-                      dense
-                    ></v-text-field>
-                  </v-row>
-                </v-form>
                 <v-skeleton-loader
                   v-if="state.skeleton"
                   ref="skeleton"
@@ -121,6 +36,7 @@
                   :search="search"
                   :items-per-page="5"
                   :line-numbers="true"
+                  :width="headers.width"
                 >
                   <template #top>
                     <v-dialog v-model="editDialog" persistent max-width="600px">
@@ -174,29 +90,33 @@
                     <v-dialog v-model="asesorDialog" persistent max-width="600px">
                       <v-card>
                         <v-card-title>
-                          Edit Asesor
+                          <span class="headline">Edit Asesor</span>
                         </v-card-title>
                         <v-card-text>
-                          <v-select
-                            outlined
-                            dense
-                            v-model="editedAsesors.asesor.id"
-                            :items="asesors"
-                            label="Pilih Asesor*"
-                            item-value="id" item-text="nama"
-                          />
+                          <v-container>
+                            <v-row>
+                              <v-col cols="12" sm="12" md="12">
+                                <v-select
+                                  v-model="editedAsesors.asesor.id"
+                                  :items="asesors"
+                                  label="Pilih Asesor*"
+                                  item-value="id" item-text="nama"
+                                />
+                              </v-col>
+                            </v-row>
+                          </v-container>
                         </v-card-text>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn color="grey" text @click="asesorDialog = false">Batal</v-btn>
-                          <v-btn color="primary" text @click="updateAsesorPeserta">Simpan</v-btn>
+                          <v-btn color="blue darken-1" text @click="asesorDialog = false">Batal</v-btn>
+                          <v-btn color="blue darken-1" text @click="updateAsesorPeserta">Simpan</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
                     <v-dialog v-model="randomDialog" persistent max-width="600px">
                       <v-card>
                         <v-card-title>
-                          Acak Asesor
+                          <span class="headline">Acak Asesor</span>
                         </v-card-title>
                         <v-card-text>
                           <v-container>
@@ -207,7 +127,6 @@
                                   :items="asesors"
                                   class="shrink mr-5"
                                   dense
-                                  outlined
                                   :rules="[v => random.length <= 4 || 'maksimal 4']"
                                   label="Pilih Asesor"
                                   item-value="id"
@@ -221,8 +140,8 @@
                         </v-card-text>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn color="grey" text @click="randomDialog = false">Batal</v-btn>
-                          <v-btn color="primary" text @click="randomAsesor">Acak</v-btn>
+                          <v-btn color="blue darken-1" text @click="randomDialog = false">Batal</v-btn>
+                          <v-btn color="blue darken-1" text @click="randomAsesor">Acak</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -254,32 +173,6 @@
                       </div>
                     </nuxt-link>
                   </template>
-                  <template #item.actions="{ item }">
-                    <v-icon
-                      small
-                      class="mr-2"
-                      @click="editAsesor(item)"
-                    >
-                      mdi-pencil
-                    </v-icon>
-                    <!-- <v-icon
-                  small
-                  class="mr-2"
-                  @click="editItem(item)"
-                >
-                  mdi-pencil
-                </v-icon> -->
-                    <v-icon
-                      small
-                      class="mr-2"
-                      @click="deleteItem(item)"
-                    >
-                      mdi-delete
-                    </v-icon>
-                    <!-- <nuxt-link :to="`/informasi-asesmen/${item.id}`">
-                  <v-btn rounded x-small color="primary">Detail</v-btn>
-                </nuxt-link> -->
-                  </template>
                 </v-data-table>
               </div>
             </v-col>
@@ -292,6 +185,7 @@
 </template>
 <script>
 import { GET_SKEMAS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS, GET_TUKS, CREATE_JADWAL_MUTATION, UPDATE_JADWAL_MUTATION, DELETE_JADWAL_MUTATION, CANCEL_JADWAL_MUTATION } from '@/constants/graphql'
+import { GET_JADWAL_UJIAN } from '@/constants/ujian'
 import { GET_JADWALS_ASESOR, GET_ANGGARANS, GET_PESERTAS_ASESOR, VERIFIKASI_PESERTA_MUTATION, DELETE_PESERTABYADMIN_MUTATION, GET_ASESORS_BYSKEMA , UPDATE_ASESOR_PESERTA_MUTATION, RANDOM_ASESOR_MUTATION, GET_SKEMAS_BYJADWAL } from '../../../constants/graphql'
 
 export default {
@@ -355,14 +249,12 @@ export default {
         tanggal: ''
       },
       headers: [
-        { text: 'No', value:'index'},
+        { text: 'No', value:'index', width: '5%'},
         { text: 'Nama Asesi', value: 'asesi.nama' },
-        // { text: 'NPM', value: 'asesi.npm'},
-        // { text: 'Progdi', value: 'asesi.jurusan.jurusan' },
-        { text: 'Tanggal Sertifikasi', value: 'jadwal.tanggal' },
-        { text: 'Asesor', value: 'asesor' },
+        { text: 'NIK', value: 'asesi.nik'},
+        { text: 'Jenis Kelamin', value: 'asesi.jenis_kelamin' },
         { text: 'Status', value: 'status' },
-        { text: 'Aksi', value: 'actions' },
+        // { text: 'Aksi', value: 'actions' },
       ],
       meas: ['Mea', 'None Mea'],
       status: [
@@ -383,6 +275,7 @@ export default {
       tuks: [],
       anggarans: [],
       jadwals: [],
+      jadwal_ujian: null,
       skemas: {
         id: '',
         skema: ''
@@ -392,7 +285,7 @@ export default {
   },
   computed: {
     itemsWithIndex() {
-      return this.pesertas.map(
+      return this.jadwal_ujian.pesertaUjian.map(
         (pesertas, index) => ({
           ...pesertas,
           index: index + 1
@@ -400,11 +293,7 @@ export default {
     }
   },
   mounted() {
-    // this.getJadwals();
-    this.getPesertas()
-    this.getSkemas()
-    this.getTuks()
-    this.getAnggarans()
+    this.getJadwalUjian()
   },
   methods: {
     async randomAsesor() {
@@ -638,16 +527,16 @@ export default {
         this.deleteDialog = false
       })
     },
-    async getPesertas() {
+    async getJadwalUjian() {
       const { id } = this.$data
       const result = await this.$apollo.mutate({
-        mutation: GET_PESERTAS_ASESOR,
+        mutation: GET_JADWAL_UJIAN,
         variables: {
           id
         }
       }).then(({ data }) => {
-        this.pesertas = data.jadwal.peserta
-        console.log('hello' , data)
+        this.jadwal_ujian = data.jadwalUjian
+        return console.log('hello' , data)
       }).catch((error) => {
         console.log(error)
       }).finally(() => {

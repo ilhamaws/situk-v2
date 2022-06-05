@@ -83,6 +83,39 @@ export const GET_PAKET_UJIANS = gql `
 }
 `
 
+export const GET_PAKET_UJIAN = gql `
+query paketUjian($id: ID!){
+  paketUjian (
+    id: $id
+  ){
+    id
+    paket
+    deskripsi
+    passing_grade
+    syaratUjian {
+      id
+      syarat
+      keterangan
+      flag
+    }
+    sectionUjian {
+      id
+      title
+      deskripsi
+      max_time
+      soal {
+        id
+        soal
+        image
+        type
+        jawaban
+        bank_soal_id
+      }
+    }
+  }
+}
+`
+
 export const CREATE_PAKET_UJIAN_MUTATION = gql `
 mutation createPaketUjian(
     $paket: String!,
@@ -100,13 +133,13 @@ mutation createPaketUjian(
 }
 `
 export const UPDATE_PAKET_UJIAN_MUTATION = gql `
-mutation upatePaketUjian(
+mutation updatePaketUjian(
     $id: Int!,
     $paket: String!,
     $deskripsi: String!,
     $passing_grade: Int
     ) {
-      upatePaketUjian(
+      updatePaketUjian(
             id: $id
             paket: $paket
             deskripsi: $deskripsi
@@ -123,5 +156,69 @@ mutation deletePaketUjian($id: Int!){
   deletePaketUjian(
     id: $id
   )
+}
+`
+
+export const CREATE_SYARAT_UJIAN_MUTATION = gql `
+mutation createSyaratUjian(
+    $paket_id: Int,
+    $syarat: String,
+    $keterangan: String
+    ) {
+      createSyaratUjian(
+            paket_id: $paket_id
+            syarat: $syarat
+            keterangan: $keterangan
+    ) {
+        id
+    }
+}
+`
+
+export const UPDATE_SYARAT_UJIAN_MUTATION = gql `
+mutation updateSyaratUjian(
+    $id: Int,
+    $syarat: String,
+    $keterangan: String,
+    $flag: Int,
+    ) {
+      updateSyaratUjian(
+            id: $id
+            syarat: $syarat
+            keterangan: $keterangan
+            flag: $flag
+    ) {
+        id
+    }
+}
+`
+
+export const DELETE_SYARAT_UJIAN_MUTATION = gql `
+mutation deleteSyaratUjian($id: Int!){
+  deleteSyaratUjian(
+    id: $id
+  )
+}
+`
+
+export const CREATE_SECTION_UJIAN_MUTATION = gql `
+mutation createSectionUjian(
+    $paket_id: Int,
+    $title: String,
+    $deskripsi: String,
+    $max_time: Int,
+    $soal: [Int]
+    ) {
+      createSectionUjian(
+            paket_id: $paket_id
+            title: $title
+            deskripsi: $deskripsi
+            max_time: $max_time
+            soal: $soal
+    ) {
+        id
+        title
+        deskripsi
+    }
 }
 `

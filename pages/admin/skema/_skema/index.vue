@@ -4,9 +4,9 @@
     wrap
   >
     <v-card class="mb-5">
-      <v-card-subtitle class="font-weight-bold">
+      <v-card-title class="font-weight-bold">
         Menu Skema
-      </v-card-subtitle>
+      </v-card-title>
       <v-divider></v-divider>
       <v-row>
         <v-col>

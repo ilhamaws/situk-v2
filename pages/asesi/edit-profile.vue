@@ -306,30 +306,25 @@
                             </v-col>
                             <v-col md="4" xs="12" class="py-0">
                               <label for=""><b>Fakultas</b></label>
-                              <v-select
-                                v-model="input.jurusan.fakultas.id"
+                              <v-text-field
+                                v-model="input.fakultas"
                                 class="mt-2"
-                                :items="fakultass"
                                 label="Fakultas"
-                                item-value="id"
-                                item-text="fakultas" solo
-                                @input="getJurusans"
+                                solo
                               />
                             </v-col>
                             <v-col md="4" xs="12" class="py-0">
                               <label for=""><b>Jurusan</b></label>
-                              <v-select
-                                v-model="input.jurusan.id"
+                              <v-text-field
+                                v-model="input.jurusan"
                                 class="mt-2"
-                                :items="jurusans"
                                 label="Jurusan"
-                                item-value="id" item-text="jurusan"
                                 solo
                               />
                             </v-col>
                           </v-row>
 
-                          <v-row>
+                          <!-- <v-row>
                             <v-col md="12" class="py-0">
                               <label for=""><b>Lembaga</b></label>
                               <v-select
@@ -341,7 +336,7 @@
                                 solo
                               />
                             </v-col>
-                          </v-row>
+                          </v-row> -->
 
                           <v-row>
                             <v-col md="6" class="py-0">
@@ -669,7 +664,7 @@
 </template>
 <script>
 import { LSP_USER_ID, LSP_AUTH_TOKEN, API_BASE_URL } from '@/constants/settings'
-import { UPDATE_ASESI_MUTATION, GET_USERDATA, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_SELF_ASESI, GET_FAKULTASS, GET_JURUSANS } from '@/constants/graphql'
+import { UPDATE_ASESI_MANUAL_MUTATION, GET_USERDATA, GET_LEMBAGAS, GET_PEKERJAANS, GET_PENDIDIKANS, GET_PROVINSIS, GET_KOTAS, GET_SELF_ASESI, GET_FAKULTASS, GET_JURUSANS } from '@/constants/graphql'
 
 export default {
   name: 'Profile',
@@ -760,7 +755,6 @@ export default {
     this.getKotas()
     this.getFakultass()
     this.getJurusans()
-    // await this.checkAsesiData();
   },
   methods: {
     undo() {
@@ -959,6 +953,43 @@ export default {
             lembaga_id, pendidikan_id, pekerjaan_id, kota_id, nik,
             nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon,
             image, ttd, jurusan_id, npm
+          }
+        }).then(({ data }) => {
+          this.showAlert('success', 'Data berhasil diubah')
+          this.checkAsesiData()
+          // location.href = 'edit-profile';
+          console.log(data)
+        }).catch(({graphQLErrors}) => {
+          this.showAlert('error', graphQLErrors[0].message)
+        }).finally(() => {
+          this.state.loading = false
+        })
+      }
+    },
+
+    async updateAsesiManual(e) {
+      e.preventDefault()
+      const { state: { loading } } = this
+
+      if (!loading) {
+        this.alert.show = false
+        this.state.loading = true
+        const { input: {
+          nik, nama, npm, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangasaan, alamat,
+          kodepos, telepon, jurusan, fakultas, universitas, nama_lembaga, alamat_lembaga,
+          kodepos_lembaga, telepon_lembaga, email_lembaga 
+        }} = this.$data
+        const pendidikan_id = this.input.pendidikan.id
+        const pekerjaan_id = this.input.pekerjaan.id
+        const kota_id = this.input.kota.id
+        const image = this.image.imageUrl
+        const ttd = this.ttd.ttdUrl
+        const result = await this.$apollo.mutate({
+          mutation: UPDATE_ASESI_MANUAL_MUTATION,
+          variables: {
+            nik, nama, npm, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangasaan, alamat,
+            kodepos, telepon, jurusan, fakultas, universitas, nama_lembaga, alamat_lembaga,
+            kodepos_lembaga, telepon_lembaga, email_lembaga, pendidikan_id, pekerjaan_id, image, ttd
           }
         }).then(({ data }) => {
           this.showAlert('success', 'Data berhasil diubah')

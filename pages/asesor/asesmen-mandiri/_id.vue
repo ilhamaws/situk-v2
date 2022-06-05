@@ -7,16 +7,15 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title class="px-8 ">
+            <v-card-title>
               <!-- <v-avatar size="30" color="warning lighten-2">
                 <span class="white--text">APL.1</span>
               </v-avatar> -->
-              <v-icon class="mr-2" size="30" color="warning">subject</v-icon>
-              <span class="headline">Hasil Asesmen Mandiri</span>
+              <span class="font-weight-bold">FR.APL.02 Hasil Asesmen Mandiri</span>
               <v-spacer></v-spacer>
             </v-card-title>
             <v-divider></v-divider>
-            <v-card-text class="px-8 pb-8">
+            <v-card-text>
               <!-- Alert section -->
               <v-alert
                 v-if="peserta.persetujuan == 5"
@@ -175,7 +174,7 @@
                   </template>
                 </v-snackbar>
               </div>
-              <div v-if="ujikompetensi != null" class="pt-5">
+              <div v-if="ujikompetensi != null">
                 <v-expansion-panels multiple accordion>
                   <v-expansion-panel
                     v-for="(uji, ujiIndex) in ujikompetensi"

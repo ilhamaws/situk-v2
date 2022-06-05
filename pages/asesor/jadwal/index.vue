@@ -11,7 +11,7 @@
               <!-- <v-avatar size="30" color="warning lighten-2">
                 <span class="white--text">APL.1</span>
               </v-avatar> -->
-              <span class="headline px-5">Informasi Jadwal</span>
+              <span class="font-weight-bold">Informasi Jadwal</span>
               <v-spacer></v-spacer>
             </v-card-title>
             <v-divider></v-divider>

@@ -6,12 +6,11 @@
         wrap
       >
         <v-card>
-          <v-card-title>
+          <v-card-title class="font-weight-bold">
             <!-- <v-avatar size="30" color="warning lighten-2">
               <span class="white--text">APL.1</span>
             </v-avatar> -->
-            <span class="headline px-5">Informasi Skema</span>
-            <v-spacer></v-spacer>
+            Informasi Skema
           </v-card-title>
           <v-divider></v-divider>
           <v-row>
@@ -29,11 +28,11 @@
                 <v-row>
                   <v-dialog v-model="tambahDialog" persistent max-width="600px">
                     <template #activator="{ on }">
-                      <v-btn color="primary" outlined rounded dark v-on="on">Tambah Skema</v-btn>
+                      <v-btn color="primary" outlined dark v-on="on">Tambah Skema</v-btn>
                     </template>
                     <v-card>
                       <v-card-title>
-                        <span class="headline">Tambah Skema</span>
+                        <span class="font-weight-bold">Tambah Skema</span>
                       </v-card-title>
                       <v-card-text>
                         <v-form
@@ -44,19 +43,21 @@
                           <v-container>
                             <v-row>
                               <v-col cols="12" sm="12" md="12">
-                                <v-text-field v-model="form.skema" label="Nama Skema*" :rules="required" required></v-text-field>
+                                <v-text-field outlined dense v-model="form.skema" label="Nama Skema*" :rules="required" required></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6" md="6">
-                                <v-text-field v-model="form.kode" label="Kode*" :rules="required" hint="Masukkan kode skema"></v-text-field>
+                                <v-text-field outlined dense v-model="form.kode" label="Kode*" :rules="required" hint="Masukkan kode skema"></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6" md="6">
-                                <v-text-field v-model="form.kategori" label="Kategori*" :rules="required" hint="Masukkan Kategori skema"></v-text-field>
+                                <v-text-field outlined dense v-model="form.kategori" label="Kategori*" :rules="required" hint="Masukkan Kategori skema"></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="12" md="12">
-                                <v-text-field v-model="form.bidang" label="Bidang*" :rules="required" hint="Masukkan vbidang skema"></v-text-field>
+                                <v-text-field outlined dense v-model="form.bidang" label="Bidang*" :rules="required" hint="Masukkan vbidang skema"></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6" md="6">
                                 <v-select
+                                  outlined
+                                  dense
                                   v-model="form.mea"
                                   :rules="required"
                                   :items="meas"
@@ -65,6 +66,8 @@
                               </v-col>
                               <v-col cols="12" sm="6" md="6">
                                 <v-select
+                                  outlined
+                                  dense
                                   v-model="form.default_tuk"
                                   :rules="required"
                                   :items="tuks"
@@ -73,7 +76,7 @@
                                 />
                               </v-col>
                               <v-col cols="12" sm="12" md="12">
-                                <v-text-field :label="'Upload Panduan .pdf'" :value="panduan.panduanName" prepend-icon="attach_file" @click="pickPanduan"></v-text-field>
+                                <v-text-field outlined dense :label="'Upload Panduan .pdf'" :value="panduan.panduanName" prepend-icon="attach_file" @click="pickPanduan"></v-text-field>
                                 <input
                                   ref="panduan"
                                   type="file"
@@ -112,7 +115,6 @@
                     append-icon="search"
                     label="Search"
                     class="shrink"
-                    rounded
                     outlined
                     dense
                   ></v-text-field>
@@ -137,7 +139,7 @@
                     <v-dialog v-model="editDialog" persistent max-width="600px">
                       <v-card>
                         <v-card-title>
-                          <span class="headline">Edit Skema</span>
+                          <span class="font-weight-bold">Edit Skema</span>
                         </v-card-title>
                         <v-card-text>
                           <v-form
@@ -148,16 +150,16 @@
                             <v-container>
                               <v-row>
                                 <v-col cols="12" sm="12" md="12">
-                                  <v-text-field v-model="editedSkemas.skema" :rules="required" label="Nama Skema*" required></v-text-field>
+                                  <v-text-field outlined dense v-model="editedSkemas.skema" :rules="required" label="Nama Skema*" required></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="6">
-                                  <v-text-field v-model="editedSkemas.kode" :rules="required" label="Kode*" hint="Masukkan kode sesuai skema"></v-text-field>
+                                  <v-text-field outlined dense v-model="editedSkemas.kode" :rules="required" label="Kode*" hint="Masukkan kode sesuai skema"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="6">
-                                  <v-text-field v-model="editedSkemas.kategori" :rules="required" label="Kategori*" hint="Masukkan kategori skema"></v-text-field>
+                                  <v-text-field outlined dense v-model="editedSkemas.kategori" :rules="required" label="Kategori*" hint="Masukkan kategori skema"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="12" md="12">
-                                  <v-text-field v-model="editedSkemas.bidang" :rules="required" label="Bidang*" hint="Masukkan bidang skema"></v-text-field>
+                                  <v-text-field outlined dense v-model="editedSkemas.bidang" :rules="required" label="Bidang*" hint="Masukkan bidang skema"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="6">
                                   <v-select
@@ -170,6 +172,8 @@
                                 <v-col cols="12" sm="6" md="6">
                                   <div v-if="editedSkemas.tempatUk != null">
                                     <v-select
+                                      outlined
+                                      dense
                                       v-model="editedSkemas.tempatUk.id"
                                       :rules="required"
                                       :items="tuks"
@@ -179,6 +183,8 @@
                                   </div>
                                   <div v-else>
                                     <v-select
+                                      outlined
+                                      dense
                                       v-model="editedSkemas.tempatUk"
                                       :rules="required"
                                       :items="tuks"
@@ -188,7 +194,7 @@
                                   </div>
                                 </v-col>
                                 <v-col cols="12" sm="12" md="12">
-                                  <v-text-field :label="'Upload Panduan .pdf'" :value="panduan.panduanName" prepend-icon="attach_file" @click="pickPanduan"></v-text-field>
+                                  <v-text-field outlined dense :label="'Upload Panduan .pdf'" :value="panduan.panduanName" prepend-icon="attach_file" @click="pickPanduan"></v-text-field>
                                   <input
                                     ref="panduan"
                                     type="file"
@@ -211,7 +217,7 @@
                     </v-dialog>
                     <v-dialog v-model="deleteDialog" persistent max-width="600px">
                       <v-card>
-                        <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+                        <v-card-title class="font-weight-bold">Apakah anda yakin menghapus Data?</v-card-title>
 
                         <v-card-text>
                           Peringatan! Data yang telah dihapus tidak dapat kembali lagi.

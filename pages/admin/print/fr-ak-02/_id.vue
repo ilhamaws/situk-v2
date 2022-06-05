@@ -75,7 +75,7 @@ td {
 </style>
 
 <template>
-  <div class="page-content-wrapper-inner fill-height">
+  <div v-if="!state.skeleton" class="page-content-wrapper-inner fill-height">
     <v-card-title>FR.AK.02. FORMULIR REKAMAN ASESMEN KOMPETENSI</v-card-title>
     <v-card-text>
       <table>
@@ -83,19 +83,13 @@ td {
           <tr>
             <th align="start" class="text-top">Nama Asesi</th>
             <td align="start">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit
-              impedit nostrum neque tempora, reiciendis natus blanditiis,
-              facilis iusto, eius autem quae aperiam sed ea quo libero dicta
-              doloribus harum enim.
+              {{ pesertas.asesi.nama }}
             </td>
           </tr>
           <tr>
             <th align="start" class="text-top">Nama Asesor</th>
             <td align="start">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit
-              impedit nostrum neque tempora, reiciendis natus blanditiis,
-              facilis iusto, eius autem quae aperiam sed ea quo libero dicta
-              doloribus harum enim.
+              {{ pesertas.asesor.nama }}
             </td>
           </tr>
           <tr>
@@ -103,40 +97,19 @@ td {
               Skema sertifikasi (bila tersedia)
             </th>
             <td align="start">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit
-              impedit nostrum neque tempora, reiciendis natus blanditiis,
-              facilis iusto, eius autem quae aperiam sed ea quo libero dicta
-              doloribus harum enim.
+              {{ pesertas.jadwal.skema.skema }}
             </td>
           </tr>
           <tr>
             <th align="start" class="text-top">Unit Kompetensi</th>
             <td>
               <table class="table-nested">
-                <tr>
+                <tr v-for="(unit, i) in pesertas.ujiKompetensi" :key="i">
                   <td class="nowrap text-top" style="padding-right: 10px">
-                    1.
+                    {{i+1}}.
                   </td>
                   <td>
-                    KKK.00.02.001.01 Memberikan Konstribusi dalam Penerapan
-                    Sistem Manajemen K3
-                  </td>
-                </tr>
-                <tr>
-                  <td class="nowrap text-top" style="padding-right: 10px">
-                    2.
-                  </td>
-                  <td>
-                    KKK.00.02.002.01 Memberikan Kontribusi untuk implementasi
-                    proses konsultasi K3
-                  </td>
-                </tr>
-                <tr>
-                  <td class="nowrap text-top" style="padding-right: 10px">
-                    3.
-                  </td>
-                  <td>
-                    KKK.00.02.003.01 Melakukan dentifikasi bahaya dan risiko K3
+                    {{unit.unitKompetensi.kode + " " + unit.unitKompetensi.unit}}
                   </td>
                 </tr>
               </table>
@@ -145,19 +118,13 @@ td {
           <tr>
             <th align="start" class="text-top">Tanggal mulainya asesmen</th>
             <td align="start">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit
-              impedit nostrum neque tempora, reiciendis natus blanditiis,
-              facilis iusto, eius autem quae aperiam sed ea quo libero dicta
-              doloribus harum enim.
+              {{ convertDate(pesertas.jadwal.tanggal) }}
             </td>
           </tr>
           <tr>
             <th align="start" class="text-top">Tanggal selesainya asesmen</th>
             <td align="start">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit
-              impedit nostrum neque tempora, reiciendis natus blanditiis,
-              facilis iusto, eius autem quae aperiam sed ea quo libero dicta
-              doloribus harum enim.
+              {{ convertDate(pesertas.jadwal.tanggal) }}
             </td>
           </tr>
         </tbody>
@@ -183,46 +150,41 @@ td {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              KKK.00.02.004.01
-              <br />
-              Memberikan Dukungan Terhadap Pelaksanaan Strategi Pengendalian
-              Resiko K3
-            </td>
+          <tr v-for="(unit, index) in pesertas.ujiKompetensi" :key="unit.id">
+            <td width="20%"><b>{{ unit.unitKompetensi.unit }}</b></td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox readonly></v-checkbox>
+                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.observasi" readonly class="justify-center"></v-checkbox>
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox readonly v-model="valid"></v-checkbox>
+                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.portofolio" readonly class="justify-center"></v-checkbox>
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox readonly></v-checkbox>
+                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pihak_ketiga" readonly class="justify-center"></v-checkbox>
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox readonly v-model="valid"></v-checkbox>
+                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_lisan" readonly class="justify-center"></v-checkbox>
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox readonly></v-checkbox>
+                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_tertulis" readonly class="justify-center"></v-checkbox>
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox readonly v-model="valid"></v-checkbox>
+                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.proyek_kerja" readonly class="justify-center"></v-checkbox>
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox></v-checkbox>
+                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.lainnya" readonly class="justify-center"></v-checkbox>
               </div>
             </td>
           </tr>
@@ -238,10 +200,8 @@ td {
                       Rekomendasi hasil asesmen
                     </th>
                     <td class="no-border-top no-border-right">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Velit impedit nostrum neque tempora, reiciendis natus
-                      blanditiis, facilis iusto, eius autem quae aperiam sed ea
-                      quo libero dicta doloribus harum enim.
+                      <span v-if="pesertas.status == 2">Kompeten</span>
+                      <span v-if="pesertas.status == -2">Belum Kompeten</span>
                     </td>
                   </tr>
                   <tr class="text-top">
@@ -251,10 +211,8 @@ td {
                       untuk mencapai kompetensi)
                     </td>
                     <td class="no-border-right">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Velit impedit nostrum neque tempora, reiciendis natus
-                      blanditiis, facilis iusto, eius autem quae aperiam sed ea
-                      quo libero dicta doloribus harum enim.
+                      <span v-if="pesertas.tindak_lanjut != null">{{ pesertas.tindak_lanjut }}</span>
+                      <span v-if="pesertas.tindak_lanjut == null">-</span>
                     </td>
                   </tr>
                   <tr class="text-top">
@@ -265,10 +223,8 @@ td {
                       Komentar / Observasi oleh asesor
                     </th>
                     <td class="no-border-right no-border-bottom">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Velit impedit nostrum neque tempora, reiciendis natus
-                      blanditiis, facilis iusto, eius autem quae aperiam sed ea
-                      quo libero dicta doloribus harum enim.
+                      <span v-if="pesertas.komentar_observasi != null">{{ pesertas.komentar_observasi }}</span>
+                      <span v-if="pesertas.komentar_observasi == null">-</span>
                     </td>
                   </tr>
                 </tbody>
@@ -287,19 +243,19 @@ td {
                       Tanda tangan asesi :
                     </th>
                     <td class="no-border-top">
-                      <div
-                        style="
-                          width: 150px;
-                          height: 150px;
-                          background-color: aquamarine;
-                        "
-                      ></div>
+                      <v-img
+                        :aspect-ratio="16/9"
+                        height="50"
+                        contain
+                        :src="pesertas.asesi.ttd"
+                      >
+                      </v-img>
                     </td>
                     <th class="nowrap no-border-top" align="start">
                       Tanggal :
                     </th>
                     <td class="no-border-top no-border-right">
-                      Lorem ipsum dolor si amet
+                      {{ convertDate(pesertas.jadwal.tanggal) }}
                     </td>
                   </tr>
                   <tr class="text-top">
@@ -309,11 +265,21 @@ td {
                     >
                       Tanda tangan asesor :
                     </th>
-                    <td class="no-border-bottom"></td>
+                    <td class="no-border-bottom">
+                      <v-img
+                        :aspect-ratio="16/9"
+                        height="50"
+                        contain
+                        :src="pesertas.asesor.ttd"
+                      >
+                      </v-img>
+                    </td>
                     <th class="nowrap no-border-bottom" align="start">
                       Tanggal :
                     </th>
-                    <td class="no-border-bottom no-border-right"></td>
+                    <td class="no-border-bottom no-border-right">
+                      {{ convertDate(pesertas.jadwal.tanggal) }}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -328,6 +294,9 @@ td {
 <script>
 import { GET_JADWALS, GET_USERDATA, REGISTER_JADWALS, GET_SYARATS, GET_REPORT_DETAIL, UPLOAD_SYARAT, GET_PESERTAS_DETAIL, GET_UJIKOMPETENSI_DETAIL, OBSERVASI_MUTATION } from '@/constants/graphql'
 import { ASESMEN_MANDIRI_MUTATION, REKAM_ASESMEN_KOMPETENSI_MUTATION } from '@/constants/graphql'
+import moment from 'moment'
+import 'moment/locale/id' // without this line it didn't work
+moment.locale('id')
 
 export default {
   name: 'Index',
@@ -395,6 +364,9 @@ export default {
     // this.getAsesi();
   },
   methods: {
+    convertDate(item) {
+      return moment(item).format('DD MMMM YYYY')
+    },
     asesmenkuk(uji, kuk, value, ujiIndex, elemenIndex, kukIndex ) {
       const val = `${value}`
       if (val === this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag) {
@@ -433,9 +405,6 @@ export default {
       //benar
       // this.input = Object.assign(this.input, {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}});
       // this.input.asesmen = Object.assign(this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex], {asesmen: `${value}`});
-    },
-    printWindow(){
-      window.print()
     },
     showAlert(type, message) {
       this.alert = { show: true, type, message }

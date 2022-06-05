@@ -26,20 +26,20 @@
             </template>
           </v-snackbar>
           <v-card>
-            <v-card-title class="px-8 ">
+            <v-card-title>
               <!-- <v-avatar size="30" color="warning lighten-2">
                 <span class="white--text">APL.1</span>
               </v-avatar> -->
-              <v-icon class="mr-2" size="30" color="primary">toc</v-icon>
-              <span class="headline">FR.AC.01. Formulir Rekaman Asesmen Kompetensi</span>
+              <span class="font-weight-bold">FR.AK.02 Formulir Rekaman Asesmen Kompetensi</span>
               <v-spacer></v-spacer>
             </v-card-title>
             <v-divider></v-divider>
-            <v-card-text v-if="!state.skeleton" class="px-8 py-8">
+            <v-card-text v-if="!state.skeleton">
               <v-alert
                 icon="info"
                 text
-                type="info"
+                color="primary"
+                dense
               >
                 Perhatikan pengisian rekaman asesmen, pengisian rekaman asesmen hanya dapat dilakukan sekali.
               </v-alert>
@@ -51,7 +51,7 @@
                   </div>
                   </v-alert>
               </div> -->
-              <v-list class="px-5">
+              <v-list>
                 <v-simple-table>
                   <tbody>
                     <tr>
@@ -114,7 +114,8 @@
                 icon="info"
                 class="mt-5"
                 text
-                type="info"
+                color="primary"
+                dense
               >
                 Beri tanda centang 	&#10004; di kolom yang sesuai untuk mencerminkan bukti yang diperoleh untuk menentukan Kompetensi siswa untuk setiap Unit Kompetensi.
               </v-alert>

@@ -4,12 +4,12 @@
     wrap
   >
     <v-card class="rounded-lg">
-      <v-card-subtitle class="font-weight-bold">
+      <v-card-title class="font-weight-bold">
         <!-- <v-avatar size="30" color="warning lighten-2">
           <span class="white--text">APL.1</span>
         </v-avatar> -->
         Informasi Jadwal
-      </v-card-subtitle>
+      </v-card-title>
       <v-divider></v-divider>
       <v-row>
         <v-col cols="12">
@@ -155,7 +155,7 @@
                   <v-dialog v-model="editDialog" persistent max-width="600px">
                     <v-card>
                       <v-card-title>
-                        <span class="headline">Edit Jadwals</span>
+                        <span class="font-weight-bold">Edit Jadwals</span>
                       </v-card-title>
                       <v-card-text>
                         <v-container>
@@ -245,7 +245,7 @@
                   </v-dialog>
                   <v-dialog v-model="deleteDialog" persistent max-width="600px">
                     <v-card>
-                      <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+                      <v-card-title class="font-weight-bold">Apakah anda yakin menghapus Data?</v-card-title>
 
                       <v-card-text>
                         Peringatan! Data yang telah dihapus tidak dapat kembali lagi.

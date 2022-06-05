@@ -64,7 +64,7 @@
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="grey" text @click="reset">Batal</v-btn>
-                        <v-btn color="blue darken-1" text @click="createBankSoal">Tambah soal</v-btn>
+                        <v-btn color="blue darken-1" text @click="createPaketUjian">Tambah soal</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
@@ -88,37 +88,37 @@
               <v-data-table
                 v-if="!state.skeleton"
                 :headers="headers"
-                :items="bank_soals"
+                :items="paket_ujians"
                 :search="search"
                 :items-per-page="5"
                 :line-numbers="true"
                 :width="headers.width"
               >
                 <template #top>
-                  <!-- <v-dialog v-model="editDialog" persistent max-width="800px">
+                  <v-dialog v-model="editDialog" persistent max-width="800px">
                     <v-card>
                       <v-card-title>
-                        <span class="subtitle">Update bank soal</span>
+                        <span class="subtitle">Update paket soal</span>
                       </v-card-title>
                       <v-card-text>
                         <v-container>
                           <v-row>
                             <v-col cols="12" sm="12" md="12">
 															<v-text-field
-																v-model="edit_bank_soal.kategori"
+																v-model="edit_paket_ujian.paket"
 																outlined
 																dense
 																label="Kode Paket"
 															>
 															</v-text-field>
                               <v-textarea
-																v-model="edit_bank_soal.soal"
+																v-model="edit_paket_ujian.deskripsi"
                                 outlined
                                 dense
                                 label="Deskripsi tentang paket"
                               ></v-textarea>
                               <v-text-field
-																v-model="edit_bank_soal.kategori"
+																v-model="edit_paket_ujian.passing_grade"
 																outlined
 																dense
                                 type="number"
@@ -133,10 +133,10 @@
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="grey" text @click="reset">Batal</v-btn>
-                        <v-btn color="blue darken-1" text @click="updateBankSoal">Update soal</v-btn>
+                        <v-btn :disabled="state.loading" color="blue darken-1" text @click="updatePaketUjian">Update soal</v-btn>
                       </v-card-actions>
                     </v-card>
-                  </v-dialog> -->
+                  </v-dialog>
                   <v-dialog v-model="deleteDialog" persistent max-width="600px">
                     <v-card>
                       <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
@@ -148,7 +148,7 @@
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="grey" text @click="deleteDialog = false">Batal</v-btn>
-                        <v-btn color="red darken-1" text @click="deleteBankSoal">Delete bank soal</v-btn>
+                        <v-btn :disabled="state.loading" color="red darken-1" text @click="deletePaketUjian">Delete bank soal</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
@@ -157,20 +157,22 @@
                   <v-icon
                     small
                     class="mr-2"
-                    @click="editSoal(item)"
+                    @click="editPaket(item)"
                   >
                     mdi-pencil
                   </v-icon>
                   <v-icon
                     small
                     class="mr-2"
-                    @click="deleteSoal(item)"
+                    @click="deletePaket(item)"
                   >
                     mdi-delete
                   </v-icon>
-                <!-- <nuxt-link :to="`/informasi-asesmen/${item.id}`">
-                  <v-btn rounded x-small color="primary">Detail</v-btn>
-                </nuxt-link> -->
+                </template>
+                <template #item.paket="{ item }">
+                  <nuxt-link :to="`/admin/paket-soal/${item.id}`">
+                    <span>{{ item.paket }}</span>
+                  </nuxt-link>
                 </template>
               </v-data-table>
             </div>
@@ -181,7 +183,7 @@
   </v-layout>
 </template>
 <script>
-import { CREATE_BANK_SOAL_MUTATION, GET_PAKET_UJIANS, UPDATE_BANK_SOAL_MUTATION, DELETE_BANK_SOAL_MUTATION } from '@/constants/soal'
+import { CREATE_PAKET_UJIAN_MUTATION, GET_PAKET_UJIANS, UPDATE_PAKET_UJIAN_MUTATION, DELETE_PAKET_UJIAN_MUTATION } from '@/constants/soal'
 
 export default {
   name: 'Jadwal',
@@ -225,8 +227,8 @@ export default {
       tambahDialog: false,
       editDialog: false,
       headers: [
-        { text: 'Kode Soal', value: 'id', width: '10%' },
-        { text: 'Passing Grade', value: 'soal' },
+        { text: 'Kode Soal', value: 'paket', width: '10%' },
+        { text: 'Passing Grade', value: 'passing_grade' },
         { text: 'Aksi', value: 'actions' },
       ],
     }
@@ -271,12 +273,12 @@ export default {
       }
       this.$refs.form.reset()
     },
-    editSoal(item) {
-      this.edit_bank_soal = Object.assign({}, item)
+    editPaket(item) {
+      this.edit_paket_ujian = Object.assign({}, item)
       this.editDialog = true
     },
-    deleteSoal(item) {
-      this.delete_bank_soal = Object.assign({}, item)
+    deletePaket(item) {
+      this.delete_paket_ujian = Object.assign({}, item)
       this.deleteDialog = true
     },
     async getPaketUjians() {
@@ -291,54 +293,57 @@ export default {
         this.state.skeleton = false
       })
     },
-    async createBankSoal() {
-      let { create_bank_soal: { soal, kategori, image, type, jawaban, kunci_jawaban} } = this.$data
-      jawaban = JSON.stringify(jawaban)
+    async createPaketUjian() {
+      this.state.loading = true
+      let { create_paket_ujian: { paket, deskripsi, passing_grade} } = this.$data
       const result = await this.$apollo.mutate({
-        mutation: CREATE_BANK_SOAL_MUTATION,
+        mutation: CREATE_PAKET_UJIAN_MUTATION,
         variables: {
-          soal, kategori, image, type, jawaban, kunci_jawaban
+          paket, deskripsi, passing_grade
         }
       }).then(({ data }) => {
         this.showAlert('success', 'Soal baru berhasil dibuat')
-        this.getBankSoals()
+        this.getPaketUjians()
         this.$refs.form.reset()
       }).catch(({graphQLErrors}) => {
         console.log(graphQLErrors)
         this.showAlert('error', graphQLErrors[0].message)
       }).finally(() => {
         this.tambahDialog = false
+        this.state.loading = false
       })
     },
-    async updateBankSoal() {
-      let { edit_bank_soal: { id, soal, kategori, image, type, jawaban, kunci_jawaban} } = this.$data
-      jawaban = JSON.stringify(jawaban)
+    async updatePaketUjian() {
+      this.state.loading = true
+      let { edit_paket_ujian: { id, paket, deskripsi, passing_grade} } = this.$data
       const result = await this.$apollo.mutate({
-        mutation: UPDATE_BANK_SOAL_MUTATION,
+        mutation: UPDATE_PAKET_UJIAN_MUTATION,
         variables: {
-          id, soal, kategori, image, type, jawaban, kunci_jawaban
+          id, paket, deskripsi, passing_grade
         }
       }).then(({ data }) => {
         this.showAlert('success', 'Bank soal berhasil diperbarui')
-        this.getBankSoals()
+        this.getPaketUjians()
         this.$refs.form.reset()
       }).catch(({graphQLErrors}) => {
         this.showAlert('error', graphQLErrors[0].message)
       }).finally(() => {
         this.editDialog = false
+        this.state.loading = false
       })
     },
-    async deleteBankSoal() {
+    async deletePaketUjian() {
       this.alert.show = false
-      const id = this.delete_bank_soal.id
+      const id = this.delete_paket_ujian.id
       const result = await this.$apollo.mutate({
-        mutation: DELETE_BANK_SOAL_MUTATION,
+        mutation: DELETE_PAKET_UJIAN_MUTATION,
         variables: {
           id
         }
       }).then(({ data }) => {
         this.showAlert('success', 'Data Soal berhasil dihapus')
-        this.getBankSoals()
+        this.getPaketUjians()
+        this.$refs.form.reset()
       }).catch(({graphQLErrors}) => {
         console.log(graphQLErrors)
         this.showAlert('error', graphQLErrors[0].message)

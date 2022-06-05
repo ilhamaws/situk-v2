@@ -67,11 +67,11 @@
                   <div class="divider"></div>
                 </div>
                 <div class="text-center">
-                  <!-- <a @click="gotoPage('/signup')">Buat akun</a> -->
+                  <a @click="gotoPage('/signup')">Buat akun</a>
                   <span class="mx-2">-</span>
                   <a @click="gotoPage('/forgot-password')">Lupa password</a>
                   <span class="mx-2">-</span>
-                  <!-- <a @click="gotoPage('/activate')">Aktivasi akun</a> -->
+                  <a @click="gotoPage('/activate')">Aktivasi akun</a>
                 </div>
               </v-form>
             </div>

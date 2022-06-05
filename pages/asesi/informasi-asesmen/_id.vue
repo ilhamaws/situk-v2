@@ -9,7 +9,7 @@
           <v-snackbar
             v-model="alert.show"
             :color="alert.type"
-            :timeout="0"
+            :timeout="-1"
             bottom
           >
             {{ alert.message }}
@@ -163,14 +163,13 @@
                       </v-alert>
                       <div class="px-5 py-5">
                         <v-row>
-                          <v-col cols="12">
+                          <v-col cols="12" md="4">
                             <v-spacer></v-spacer>
                             <v-text-field
                               v-model="search"
                               append-icon="search"
                               label="Search"
                               class="shrink"
-                              rounded
                               outlined
                               dense
                             ></v-text-field>
@@ -246,7 +245,9 @@
                             </v-dialog>
                           </template>
                           <template #item.file="{ item }">
-                            <span v-if="item.file != null">{{ item.file.substr(item.file.lastIndexOf('/') + 1) }}</span>
+                            <span v-if="item.file != null">
+                              <v-chip small color="primary" dark>Terupload</v-chip>
+                            </span>
                           </template>
                           <template #item.status="{ item }">
                             <v-chip v-if="item.status == -2" small color="red darken-1" dark>Tidak Lulus</v-chip>
@@ -325,40 +326,47 @@
                         <v-row>
                           <v-dialog v-model="portofolioDialog" persistent max-width="600px">
                             <template #activator="{ on }">
-                              <v-btn color="blue darken-3" outlined rounded dark v-on="on">Upload Portofolio</v-btn>
+                              <v-btn color="blue darken-3" outlined dark v-on="on">Upload Portofolio</v-btn>
                             </template>
                             <v-form>
                               <v-card>
                                 <v-card-title>
-                                  <span class="headline">Upload Portofolio</span>
+                                  <span>Upload Portofolio</span>
                                 </v-card-title>
                                 <v-card-text>
                                   <v-container>
-                                    <v-row>
-                                      <v-col md="12" xs="12" class="py-0">
-                                        <label for=""><b>Nama</b></label>
-                                        <v-text-field
-                                          v-model="portofolios.nama"
-                                          class="mt-2"
-                                          label="Nama Berkas"
-                                          type="text"
-                                          solo
-                                        />
-                                      </v-col>
-                                    </v-row>
-                                    <v-row>
-                                      <v-col md="12">
-                                        <label for=""><b>Upload File</b></label>
-                                        <v-text-field v-model="portofolios.portofolioName" readonly class="mt-2" solo label="Pilih Portofolio" hint="Ukuran file Maks. 2MB (PDF)" persistent-hint prepend-icon="attach_file" @click="pickPortofolio"></v-text-field>
-                                        <input
-                                          ref="portofolio"
-                                          type="file"
-                                          style="display: none"
-                                          accept="application/pdf"
-                                          @change="onPortofolioSelected"
-                                        >
-                                      </v-col>
-                                    </v-row>
+                                    <v-form ref="form" lazy-validation v-model="valid">
+                                      <v-row>
+                                        <v-col md="12" xs="12" class="py-0">
+                                          <v-text-field
+                                            v-model="portofolios.nama"
+                                            class="mt-2"
+                                            label="Nama Berkas"
+                                            type="text"
+                                            :rules="required"
+                                            required
+                                            outlined
+                                            dense
+                                          />
+                                        </v-col>
+                                        <v-col md="12">
+                                          <v-text-field v-model="portofolios.portofolioName"
+                                            outlined
+                                            dense
+                                            required
+                                            :rules="required"
+                                            readonly label="Pilih Portofolio" hint="Ukuran file Maks. 2MB (PDF)" persistent-hint prepend-icon="attach_file" @click="pickPortofolio"></v-text-field>
+                                          <input
+                                            required
+                                            ref="portofolio"
+                                            type="file"
+                                            style="display: none"
+                                            accept="application/pdf"
+                                            @change="onPortofolioSelected"
+                                          >
+                                        </v-col>
+                                      </v-row>
+                                    </v-form>
                                   </v-container>
                                   <small>*Wajib diisi</small>
                                 </v-card-text>
@@ -376,7 +384,6 @@
                             append-icon="search"
                             label="Search"
                             class="shrink"
-                            rounded
                             outlined
                             dense
                           ></v-text-field>
@@ -464,250 +471,6 @@
                 </v-card>
               </v-col>
             </v-row>
-            <!-- <v-row>
-              <div class="col-md-4 col-xs-12 pt-0">
-                <v-card> 
-                  <div class="d-flex flex-no-wrap">
-                    <v-avatar
-                      class="mt-5 ml-5"
-                      size="125"
-                      style="border-radius: .42rem;"
-                      tile
-                    >
-                      <v-img :src="peserta.asesi.image"></v-img>
-                    </v-avatar>
-                    <div>
-                      <v-card-title
-                        class="headline"
-                      >{{ peserta.asesi.nama }}</v-card-title>
-                      <v-card-subtitle class="py-0">status asesi:</v-card-subtitle>
-                      <v-card-actions>
-                        <v-btn v-if="peserta.status == -2" text color="error">Belum Kompeten</v-btn>
-                        <v-btn v-if="peserta.status == -1" text color="danger">Ditolak</v-btn>
-                        <v-btn v-if="peserta.status == 0" text color="grey">Belum Diverifikasi</v-btn>
-                        <v-btn v-if="peserta.status == 1" text color="primary">Disetujui</v-btn>
-                        <v-btn v-if="peserta.status == 2" text color="success">Direkomendasi Kompeten</v-btn>
-                      </v-card-actions>
-                    </div>
-                  </div>
-                  <v-card-text class="px-5">
-                    <v-simple-table>
-                      <tbody>
-                        <tr>
-                          <td width="10%"><b>Nama:</b></td>
-                          <td>{{ peserta.asesi.nama }}</td>
-                        </tr>
-                        <tr>
-                          <td width="10%"><b>Skema:</b></td>
-                          <td>{{ peserta.jadwal.skema.skema }}</td>
-                        </tr>
-                        <tr>
-                          <td width="10%"><b>Jadwal:</b></td>
-                          <td>{{ peserta.jadwal.tanggal }}</td>
-                        </tr>
-                        <tr>
-                          <td width="10%"><b>Pelaksanaan:</b></td>
-                          <td v-if="peserta.asesmen_date != null">{{ peserta.asesmen_date }}</td>
-                          <td v-if="peserta.asesmen_date == null">Belum Ditentukan</td>
-                        </tr>
-                        <tr>
-                          <td width="10%"><b>Asesor:</b></td>
-                          <td v-if="peserta.asesor != null">{{ peserta.asesor.nama }}</td>
-                          <td v-if="peserta.asesor == null">Belum Ditentukan</td>
-                        </tr>
-                      </tbody>
-                    </v-simple-table>
-                  </v-card-text>
-                  <v-card-actions v-if="peserta.status == 2 || peserta.status == -2" class="d-flex justify-center pb-8 pt-0">
-                    <nuxt-link :to="`/asesi/hasil-asesmen/${peserta.id}`">
-                      <v-btn color="success" rounded>Lihat Hasil Sertifikasi</v-btn>
-                    </nuxt-link>
-                  </v-card-actions>
-                  <v-card-actions v-if="peserta.status == 1" class="d-flex justify-center pb-8 pt-0">
-                    <nuxt-link :to="`/asesi/asesmen-mandiri/${peserta.id}`">
-                      <v-btn color="warning" rounded>Menuju Asesmen Mandiri</v-btn>
-                    </nuxt-link>
-                  </v-card-actions>
-                </v-card>
-              </div>
-              <div class="col-md-8 col-xs-12 pt-md-0">
-                <v-row>
-                  <v-col cols="12 pt-md-0">
-                    <v-card>
-                      <v-card-title>
-                        <span class="headline px-5">Menu Peserta</span>
-                        <v-spacer></v-spacer>
-                      </v-card-title>
-                      <v-divider></v-divider>
-                      <v-row>
-                        <v-col cols="12" class="px-10 py-5">
-                          <v-alert
-                            v-if="peserta.umpan_balik_date == null && peserta.status == -1 || peserta.status == 2"
-                            icon="info"
-                            text
-                            prominent
-                            type="info"
-                          >
-                            <v-row align="center">
-                              <v-col class="grow">Proses Asesmen anda telah selesai, silahkan mengisi Form FR.AK.03 Umpan Balik dan Catatan Asesmen</v-col>
-                              <v-col class="shrink">
-                                <v-dialog v-model="umpanDialog" persistent max-width="1000">
-                                  <template #activator="{ on }">
-                                    <v-btn color="primary" outlined v-on="on">Lihat Form</v-btn>
-                                  </template>
-                                  <v-form>
-                                    <v-card>
-                                      <v-card-title>
-                                        <span>FR.AK.01 - UMPAN BALIK DAN CATATAN ASESMEN</span>
-                                      </v-card-title>
-                                      <v-card-text>
-                                        <v-simple-table>
-                                          <tbody>
-                                            <tr>
-                                              <td colspan="4">
-                                                Umpan balik dari Asesi (diisi oleh Asesi setelah pengambilan keputusan) :
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td class="text-center" rowspan="2" width="50%">KOMPONEN</td>
-                                              <td class="text-center" colspan="2">Hasil</td>
-                                              <td class="text-center" rowspan="2">Catatan/Komentar Asesi</td>
-                                            </tr>
-                                            <tr>
-                                              <td class="text-center">Ya </td>
-                                              <td class="text-center">Tidak</td>
-                                            </tr>
-                                            <tr v-for="(umpan , i) in umpanBaliks" :key="umpan.id">
-                                              <td>{{ umpan.komponen }}</td>
-                                              <td class="justify-center">
-                                                <div class="d-flex justify-center">
-                                                  <v-checkbox v-model="umpan_balik[i].hasil" value="1"></v-checkbox>
-                                                </div>
-                                              </td>
-                                              <td>
-                                                <div class="d-flex justify-center">
-                                                  <v-checkbox v-model="umpan_balik[i].hasil" value="0"></v-checkbox>
-                                                </div>
-                                              </td>
-                                              <td>
-                                                <v-text-field
-                                                  v-model="umpan_balik[i].catatan"
-                                                ></v-text-field>
-                                              </td>
-                                            </tr>
-                                          </tbody>
-                                        </v-simple-table>
-                                        <v-row>
-                                          <v-col cols="12">
-                                            <label for=""><b>Catatan umpan balik</b></label>
-                                            <v-text-field
-                                              v-model="catatan"
-                                              class="mt-2"
-                                              solo
-                                            ></v-text-field>
-                                          </v-col>
-                                        </v-row>
-                                      </v-card-text>
-                                      <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="grey" text @click="umpanDialog = false">Batal</v-btn>
-                                        <v-btn color="blue darken-1" text @click="createUmpanBalikPeserta">Kirimkan</v-btn>
-                                      </v-card-actions>
-                                    </v-card>
-                                  </v-form>
-                                </v-dialog>
-                              </v-col>
-                            </v-row>
-                          </v-alert>
-                          <v-alert
-                            v-if="peserta.status == 0"
-                            icon="info"
-                            text
-                            type="warning"
-                          >
-                            Isi syarat sesuai dengan panduan yang tersedia untuk melanjutkan proses asesmen
-                          </v-alert>
-                          <v-alert
-                            v-if="peserta.status == 1 && peserta.persetujuan == null"
-                            icon="info"
-                            text
-                            type="warning"
-                          >
-                            Silahkan mengisi form asesmen mandiri jika belum
-                          </v-alert>
-                          <v-alert
-                            v-if="peserta.status == 2 || peserta.status == -2"
-                            icon="info"
-                            text
-                            type="success"
-                          >
-                            Silahkan melihat hasil Asesmen Kompetensi
-                          </v-alert>
-                          <v-row>
-                            <v-col md="3">
-                              <v-card :to="`/asesi/apl-1/${peserta.id}`" text link>
-                                <v-card-actions class="justify-center fill-height">
-                                  <v-list-item two-line>
-                                    <v-list-item-content class="text-center">
-                                      <v-list-item-title class="headline mb-2"> 
-                                        <v-icon size="30" color="primary">person</v-icon>
-                                      </v-list-item-title>
-                                      <v-list-item-title>Detil APL 1</v-list-item-title>
-                                    </v-list-item-content>
-                                  </v-list-item>
-                                </v-card-actions>
-                              </v-card>
-                            </v-col>
-                            <v-col md="3">
-                              <v-card :disabled="!peserta.ujiKompetensi.length" :to="`/asesi/asesmen-mandiri/hasil/${peserta.id}`" text link>
-                                <v-card-actions class="justify-center fill-height">
-                                  <v-list-item two-line>
-                                    <v-list-item-content class="text-center">
-                                      <v-list-item-title class="headline mb-2">
-                                        <v-icon size="30" color="warning">subject</v-icon>
-                                      </v-list-item-title>
-                                      <v-list-item-title>Asesmen Mandiri</v-list-item-title>
-                                    </v-list-item-content>
-                                  </v-list-item>
-                                </v-card-actions>
-                              </v-card>
-                            </v-col>
-                            <v-col md="3">
-                              <v-card :disabled="peserta.asesor == null" :to="`/asesi/hasil-observasi/${peserta.id}`" text link>
-                                <v-card-actions class="justify-center fill-height">
-                                  <v-list-item two-line>
-                                    <v-list-item-content class="text-center">
-                                      <v-list-item-title class="headline mb-2">
-                                        <v-icon size="30" color="error">wrap_text</v-icon>
-                                      </v-list-item-title>
-                                      <v-list-item-title>Hasil observasi</v-list-item-title>
-                                    </v-list-item-content>
-                                  </v-list-item>
-                                </v-card-actions>
-                              </v-card>
-                            </v-col>
-                            <v-col md="3">
-                              <v-card :disabled="disabledMenu" :to="`/asesi/hasil-asesmen/${peserta.id}`" text link>
-                                <v-card-actions class="justify-center fill-height">
-                                  <v-list-item two-line>
-                                    <v-list-item-content class="text-center">
-                                      <v-list-item-title class="headline mb-2">
-                                        <v-icon size="30" color="success">playlist_add_check</v-icon>
-                                      </v-list-item-title>
-                                      <v-list-item-title>Rekaman Asesmen</v-list-item-title>
-                                    </v-list-item-content>
-                                  </v-list-item>
-                                </v-card-actions>
-                              </v-card>
-                            </v-col>
-                          </v-row>
-                        </v-col>
-                      </v-row>
-                    </v-card>
-                  </v-col>
-                </v-row>
-              </div>
-            </v-row> -->
           </div>
         </v-container>
       </v-layout>
@@ -733,17 +496,13 @@ export default {
       searchPortofolio: '',
       headers: [
         { text: 'Syarat', value: 'syarat.syarat' },
-        // { text: 'File', value: 'file'},
+        { text: 'File', value: 'file'},
         { text: 'Status', value: 'status'},
         { text: 'Aksi', value: 'actions' },
       ],
+      valid: true,
       portofoliosHeaders: [ 
         { text: 'Nama', value: 'nama' },
-        { text: 'Valid', value: 'valid' },
-        { text: 'Memadai', value: 'memadai' },
-        { text: 'Keaslian', value: 'asli' },
-        { text: 'terkini', value: 'terkini' },
-        // { text: 'File', value: 'file'},
         { text: 'Aksi', value: 'actions' },
       ],
       catatan: null,
@@ -796,6 +555,9 @@ export default {
         lisan: null
       },
       items: [
+      ],
+      required: [
+        value => !!value || 'Wajib diisi.',
       ],
       umpan_balik: [],
       umpanBaliks: [],
@@ -1012,7 +774,12 @@ export default {
     async uploadPortofolio() {
       const { state: { loading } } = this
       if (!loading) {
-        this.state.loading = true          
+        this.state.loading = true
+        this.$refs.form.validate()
+        if (!this.$refs.form.validate()) {
+          this.state.loading = false
+          return 
+        }         
         const peserta_id = this.peserta.id
         const { portofolios: {nama} } = this.$data
         const file = this.portofolios.portofolioUrl
