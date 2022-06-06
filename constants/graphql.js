@@ -110,8 +110,8 @@ mutation($email: String, $old_password: String, $password: String, $password_con
 `
 
 export const CREATE_USER_MUTATION = gql `
-mutation($email: String!, $password: String!, $role_id: ID) {
-  createUser(
+mutation createAccount($email: String!, $password: String!, $role_id: ID) {
+  createAccount(
     email : $email
     password : $password
     role_id : $role_id
@@ -122,8 +122,8 @@ mutation($email: String!, $password: String!, $role_id: ID) {
 `
 
 export const UPDATE_USER_MUTATION = gql `
-mutation($id: ID!, $email: String!, $password: String!) {
-  updateUser(
+mutation updateAccount($id: ID!, $email: String!, $password: String!) {
+  updateAccount(
     id : $id
     email : $email
     password : $password
@@ -134,8 +134,8 @@ mutation($id: ID!, $email: String!, $password: String!) {
 `
 
 export const DELETE_USER_MUTATION = gql `
-mutation deleteUser($id: ID!){
-  deleteUser(
+mutation deleteAccount($id: ID!){
+  deleteAccount(
     id: $id
   )
 }
