@@ -83,13 +83,13 @@
                     <v-select
                       v-model="selectedItems"
                       class="mt-2"
-                      label="Pilih Jadwal Asesmen"
                       :items="skema"
                       item-text="id"
                       max-height="auto"
                       :rules="[v => !!v || 'wajib diisi']"
                       required
-                      solo
+                      outlined
+                      dense
                       return-object
                     >
                       <template #selection="data">
@@ -123,14 +123,15 @@
                       class="mt-2"
                       :items="tujuan"
                       :rules="[v => !!v || 'wajib diisi']"
-                      solo
-                      label="Tujuan"
+                      outlined
+                      dense
                     ></v-select>
                     <v-card-text v-if="keterangan">
                       <v-alert
                         icon="info"
                         text
                         type="info"
+                        dense
                       >
                         Baca dan pahami ketentuan dari tiap skema yang akan diujikan
                       </v-alert>
@@ -155,6 +156,7 @@
                         icon="warning"
                         text
                         type="warning"
+                        dense
                       >
                         Baca dan pahami syarat yang harus dipenuhi
                       </v-alert>
@@ -172,7 +174,7 @@
                       </v-simple-table>
                       <v-row v-if="form.skema.panduan != null">
                         <v-col>
-                          <v-btn :href="form.skema.panduan" target="_blank" color="red darken-3" outlined dark><v-icon left>picture_as_pdf</v-icon>Unduh buku panduan</v-btn>
+                          <v-btn class="mt-5" :href="form.skema.panduan" target="_blank" color="red darken-3" outlined dark><v-icon left>picture_as_pdf</v-icon>Unduh buku panduan</v-btn>
                         </v-col>
                       </v-row>
                     </v-card-text>

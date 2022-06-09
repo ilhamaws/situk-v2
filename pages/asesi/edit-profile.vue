@@ -8,7 +8,66 @@
         <v-container fluid>
           <div v-if="!state.skeleton">
             <v-row>
-              <div class="col-md-4 col-xs-12 pt-0">
+              <v-col cols="12" md="4">
+                <v-card>
+                  <div class="d-flex flex-no-wrap">
+                    <!-- <v-avatar
+                      class="mx-auto mt-10"
+                      size="125"
+                      circle
+                    >
+                    </v-avatar> -->
+                    <div class="mx-auto pt-5">
+                      <v-img class="rounded-lg" width="150" height="200" aspect-ratio="3/4" :src="profile.image"></v-img>
+                    </div>
+                    <!-- <div>
+                      <v-card-title
+                        class="headline"
+                        v-text="pesertas.asesi.nama"
+                      ></v-card-title>
+                      <v-card-subtitle class="py-0">status asesi:</v-card-subtitle>
+                      <v-card-actions>
+                        <v-btn v-if="pesertas.status == -1" text color="danger">Ditolak</v-btn>
+                        <v-btn v-if="pesertas.status == 0" text color="grey">Belum</v-btn>
+                        <v-btn v-if="pesertas.status == 1" text color="primary">Disetujui</v-btn>
+                        <v-btn v-if="pesertas.status == 2" text color="success">Lulus Sertifikasi</v-btn>
+                      </v-card-actions>
+                    </div> -->
+                  </div>
+                  <div class="d-flex flex-no-wrap mt-5">
+                    <v-chip class="mx-auto" text small color="primary">{{ profile.user.role.role }}</v-chip>
+                  </div>
+                  <!-- <v-divider></v-divider> -->
+                  <v-card-text class="px-5">
+                    <v-simple-table>
+                      <tbody>
+                        <tr>
+                          <td width="20%"><b>Nama:</b></td>
+                          <td>{{ profile.nama }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>NIK:</b></td>
+                          <td>{{ profile.nik }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Email:</b></td>
+                          <td>{{ profile.user.email }}</td>
+                        </tr>
+                        <tr>
+                          <td width="20%"><b>Telepon:</b></td>
+                          <td>{{ profile.telepon }}</td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card-text>
+                  <!-- <v-card-actions v-if="pesertas.status == 2 || pesertas.status == -2" class="d-flex justify-center pb-8 pt-0">
+                    <nuxt-link :to="`/admin/hasil-asesmen/${pesertas.id}`">
+                      <v-btn color="success" rounded>Lihat Hasil Sertifikasi</v-btn>
+                    </nuxt-link>
+                  </v-card-actions> -->
+                </v-card>
+              </v-col>
+              <!-- <div class="col-md-4 col-xs-12 pt-0">
                 <v-card>
                   <div class="d-flex flex-no-wrap">
                     <v-avatar
@@ -57,13 +116,13 @@
                     </v-simple-table>
                   </v-card-text>
                 </v-card>
-              </div>
-              <div class="col-lg-8 col-xs-12 pt-md-0">
+              </div> -->
+              <v-col cols="12" md="8">
                 <v-card
                   class="mx-auto"
                 >
                   <v-card-title>
-                    <span class="headline px-5">Edit Profil</span>
+                    <span class="font-weight-bold">Edit Profil</span>
 
                     <v-spacer></v-spacer>
 
@@ -324,6 +383,61 @@
                             </v-col>
                           </v-row>
 
+                          <v-row>
+                            <v-col md="4" xs="12" class="py-0">
+                              <label for=""><b>Nama Lembaga</b></label>
+                              <v-text-field
+                                v-model="input.lembaga.nama"
+                                class="mt-2"
+                                label="Nama Lembaga"
+                                type="text"
+                                solo
+                              />
+                            </v-col>
+                            <v-col md="8" xs="12" class="py-0">
+                              <label for=""><b>Alamat Lembaga</b></label>
+                              <v-text-field
+                                v-model="input.lembaga.alamat"
+                                class="mt-2"
+                                label="Alamat Lembaga"
+                                solo
+                              />
+                            </v-col>
+                          </v-row>
+
+                          <v-row>
+                            <v-col cols="12" md="4" class="py-0">
+                              <label for=""><b>Kodepos Lembaga</b></label>
+                              <v-text-field
+                                v-model="input.lembaga.kodepos"
+                                class="mt-2"
+                                label="Kodepos Lembaga"
+                                type="text"
+                                solo
+                              />
+                            </v-col>
+                            <v-col cols="12" md="4" class="py-0">
+                              <label for=""><b>Email Lembaga</b></label>
+                              <v-text-field
+                                v-model="input.lembaga.email"
+                                class="mt-2"
+                                type="email"
+                                label="Email Lembaga"
+                                solo
+                              />
+                            </v-col>
+                            <v-col cols="12" md="4" class="py-0">
+                              <label for=""><b>Telepon Lembaga</b></label>
+                              <v-text-field
+                                v-model="input.lembaga.telepon"
+                                class="mt-2"
+                                type="number"
+                                label="Telepon lembaga"
+                                solo
+                              />
+                            </v-col>
+                          </v-row>
+
                           <!-- <v-row>
                             <v-col md="12" class="py-0">
                               <label for=""><b>Lembaga</b></label>
@@ -343,14 +457,13 @@
                               <label for=""><b>Foto</b></label>
                               <v-row>
                                 <v-col md="7">
-                                  <v-card>
                                     <v-img
                                       :src="input.image"
                                       :lazy-src="input.image"
-                                      aspect-ratio="1"
-                                      class="grey lighten-2"
+                                      height="200"
+                                      width="150"
+                                      class="grey lighten-2 rounded-lg mt-2"
                                     ></v-img>
-                                  </v-card>
                                 </v-col>
                               </v-row>
                               <v-row>
@@ -369,13 +482,15 @@
                             <v-col md="6" class="py-0">
                               <label for=""><b>Tanda tangan</b></label>
                               <v-row>
-                                <v-col md="7">
-                                  <v-card>
+                                <v-col cols="12">
+                                  <v-card class="rounded-lg">
                                     <v-img
+                                      height="200"
+                                      width="full"
                                       :src="input.ttd"
                                       :lazy-src="input.ttd"
                                       aspect-ratio="1"
-                                      class="white"
+                                      class="white mt-2"
                                     ></v-img>
                                   </v-card>
                                 </v-col>
@@ -428,7 +543,7 @@
                                 rounded
                                 color="primary"
                                 dark
-                                @click="updateAsesi">
+                                @click="updateAsesiManual">
                                 <v-progress-circular
                                   v-if="state.loading"
                                   :size="20"
@@ -654,7 +769,7 @@
                     </v-col>
                   </v-row>
                 </v-card>
-              </div>
+              </v-col>
             </v-row>
           </div>
         </v-container>
@@ -945,8 +1060,8 @@ export default {
         const pekerjaan_id = this.input.pekerjaan.id
         const kota_id = this.input.kota.id
         const jurusan_id = this.input.jurusan.id
-        const image = this.image.imageUrl
-        const ttd = this.ttd.ttdUrl
+        const image = this.input.image
+        const ttd = this.input.ttd
         const result = await this.$apollo.mutate({
           mutation: UPDATE_ASESI_MUTATION,
           variables: {
@@ -975,10 +1090,15 @@ export default {
         this.alert.show = false
         this.state.loading = true
         const { input: {
-          nik, nama, npm, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangasaan, alamat,
-          kodepos, telepon, jurusan, fakultas, universitas, nama_lembaga, alamat_lembaga,
-          kodepos_lembaga, telepon_lembaga, email_lembaga 
+          nik, nama, npm, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat,
+          kodepos, telepon, jurusan, fakultas, universitas
         }} = this.$data
+        const nama_lembaga = this.input.lembaga.nama
+        const alamat_lembaga = this.input.lembaga.alamat
+        const kodepos_lembaga = this.input.lembaga.kodepos
+        const telepon_lembaga = this.input.lembaga.telepon
+        const email_lembaga = this.input.lembaga.email
+
         const pendidikan_id = this.input.pendidikan.id
         const pekerjaan_id = this.input.pekerjaan.id
         const kota_id = this.input.kota.id
@@ -987,9 +1107,9 @@ export default {
         const result = await this.$apollo.mutate({
           mutation: UPDATE_ASESI_MANUAL_MUTATION,
           variables: {
-            nik, nama, npm, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangasaan, alamat,
+            nik, nama, npm, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat,
             kodepos, telepon, jurusan, fakultas, universitas, nama_lembaga, alamat_lembaga,
-            kodepos_lembaga, telepon_lembaga, email_lembaga, pendidikan_id, pekerjaan_id, image, ttd
+            kodepos_lembaga, telepon_lembaga, email_lembaga, pendidikan_id, pekerjaan_id, image, ttd, kota_id
           }
         }).then(({ data }) => {
           this.showAlert('success', 'Data berhasil diubah')

@@ -8,32 +8,36 @@
       >
         <v-container fluid>
           <v-row>
-            <div class="col-md-4 col-xs-12 pt-0">
+            <v-col cols="12" md="4">
               <v-card>
                 <div class="d-flex flex-no-wrap">
-                  <v-avatar
-                    class="mt-5 ml-5"
+                  <!-- <v-avatar
+                    class="mx-auto mt-10"
                     size="125"
-                    style="border-radius: .42rem;"
-                    tile
+                    circle
                   >
-                    <v-img :src="profile.image"></v-img>
-                  </v-avatar>
-                  <div>
+                  </v-avatar> -->
+                  <div class="mx-auto pt-5">
+                    <v-img class="rounded-lg" width="150" height="200" aspect-ratio="3/4" :src="profile.image"></v-img>
+                  </div>
+                  <!-- <div>
                     <v-card-title
                       class="headline"
-                      v-text="profile.nama"
+                      v-text="pesertas.asesi.nama"
                     ></v-card-title>
-                    <v-card-subtitle class="py-0">status user:</v-card-subtitle>
+                    <v-card-subtitle class="py-0">status asesi:</v-card-subtitle>
                     <v-card-actions>
-                      <v-btn text color="primary">
-                        <span class="text-capitalize">
-                          {{ profile.user.role.role }}
-                        </span>
-                      </v-btn>
+                      <v-btn v-if="pesertas.status == -1" text color="danger">Ditolak</v-btn>
+                      <v-btn v-if="pesertas.status == 0" text color="grey">Belum</v-btn>
+                      <v-btn v-if="pesertas.status == 1" text color="primary">Disetujui</v-btn>
+                      <v-btn v-if="pesertas.status == 2" text color="success">Lulus Sertifikasi</v-btn>
                     </v-card-actions>
-                  </div>
+                  </div> -->
                 </div>
+                <div class="d-flex flex-no-wrap mt-5">
+                  <v-chip class="mx-auto" text small color="primary">{{ profile.user.role.role }}</v-chip>
+                </div>
+                <!-- <v-divider></v-divider> -->
                 <v-card-text class="px-5">
                   <v-simple-table>
                     <tbody>
@@ -56,8 +60,13 @@
                     </tbody>
                   </v-simple-table>
                 </v-card-text>
+                <!-- <v-card-actions v-if="pesertas.status == 2 || pesertas.status == -2" class="d-flex justify-center pb-8 pt-0">
+                  <nuxt-link :to="`/admin/hasil-asesmen/${pesertas.id}`">
+                    <v-btn color="success" rounded>Lihat Hasil Sertifikasi</v-btn>
+                  </nuxt-link>
+                </v-card-actions> -->
               </v-card>
-            </div>
+            </v-col>
             <!-- <div class="col-md-12 col-xs-12 pt-0">
               <v-card class="mb-3">
                 <v-list-item three-line class="px-5">
@@ -104,12 +113,12 @@
               </v-card>
             </div> -->
 
-            <div class="col-md-8 col-xs-12 pt-0">
+            <div class="col-md-8 col-xs-12">
               <v-card
                 class="mx-auto"
               >
                 <v-card-title>
-                  <span class="headline px-5">Informasi Profil</span>
+                  <span class="font-weight-bold">Informasi Profil</span>
 
                   <v-spacer></v-spacer>
 
@@ -164,7 +173,7 @@
                       </div>
                       <v-form>
                         <v-row>
-                          <v-col md="12" class="py-0">
+                          <v-col md="12" class="pb-0">
                             <label for=""><b>Nama Lengkap</b></label>
                             <v-text-field
                               v-model="profile.nama"
@@ -349,27 +358,29 @@
                             <label for=""><b>Foto</b></label>
                             <v-row>
                               <v-col md="7">
-                                <v-card>
-                                  <v-img
-                                    :src="profile.image"
-                                    :lazy-src="profile.image"
-                                    aspect-ratio="1"
-                                    class="grey lighten-2"
-                                  ></v-img>
-                                </v-card>
+                                <v-img
+                                  height="200"
+                                  width="150"
+                                  :src="profile.image"
+                                  :lazy-src="profile.image"
+                                  aspect-ratio="1"
+                                  class="grey lighten-2 mt-2 rounded-lg"
+                                ></v-img>
                               </v-col>
                             </v-row>
                           </v-col>
-                          <v-col md="6" class="py-0">
+                          <v-col md="6" class="pt-0">
                             <label for=""><b>Tanda tangan</b></label>
                             <v-row>
-                              <v-col md="7">
-                                <v-card>
+                              <v-col cols="12">
+                                <v-card class="rounded-lg">
                                   <v-img
+                                    height="200"
+                                    width="full"
                                     :src="profile.ttd"
                                     :lazy-src="profile.ttd"
                                     aspect-ratio="1"
-                                    class="white"
+                                    class="white mt-2"
                                   ></v-img>
                                 </v-card>
                               </v-col>

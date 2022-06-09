@@ -19,8 +19,8 @@
               <!-- <a href="/">
                 <img class="img-responsive" src="@/assets/img/upn_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 20px; right: 120px;">
               </a> -->
-              <h1><strong>Masuk.</strong></h1>
-              <h3 class="mt-0 pb-2">silakan masuk ke akun Anda</h3>
+              <h1 class="font-weight-bold">Masuk.</h1>
+              <h3 class="mt-0 pb-2">Silahkan masuk ke akun Anda</h3>
               <!-- Alert section -->
               <div v-if="alert.show">
                 <v-alert :type="alert.type" dismissible>
