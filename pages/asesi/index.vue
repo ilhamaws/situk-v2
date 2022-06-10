@@ -14,7 +14,7 @@
       <v-row>
         <div class="col-lg-6 col-xs-12">
           <v-card>
-            <v-toolbar flat color="indigo">
+            <v-toolbar flat color="primary">
               <v-card-title class="white--text">
                 <v-icon class="white--text" color="orange lighten-2" left>brightness_5</v-icon>
                 <span>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-lg-6 col-xs-12">
           <v-card>
-            <v-toolbar flat color="indigo">
+            <v-toolbar flat color="primary">
               <v-card-title class="white--text">
                 <v-icon class="white--text" left color="orange lighten-2">check</v-icon>
                 <span>

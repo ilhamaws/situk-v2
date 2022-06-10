@@ -112,7 +112,7 @@
                         <tbody>
                           <tr>
                             <td width="20%"><b>Umpan Balik untuk Kandidat:</b></td>
-                            <td>{{ uji.umpan_balik_obervasi }}</td>
+                            <td>{{ uji.umpan_balik_observasi }}</td>
                           </tr>
                         </tbody>
                       </v-simple-table>
@@ -264,6 +264,7 @@ export default {
           id
         }
       }).then(({ data }) => {
+        console.log(data)
         this.peserta = data.peserta
         this.ujikompetensi = data.peserta.ujiKompetensi
         for (let x = 0; x < this.ujikompetensi.length; x++) {
@@ -272,7 +273,7 @@ export default {
               const kuk = this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j]
               for (let k = 0; k < this.ujikompetensi[x].observasi.length; k++) {
                 if (this.ujikompetensi[x].observasi[k].kriteriaUk.id == kuk.id) {
-                  this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j] = Object.assign({}, this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j], { observasi: `${this.ujikompetensi[x].observasi[k].observasi}`, penelitian_lanjut: `${this.ujikompetensi[x].observasi[k].penelitian_lanjut}` })
+                  this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j] = Object.assign({}, this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j], { observasi: `${this.ujikompetensi[x].observasi[k].observasi}`, penelitian_lanjut: this.ujikompetensi[x].observasi[k].penelitian_lanjut })
                 }
               }
             }

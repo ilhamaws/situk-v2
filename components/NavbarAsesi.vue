@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar class="collapse-sidebar" elevate-on-scroll app color="indigo" dark>
+    <v-app-bar class="collapse-sidebar" elevate-on-scroll app>
       <v-app-bar-nav-icon color="orange lighten-2" @click="drawer = !drawer">
       </v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase pl-0">
@@ -106,16 +106,12 @@
           </v-list>
         </v-menu>
       </v-toolbar-items>
-      <!-- <v-toolbar-items>
-        <v-btn @click='logout' text>
-          <v-icon color="orange lighten-2" left>exit_to_app</v-icon>
-          <span>Logout</span>
-        </v-btn>
-      </v-toolbar-items> -->
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
+      color="primary"
       app
+      dark
     >
       <v-list-item two-line>
         <v-list-item-content>
@@ -149,21 +145,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-
-      <!-- <v-list-item
-        v-for="item in items"
-        :key="item.title"
-        :to="item.link"
-        link
-      >
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item> -->
     </v-navigation-drawer>
   </nav>
 </template>

@@ -7,11 +7,11 @@
       <v-container grid-list-xl>
         <div class="col-lg-12 col-xs-12">
           <v-toolbar class="transparent mb-5" flat>
-            <v-avatar size="60" tile color="warning lighten-2">
+            <!-- <v-avatar size="60" tile color="warning lighten-2">
               <span class="white--text"><b>APL.1</b></span>
-            </v-avatar>
-            <v-toolbar-title class="px-10">
-              <b>Form APL 1</b>
+            </v-avatar> -->
+            <v-toolbar-title class="font-weight-bold">
+              FR.APL.01 Form APL 1
             </v-toolbar-title>
           </v-toolbar>
           <v-card
@@ -336,19 +336,19 @@
                         <label for=""><b>Foto</b></label>
                         <v-row class="mt-3" v-if="form.image != null">
                           <v-col md="7">
-                            <v-card>
-                              <v-img
-                                :src="form.image"
-                                :lazy-src="form.image"
-                                aspect-ratio="1"
-                                class="grey lighten-2"
-                              ></v-img>
-                            </v-card>
+                            <v-img
+                              :src="form.image"
+                              :lazy-src="form.image"
+                              width="300"
+                              height="400"
+                              aspect-ratio="3/4"
+                              class="grey lighten-2 rounded-lg"
+                            ></v-img>
                           </v-col>
                         </v-row>
                         <v-row>
                           <v-col md="7">
-                            <v-text-field dense v-model="image.imageName" readonly label="Edit Foto" prepend-icon="mdi-camera" outlined @click="pickImage"></v-text-field>
+                            <v-text-field dense v-model="image.imageName" readonly label="Upload pas foto (Maks 2MB)" prepend-icon="mdi-camera" outlined @click="pickImage"></v-text-field>
                             <input
                               ref="image"
                               type="file"

@@ -8,18 +8,17 @@
         <v-container fluid>
           <div v-if="!state.skeleton">
             <v-row>
-              <div class="col-md-4 col-xs-12 pt-0">
+              <v-col cols="12" md="4">
                 <v-card>
                   <div class="d-flex flex-no-wrap">
                     <v-avatar
-                      class="ml-5 mt-5"
+                      class="mx-auto mt-10"
                       size="125"
-                      style="border-radius: .42rem;"
-                      tile
+                      circle
                     >
                       <v-img :src="pesertas.asesi.image"></v-img>
                     </v-avatar>
-                    <div>
+                    <!-- <div>
                       <v-card-title
                         class="headline"
                         v-text="pesertas.asesi.nama"
@@ -31,7 +30,14 @@
                         <v-btn v-if="pesertas.status == 1" text color="primary">Disetujui</v-btn>
                         <v-btn v-if="pesertas.status == 2" text color="success">Lulus Sertifikasi</v-btn>
                       </v-card-actions>
-                    </div>
+                    </div> -->
+                  </div>
+                  <div class="d-flex flex-no-wrap mt-5">
+                    <v-chip class="mx-auto" v-if="pesertas.status == -2" text small color="error">Belum Kompeten</v-chip>
+                    <v-chip class="mx-auto" v-if="pesertas.status == -1" text small color="danger">Ditolak</v-chip>
+                    <v-chip class="mx-auto" v-if="pesertas.status == 0" text small color="grey">Belum</v-chip>
+                    <v-chip class="mx-auto" v-if="pesertas.status == 1" text small color="primary">Disetujui</v-chip>
+                    <v-chip class="mx-auto" v-if="pesertas.status == 2" text small color="success">Kompeten</v-chip>
                   </div>
                   <!-- <v-divider></v-divider> -->
                   <v-card-text class="px-5">
@@ -49,29 +55,36 @@
                           <td width="20%"><b>Tanggal:</b></td>
                           <td>{{ pesertas.jadwal.tanggal }}</td>
                         </tr>
+                        <tr>
+                          <td width="10%"><b>Asesor:</b></td>
+                          <td v-if="pesertas.asesor != null">{{ pesertas.asesor.nama }}</td>
+                          <td v-if="pesertas.asesor == null">Belum Ditentukan</td>
+                        </tr>
                       </tbody>
                     </v-simple-table>
                   </v-card-text>
-                  <v-card-actions v-if="pesertas.status == 2 || pesertas.status == -2" class="d-flex justify-center pb-8 pt-0">
+                  <!-- <v-card-actions v-if="pesertas.status == 2 || pesertas.status == -2" class="d-flex justify-center pb-8 pt-0">
                     <nuxt-link :to="`/admin/hasil-asesmen/${pesertas.id}`">
                       <v-btn color="success" rounded>Lihat Hasil Sertifikasi</v-btn>
                     </nuxt-link>
-                  </v-card-actions>
+                  </v-card-actions> -->
                 </v-card>
-              </div>
-              <div class="col-md-8 col-xs-12 pt-0">
+              </v-col>
+              <div class="col-md-8 col-xs-12">
                 <v-row>
-                  <v-col cols="12" class="pt-0">
+                  <v-col cols="12">
                     <v-card>
                       <v-card-title class="px-8 ">
-                        <span class="headline">FR-APL-01. Formulir Permohonan Sertifikasi Kompetensi</span>
+                        <span class="font-weight-bold">FR.APL.01 Formulir Permohonan Sertifikasi Kompetensi</span>
                         <v-spacer></v-spacer>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text class="px-5">
+                        <v-alert type="primary" text dense>
+                          Data Pribadi
+                        </v-alert>
                         <v-simple-table>
                           <tbody>
-                            <td colspan="2">a. Data Pribadi</td>
                             <tr>
                               <td width="30%"><b>Nama lengkap:</b></td>
                               <td colspan="5">{{ pesertas.asesi.nama }}</td>
@@ -106,9 +119,11 @@
                             </tr>
                           </tbody>
                         </v-simple-table>
+                        <v-alert class="mt-5" type="primary" text dense>
+                          Data Pekerjaan Sekarang
+                        </v-alert>
                         <v-simple-table>
                           <tbody>
-                            <td colspan="2">b. Data Pekerjaan Sekarang</td>
                             <tr>
                               <td width="30%"><b>Nama lembaga/ Perusahaan:</b></td>
                               <td>{{ pesertas.asesi.lembaga.nama }}</td>
