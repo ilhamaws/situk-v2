@@ -51,6 +51,11 @@ export default {
   },
 
   target: 'static',
+  ssr: false,
+
+  generate: {
+    fallback: true
+  },
   // mode: 'universal',
   // router: {
   //   mode: "hash"
