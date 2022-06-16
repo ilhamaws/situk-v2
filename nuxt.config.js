@@ -51,7 +51,7 @@ export default {
   },
 
   target: 'static',
-  mode: 'universal',
+  // mode: 'universal',
   // router: {
   //   mode: "hash"
   // },
