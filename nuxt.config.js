@@ -50,10 +50,11 @@ export default {
     fix: true
   },
 
-  ssr: false,
-  router: {
-    mode: "hash"
-  },
+  target: 'static',
+  mode: 'universal',
+  // router: {
+  //   mode: "hash"
+  // },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
