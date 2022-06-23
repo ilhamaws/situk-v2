@@ -8,10 +8,7 @@
         <v-container fluid>
           <v-card>
             <v-card-title>
-              <!-- <v-avatar size="30" color="warning lighten-2">
-                <span class="white--text">APL.1</span>
-              </v-avatar> -->
-              <span class="font-weight-bold">FR.AC.01. Formulir Rekaman Asesmen Kompetensi</span>
+              <span class="font-weight-bold">FR.AK.02 Formulir Rekaman Asesmen Kompetensi</span>
               <v-spacer></v-spacer>
             </v-card-title>
             <v-divider></v-divider>
@@ -133,11 +130,11 @@
                   </v-col>
                 </v-row> -->
               </v-list>
-              <v-row>
+              <!-- <v-row>
                 <v-col class="d-flex justify-end">
                   <v-btn target="_blank" :href="`/asesi/print/rekaman-asesmen/${pesertas.id}`" color="primary" outlined dark><v-icon left>print</v-icon>Print</v-btn>
                 </v-col>
-              </v-row>
+              </v-row> -->
             </v-card-text>
           </v-card>
         </v-container>

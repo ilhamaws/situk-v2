@@ -120,7 +120,7 @@
                       </v-card>
                     </v-col>
                     <v-col cols="12" class="col-md-4 col-xs-12 col-sm-6">
-                      <v-card disabled link dark color="primary" class="rounded-lg">
+                      <v-card :disabled="pesertas.asesor == null" :to="`/admin/soal-observasi/${pesertas.id}`" link dark color="primary" class="rounded-lg">
                         <v-card-title>
                           <p class="ma-0">Pertanyaan Observasi</p>
                         </v-card-title>
@@ -148,6 +148,19 @@
                       </v-card>
                     </v-col>
                     <v-col cols="12" class="col-md-4 col-xs-12 col-sm-6">
+                      <v-card :disabled="pesertas.asesor == null" :to="`/admin/verifikasi-portofolio/${pesertas.id}`" link dark color="primary" class="rounded-lg">
+                        <v-card-title>
+                          <p class="ma-0">Ceklis Verifikasi Portofolio</p>
+                        </v-card-title>
+                        <v-card-subtitle>
+                          FR.IA.08
+                        </v-card-subtitle>
+                        <v-card-text class="d-flex justify-end align-center">
+                          <h1 class="font-weight-bold mt-0 px-5">5</h1>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                    <v-col cols="12" class="col-md-4 col-xs-12 col-sm-6">
                       <v-card link :disabled="disabledMenu" :to="`/admin/hasil-asesmen/${pesertas.id}`" dark color="primary" class="rounded-lg">
                         <v-card-title>
                           <p class="ma-0">Rekaman Asesmen</p>
@@ -157,7 +170,7 @@
                         </v-card-subtitle>
                         <v-card-text class="d-flex justify-end align-center">
                           <!-- <v-icon size="80">playlist_add_check</v-icon> -->
-                          <h1 class="font-weight-bold mt-0 px-5">5</h1>
+                          <h1 class="font-weight-bold mt-0 px-5">6</h1>
                         </v-card-text>
                       </v-card>
                     </v-col>

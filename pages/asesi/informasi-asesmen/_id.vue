@@ -193,7 +193,7 @@
                         >
                           <template #top>
                             <v-dialog v-model="syaratDialog" persistent max-width="600px">
-                              <v-form>
+                              <v-form ref="form">
                                 <v-card>
                                   <v-card-title>
                                     <span class="headline">Upload Syarat</span>
@@ -767,6 +767,7 @@ export default {
         }).finally(() => {
           this.state.loading = false
           this.syaratDialog = false
+          this.$refs.form.reset()
           this.getJadwal()
         })
       }
@@ -800,6 +801,7 @@ export default {
         }).finally(() => {
           this.state.loading = false
           this.portofolioDialog = false
+          this.$refs.form.reset()
           this.getJadwal()
         })
       }

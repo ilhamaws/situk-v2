@@ -154,37 +154,44 @@ td {
             <td width="20%"><b>{{ unit.unitKompetensi.unit }}</b></td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.observasi" readonly class="justify-center"></v-checkbox>
+                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.observasi" readonly class="justify-center"/> -->
+                {{pesertas.ujiKompetensi[index].rekamanAsesmen.observasi ? `&#10004;` : ''}}
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.portofolio" readonly class="justify-center"></v-checkbox>
+                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.portofolio" readonly class="justify-center"/> -->
+                {{pesertas.ujiKompetensi[index].rekamanAsesmen.portofolio ? `&#10004;` : ''}}
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pihak_ketiga" readonly class="justify-center"></v-checkbox>
+                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pihak_ketiga" readonly class="justify-center"/> -->
+                {{pesertas.ujiKompetensi[index].rekamanAsesmen.pihak_ketiga ? `&#10004;` : ''}}
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_lisan" readonly class="justify-center"></v-checkbox>
+                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_lisan" readonly class="justify-center"/> -->
+                {{pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_lisan ? `&#10004;` : ''}}
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_tertulis" readonly class="justify-center"></v-checkbox>
+                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_tertulis" readonly class="justify-center"/> -->
+                {{pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_tertulis ? `&#10004;` : ''}}
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.proyek_kerja" readonly class="justify-center"></v-checkbox>
+                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.proyek_kerja" readonly class="justify-center"/> -->
+                {{pesertas.ujiKompetensi[index].rekamanAsesmen.proyek_kerja ? `&#10004;` : ''}}
               </div>
             </td>
             <td>
               <div class="d-flex justify-center">
-                <v-checkbox v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.lainnya" readonly class="justify-center"></v-checkbox>
+                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.lainnya" readonly class="justify-center"/> -->
+                {{pesertas.ujiKompetensi[index].rekamanAsesmen.lainnya ? `&#10004;` : ''}}
               </div>
             </td>
           </tr>
@@ -243,13 +250,12 @@ td {
                       Tanda tangan asesi :
                     </th>
                     <td class="no-border-top">
-                      <v-img
+                      <img
                         :aspect-ratio="16/9"
                         height="50"
                         contain
                         :src="pesertas.asesi.ttd"
-                      >
-                      </v-img>
+                      />
                     </td>
                     <th class="nowrap no-border-top" align="start">
                       Tanggal :
@@ -266,13 +272,12 @@ td {
                       Tanda tangan asesor :
                     </th>
                     <td class="no-border-bottom">
-                      <v-img
+                      <img
                         :aspect-ratio="16/9"
                         height="50"
                         contain
                         :src="pesertas.asesor.ttd"
-                      >
-                      </v-img>
+                      />
                     </td>
                     <th class="nowrap no-border-bottom" align="start">
                       Tanggal :
@@ -301,6 +306,16 @@ moment.locale('id')
 export default {
   name: 'Index',
   layout: 'App',
+  head: {
+    title: 'FR.APL.01',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Home page description'
+      }
+    ],
+  },
   data() {
     return {
       tambahDialog: false,
