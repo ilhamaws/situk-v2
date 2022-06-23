@@ -7,12 +7,8 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title class="px-8 ">
-              <!-- <v-avatar size="30" color="warning lighten-2">
-                <span class="white--text">APL.1</span>
-              </v-avatar> -->
-              <v-icon size="30" class="mr-2" color="warning">subject</v-icon>
-              <span class="headline">Hasil Asesmen Mandiri</span>
+            <v-card-title class="font-weight-bold">
+              FR.APL.02 Hasil Asesmen Mandiri
               <v-spacer></v-spacer>
             </v-card-title>
             <v-divider></v-divider>

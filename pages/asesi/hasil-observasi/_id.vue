@@ -7,13 +7,8 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title class="px-8 ">
-              <!-- <v-avatar size="30" color="warning lighten-2">
-                <span class="white--text">APL.1</span>
-              </v-avatar> -->
-              <v-icon size="30" class="mr-2" color="error">wrap_text</v-icon>
-              <span class="headline">Hasil Observasi</span>
-              <v-spacer></v-spacer>
+            <v-card-title class="font-weight-bold">
+              FR.IA.01 Ceklist Observasi Aktivitas di Tempat Kerja
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text class="px-8 pb-8">

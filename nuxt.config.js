@@ -5,8 +5,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - situk-web',
-    title: 'situk-web',
+    titleTemplate: '%s - Sertifikasi LSP TIFA',
+    title: 'LSP TIFA',
     htmlAttrs: {
       lang: 'en'
     },
