@@ -68,16 +68,8 @@
                           <v-container>
                             <v-row>
                               <v-col cols="12" sm="12" md="12">
-                                <v-text-field v-model="form.elemen" label="Nama Element" required></v-text-field>
+                                <v-textarea v-model="form.elemen" label="Nama Element" required></v-textarea>
                               </v-col>
-                            <!-- <v-col cols="12" sm="6" md="6">
-                                <v-select
-                                    v-model="form.unit_kompetensi_id"
-                                    :items="unitkompetensis"
-                                    label="Unit Kompetensi*"
-                                    item-value="id" item-text="unit"
-                                />
-                            </v-col> -->
                             </v-row>
                           </v-container>
                           <small>*Wajib diisi</small>

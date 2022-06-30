@@ -116,25 +116,15 @@
                             <td width="5%">{{ elemenIndex+1 }}.{{ kukIndex+1 }}</td>
                             <td>{{ kuk.kriteria }}</td>
                             <td colspan="2"></td>
-                            <!-- <td colspan="2" class="text-center">
-                                      <v-radio-group row v-model="ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].asesmen_mandiri">
-                                        <v-col cols="6">
-                                          <v-radio class="justify-center" value= "1"></v-radio>
-                                        </v-col>
-                                        <v-col cols="6">
-                                          <v-radio class="justify-center" value= "-1"></v-radio>
-                                        </v-col>
-                                      </v-radio-group>
-                                    </td> -->
                           </tr>
                         </tbody>
                       </template>
                     </v-simple-table>
-                    <v-row v-if="ujikompetensi[ujiIndex].status != 0">
+                    <!-- <v-row v-if="ujikompetensi[ujiIndex].status != 0">
                       <v-col class="d-flex justify-end">
                         <v-btn target="_blank" :href="`/admin/print/asesmen-mandiri/${ujikompetensi[ujiIndex].id}`" color="primary" outlined dark><v-icon left>print</v-icon>Print</v-btn>
                       </v-col>
-                    </v-row>
+                    </v-row> -->
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>

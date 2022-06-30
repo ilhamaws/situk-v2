@@ -45,7 +45,7 @@
                         </tr>
                         <tr>
                           <td width="20%"><b>Skema:</b></td>
-                          <td>{{ asesor.skema.skema }}</td>
+                          <td>{{ asesor.skema != null ? asesor.skema.skema : '' }}</td>
                         </tr>
                         <tr>
                           <td width="20%"><b>Email:</b></td>
@@ -124,6 +124,7 @@
                                 label="Nama lengkap"
                                 type="text"
                                 solo
+                                readonly
                               />
                             </v-col>
                             <v-col md="6" class="py-0">
@@ -131,9 +132,10 @@
                               <v-text-field
                                 v-model="asesor.skema.skema"
                                 class="mt-2"
-                                label="Nama lengkap"
+                                label="Nama Skema"
                                 type="text"
                                 solo
+                                readonly
                               />
                             </v-col>
                           </v-row>
@@ -146,6 +148,7 @@
                                 label="Nomor Registrasi"
                                 type="text"
                                 solo
+                                readonly
                               />
                             </v-col>
                             <v-col md="6" class="py-0">
@@ -156,6 +159,7 @@
                                 label="Nomor Blanko"
                                 type="text"
                                 solo
+                                readonly
                               />
                             </v-col>
                           </v-row>
@@ -168,6 +172,7 @@
                                 label="Alamat"
                                 type="text"
                                 solo
+                                readonly
                               />
                             </v-col>
                           </v-row>
@@ -180,6 +185,7 @@
                                 label="Nomor Sertifikat"
                                 type="text"
                                 solo
+                                readonly
                               />
                             </v-col>
                             <v-col md="6" class="py-0">
@@ -319,11 +325,12 @@ export default {
         asesi: {
           image: null
         }
-      }
+      },
+      asesor: {}
     }
   },  
   async mounted() {
-    await this.getpesertaDetails()
+    await this.getSelfAsesor()
   },
   methods: {
     //  get peserta
@@ -347,7 +354,7 @@ export default {
         this.editDialog = false
       })
     },
-    async getpesertaDetails() {
+    async getSelfAsesor() {
       const id = this.peserta_id
       console.log(id)
       const result = await this.$apollo.mutate({

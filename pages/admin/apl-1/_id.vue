@@ -151,7 +151,7 @@
                       </v-simple-table>
                       <v-row v-if="pesertas.status != 0">
                         <v-col class="d-flex justify-end">
-                          <v-btn :to="`/admin/print/apl-1/${pesertas.id}`" color="primary" outlined dark><v-icon left>print</v-icon>Cetak APL 1</v-btn>
+                          <v-btn :to="`/admin/print/fr-apl-01/${pesertas.id}`" color="primary" outlined dark><v-icon left>print</v-icon>Cetak APL 1</v-btn>
                         </v-col>
                       </v-row>
                     </v-card-text>

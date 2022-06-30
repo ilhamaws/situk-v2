@@ -13,7 +13,7 @@
           elevation="2"
         >
           <h3 class="font-weight-bold mt-0">Selamat Datang Admin</h3>
-          Hai <strong>{{ profile.username }}</strong>, selamat datang di halaman LSP TIFA Assesmen Online. Silahkan klik menu untuk mengelola website.
+          Hai <strong>{{ profile.username }}</strong>, selamat datang di halaman LSP TIFA Penelitian Indonesia Internasional Assesmen Online. Silahkan klik menu untuk mengelola website.
         </v-alert>
         <!-- <div class="col-lg-6 col-xs-12">
               <v-card>

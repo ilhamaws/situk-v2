@@ -229,8 +229,16 @@
                                       <v-container>
                                         <v-row>
                                           <v-col cols="12" sm="12" md="12">
-                                            <label for=""><b>Rekomendasi Asesmen Mandiri</b> (opsional)</label>
-                                            <v-text-field v-model="editedVerifikasi.rekomendasi_am" class="mt-2" solo label="Rekomendasi penilaian asesmen mandiri" required></v-text-field>
+                                            <label for=""><b>Rekomendasi Asesmen Mandiri</b></label>
+                                            <v-select
+                                              class="mt-3"
+                                              :items="rekomendasi_asesmen"
+                                              v-model="editedVerifikasi.rekomendasi_am"
+                                              outlined
+                                              dense
+                                            >
+                                            </v-select>
+                                            <!-- <v-text-field v-model="editedVerifikasi.rekomendasi_am" class="mt-2" solo label="Rekomendasi penilaian asesmen mandiri" required></v-text-field> -->
                                           </v-col>
                                         </v-row>
                                       </v-container>
@@ -336,6 +344,10 @@ export default {
         { text: 'Syarat', value: 'syarat' },
         // { text: 'File', value: 'file'},
         { text: 'Aksi', value: 'actions' },
+      ],
+      rekomendasi_asesmen: [
+        'Asesmen dapat dilanjutkan',
+        'Tidak dapat dilanjutkan'
       ],
       peserta_id: this.$route.params.id,
       state:{

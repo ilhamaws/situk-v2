@@ -320,3 +320,185 @@ td {
     </v-card-text>
   </div>
 </template>
+
+<script>
+import { ASESMEN_MANDIRI_MUTATION, OBSERVASI_MUTATION, GET_REPORT_DETAIL } from '@/constants/graphql'
+
+export default {
+  name: 'Index',
+  layout: 'App',
+  data() {
+    return {
+      asesmen: [],
+      tambahDialog: false,
+      search: '',
+      headers: [
+        { text: 'Syarat', value: 'syarat' },
+        // { text: 'File', value: 'file'},
+        { text: 'Aksi', value: 'actions' },
+      ],
+      peserta_id: this.$route.params.id,
+      state:{
+        loading: false,
+        skeleton: true
+      },
+      radios: '',
+      alert:{
+        show: false,
+        type: '',
+        message: '',
+      },
+      valid: true,
+      e1: 1,
+      profile: {
+        username: ''
+      },
+      skema: [],
+      syarat: [],
+      syaratUpload: [],
+      input: {},
+      items: [
+      ],
+      peserta: [],
+      skema: [],
+      asesi: [],
+      ujikompetensi: null,
+      e11: {},
+      status: [
+        {
+          id: -1,
+          status: 'Ditolak'
+        },
+        {
+          id: 0,
+          status: 'Belum'
+        },
+        {
+          id: 1,
+          status: 'Disetujui'
+        }
+      ],
+      umpan_balik: null
+    }
+  },
+  unmounted() {
+    this.style.remove()
+  },
+  mounted() {
+    this.getpesertaDetails()
+  },
+  methods: {
+    printWindow(){
+      document.title = 'apl-1_'+this.$route.params.id
+      window.print()
+    },
+    showAlert(type, message) {
+      this.alert = { show: true, type, message }
+    },
+    async getpesertaDetails() {
+      const id = this.peserta_id
+      console.log(id)
+      const result = await this.$apollo.mutate({
+        mutation: GET_REPORT_DETAIL,
+        variables: {
+          id
+        }
+      }).then(({ data }) => {
+        this.peserta = data.peserta
+        this.ujikompetensi = data.peserta
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      }).finally(() => {
+        this.state.skeleton = false
+      })
+    },
+    async getSyarat() {
+      const { id } = this.$data
+      const result = await this.$apollo.mutate({
+        mutation: GET_REPORT_DETAIL
+      }).then(({ data }) => {
+        this.peserta = data.peserta
+        this.items = data.peserta.syaratPeserta
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    // async asesmenMandiri() {
+    //     const asesmen = Object.values(this.input.asesmen);
+    //     const uji_kompetensi_id = null;
+    //     console.log(asesmen);
+    //     const result = await this.$apollo.mutate({
+    //         mutation: ASESMEN_MANDIRI_MUTATION,
+    //         variables: {
+    //           asesmen, uji_kompetensi_id
+    //         }
+    //   }).then(({ data }) => {
+    //       console.log(data);
+    //   }).catch((error) => {
+    //     console.log(error);
+    //   });
+    // },
+    async observasi(){
+      // console.log(this.ujikompetensi[ujiIndex].asesmen.length);
+      // const asesmenData = this.ujikompetensi[ujiIndex].asesmen;
+      // const uji_kompetensi_id = this.ujikompetensi[ujiIndex].id;
+      // let rekomendasi_am = this.ujikompetensi[ujiIndex].rekomendasi_am;
+      // if (rekomendasi_am === undefined) {
+      //   rekomendasi_am = null;
+      // }
+      const asesmenData = this.ujikompetensi.asesmen
+      const observasi = []
+      // const asesmen = [];
+      // for (let indexAsesmen = 0; indexAsesmen < asesmenData.length; indexAsesmen++) {
+      //   const element = Object.assign({}, {kuk_id: asesmenData[indexAsesmen].kriteriaUk.id, observasi: asesmenData[indexAsesmen].observasi, penelitian_lanjut: asesmenData[indexAsesmen].penelitian_lanjut});
+      //   observasi.push(element);
+      // }
+      for (let i = 0; i < this.ujikompetensi.unitKompetensi.element.length; i++) {
+        for (let j = 0; j < this.ujikompetensi.unitKompetensi.element[i].kriteriaUk.length; j++) {
+          const element = Object.assign({}, {kuk_id: this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].id, observasi: this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].observasi, penelitian_lanjut: this.ujikompetensi.unitKompetensi.element[i].kriteriaUk[j].penelitian_lanjut})
+          observasi.push(element)
+        }
+      }
+      console.log(observasi)
+      const uji_kompetensi_id = this.ujikompetensi.id
+      const umpan_balik = this.umpan_balik
+      const result = await this.$apollo.mutate({
+        mutation: OBSERVASI_MUTATION,
+        variables: {
+          uji_kompetensi_id, umpan_balik, observasi
+        }
+      }).then(({ data }) => {
+        this.showAlert('success', 'peserta berhasil diverifikasi')
+        console.log(data)
+      }).catch(({graphQLErrors}) => {
+        this.showAlert('error', graphQLErrors[0].message)
+      }).finally(() => {
+        this.state.skeleton = false
+      })
+    },
+    async asesmenMandiri() {
+      const ujiData = Object.values(this.input)
+      if (ujiData.length > 0) {
+        for (let index = 0; index < ujiData.length; index++) {
+          const asesmen = Object.values(ujiData[index].asesmen)
+          const uji_kompetensi_id = ujiData[index].uji_kompetensi_id
+          console.log(asesmen)
+
+          const result = await this.$apollo.mutate({
+            mutation: ASESMEN_MANDIRI_MUTATION,
+            variables: {
+              asesmen, uji_kompetensi_id
+            }
+          }).then(({ data }) => {
+            console.log(data)
+          }).catch((error) => {
+            console.log(error)
+          })
+        }
+      }
+    }
+  }
+}
+</script>

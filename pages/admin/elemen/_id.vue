@@ -37,16 +37,8 @@
                           <v-container>
                             <v-row>
                               <v-col cols="12" sm="12" md="12">
-                                <v-text-field v-model="form.kriteria" label="Nama Kriteria" required></v-text-field>
+                                <v-textarea v-model="form.kriteria" label="Nama Kriteria" required></v-textarea>
                               </v-col>
-                            <!-- <v-col cols="12" sm="6" md="6">
-                                <v-select
-                                    v-model="form.element_id"
-                                    :items="elements"
-                                    label="Element*"
-                                    item-value="id" item-text="elemen"
-                                />
-                            </v-col> -->
                             </v-row>
                           </v-container>
                           <small>*Wajib diisi</small>

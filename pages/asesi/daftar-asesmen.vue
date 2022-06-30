@@ -280,62 +280,6 @@ export default {
     // this.getTujuan();
   },
   methods: {
-    // getIndex(list, id) {
-    //   return list.findIndex((e) => e.id == id);
-    // },
-    //  onSyaratSelected(e) {
-    //   const syaratFile = e.target.files;
-        
-    //   if(syaratFile[0] !== undefined) {
-    //       this.syarats.syaratName = syaratFile[0].name;
-    //       if(this.syarats.syaratName.lastIndexOf('.') <= 0) {
-    //           return;
-    //       }
-    //       const fr = new FileReader ();
-    //       fr.readAsDataURL(syaratFile[0]);
-    //       fr.addEventListener('load', () => {
-    //           this.syarats.syaratUrl = fr.result;
-    //           this.syarats.syaratFile = syaratFile[0]; 
-    //       });
-    //   } else {
-    //       this.syarats.syaratName = '';
-    //       this.syarats.syaratFile = '';
-    //       this.syarats.syaratUrl = '';
-    //   }
-    // },
-    // pickSyarat() {
-    //   this.$refs.syarat.click();
-    // },
-    // async getSyarat() {
-    //   const skema_id = this.form.skema_id;
-    //   const result = await this.$apollo.mutate({
-    //         mutation: GET_SYARATS,
-    //         variables: {
-    //           skema_id
-    //         }
-    //   }).then(({ data }) => {
-    //       this.items = data.jadwal.skema.syarat;
-    //       console.log(data.jadwal.skema.syarat);
-    //   }).catch((error) => {
-    //     console.log(error);
-    //   });
-    // },
-    // async checkAsesiData() {
-    //   const user_id = localStorage.getItem('lsp-user-id');
-    //   const result = await this.$apollo.mutate({
-    //       mutation: GET_USERDATA,
-    //       variables: {
-    //           user_id
-    //       }
-    //   }).then(({ data }) => {
-    //       if (data.user.asesi != null){
-    //           console.log('hello sodara');
-    //           this.e1 = 2;
-    //       }
-    //   }).catch((error) => {
-    //       alert(error);
-    //   });
-    // },
     showAlert(type, message) {
       this.alert = { show: true, type, message }
     },
