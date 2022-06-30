@@ -123,19 +123,21 @@
                 <v-simple-table>
                   <thead>
                     <tr>
-                      <th><b>Unit Kompetensi</b></th>
-                      <th class="text-center"><b>Observasi demonstrasi</b></th>
-                      <th class="text-center"><b>Portofolio</b></th>
-                      <th class="text-center"><b>Pernyataan pihak ketiga</b></th>
-                      <th class="text-center"><b>Pertanyaan lisan</b></th>
-                      <th class="text-center"><b>Pertanyaan tertulis</b></th>
-                      <th class="text-center"><b>Proyek kerja</b></th>
-                      <th class="text-center"><b>Lainnya</b></th>
+                      <th width="10%"><b>Kode</b></th>
+                      <th width="20%"><b>Unit Kompetensi</b></th>
+                      <th width="10%" class="text-center"><b>Observasi demonstrasi</b></th>
+                      <th width="10%" class="text-center"><b>Portofolio</b></th>
+                      <th width="10%" class="text-center"><b>Pernyataan pihak ketiga</b></th>
+                      <th width="10%" class="text-center"><b>Pertanyaan lisan</b></th>
+                      <th width="10%" class="text-center"><b>Pertanyaan tertulis</b></th>
+                      <th width="10%" class="text-center"><b>Proyek kerja</b></th>
+                      <th width="10%" class="text-center"><b>Lainnya</b></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="(unit, index) in pesertas.ujiKompetensi" :key="unit.id">
-                      <td width="20%"><b>{{ unit.unitKompetensi.unit }}</b></td>
+                      <td>{{ unit.unitKompetensi.kode }}</td>
+                      <td width="20%">{{ unit.unitKompetensi.unit }}</td>
                       <td>
                         <div class="d-flex justify-center">
                           <v-checkbox v-model="input[index].observasi" class="justify-center"></v-checkbox>

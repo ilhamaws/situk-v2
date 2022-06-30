@@ -2076,6 +2076,7 @@ query($id: ID!){
           id
           hasil
           tanggapan
+          score
           soalObservasi {
             id
             soal

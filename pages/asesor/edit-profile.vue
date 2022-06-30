@@ -43,7 +43,7 @@
                         </tr>
                         <tr>
                           <td width="20%"><b>Skema:</b></td>
-                          <td>{{ asesor.skema.skema }}</td>
+                          <td>{{ asesor.skema != null ? asesor.skema.skema : '' }}</td>
                         </tr>
                         <tr>
                           <td width="20%"><b>Email:</b></td>
@@ -126,7 +126,17 @@
                             <v-col md="6" class="py-0">
                               <label for=""><b>Skema</b></label>
                               <v-select
+                                v-if="input.skema != null"
                                 v-model="input.skema.id"
+                                class="mt-2"
+                                :items="skemas"
+                                label="Pilih skema"
+                                item-value="id" item-text="skema"
+                                solo
+                              />
+                              <v-select
+                                v-if="input.skema == null"
+                                v-model="skema_id"
                                 class="mt-2"
                                 :items="skemas"
                                 label="Pilih skema"
@@ -400,7 +410,8 @@ export default {
       },
       asesor: {},
       input: {},
-      skemas: []
+      skemas: [],
+      skema_id: null
     }
   },  
   async mounted() {
@@ -485,7 +496,7 @@ export default {
         this.state.loading = true
         const { input: {nama, no_registrasi, no_sertifikat, no_blanko, exp_sertifikat, alamat} } = this.$data
         const user_id = null
-        const skema_id = this.input.skema.id
+        const skema_id = this.input.skema != null ? this.input.skema.id : this.skema_id
         const image = this.image.imageUrl
         const ttd = this.ttd.ttdUrl
         const result = await this.$apollo.mutate({

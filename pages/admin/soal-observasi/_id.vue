@@ -9,7 +9,7 @@
           <!-- <v-avatar size="30" color="warning lighten-2">
             <span class="white--text">APL.1</span>
           </v-avatar> -->
-          <span class="font-weight-bold">FR.IA.03 PERTANYAAN UNTUK MENDUKUNG OBSERVASI</span>
+          <span class="font-weight-bold">FR.IA.09 PERTANYAAN WAWANCARA</span>
         </v-card-subtitle>
         <v-divider></v-divider>
         <v-card-text>
@@ -90,7 +90,7 @@
                 :key="uji.id"
               >
                 <v-expansion-panel-header>{{ uji.unitKompetensi.kode }} {{ uji.unitKompetensi.unit }} {{ uji.unitKompetensi.tahun }}
-                  <div v-if="ujikompetensi[ujiIndex].observasi_date == null" class="blobs-container">
+                  <div v-if="ujikompetensi[ujiIndex].am_date == null" class="blobs-container">
                     <div class="blob orange"></div>
                   </div>
                 </v-expansion-panel-header>
@@ -153,7 +153,20 @@
                               readonly
                             ></v-text-field>
                           </td>
-                          <td colspan="2"></td>
+                          <td colspan="2">
+                            <v-text-field
+                              v-model="soal.score"
+                              class="py-5"
+                              name="Nilai"
+                              label="Nilai"
+                              type="number"
+                              id="id"
+                              outlined
+                              dense
+                              hide-details
+                              readonly
+                            ></v-text-field>
+                          </td>
                         </tr>
                       </tbody>
                       <tbody v-if="uji.unitKompetensi.SoalObservasi.length > 0">
@@ -320,7 +333,8 @@ export default {
         uji_observasi = await items.SoalObservasi.map((item) => {
           return {
             soal_observasi_id: item.id,
-            hasil: item.hasil,
+            hasil: item.score > 50 ? 1 : -1, //todo
+            // score: item.score,
             tanggapan: item.tanggapan
           }
         })
@@ -357,11 +371,12 @@ export default {
         for (let x = 0; x < this.ujikompetensi.length; x++) {
           this.ujikompetensi[x].unitKompetensi = Object.assign(this.ujikompetensi[x].unitKompetensi, {umpan_balik_uji: null})
           for (let i = 0; i < this.ujikompetensi[x].unitKompetensi.SoalObservasi.length; i++) {
-            this.ujikompetensi[x].unitKompetensi.SoalObservasi[i] = Object.assign(this.ujikompetensi[x].unitKompetensi.SoalObservasi[i], {hasil: '', tanggapan: ''})
+            this.ujikompetensi[x].unitKompetensi.SoalObservasi[i] = Object.assign(this.ujikompetensi[x].unitKompetensi.SoalObservasi[i], {hasil: '', tanggapan: '', status: null , score: ''})
             for (let k = 0; k < this.ujikompetensi[x].ujiObservasi.length; k++) {
               if (this.ujikompetensi[x].ujiObservasi[k].soalObservasi.id == this.ujikompetensi[x].unitKompetensi.SoalObservasi[i].id) {
                 this.ujikompetensi[x].unitKompetensi.SoalObservasi[i].hasil = this.ujikompetensi[x].ujiObservasi[k].hasil
                 this.ujikompetensi[x].unitKompetensi.SoalObservasi[i].tanggapan = this.ujikompetensi[x].ujiObservasi[k].tanggapan
+                this.ujikompetensi[x].unitKompetensi.SoalObservasi[i].score = this.ujikompetensi[x].ujiObservasi[k].score
               }
             }
           }

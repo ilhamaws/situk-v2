@@ -51,7 +51,6 @@
                             FR.APL.01
                           </v-card-subtitle>
                           <v-card-text class="d-flex justify-end align-center">
-                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
                             <h1 class="font-weight-bold mt-0 px-5">1</h1>
                           </v-card-text>
                         </v-card>
@@ -65,7 +64,6 @@
                             FR.APL.02
                           </v-card-subtitle>
                           <v-card-text class="d-flex justify-end align-center">
-                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
                             <h1 class="font-weight-bold mt-0 px-5">2</h1>
                           </v-card-text>
                         </v-card>
@@ -73,13 +71,12 @@
                       <v-col cols="12" class="col-md-4 col-xs-12 col-sm-6">
                         <v-card link :to="`/asesor/soal-observasi/${pesertas.id}`" dark color="primary" class="rounded-lg">
                           <v-card-title>
-                            <p class="ma-0">Pertanyaan Observasi</p>
+                            <p class="ma-0">Pertanyaan Wawancara</p>
                           </v-card-title>
                           <v-card-subtitle>
-                            FR.IA.03
+                            FR.IA.09
                           </v-card-subtitle>
                           <v-card-text class="d-flex justify-end align-center">
-                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
                             <h1 class="font-weight-bold mt-0 px-5">3</h1>
                           </v-card-text>
                         </v-card>
@@ -93,7 +90,6 @@
                             FR.IA.01
                           </v-card-subtitle>
                           <v-card-text class="d-flex justify-end align-center">
-                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
                             <h1 class="font-weight-bold mt-0 px-5">4</h1>
                           </v-card-text>
                         </v-card>
@@ -120,7 +116,6 @@
                             FR.AK.02
                           </v-card-subtitle>
                           <v-card-text class="d-flex justify-end align-center">
-                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
                             <h1 class="font-weight-bold mt-0 px-5">6</h1>
                           </v-card-text>
                         </v-card>
@@ -134,7 +129,6 @@
                             FR.AK.02
                           </v-card-subtitle>
                           <v-card-text class="d-flex justify-end align-center">
-                            <!-- <v-icon size="80">playlist_add_check</v-icon> -->
                             <h1 class="font-weight-bold mt-0 px-5">6</h1>
                           </v-card-text>
                         </v-card>
@@ -403,7 +397,7 @@
                               :return-value.sync="date"
                               transition="scale-transition"
                               offset-y
-                              disabled
+                              :disabled="pesertas.asesmen_date != null"
                               min-width="290px"
                             >
                               <template #activator="{ on }">

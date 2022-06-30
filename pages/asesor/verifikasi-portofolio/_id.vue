@@ -81,18 +81,15 @@
             </template>
           </v-snackbar>
           <div v-if="ujikompetensi != null" class="pt-5">
-            <v-expansion-panels readonly multiple accordion>
-              <v-expansion-panel
-                v-for="(uji, ujiIndex) in ujikompetensi"
-                :key="uji.id"
-              >
-                <v-expansion-panel-header>{{ uji.unitKompetensi.kode }} {{ uji.unitKompetensi.unit }} {{ uji.unitKompetensi.tahun }}
-                  <div v-if="ujikompetensi[ujiIndex].observasi_date == null" class="blobs-container">
-                    <div class="blob orange"></div>
-                  </div>
-                </v-expansion-panel-header>
-              </v-expansion-panel>
-            </v-expansion-panels>
+            <v-simple-table>
+              <tbody>
+                <tr v-for="(uji, i) in ujikompetensi"
+                :key="uji.id">
+                  <td width="10%"><b>{{ uji.unitKompetensi.kode }}</b></td>
+                  <td>{{ uji.unitKompetensi.unit }} {{ uji.unitKompetensi.tahun }}</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
           </div>
         </v-card-text>
       </v-card>

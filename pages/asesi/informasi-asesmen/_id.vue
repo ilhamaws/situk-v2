@@ -60,14 +60,14 @@
                           <td>{{ peserta.jadwal.skema.skema }}</td>
                         </tr>
                         <tr>
-                          <td width="10%"><b>Jadwal:</b></td>
-                          <td>{{ peserta.jadwal.tanggal }}</td>
+                          <td width="10%"><b>Jadwal Pelaksanaan:</b></td>
+                          <td>{{ peserta.asesmen_date != null ? peserta.asesmen_date : peserta.jadwal.tanggal }}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                           <td width="10%"><b>Pelaksanaan:</b></td>
                           <td v-if="peserta.asesmen_date != null">{{ peserta.asesmen_date }}</td>
                           <td v-if="peserta.asesmen_date == null">Belum Ditentukan</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                           <td width="10%"><b>Asesor:</b></td>
                           <td v-if="peserta.asesor != null">{{ peserta.asesor.nama }}</td>
