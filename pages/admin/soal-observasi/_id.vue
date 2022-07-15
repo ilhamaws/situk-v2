@@ -196,6 +196,10 @@
               </v-expansion-panel>
             </v-expansion-panels>
           </div>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn :to="`/admin/print/fr-ia-09/${peserta.id}`" target="_blank" color="primary" outlined dark><v-icon left>print</v-icon>Cetak Dokumen</v-btn>            
+          </v-card-actions>
         </v-card-text>
       </v-card>
       <v-dialog

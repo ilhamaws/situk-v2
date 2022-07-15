@@ -3,13 +3,33 @@
   font-family: Calibri, sans-serif !important;
 }
 
+@page {
+  size: A4;
+  margin: 1rem;
+}
+
 @media print
 {
-  table { page-break-after:auto }
-  tr    { page-break-inside:avoid; page-break-after:auto }
-  td    { page-break-inside:avoid; page-break-after:auto }
-  thead { display:table-header-group }
-  tfoot { display:table-footer-group }
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  table { page-break-before:auto !important }
+  tr    { page-break-inside:avoid !important; page-break-after:auto !important}
+  td    { page-break-inside:avoid !important; page-break-after:auto !important}
+  thead .no-thead { display: table-row-group}
+  thead .hidden-table { display: table-header-group !important}
+  tfoot { display:table-footer-group !important }
+  .page-break {
+     page-break-inside: avoid;
+     page-break-before: always;
+  }
+}
+
+.no-border{
+  border: none !important;
 }
 
 table {
@@ -75,8 +95,8 @@ td {
 </style>
 
 <template>
-  <div v-if="!state.skeleton" class="page-content-wrapper-inner fill-height">
-    <v-card-title>FR.AK.02. FORMULIR REKAMAN ASESMEN KOMPETENSI</v-card-title>
+  <v-container v-if="!state.skeleton" class="page-content">
+    <v-card-subtitle class="font-weight-bold">FR.AK.02. FORMULIR REKAMAN ASESMEN KOMPETENSI</v-card-subtitle>
     <v-card-text>
       <table>
         <tbody>
@@ -130,170 +150,188 @@ td {
         </tbody>
       </table>
     </v-card-text>
-    <v-card-subtitle>
-      Beri tanda centang (&#10004;) di kolom yang sesuai untuk mencerminkan
-      bukti yang diperoleh untuk menentukan Kompetensi asesi untuk setiap Unit
-      Kompetensi.
-    </v-card-subtitle>
-    <v-card-text>
-      <table>
-        <thead>
-          <tr class="with-bg">
-            <th>Unit Kompetensi</th>
-            <th>Observasi Demonstrasi</th>
-            <th>Portofolio</th>
-            <th>Pernyataan Pihak Ketiga Pertanyaan Wawancara</th>
-            <th>Pertanyaan Lisan</th>
-            <th>Pertanyaan Tertulis</th>
-            <th>Proyek Kerja</th>
-            <th>Lainnya</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(unit, index) in pesertas.ujiKompetensi" :key="unit.id">
-            <td width="20%"><b>{{ unit.unitKompetensi.unit }}</b></td>
-            <td>
-              <div class="d-flex justify-center">
-                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.observasi" readonly class="justify-center"/> -->
-                {{pesertas.ujiKompetensi[index].rekamanAsesmen.observasi ? `&#10004;` : ''}}
-              </div>
-            </td>
-            <td>
-              <div class="d-flex justify-center">
-                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.portofolio" readonly class="justify-center"/> -->
-                {{pesertas.ujiKompetensi[index].rekamanAsesmen.portofolio ? `&#10004;` : ''}}
-              </div>
-            </td>
-            <td>
-              <div class="d-flex justify-center">
-                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pihak_ketiga" readonly class="justify-center"/> -->
-                {{pesertas.ujiKompetensi[index].rekamanAsesmen.pihak_ketiga ? `&#10004;` : ''}}
-              </div>
-            </td>
-            <td>
-              <div class="d-flex justify-center">
-                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_lisan" readonly class="justify-center"/> -->
-                {{pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_lisan ? `&#10004;` : ''}}
-              </div>
-            </td>
-            <td>
-              <div class="d-flex justify-center">
-                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_tertulis" readonly class="justify-center"/> -->
-                {{pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_tertulis ? `&#10004;` : ''}}
-              </div>
-            </td>
-            <td>
-              <div class="d-flex justify-center">
-                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.proyek_kerja" readonly class="justify-center"/> -->
-                {{pesertas.ujiKompetensi[index].rekamanAsesmen.proyek_kerja ? `&#10004;` : ''}}
-              </div>
-            </td>
-            <td>
-              <div class="d-flex justify-center">
-                <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.lainnya" readonly class="justify-center"/> -->
-                {{pesertas.ujiKompetensi[index].rekamanAsesmen.lainnya ? `&#10004;` : ''}}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="8" style="padding: 0">
-              <table style="border: 0">
-                <tbody>
-                  <tr class="text-top">
-                    <th
-                      class="nowrap no-border-top no-border-left"
-                      align="start"
-                    >
-                      Rekomendasi hasil asesmen
-                    </th>
-                    <td class="no-border-top no-border-right">
-                      <span v-if="pesertas.status == 2">Kompeten</span>
-                      <span v-if="pesertas.status == -2">Belum Kompeten</span>
-                    </td>
-                  </tr>
-                  <tr class="text-top">
-                    <td class="nowarp no-border-left" align="start">
-                      <b> Tindak lanjut yang dibutuhkan </b> <br />
-                      (Masukkan pekerjaan tambahan dan asesmen yang diperlukan
-                      untuk mencapai kompetensi)
-                    </td>
-                    <td class="no-border-right">
-                      <span v-if="pesertas.tindak_lanjut != null">{{ pesertas.tindak_lanjut }}</span>
-                      <span v-if="pesertas.tindak_lanjut == null">-</span>
-                    </td>
-                  </tr>
-                  <tr class="text-top">
-                    <th
-                      class="nowrap no-border-left no-border-bottom"
-                      align="start"
-                    >
-                      Komentar / Observasi oleh asesor
-                    </th>
-                    <td class="no-border-right no-border-bottom">
-                      <span v-if="pesertas.komentar_observasi != null">{{ pesertas.komentar_observasi }}</span>
-                      <span v-if="pesertas.komentar_observasi == null">-</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="8" style="padding: 0">
-              <table style="border: 0">
-                <tbody>
-                  <tr class="text-top">
-                    <th
-                      class="nowrap no-border-top no-border-left"
-                      align="start"
-                    >
-                      Tanda tangan asesi :
-                    </th>
-                    <td class="no-border-top">
-                      <img
-                        :aspect-ratio="16/9"
-                        height="50"
-                        contain
-                        :src="pesertas.asesi.ttd"
-                      />
-                    </td>
-                    <th class="nowrap no-border-top" align="start">
-                      Tanggal :
-                    </th>
-                    <td class="no-border-top no-border-right">
-                      {{ convertDate(pesertas.jadwal.tanggal) }}
-                    </td>
-                  </tr>
-                  <tr class="text-top">
-                    <th
-                      class="nowrap no-border-bottom no-border-left"
-                      align="start"
-                    >
-                      Tanda tangan asesor :
-                    </th>
-                    <td class="no-border-bottom">
-                      <img
-                        :aspect-ratio="16/9"
-                        height="50"
-                        contain
-                        :src="pesertas.asesor.ttd"
-                      />
-                    </td>
-                    <th class="nowrap no-border-bottom" align="start">
-                      Tanggal :
-                    </th>
-                    <td class="no-border-bottom no-border-right">
-                      {{ convertDate(pesertas.jadwal.tanggal) }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </v-card-text>
-  </div>
+    <div class="page-break">
+      <v-card-subtitle class="pb-0">
+        Beri tanda centang (&#10004;) di kolom yang sesuai untuk mencerminkan
+        bukti yang diperoleh untuk menentukan Kompetensi asesi untuk setiap Unit
+        Kompetensi.
+      </v-card-subtitle>
+      <v-card-text>
+        <table class="no-border">
+          <thead class="hidden-table">
+            <tr class="no-border-top no-border-left no-border-right">
+              <td class="no-border-top no-border-left no-border-right" colspan="8">&nbsp;</td>
+            </tr>
+          </thead>
+          <thead class="no-thead">
+            <tr class="with-bg">
+              <th width="50%">Unit Kompetensi</th>
+              <th width="5%">Observasi Demonstrasi</th>
+              <th width="5%">Portofolio</th>
+              <th width="5%">Pernyataan Pihak Ketiga Pertanyaan Wawancara</th>
+              <th width="5%">Pertanyaan Lisan</th>
+              <th width="5%">Pertanyaan Tertulis</th>
+              <th width="5%">Proyek Kerja</th>
+              <th width="5%">Lainnya</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(unit, index) in pesertas.ujiKompetensi" :key="unit.id">
+              <td width="20%">
+                <b>{{ unit.unitKompetensi.kode }}</b><br>
+                {{ unit.unitKompetensi.unit }}</td>
+              <td>
+                <div class="d-flex justify-center">
+                  <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.observasi" readonly class="justify-center"/> -->
+                  {{pesertas.ujiKompetensi[index].rekamanAsesmen.observasi ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-center">
+                  <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.portofolio" readonly class="justify-center"/> -->
+                  {{pesertas.ujiKompetensi[index].rekamanAsesmen.portofolio ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-center">
+                  <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pihak_ketiga" readonly class="justify-center"/> -->
+                  {{pesertas.ujiKompetensi[index].rekamanAsesmen.pihak_ketiga ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-center">
+                  <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_lisan" readonly class="justify-center"/> -->
+                  {{pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_lisan ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-center">
+                  <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_tertulis" readonly class="justify-center"/> -->
+                  {{pesertas.ujiKompetensi[index].rekamanAsesmen.pertanyaan_tertulis ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-center">
+                  <!-- <input type="checkbox" v-model="pesertas.ujiKompetensi[index].rekamanAsesmen.proyek_kerja" readonly class="justify-center"/> -->
+                  {{pesertas.ujiKompetensi[index].rekamanAsesmen.proyek_kerja ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-center">
+                  {{pesertas.ujiKompetensi[index].rekamanAsesmen.lainnya ? `&#10004;` : ''}}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="8" style="padding: 0">
+                <table style="border: 0">
+                  <tbody>
+                    <tr class="text-top">
+                      <th
+                        class="nowrap no-border-top no-border-left"
+                        align="start"
+                      >
+                        Rekomendasi hasil asesmen
+                      </th>
+                      <td class="no-border-top no-border-right">
+                        <span v-if="pesertas.status == 2">Kompeten</span>
+                        <span v-if="pesertas.status == -2">Belum Kompeten</span>
+                      </td>
+                    </tr>
+                    <tr class="text-top">
+                      <td class="nowarp no-border-left" align="start">
+                        <b> Tindak lanjut yang dibutuhkan </b> <br />
+                        (Masukkan pekerjaan tambahan dan asesmen yang diperlukan
+                        untuk mencapai kompetensi)
+                      </td>
+                      <td class="no-border-right">
+                        <span v-if="pesertas.tindak_lanjut != null">{{ pesertas.tindak_lanjut }}</span>
+                        <span v-if="pesertas.tindak_lanjut == null">-</span>
+                      </td>
+                    </tr>
+                    <tr class="text-top">
+                      <th
+                        class="nowrap no-border-left no-border-bottom"
+                        align="start"
+                      >
+                        Komentar / Observasi oleh asesor
+                      </th>
+                      <td class="no-border-right no-border-bottom">
+                        <span v-if="pesertas.komentar_observasi != null">{{ pesertas.komentar_observasi }}</span>
+                        <span v-if="pesertas.komentar_observasi == null">-</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="8" style="padding: 0">
+                <table style="border: 0">
+                  <tbody>
+                    <tr class="text-top">
+                      <th
+                        class="nowrap no-border-top no-border-left"
+                        align="start"
+                      >
+                        Tanda tangan asesi :
+                      </th>
+                      <td class="no-border-top">
+                        <img
+                          :aspect-ratio="16/9"
+                          height="50"
+                          contain
+                          :src="pesertas.asesi.ttd"
+                        />
+                      </td>
+                      <th class="nowrap no-border-top" align="start">
+                        Tanggal :
+                      </th>
+                      <td class="no-border-top no-border-right">
+                        {{ convertDate(pesertas.jadwal.tanggal) }}
+                      </td>
+                    </tr>
+                    <tr class="text-top">
+                      <th
+                        class="nowrap no-border-bottom no-border-left"
+                        align="start"
+                      >
+                        Tanda tangan asesor :
+                      </th>
+                      <td class="no-border-bottom">
+                        <img
+                          :aspect-ratio="16/9"
+                          height="50"
+                          contain
+                          :src="pesertas.asesor.ttd"
+                        />
+                      </td>
+                      <th class="nowrap no-border-bottom" align="start">
+                        Tanggal :
+                      </th>
+                      <td class="no-border-bottom no-border-right">
+                        {{ convertDate(pesertas.jadwal.tanggal) }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="no-border">
+              <td class="no-border" colspan="8">&nbsp;</td>
+            </tr>
+          </tfoot>
+          <tfoot>
+            <tr class="no-border">
+              <td class="no-border" colspan="8">&nbsp;</td>
+            </tr>
+          </tfoot>
+        </table>
+      </v-card-text>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -307,7 +345,7 @@ export default {
   name: 'Index',
   layout: 'App',
   head: {
-    title: 'FR.APL.01',
+    title: 'FR.AK.02',
     meta: [
       {
         hid: 'description',
