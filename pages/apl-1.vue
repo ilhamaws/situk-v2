@@ -4,7 +4,7 @@
     wrap
   >
     <v-flex xs12>
-      <v-container grid-list-xl>
+      <v-container style="max-width: 1050px!important">
         <div class="col-lg-12 col-xs-12">
           <v-toolbar class="transparent mb-5" flat>
             <!-- <v-avatar size="60" tile color="warning lighten-2">
@@ -32,6 +32,9 @@
                   <v-form ref="form">
                     <v-row>
                       <v-col md="12" class="py-0">
+                        <v-alert class="my-6" type="primary" dense :value="true" text>
+                          Data Pribadi
+                        </v-alert>
                         <label for=""><b>Nama Lengkap</b></label>
                         <v-text-field
                           v-model="form.nama"
@@ -204,7 +207,7 @@
                         />
                       </v-col>
                       <v-col md="4" class="py-0">
-                        <label for=""><b>Pendidikan</b></label>
+                        <label for=""><b>Pendidikan Terakhir</b></label>
                         <v-select
                           v-model="form.pendidikan_id"
                           class="mt-2"
@@ -263,7 +266,7 @@
                     </v-row>
                     <v-row>
                       <v-col md="12" class="py-0">
-                        <label for=""><b>Universitas</b></label>
+                        <label for=""><b>Asal Universitas</b></label>
                         <v-text-field
                           outlined
                           dense
@@ -275,6 +278,9 @@
                     </v-row>
                     <v-row>
                       <v-col md="12" class="py-0">
+                        <v-alert class="my-6" type="primary" dense :value="true" text>
+                          Data Pekerjaan/ Instansi/ Lembaga
+                        </v-alert>
                         <label for=""><b>Lembaga</b></label>
                         <v-text-field
                           outlined

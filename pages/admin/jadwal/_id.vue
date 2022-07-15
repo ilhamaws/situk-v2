@@ -96,7 +96,8 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                    <v-btn color="primary" outlined dark @click="randomDialog = true">Acak Asesor</v-btn>
+                    <v-btn class="mr-3" color="primary" outlined dark @click="randomDialog = true">Acak Asesor</v-btn>
+                    <!-- <v-btn color="primary" outlined dark @click="randomDialog = true">Print laporan FR.AK.05</v-btn> -->
                     <v-spacer></v-spacer>
                     <v-text-field
                       v-model="search"
