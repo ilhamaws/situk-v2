@@ -47,7 +47,15 @@
                                 <v-text-field v-model="form.email" :rules="emailRules" label="Email*" required></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6" md="6">
-                                <v-text-field v-model="form.password" :rules="passwordRules" type="password" label="Password*" hint="Minimal 5 karakter"></v-text-field>
+                                <v-text-field 
+                                  v-model="form.password" 
+                                  :rules="passwordRules"
+                                  :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+                                  :type="show_password ? 'text' : 'password'"
+                                  @click:append="show_password = !show_password"
+                                  label="Password*"
+                                  hint="Minimal 5 karakter"
+                                ></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6" md="6">
                                 <v-select
@@ -125,7 +133,15 @@
                                   ></v-select>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="6">
-                                  <v-text-field v-model="editedUser.password" required :rules="passwordRules" type="password" label="Password*" hint="Minimal 5 karakter"></v-text-field>
+                                  <v-text-field 
+                                    v-model="editedUser.password"
+                                    required :rules="passwordRules"
+                                    :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :type="show_password ? 'text' : 'password'"
+                                    @click:append="show_password = !show_password"
+                                    label="Password*"
+                                    hint="Minimal 5 karakter"
+                                  ></v-text-field>
                                 </v-col>
                               </v-row>
                             </v-container>
@@ -213,6 +229,7 @@ export default {
       state:{
         skeleton: true
       },
+      show_password: false,
       valid: false,
       passwordRules: [
         v => !!v || 'Password wajib diisi',
@@ -238,6 +255,8 @@ export default {
         { text: 'id', value: 'id', width: '10%' },
         { text: 'Email', value: 'email' },
         { text: 'role', value: 'role.role' },
+        { text: 'Tanggal Daftar', value: 'created_at' },
+        { text: 'Terakhir Update', value: 'updated_at' },
         { text: 'Aksi', value: 'actions' },
       ],
       users: [
@@ -303,7 +322,6 @@ export default {
       }).then(({ data }) => {
         // this.items = data.checkselfAsesi.peserta;
         this.users = data.users
-        console.log(data)
       }).catch((error) => {
         console.log(error)
       }).finally(() => {

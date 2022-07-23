@@ -3,16 +3,14 @@
     column
     wrap
   >
-    <v-container fluid>
-      <v-card>
-        <v-card-title>
-          <!-- <v-avatar size="30" color="warning lighten-2">
-                <span class="white--text">APL.1</span>
-              </v-avatar> -->
-          <span class="headline px-5">Histori Sertifikasi</span>
-          <v-spacer></v-spacer>
-        </v-card-title>
-        <v-divider></v-divider>
+    <v-container>
+      <v-card class="rounded-lg">
+        <v-toolbar flat color="primary" dark>
+          <v-icon class="white--text" left color="orange lighten-2">work_history</v-icon>
+          <span>
+            <h4>Sertifikasi Yang Sedang Diikuti</h4>
+          </span>
+        </v-toolbar>
         <v-row>
           <v-col cols="12" class="px-10 py-5">
             <div class="px-5 py-5">
@@ -72,15 +70,15 @@
                   </v-dialog>
                 </template>
                 <template #item.status="{ item }">
-                  <v-chip v-if="item.status == -2" small color="red darken-1" dark>Belum Kompeten</v-chip>
-                  <v-chip v-if="item.status == -1" small color="red darken-1" dark>Ditolak</v-chip>
+                  <v-chip v-if="item.status == -2" small color="error" dark>Belum Kompeten</v-chip>
+                  <v-chip v-if="item.status == -1" small color="error" dark>Ditolak</v-chip>
                   <v-chip v-if="item.status == 0" small color="grey" dark>Belum</v-chip>
-                  <v-chip v-if="item.status == 1" small color="blue lighten-2" dark>Disetujui</v-chip>
+                  <v-chip v-if="item.status == 1" small color="indigo lighten-2" dark>Disetujui</v-chip>
                   <v-chip v-if="item.status == 2" small color="success" dark>Kompeten</v-chip>
                 </template>
                 <template #item.actions="{ item }">
                   <v-icon
-                    small
+                    color="error"
                     class="mr-2"
                     @click="deleteItem(item)"
                   >
@@ -90,7 +88,7 @@
                       <v-btn rounded x-small color="primary">Detail</v-btn>
                     </nuxt-link> -->
                 </template>
-                <template #item.jadwal.skema.skema="{ item }">
+                <template #item.jadwal.skema.id="{ item }">
                   <nuxt-link :to="`/asesi/informasi-asesmen/${item.id}`">
                     <div class="blobs-container">
                       <span class="blobs-container">
@@ -99,9 +97,13 @@
                         <span v-if="item.status == 0" class="blob grey"></span>
                         <span v-if="item.status == 1" class="blob blue"></span>
                         <span v-if="item.status == 2" class="blob green"></span>
-                        {{ item.jadwal.skema.skema }}
                       </span>
                     </div>
+                  </nuxt-link>
+                </template>
+                <template #item.jadwal.skema.skema="{ item }">
+                  <nuxt-link :to="`/asesi/informasi-asesmen/${item.id}`">
+                    {{ item.jadwal.skema.skema }}
                   </nuxt-link>
                 </template>
               </v-data-table>
@@ -135,6 +137,7 @@ export default {
     return {
       search: '',
       headers: [
+        { text: '', value: 'jadwal.skema.id' },
         { text: 'Skema', value: 'jadwal.skema.skema' },
         { text: 'Tanggal Asesmen', value: 'jadwal.tanggal' },
         { text: 'TUK', value: 'jadwal.tempatUk.nama' },

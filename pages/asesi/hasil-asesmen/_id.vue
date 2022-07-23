@@ -7,12 +7,13 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title>
-              <span class="font-weight-bold">FR.AK.02 Formulir Rekaman Asesmen Kompetensi</span>
-              <v-spacer></v-spacer>
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-card-text v-if="!state.skeleton" class="px-8 py-8">
+            <v-toolbar flat color="primary" dark>
+              <v-icon class="white--text" left color="orange lighten-2">description</v-icon>
+              <span>
+                <h4>FR.AK.02 Formulir Rekaman Asesmen Kompetensi</h4>
+              </span>
+            </v-toolbar>
+            <v-card-text v-if="!state.skeleton" class="px-8 pb-8">
               <div v-if="alert.show">
                 <v-alert v-model="alert.show" :type="alert.type" dismissible class="mb-10">
                   <div class="white--text">

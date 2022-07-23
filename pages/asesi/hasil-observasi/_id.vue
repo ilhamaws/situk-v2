@@ -7,10 +7,12 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title class="font-weight-bold">
-              FR.IA.01 Ceklist Observasi Aktivitas di Tempat Kerja
-            </v-card-title>
-            <v-divider></v-divider>
+            <v-toolbar flat color="primary" dark>
+              <v-icon class="white--text" left color="orange lighten-2">description</v-icon>
+              <span>
+                <h4>FR.IA.01 Ceklist Observasi Aktivitas di Tempat Kerja</h4>
+              </span>
+            </v-toolbar>
             <v-card-text class="px-8 pb-8">
               <!-- Alert section -->
               <div v-if="alert.show">
@@ -31,7 +33,7 @@
                       <v-alert
                         icon="info"
                         text
-                        type="info"
+                        type="primary"
                       >
                         Hasil Observasi
                       </v-alert>
@@ -111,11 +113,11 @@
                           </tr>
                         </tbody>
                       </v-simple-table>
-                      <v-row>
+                      <!-- <v-row>
                         <v-col class="d-flex justify-end">
                           <v-btn target="_blank" :href="`/asesi/print/checklist-observasi/${ujikompetensi[ujiIndex].id}`" color="primary" outlined dark><v-icon left>print</v-icon>Print</v-btn>
                         </v-col>
-                      </v-row>
+                      </v-row> -->
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>

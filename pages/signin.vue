@@ -10,12 +10,10 @@
       fluid
     >
       <div class="d-flex justify-end">
+        <img class="img-responsive" src="@/assets/img/lsp_logo.png" alt="" style="position: fixed; width: auto !important; height: 170px; top: 15px; left: 40px;">
         <v-col md="4" xs="12" class="hero-static bg-white animated fadeInRight d-flex align-center justify-center animated fadeInRight">
           <div class="content content-full">
             <div class="px-7">
-              <a href="/">
-                <img class="img-responsive" src="@/assets/img/lsp_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 15px; right: 40px;">
-              </a>
               <!-- <a href="/">
                 <img class="img-responsive" src="@/assets/img/upn_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 20px; right: 120px;">
               </a> -->
@@ -41,7 +39,9 @@
                   id="password"
                   v-model="login.password"
                   label="Password"
-                  type="password"
+                  :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show_password ? 'text' : 'password'"
+                  @click:append="show_password = !show_password"
                 />
                 <v-btn
                   type="submit"
@@ -103,6 +103,7 @@ export default {
         email: '',
         password: ''
       },
+      show_password: false,
       alert:{
         show: false,
         type: '',

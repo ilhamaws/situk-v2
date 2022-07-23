@@ -6,15 +6,13 @@
         wrap
       >
         <v-container flex>
-          <v-card>
-            <v-card-title>
-              <!-- <v-avatar size="30" color="warning lighten-2">
-                <span class="white--text">APL.1</span>
-              </v-avatar> -->
-              <span class="headline px-5">Daftar Asesmen</span>
-              <v-spacer></v-spacer>
-            </v-card-title>
-            <v-divider></v-divider>
+          <v-card class="rounded-lg">
+            <v-toolbar flat color="primary" dark>
+              <v-icon class="white--text" left color="orange lighten-2">draw</v-icon>
+              <span>
+                <h4>Daftar Asesmen</h4>
+              </span>
+            </v-toolbar>
             <v-row>
               <v-col cols="12" class="px-10 py-5">
                 <div class="px-5 py-5">
