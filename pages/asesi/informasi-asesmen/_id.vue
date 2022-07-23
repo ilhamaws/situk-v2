@@ -24,17 +24,17 @@
           <div v-if="!state.skeleton">
             <v-row>
               <v-col cols="12">
-                <v-card> 
+                <v-card class="rounded-lg"> 
                   <div class="d-flex flex-no-wrap">
-                    <v-avatar
+                    <!-- <v-avatar
                       class="mt-5 ml-5"
                       size="125"
                       style="border-radius: .42rem;"
                       tile
                     >
                       <v-img :src="peserta.asesi.image"></v-img>
-                    </v-avatar>
-                    <div>
+                    </v-avatar> -->
+                    <!-- <div>
                       <v-card-title
                         class="headline"
                       >{{ peserta.asesi.nama }}</v-card-title>
@@ -46,37 +46,54 @@
                         <v-btn v-if="peserta.status == 1" text color="primary">Disetujui</v-btn>
                         <v-btn v-if="peserta.status == 2" text color="success">Direkomendasi Kompeten</v-btn>
                       </v-card-actions>
-                    </div>
+                    </div> -->
                   </div>
                   <v-card-text class="px-5">
-                    <v-simple-table>
-                      <tbody>
-                        <tr>
-                          <td width="10%"><b>Nama:</b></td>
-                          <td>{{ peserta.asesi.nama }}</td>
-                        </tr>
-                        <tr>
-                          <td width="10%"><b>Skema:</b></td>
-                          <td>{{ peserta.jadwal.skema.skema }}</td>
-                        </tr>
-                        <tr>
-                          <td width="10%"><b>Jadwal Pelaksanaan:</b></td>
-                          <td>{{ peserta.asesmen_date != null ? peserta.asesmen_date : peserta.jadwal.tanggal }}</td>
-                        </tr>
-                        <!-- <tr>
-                          <td width="10%"><b>Pelaksanaan:</b></td>
-                          <td v-if="peserta.asesmen_date != null">{{ peserta.asesmen_date }}</td>
-                          <td v-if="peserta.asesmen_date == null">Belum Ditentukan</td>
-                        </tr> -->
-                        <tr>
-                          <td width="10%"><b>Asesor:</b></td>
-                          <td v-if="peserta.asesor != null">{{ peserta.asesor.nama }}</td>
-                          <td v-if="peserta.asesor == null">Belum Ditentukan</td>
-                        </tr>
-                      </tbody>
-                    </v-simple-table>
+                    <v-row>
+                        <div class="pa-5">
+                          <v-img class="rounded-lg" width="150" height="200" aspect-ratio="3/4" :src="peserta.asesi.image"></v-img>
+                        </div>
+                      <v-col cols="8">
+                        <v-simple-table>
+                          <tbody>
+                            <tr>
+                              <td width="10%"><b>Nama:</b></td>
+                              <td>{{ peserta.asesi.nama }}</td>
+                            </tr>
+                            <tr>
+                              <td width="10%"><b>Skema:</b></td>
+                              <td>{{ peserta.jadwal.skema.skema }}</td>
+                            </tr>
+                            <tr>
+                              <td width="10%"><b>Jadwal Pelaksanaan:</b></td>
+                              <td>{{ peserta.asesmen_date != null ? peserta.asesmen_date : peserta.jadwal.tanggal }}</td>
+                            </tr>
+                            <!-- <tr>
+                              <td width="10%"><b>Pelaksanaan:</b></td>
+                              <td v-if="peserta.asesmen_date != null">{{ peserta.asesmen_date }}</td>
+                              <td v-if="peserta.asesmen_date == null">Belum Ditentukan</td>
+                            </tr> -->
+                            <tr>
+                              <td width="10%"><b>Asesor:</b></td>
+                              <td v-if="peserta.asesor != null">{{ peserta.asesor.nama }}</td>
+                              <td v-if="peserta.asesor == null">Belum Ditentukan</td>
+                            </tr>
+                            <tr>
+                              <td><b>Status Peserta</b></td>
+                              <td>
+                                <v-chip v-if="peserta.status == -2" class="px-5" color="error">Belum Kompeten</v-chip>
+                                <v-chip v-if="peserta.status == -1" class="px-5" color="danger">Ditolak</v-chip>
+                                <v-chip v-if="peserta.status == 0" class="px-5" color="grey">Belum Diverifikasi</v-chip>
+                                <v-chip v-if="peserta.status == 1" class="px-5" color="indigo lighten-2" dark>Disetujui</v-chip>
+                                <v-chip v-if="peserta.status == 2" class="px-5" color="success">Direkomendasi Kompeten</v-chip>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </v-simple-table>
+                      </v-col>
+                    </v-row>
                   </v-card-text>
-                  <v-card-actions v-if="peserta.status == 2 || peserta.status == -2" class="d-flex justify-center pb-8 pt-0">
+                  <!-- <v-card-actions v-if="peserta.status == 2 || peserta.status == -2" class="d-flex justify-center pb-8 pt-0">
                     <nuxt-link :to="`/asesi/hasil-asesmen/${peserta.id}`">
                       <v-btn color="success">Lihat Hasil Sertifikasi</v-btn>
                     </nuxt-link>
@@ -85,12 +102,30 @@
                     <nuxt-link :to="`/asesi/asesmen-mandiri/${peserta.id}`">
                       <v-btn color="warning">Menuju Asesmen Mandiri</v-btn>
                     </nuxt-link>
-                  </v-card-actions>
+                  </v-card-actions> -->
                 </v-card>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" class="col-md-3 col-xs-12 col-sm-6">
+              <v-col cols="12">
+                <nuxt-link v-if="peserta.status == 2 || peserta.status == -2" :to="`/asesi/hasil-asesmen/${peserta.id}`">
+                  <v-btn class="pa-6 rounded-lg" block color="success">Lihat Hasil Sertifikasi</v-btn>
+                </nuxt-link>
+                <nuxt-link v-if="peserta.status == 1" :to="`/asesi/asesmen-mandiri/${peserta.id}`">
+                  <v-btn class="pa-6 rounded-lg" block color="warning">Menuju Asesmen Mandiri</v-btn>
+                </nuxt-link>
+                <!-- <v-card-actions v-if="peserta.status == 2 || peserta.status == -2" class="d-flex justify-center pb-8 pt-0">
+                    
+                  </v-card-actions>
+                  <v-card-actions v-if="peserta.status == 1" class="d-flex justify-center pb-8 pt-0">
+                    <nuxt-link :to="`/asesi/asesmen-mandiri/${peserta.id}`">
+                      <v-btn color="warning">Menuju Asesmen Mandiri</v-btn>
+                    </nuxt-link>
+                  </v-card-actions> -->
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" class="col-md-4 col-lg-3 col-xs-12 col-sm-6">
                 <v-card :to="`/asesi/apl-1/${peserta.id}`" link dark color="primary" class="rounded-lg">
                   <v-card-title>
                     <p class="ma-0">APL 1</p>
@@ -103,7 +138,7 @@
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" class="col-md-3 col-xs-12 col-sm-6">
+              <v-col cols="12" class="col-md-4 col-lg-3 col-xs-12 col-sm-6">
                 <v-card :disabled="!peserta.ujiKompetensi.length" :to="`/asesi/asesmen-mandiri/hasil/${peserta.id}`" link dark color="primary" class="rounded-lg">
                   <v-card-title>
                     <p class="ma-0">Asesmen Mandiri</p>
@@ -116,7 +151,7 @@
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" class="col-md-3 col-xs-12 col-sm-6">
+              <v-col cols="12" class="col-md-4 col-lg-3 col-xs-12 col-sm-6">
                 <v-card :disabled="peserta.asesor == null" :to="`/asesi/hasil-observasi/${peserta.id}`" link dark color="primary" class="rounded-lg">
                   <v-card-title>
                     <p class="ma-0">Hasil observasi</p>
@@ -129,7 +164,7 @@
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" class="col-md-3 col-xs-12 col-sm-6">
+              <v-col cols="12" class="col-md-4 col-lg-3 col-xs-12 col-sm-6">
                 <v-card :disabled="disabledMenu" :to="`/asesi/hasil-asesmen/${peserta.id}`" link dark color="primary" class="rounded-lg">
                   <v-card-title>
                     <p class="ma-0">Rekaman Asesmen</p>
@@ -146,25 +181,29 @@
             <v-row>
               <v-col v-if="peserta.status >= 1" cols="12">
                 <v-card class="rounded-lg">
-                  <v-card-title>
-                    <span class="headline px-5">Portofolio</span>
+                  <v-toolbar flat color="primary" dark>
+                    <v-icon class="white--text" left color="orange lighten-2">book</v-icon>
+                    <span>
+                      <h4>Portofolio</h4>
+                    </span>
+                  </v-toolbar>
+                  <!-- <v-card-title>
+                    <span class="">Portofolio</span>
                     <v-spacer></v-spacer>
-                  </v-card-title>
-                  <v-divider></v-divider>
-                  <v-row>
-                    <v-col cols="12" class="px-10 py-5">
+                  </v-card-title> -->
+                  <v-card-text>
                       <v-alert
                         icon="info"
                         text
-                        type="info"
+                        type="primary"
                       >
                         Upload portofolio yang berkaitan dengan skema ini. <b>Dilakukan saat proses asesmen bersama Asesor!</b>
                       </v-alert>
-                      <div class="px-5 py-5">
+                      <div class="px-5 pt-5">
                         <v-row>
                           <v-dialog v-model="portofolioDialog" persistent max-width="600px">
                             <template #activator="{ on }">
-                              <v-btn color="blue darken-3" outlined dark v-on="on">Upload Portofolio</v-btn>
+                              <v-btn color="primary" outlined dark v-on="on">Upload Portofolio</v-btn>
                             </template>
                             <v-form>
                               <v-card>
@@ -207,12 +246,12 @@
                                     </v-form>
                                   </v-container>
                                   <small>*Wajib diisi</small>
+                                  <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="grey" text @click="portofolioDialog = false">Batal</v-btn>
+                                    <v-btn color="primary" @click="uploadPortofolio">Upload portofolio</v-btn>
+                                  </v-card-actions>
                                 </v-card-text>
-                                <v-card-actions>
-                                  <v-spacer></v-spacer>
-                                  <v-btn color="grey" text @click="portofolioDialog = false">Close</v-btn>
-                                  <v-btn color="blue darken-1" text @click="uploadPortofolio">Upload portofolio</v-btn>
-                                </v-card-actions>
                               </v-card>
                             </v-form>
                           </v-dialog>
@@ -226,84 +265,88 @@
                             dense
                           ></v-text-field>
                         </v-row>
-                        <v-skeleton-loader
-                          v-if="state.skeleton"
-                          ref="skeleton"
-                          type="table-thead, table-tbody"
-                          class="mx-auto"
-                        >
-                        </v-skeleton-loader>
-                        <v-data-table
-                          v-if="!state.skeleton"
-                          :headers="portofoliosHeaders"
-                          :items="peserta.portofolio"
-                          :search="searchPortofolio"
-                          :items-per-page="5"
-                          :line-numbers="true"
-                          hide-default-footer
-                        >
-                          <template #top>
-                            <v-dialog v-model="deleteportofolioDialog" persistent max-width="600px">
-                              <v-card>
-                                <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
-
-                                <v-card-text>
-                                  Peringatan! Portofolio yang telah dihapus tidak dapat kembali lagi.
-                                </v-card-text>
-
-                                <v-card-actions>
-                                  <v-spacer></v-spacer>
-                                  <v-btn color="grey" text @click="deleteportofolioDialog = false">Batal</v-btn>
-                                  <v-btn color="red darken-1" text @click="deletePortofolio">Delete Portofolio</v-btn>
-                                </v-card-actions>
-                              </v-card>
-                            </v-dialog>
-                          </template>
-                          <template #item.valid="{ item }">
-                            <v-chip v-if="item.valid == -1" small color="red darken-1" dark>tidak</v-chip>
-                            <v-chip v-if="item.valid == 0" small color="grey" dark>-</v-chip>
-                            <v-chip v-if="item.valid == 1" small color="primary" dark>Ya</v-chip>
-                          </template>
-                          <template #item.memadai="{ item }">
-                            <v-chip v-if="item.memadai == -1" small color="red darken-1" dark>tidak</v-chip>
-                            <v-chip v-if="item.memadai == 0" small color="grey" dark>-</v-chip>
-                            <v-chip v-if="item.memadai == 1" small color="primary" dark>Ya</v-chip>
-                          </template>
-                          <template #item.asli="{ item }">
-                            <v-chip v-if="item.asli == -1" small color="red darken-1" dark>tidak</v-chip>
-                            <v-chip v-if="item.asli == 0" small color="grey" dark>-</v-chip>
-                            <v-chip v-if="item.asli == 1" small color="primary" dark>Ya</v-chip>
-                          </template>
-                          <template #item.terkini="{ item }">
-                            <v-chip v-if="item.terkini == -1" small color="red darken-1" dark>tidak</v-chip>
-                            <v-chip v-if="item.terkini == 0" small color="grey" dark>-</v-chip>
-                            <v-chip v-if="item.terkini == 1" small color="primary" dark>Ya</v-chip>
-                          </template>
-                          <template #item.actions="{ item }">
-                            <v-btn icon color="blue darken-3" :to="item.file" download target="_blank">
-                              <v-icon
-                                class="mr-2"
-                              >
-                                cloud_download
-                              </v-icon>
-                            </v-btn>
-                            <v-btn icon color="orange lightern-1" :href="item.file" target="_blank">
-                              <v-icon
-                                class="mr-2"
-                              >
-                                remove_red_eye
-                              </v-icon>
-                            </v-btn>
-                            <v-icon
-                              color="pink darken-3"
-                              class="mr-2"
-                              @click="deletePortofolioDialog(item)"
-                            >
-                              mdi-delete
-                            </v-icon>
-                          </template>
-                        </v-data-table>
                       </div>
+                      <v-skeleton-loader
+                        v-if="state.skeleton"
+                        ref="skeleton"
+                        type="table-thead, table-tbody"
+                        class="mx-auto"
+                      >
+                      </v-skeleton-loader>
+                      <v-data-table
+                        v-if="!state.skeleton"
+                        :headers="portofoliosHeaders"
+                        :items="peserta.portofolio"
+                        :search="searchPortofolio"
+                        :items-per-page="5"
+                        :line-numbers="true"
+                        hide-default-footer
+                      >
+                        <template #top>
+                          <v-dialog v-model="deleteportofolioDialog" persistent max-width="600px">
+                            <v-card>
+                              <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+
+                              <v-card-text>
+                                Peringatan! Portofolio yang telah dihapus tidak dapat kembali lagi.
+                              </v-card-text>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="grey" text @click="deleteportofolioDialog = false">Batal</v-btn>
+                                <v-btn color="error" text @click="deletePortofolio">Delete Portofolio</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-dialog>
+                        </template>
+                        <template #item.valid="{ item }">
+                          <v-chip v-if="item.valid == -1" small color="error" dark>tidak</v-chip>
+                          <v-chip v-if="item.valid == 0" small color="grey" dark>-</v-chip>
+                          <v-chip v-if="item.valid == 1" small color="primary" dark>Ya</v-chip>
+                        </template>
+                        <template #item.memadai="{ item }">
+                          <v-chip v-if="item.memadai == -1" small color="error" dark>tidak</v-chip>
+                          <v-chip v-if="item.memadai == 0" small color="grey" dark>-</v-chip>
+                          <v-chip v-if="item.memadai == 1" small color="primary" dark>Ya</v-chip>
+                        </template>
+                        <template #item.asli="{ item }">
+                          <v-chip v-if="item.asli == -1" small color="error" dark>tidak</v-chip>
+                          <v-chip v-if="item.asli == 0" small color="grey" dark>-</v-chip>
+                          <v-chip v-if="item.asli == 1" small color="primary" dark>Ya</v-chip>
+                        </template>
+                        <template #item.terkini="{ item }">
+                          <v-chip v-if="item.terkini == -1" small color="error" dark>tidak</v-chip>
+                          <v-chip v-if="item.terkini == 0" small color="grey" dark>-</v-chip>
+                          <v-chip v-if="item.terkini == 1" small color="primary" dark>Ya</v-chip>
+                        </template>
+                        <template #item.actions="{ item }">
+                          <v-btn icon color="indigo lighten-2" :to="item.file" download target="_blank">
+                            <v-icon
+                              class="mr-2"
+                            >
+                              cloud_download
+                            </v-icon>
+                          </v-btn>
+                          <v-btn icon color="orange lighten-1" :href="item.file" target="_blank">
+                            <v-icon
+                              class="mr-2"
+                            >
+                              remove_red_eye
+                            </v-icon>
+                          </v-btn>
+                          <v-icon
+                            color="error"
+                            class="mr-2"
+                            @click="deletePortofolioDialog(item)"
+                          >
+                            mdi-delete
+                          </v-icon>
+                        </template>
+                      </v-data-table>
+                  </v-card-text>
+                  <v-row>
+                    <v-col cols="12" class="px-10 py-5">
+                      
                     </v-col>
                   </v-row>
                 </v-card>
@@ -312,162 +355,165 @@
             <v-row class="mt-6">
               <v-col cols="12">
                 <v-card class="rounded-lg">
-                  <v-card-title>
+                  <v-toolbar flat color="primary" dark>
+                    <v-icon class="white--text" left color="orange lighten-2">checklist</v-icon>
+                    <span>
+                      <h4>Syarat Sertifikasi</h4>
+                    </span>
+                  </v-toolbar>
+                  <!-- <v-card-title>
                     <span class="headline px-5">Syarat</span>
                     <v-spacer></v-spacer>
-                  </v-card-title>
-                  <v-divider></v-divider>
-                  <v-row>
-                    <v-col cols="12" class="px-10 py-5">
-                      <v-alert
-                        v-if="peserta.status == 0 || peserta.status == -1"
-                        icon="info"
-                        text
-                        type="info"
-                      >
-                        Isi syarat sesuai dengan panduan yang tersedia, dan tunggu persetujuan dari admin
-                      </v-alert>
-                      <div class="px-5 py-5">
-                        <v-row>
-                          <v-col cols="12" md="4">
-                            <v-spacer></v-spacer>
-                            <v-text-field
-                              v-model="search"
-                              append-icon="search"
-                              label="Search"
-                              class="shrink"
-                              outlined
-                              dense
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-                        <v-skeleton-loader
-                          v-if="state.skeleton"
-                          ref="skeleton"
-                          type="table-thead, table-tbody"
-                          class="mx-auto"
-                        >
-                        </v-skeleton-loader>
-                        <v-data-table
-                          v-if="!state.skeleton"
-                          :headers="headers"
-                          :items="peserta.syaratPeserta"
-                          :search="search"
-                          :items-per-page="5"
-                          :line-numbers="true"
-                          hide-default-footer
-                        >
-                          <template #top>
-                            <v-dialog v-model="syaratDialog" persistent max-width="600px">
-                              <v-form ref="form">
-                                <v-card>
-                                  <v-card-title>
-                                    <span class="headline">Upload Syarat</span>
-                                  </v-card-title>
-                                  <v-card-text>
-                                    <v-container>
-                                      <v-row>
-                                        <v-col cols="12" sm="12" md="12">
-                                          <label for=""><b>Jenis Syarat*</b></label>
-                                          <v-text-field v-model="editedSyarat.syarat.syarat" class="mt-2" solo disabled label="Masukkan Jenis Syarat yang sesuai" required></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" sm="12" md="12" class="pt-0">
-                                          <label for=""><b>File Syarat*</b></label>
-                                          <v-text-field v-model="syarats.syaratName" persistent-hint hint="PDF (maks 2MB)" class="mt-2" solo readonly label="Pilih Syarat" prepend-icon="attach_file" @click="pickSyarat"></v-text-field>
-                                          <input
-                                            ref="syarat"
-                                            type="file"
-                                            style="display: none"
-                                            accept="application/pdf"
-                                            @change="onSyaratSelected"
-                                          >
-                                        </v-col>
-                                      </v-row>
-                                    </v-container>
-                                    <small>*Wajib diisi</small>
-                                  </v-card-text>
-                                  <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn color="grey" text @click="syaratDialog = false">Close</v-btn>
-                                    <v-btn color="blue darken-1" text @click="uploadSyarat">Upload Syarat</v-btn>
-                                  </v-card-actions>
-                                </v-card>
-                              </v-form>
-                            </v-dialog>
-                            <v-dialog v-model="deletesyaratDialog" persistent max-width="600px">
-                              <v-card>
-                                <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
+                  </v-card-title> -->
+                  <v-card-text>
+                    <v-alert
+                      v-if="peserta.status == 0 || peserta.status == -1"
+                      icon="info"
+                      text
+                      type="info"
+                    >
+                      Isi syarat sesuai dengan panduan yang tersedia, dan tunggu persetujuan dari admin
+                    </v-alert>
+                    <div>
+                      <v-row class="d-flex justify-end">
+                        <v-col cols="12" md="4">
+                          <v-spacer></v-spacer>
+                          <v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Search"
+                            class="shrink"
+                            outlined
+                            dense
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </div>
+                    <v-skeleton-loader
+                      v-if="state.skeleton"
+                      ref="skeleton"
+                      type="table-thead, table-tbody"
+                      class="mx-auto"
+                    >
+                    </v-skeleton-loader>
+                    <v-data-table
+                      v-if="!state.skeleton"
+                      :headers="headers"
+                      :items="peserta.syaratPeserta"
+                      :search="search"
+                      :items-per-page="5"
+                      :line-numbers="true"
+                      hide-default-footer
+                    >
+                      <template #top>
+                        <v-dialog v-model="syaratDialog" persistent max-width="600px">
+                          <v-form ref="form">
+                            <v-card>
+                              <v-card-title>
+                                Upload Syarat
+                              </v-card-title>
+                              <v-card-text>
+                                <v-container>
+                                  <v-row>
+                                    <v-col cols="12" sm="12" md="12">
+                                      <label for=""><b>Jenis Syarat*</b></label>
+                                      <v-text-field v-model="editedSyarat.syarat.syarat" class="mt-2" solo disabled label="Masukkan Jenis Syarat yang sesuai" required></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="12" md="12" class="pt-0">
+                                      <label for=""><b>File Syarat*</b></label>
+                                      <v-text-field v-model="syarats.syaratName" persistent-hint hint="PDF (maks 2MB)" class="mt-2" solo readonly label="Pilih Syarat" prepend-icon="attach_file" @click="pickSyarat"></v-text-field>
+                                      <input
+                                        ref="syarat"
+                                        type="file"
+                                        style="display: none"
+                                        accept="application/pdf"
+                                        @change="onSyaratSelected"
+                                      >
+                                    </v-col>
+                                  </v-row>
+                                </v-container>
+                                <small>*Wajib diisi</small>
+                              </v-card-text>
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="grey" text @click="syaratDialog = false">Close</v-btn>
+                                <v-btn color="blue darken-1" text @click="uploadSyarat">Upload Syarat</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-form>
+                        </v-dialog>
+                        <v-dialog v-model="deletesyaratDialog" persistent max-width="600px">
+                          <v-card>
+                            <v-card-title class="headline">Apakah anda yakin menghapus Data?</v-card-title>
 
-                                <v-card-text>
-                                  Peringatan! Syarat yang telah dihapus tidak dapat kembali lagi.
-                                </v-card-text>
+                            <v-card-text>
+                              Peringatan! Syarat yang telah dihapus tidak dapat kembali lagi.
+                            </v-card-text>
 
-                                <v-card-actions>
-                                  <v-spacer></v-spacer>
-                                  <v-btn color="grey" text @click="deletesyaratDialog = false">Batal</v-btn>
-                                  <v-btn color="red darken-1" text @click="deleteSyarat">Delete Syarat</v-btn>
-                                </v-card-actions>
-                              </v-card>
-                            </v-dialog>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="grey" text @click="deletesyaratDialog = false">Batal</v-btn>
+                              <v-btn color="error" text @click="deleteSyarat">Delete Syarat</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </template>
+                      <template #item.file="{ item }">
+                        <span v-if="item.file != null">
+                          <v-chip small color="indigo lighten-2" dark>Terupload</v-chip>
+                        </span>
+                      </template>
+                      <template #item.status="{ item }">
+                        <v-chip v-if="item.status == -2" small color="error" dark>Tidak Lulus</v-chip>
+                        <v-chip v-if="item.status == -1" small color="error" dark>Ditolak</v-chip>
+                        <v-chip v-if="item.status == 0" small color="grey" dark>Belum</v-chip>
+                        <v-chip v-if="item.status == 1" small color="indigo lighten-2" dark>Disetujui</v-chip>
+                        <v-chip v-if="item.status == 2" small color="success" dark>Lulus</v-chip>
+                      </template>
+                      <template #item.actions="{ item }">
+                        <v-tooltip bottom>
+                          <template #activator="{ on }">
+                            <v-btn class="mr-2" icon color="indigo lighten-2" target="_blank" v-on="on" @click="editedSyaratDialog(item)">
+                              <v-icon>
+                                upload
+                              </v-icon>
+                            </v-btn>
                           </template>
-                          <template #item.file="{ item }">
-                            <span v-if="item.file != null">
-                              <v-chip small color="primary" dark>Terupload</v-chip>
-                            </span>
+                          <span>Upload Syarat</span>
+                        </v-tooltip>
+                        <v-tooltip bottom>
+                          <template #activator="{ on }">
+                            <v-btn class="mr-2" icon color="indigo lighten-2" :href="item.file" v-on="on">
+                              <v-icon>
+                                download
+                              </v-icon>
+                            </v-btn>
                           </template>
-                          <template #item.status="{ item }">
-                            <v-chip v-if="item.status == -2" small color="red darken-1" dark>Tidak Lulus</v-chip>
-                            <v-chip v-if="item.status == -1" small color="red darken-1" dark>Ditolak</v-chip>
-                            <v-chip v-if="item.status == 0" small color="grey" dark>Belum</v-chip>
-                            <v-chip v-if="item.status == 1" small color="blue lighten-2" dark>Disetujui</v-chip>
-                            <v-chip v-if="item.status == 2" small color="success" dark>Lulus</v-chip>
+                          <span>Download file</span>
+                        </v-tooltip>
+                        <v-tooltip bottom>
+                          <template #activator="{ on }">
+                            <v-btn class="mr-2" icon color="orange lighten-1" :href="item.file" target="_blank" v-on="on">
+                              <v-icon>
+                                remove_red_eye
+                              </v-icon>
+                            </v-btn>
                           </template>
-                          <template #item.actions="{ item }">
-                            <v-tooltip bottom>
-                              <template #activator="{ on }">
-                                <v-btn class="mr-2" icon color="pink darken-3" target="_blank" v-on="on" @click="editedSyaratDialog(item)">
-                                  <v-icon>
-                                    mdi-pencil
-                                  </v-icon>
-                                </v-btn>
-                              </template>
-                              <span>Upload Syarat</span>
-                            </v-tooltip>
-                            <v-tooltip bottom>
-                              <template #activator="{ on }">
-                                <v-btn class="mr-2" icon color="primary" :href="item.file" v-on="on">
-                                  <v-icon>
-                                    cloud_download
-                                  </v-icon>
-                                </v-btn>
-                              </template>
-                              <span>Download file</span>
-                            </v-tooltip>
-                            <v-tooltip bottom>
-                              <template #activator="{ on }">
-                                <v-btn class="mr-2" icon color="orange lightern-1" :href="item.file" target="_blank" v-on="on">
-                                  <v-icon>
-                                    remove_red_eye
-                                  </v-icon>
-                                </v-btn>
-                              </template>
-                              <span>Lihat file</span>
-                            </v-tooltip>
-                            <v-tooltip bottom>
-                              <template #activator="{ on }">
-                                <v-btn class="mr-2" icon color="pink darken-3" target="_blank" v-on="on" @click="deleteSyaratDialog(item)">
-                                  <v-icon>
-                                    mdi-delete
-                                  </v-icon>
-                                </v-btn>
-                              </template>
-                              <span>Delete</span>
-                            </v-tooltip>
+                          <span>Lihat file</span>
+                        </v-tooltip>
+                        <v-tooltip bottom>
+                          <template #activator="{ on }">
+                            <v-btn class="mr-2" icon color="error" target="_blank" v-on="on" @click="deleteSyaratDialog(item)">
+                              <v-icon>
+                                mdi-delete
+                              </v-icon>
+                            </v-btn>
                           </template>
-                        </v-data-table>
-                      </div>
-                    </v-col>
-                  </v-row>
+                          <span>Delete</span>
+                        </v-tooltip>
+                      </template>
+                    </v-data-table>
+                  </v-card-text>
                 </v-card>
               </v-col>
             </v-row>

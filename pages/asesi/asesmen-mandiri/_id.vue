@@ -7,14 +7,12 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title class="px-8 ">
-              <!-- <v-avatar size="30" color="warning lighten-2">
-                <span class="white--text">APL.1</span>
-              </v-avatar> -->
-              <span class="headline">Asesmen Mandiri</span>
-              <v-spacer></v-spacer>
-            </v-card-title>
-            <v-divider></v-divider>
+            <v-toolbar flat color="primary" dark>
+              <v-icon class="white--text" left color="orange lighten-2">description</v-icon>
+              <span>
+                <h4>FR.APL.02 Melakukan Asesmen Mandiri</h4>
+              </span>
+            </v-toolbar>
             <v-card-text class="px-8 py-8">
               <!-- Alert section -->
               <!-- <div v-if="alert.show">
@@ -43,7 +41,7 @@
               <v-alert
                 icon="info"
                 text
-                type="info"
+                type="primary"
               >
                 Isilah asesmen mandiri dibawah ini, usahakan telah menguasai bidang yang diujikan
               </v-alert>

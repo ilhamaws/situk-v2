@@ -2,46 +2,40 @@
   <v-layout>
     <v-container fluid>
       <v-alert
-        class="px-10"
+        class="px-10 rounded-lg"
         border="left"
         colored-border
         color="orange lighten-2"
         elevation="2"
       >
-        <h3 class="mt-0"><strong>Selamat Datang</strong></h3>
-        Hai <strong>{{ profile.username }}</strong>, selamat datang di halaman LSP TIFA Assesmen Online. Silahkan klik menu untuk mengelola website.
+        <h3 class="mt-0 font-weight-bold">Selamat Datang</h3>
+        Hai <strong>{{ profile.username }}</strong>, selamat datang di halaman LSP TIFA Indonesia Internasional Assesmen Online. Silahkan klik menu untuk mengelola website.
       </v-alert>
       <v-row>
         <div class="col-lg-6 col-xs-12">
-          <v-card>
-            <v-toolbar flat color="primary">
-              <v-card-title class="white--text">
-                <v-icon class="white--text" color="orange lighten-2" left>brightness_5</v-icon>
+          <v-card class="rounded-lg">
+            <v-toolbar flat color="primary" dark>
+                <v-icon class="white--text" color="orange lighten-2" left>draw</v-icon>
                 <span>
                   <h4>Pendaftaran Sertifikasi</h4>
                 </span>
-              </v-card-title>
             </v-toolbar>
-            <div class="px-5">
-              <v-card-text>
-                Untuk dapat mengikuti Uji Kompetensi LSP TIFA Anda harus mendaftar uji dengan klik tombol <strong>Daftar Uji</strong>
-              </v-card-text>
+            <v-card-text>
+              Untuk dapat mengikuti Uji Kompetensi LSP TIFA Anda harus mendaftar uji dengan klik tombol <strong>Daftar Uji</strong>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="orange" text right @click="gotoPage('/asesi/daftar-asesmen')">Daftar Uji</v-btn>
+                <v-btn class="px-5" color="primary" right @click="gotoPage('/asesi/daftar-asesmen')">Daftar Uji</v-btn>
               </v-card-actions>
-            </div>
+            </v-card-text>
           </v-card>
         </div>
         <div class="col-lg-6 col-xs-12">
-          <v-card>
-            <v-toolbar flat color="primary">
-              <v-card-title class="white--text">
-                <v-icon class="white--text" left color="orange lighten-2">check</v-icon>
-                <span>
-                  <h4>Sertifikasi yang sedang diikuti</h4>
-                </span>
-              </v-card-title>
+          <v-card class="rounded-lg">
+            <v-toolbar flat color="primary" dark>
+              <v-icon class="white--text" left color="orange lighten-2">work_history</v-icon>
+              <span>
+                <h4>Sertifikasi yang sedang diikuti</h4>
+              </span>
             </v-toolbar>
             <div class="px-5">
               <v-skeleton-loader
@@ -66,9 +60,9 @@
                   <!-- <span v-else>{{ item.jadwal.skema.skema }}</span> -->
                 </template>
                 <template #item.status="{ item }">
-                  <v-chip v-if="item.status == -1" small color="red darken-1" dark>Ditolak</v-chip>
+                  <v-chip v-if="item.status == -1" small color="error" dark>Ditolak</v-chip>
                   <v-chip v-if="item.status == 0" small color="grey" dark>Belum</v-chip>
-                  <v-chip v-if="item.status == 1" small color="blue lighten-1" dark>Disetujui</v-chip>
+                  <v-chip v-if="item.status == 1" small color="indigo lighten-2" dark>Disetujui</v-chip>
                   <v-chip v-if="item.status == 2" small color="success" dark>Lulus</v-chip>
                 </template>
               </v-data-table>

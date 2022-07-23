@@ -7,11 +7,12 @@
       >
         <v-container fluid>
           <v-card>
-            <v-card-title class="font-weight-bold">
-              FR.APL.02 Hasil Asesmen Mandiri
-              <v-spacer></v-spacer>
-            </v-card-title>
-            <v-divider></v-divider>
+            <v-toolbar flat color="primary" dark>
+              <v-icon class="white--text" left color="orange lighten-2">description</v-icon>
+              <span>
+                <h4>FR.APL.02 Hasil Asesmen Mandiri</h4>
+              </span>
+            </v-toolbar>
             <v-card-text class="px-8 pb-8">
               <!-- Alert section -->
               <div v-if="alert.show">
@@ -27,13 +28,13 @@
                   icon="info"
                   text
                   prominent
-                  type="info"
+                  type="error"
                 >
                   <v-row align="center">
                     <v-col class="grow">Silahkan mengisi Asesmen Mandiri jika belum</v-col>
                     <v-col class="shrink">
                       <nuxt-link :to="`/asesi/asesmen-mandiri/${peserta.id}`">
-                        <v-btn color="info" outlined>Lakukan Asesmen Mandiri</v-btn>
+                        <v-btn color="error" outlined>Lakukan Asesmen Mandiri</v-btn>
                       </nuxt-link>
                       <!-- <v-btn
                         outlined
@@ -52,7 +53,7 @@
                       <v-alert
                         icon="info"
                         text
-                        type="info"
+                        type="primary"
                       >
                         Hasil asesmen mandiri
                       </v-alert>
@@ -129,11 +130,6 @@
                           </tbody>
                         </template>
                       </v-simple-table>
-                      <v-row v-if="ujikompetensi[ujiIndex].status != 0">
-                        <v-col class="d-flex justify-end">
-                          <v-btn target="_blank" :href="`/asesi/print/asesmen-mandiri/${ujikompetensi[ujiIndex].id}`" color="primary" outlined dark><v-icon left>print</v-icon>Print</v-btn>
-                        </v-col>
-                      </v-row>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>

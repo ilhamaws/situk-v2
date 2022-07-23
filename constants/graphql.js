@@ -1413,6 +1413,8 @@ export const GET_USERS = gql `
   users{
     id
     email
+    created_at
+    updated_at
     role {
       id
       role

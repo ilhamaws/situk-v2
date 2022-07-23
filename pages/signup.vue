@@ -9,13 +9,11 @@
       class="fill-height bg-black-op"
       fluid
     >
+      <img class="img-responsive" src="@/assets/img/lsp_logo.png" alt="" style="position: fixed; width: auto !important; height: 170px; top: 15px; left: 40px;">
       <div class="d-flex justify-end">
         <v-col md="4" xs="12" class="hero-static bg-white animated fadeInRight d-flex align-center justify-center animated fadeInRight">
           <div class="content content-full">
             <div class="px-7">
-              <a href="/">
-                <img class="img-responsive" src="@/assets/img/lsp_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 15px; right: 40px;">
-              </a>
               <!-- <a href="/">
                 <img class="img-responsive" src="@/assets/img/upn_logo.png" alt="" style="position: fixed; width: auto !important; height: 50px; top: 20px; right: 120px;">
               </a> -->
@@ -74,7 +72,9 @@
                   v-model="register.password"
                   label="Password"
                   name="password"
-                  type="password"
+                  :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show_password ? 'text' : 'password'"
+                  @click:append="show_password = !show_password"
                   required
                 />
 
@@ -83,7 +83,9 @@
                   v-model="register.password_confirm"
                   label="Konfirmasi Password"
                   name="passwordConfirm"
-                  type="password"
+                  :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show_password ? 'text' : 'password'"
+                  @click:append="show_password = !show_password"
                   required
                 />
                 <!-- <input type="hidden" name="" value=""> -->
@@ -145,6 +147,7 @@ export default {
         role:"asesi",
         terms: false
       },
+      show_password: false,
       alert: {
         show: false,
         type: '',

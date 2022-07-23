@@ -73,11 +73,12 @@
               <v-row>
                 <v-col cols="12">
                   <v-card>
-                    <v-card-title class="px-8 ">
-                      <span class="font-weight-bold">FR.APL.01 Formulir Permohonan Sertifikasi Kompetensi</span>
-                      <v-spacer></v-spacer>
-                    </v-card-title>
-                    <v-divider></v-divider>
+                    <v-toolbar flat color="primary" dark>
+                      <v-icon class="white--text" left color="orange lighten-2">description</v-icon>
+                      <span>
+                        <h4>FR.APL.01 Formulir Permohonan Sertifikasi Kompetensi</h4>
+                      </span>
+                    </v-toolbar>
                     <v-card-text class="px-5">
                       <v-alert type="primary" text dense>
                         Data Pribadi
