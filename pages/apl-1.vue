@@ -338,6 +338,50 @@
                       </v-col>
                     </v-row>
                     <v-row>
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>Instagram</b></label>
+                        <v-text-field
+                          v-model="form.instagram"
+                          class="mt-2"
+                          label="Akun Instagram"
+                          type="text"
+                          outlined
+                          dense
+                        />
+                      </v-col>
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>Twitter</b></label>
+                        <v-text-field
+                          outlined
+                          dense
+                          type="number"
+                          v-model="form.twitter"
+                          name="Twitter"
+                          label="Akun Twitter"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>Linkedin</b></label>
+                        <v-text-field
+                          outlined
+                          dense
+                          v-model="form.linkedin"
+                          name="linkedin"
+                          label="Linkedin"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col md="4" xs="12" class="py-0">
+                        <label for=""><b>Facebook</b></label>
+                        <v-text-field
+                          outlined
+                          dense
+                          v-model="form.facebook"
+                          name="facebook"
+                          label="Facebook"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
                       <v-col md="6" class="py-0">
                         <label for=""><b>Foto</b></label>
                         <v-row class="mt-3" v-if="form.image != null">
@@ -517,6 +561,10 @@ export default {
         email_lembaga: null,
         pekerjaan_id: '3',
         pendidikan_id: null,
+        instagram: null,
+        linkedin: null,
+        facebook: null,
+        twitter: null,
       },
       selectedImage: "",
       selectedTtd: "",
@@ -713,13 +761,16 @@ export default {
         this.state.loading = true
         const { form: {nama_lembaga, alamat_lembaga, email_lembaga, telepon_lembaga, kodepos_lembaga,
           jurusan, fakultas, universitas, npm, pendidikan_id, pekerjaan_id, kota_id, nik, 
-          nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd} } = this.$data
+          nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd,
+          instagram, facebook, twitter, linkedin
+        } } = this.$data
         const result = await this.$apollo.mutate({
           mutation: CREATE_ASESI_MANUAL_MUTATION,
           variables: {
             nama_lembaga, alamat_lembaga, email_lembaga, telepon_lembaga, kodepos_lembaga,
             jurusan, fakultas, universitas, npm, pendidikan_id, pekerjaan_id, kota_id, nik, 
-            nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd
+            nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kebangsaan, alamat, kodepos, telepon, image, ttd,
+            instagram, facebook, twitter, linkedin
           }
         }).then(({ data }) => {
           // console.log(data);

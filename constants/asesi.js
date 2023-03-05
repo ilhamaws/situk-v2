@@ -3,7 +3,9 @@ import gql from 'graphql-tag'
 export const CREATE_ASESI_MANUAL_MUTATION = gql `
 mutation createAsesiManual($nama_lembaga: String, $alamat_lembaga: String, $kodepos_lembaga: String, $telepon_lembaga: String, $email_lembaga: String, $npm: String, $jurusan: String, $fakultas: String, $universitas: String!, $pendidikan_id: ID!, $pekerjaan_id: ID!, $kota_id: Int!, $nik: String!, 
   $nama: String, $jenis_kelamin: String, $tempat_lahir: String, $tanggal_lahir: String, $kebangsaan: String, $alamat: String, 
-  $kodepos: String, $telepon: String, $image: String, $ttd: String) {
+  $kodepos: String, $telepon: String, $image: String, $ttd: String,
+  $instagram: String, $facebook: String, $linkedin: String, $twitter: String
+  ) {
   createAsesiManual(
     jurusan: $jurusan
     fakultas: $fakultas
@@ -28,6 +30,10 @@ mutation createAsesiManual($nama_lembaga: String, $alamat_lembaga: String, $kode
     telepon : $telepon
     image : $image
     ttd : $ttd
+    facebook : $facebook
+    instagram : $instagram
+    twitter : $twitter
+    linkedin : $linkedin
   ){
     id
     nama

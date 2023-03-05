@@ -290,18 +290,9 @@ export default {
                 // console.log(element.id);
               }
             }
-            // for (let j = 0; j < this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk.length; j++) {
-            //   const kuk = this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j];
-            //   for (let k = 0; k < this.ujikompetensi[x].asesmen.length; k++) {
-            //     if (this.ujikompetensi[x].asesmen[k].kriteriaUk.id == kuk.id) {
-            //       this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j] = Object.assign({}, this.ujikompetensi[x].unitKompetensi.element[i].kriteriaUk[j], { asesmen_mandiri: `${this.ujikompetensi[x].asesmen[k].asesmen_mandiri}` });
-            //     }
-            //   }
-            // }
           }
         }
         this.input = {...this.ujikompetensi}
-        console.log(data.peserta.ujiKompetensi.length)
         // this.input.asesmen = data.peserta.ujiKompetensi.ujikompetensi.unitKompetensi.element;
       }).catch((error) => {
         console.log(error)

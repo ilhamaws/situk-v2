@@ -171,7 +171,6 @@
                                 editedSoalObservasi.unitKompetensi.id
                               "
                               :items="skemas.unitKompetensi"
-                              disabled
                               outlined
                               dense
                               item-text="unit"
@@ -421,7 +420,6 @@ export default {
           this.showAlert("success", "Bank soal berhasil diedit")
         })
         .catch(({ graphQLErrors }) => {
-          console.log(graphQLError)
           this.showAlert("error", graphQLErrors[0].message)
         })
         .finally(() => {

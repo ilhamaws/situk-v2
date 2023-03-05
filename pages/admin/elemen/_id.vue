@@ -7,13 +7,13 @@
       >
         <v-card>
           <v-card-title>
-            <span class="headline px-5">Kriteria Uji Kompetensi</span>
+            <span class="headline px-5">Kriteria Unjuk Kerja </span>
             <v-spacer></v-spacer>
           </v-card-title>
           <v-divider></v-divider>
           <v-row>
-            <v-col cols="12" class="px-10 py-5">
-              <div class="px-5 py-5">
+            <v-col cols="12">
+              <v-card-text class="px-5 py-5">
                 <!-- Alert section -->
                 <div v-if="alert.show">
                   <v-alert :type="alert.type" dismissible class="mb-10">
@@ -23,12 +23,12 @@
                   </v-alert>
                 </div>
                 <!-- End alert section -->
-                <v-row>
+                <v-row class="px-5">
                   <v-dialog v-model="tambahDialog" persistent max-width="600px">
                     <template #activator="{ on }">
-                      <v-btn color="primary" outlined rounded dark v-on="on">Tambah KUK</v-btn>
+                      <v-btn color="primary" outlined dark v-on="on">Tambah KUK</v-btn>
                     </template>
-                    <v-form>
+                    <v-form ref="add_kuk_form">
                       <v-card>
                         <v-card-title>
                           <span>Tambah Kriteria Unjuk Kerja</span>
@@ -57,7 +57,6 @@
                     append-icon="search"
                     label="Search"
                     class="shrink"
-                    rounded
                     outlined
                     dense
                   ></v-text-field>
@@ -68,6 +67,18 @@
                   type="table-thead, table-tbody"
                   class="mx-auto"
                 ></v-skeleton-loader>
+                <v-simple-table v-if="!state.skeleton">
+                  <tbody>
+                    <tr>
+                      <td width="20%"><b>Nama elemen:</b></td>
+                      <td>{{ element.elemen }}</td>
+                    </tr>
+                    <tr>
+                      <td width="20%"><b>Unit Kompetensi:</b></td>
+                      <td>{{ element.unitKompetensi && element.unitKompetensi.unit }}</td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
                 <v-data-table
                   v-if="!state.skeleton"
                   :headers="headers"
@@ -151,7 +162,7 @@
                     </v-icon>
                   </template>
                 </v-data-table>
-              </div>
+              </v-card-text>
             </v-col>
           </v-row>
         </v-card>
@@ -208,7 +219,7 @@ export default {
         kriteria: '',
         element_id: ''
       },
-      elements: [],
+      element: {},
       skemas: [],
       unitkompetensis: [],
       kriteriauks: []
@@ -253,6 +264,7 @@ export default {
           id
         }
       }).then(({ data }) => {
+        this.element = data.element
         this.kriteriauks = data.element.kriteriaUk
         console.log(data)
       }).catch((error) => {
@@ -295,6 +307,7 @@ export default {
         console.log(graphQLErrors)
         this.showAlert('error', graphQLErrors[0].message)
       }).finally(() => {
+        this.$refs.add_kuk_form.reset()
         this.tambahDialog = false
       })
     },
