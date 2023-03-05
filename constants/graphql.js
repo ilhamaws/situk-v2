@@ -274,6 +274,56 @@ mutation deleteSkema($id: ID!){
 }
 `
 
+export const CREATE_DOKUMEN_SKEMA_MUTATION = gql `
+mutation createDokumenSkema(
+  $skema_id: ID!,
+  $name: String,
+  $keterangan: String,
+  $file: String,
+  $flag: Int,
+){
+  createDokumenSkema(
+    skema_id: $skema_id
+    name: $name
+    keterangan: $keterangan
+    file: $file
+    flag: $flag
+  ) {
+    id
+  }
+}
+`
+
+export const UPDATE_DOKUMEN_SKEMA_MUTATION = gql `
+mutation updateDokumenSkema(
+  $id: ID!,
+  $skema_id: ID!,
+  $name: String,
+  $keterangan: String,
+  $file: String,
+  $flag: Int,
+){
+  updateDokumenSkema(
+    id: $id
+    skema_id: $skema_id
+    name: $name
+    keterangan: $keterangan
+    file: $file
+    flag: $flag
+  ) {
+    id
+  }
+}
+`
+
+export const DELETE_DOKUMEN_SKEMA_MUTATION = gql `
+mutation deleteDokumenSkema($id: ID!){
+  deleteDokumenSkema(
+    id: $id
+  )
+}
+`
+
 export const CREATE_SYARAT_MUTATION = gql `
 mutation createSyarat($syarat: String!, $skema_id: ID!){
   createSyarat(
@@ -1961,6 +2011,13 @@ query($id: ID!){
         id
         anggaran
       }
+    }
+    dokumenSkema {
+      id
+      name
+      keterangan
+      file
+      flag
     }
   }
 }

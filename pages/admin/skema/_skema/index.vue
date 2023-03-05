@@ -99,6 +99,7 @@ export default {
         {menu:'Asesor', link:'asesor', desc:'Daftar asesor pada skema', icon:'people', color:'error'},
         {menu:'Bank Soal Observasi', link:'bank-soal', desc:'Kumpulan bank soal', icon:'inventory_2', color:'indigo'},
         {menu:'Soal Ujian Observasi', link:'soal-observasi', desc:'Soal yang akan dikerjakan', icon:'edit', color:'indigo'},
+        {menu:'Dokumen Skema', link:'dokumen-skema', desc:'Dokumen yang akan dicetak offline', icon:'description', color:'indigo'},
       ],
       elements: [],
       skemas: [],

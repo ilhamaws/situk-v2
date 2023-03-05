@@ -37,6 +37,13 @@ query($id: ID!){
         anggaran
       }
     }
+    dokumenSkema {
+      id
+      name
+      keterangan
+      file
+      flag
+    }
   }
 }
 `

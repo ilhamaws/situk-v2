@@ -84,13 +84,6 @@
                                   accept="application/pdf"
                                   @change="function (e) { onPanduanSelected(type = 'tambah', e) }"
                                 >
-                                <!-- <v-textarea
-                                  v-model="form.panduan"
-                                  solo
-                                  clearable
-                                  clear-icon="cancel"
-                                  label="Panduan"
-                                ></v-textarea> -->
                               </v-col>
                             </v-row>
                           </v-container>
