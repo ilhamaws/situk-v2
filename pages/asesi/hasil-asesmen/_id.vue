@@ -52,7 +52,7 @@
                       <td width="20%"><b>Keputusan asesmen:</b></td>
                       <td>
                         <v-radio-group v-model="pesertas.status" readonly row>
-                          <v-radio :value="2" label="Kompeten"></v-radio>
+                          <v-radio :value="2" label="Direkomendasi Kompeten"></v-radio>
                           <v-radio :value="-2" label="Belum kompeten"></v-radio>
                         </v-radio-group>
                       </td>

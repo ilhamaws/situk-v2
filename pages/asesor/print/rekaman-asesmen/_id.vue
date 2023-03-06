@@ -42,7 +42,7 @@
                 </tr>
                 <tr>
                   <td width="20%"><b>Keputusan asesmen:</b></td>
-                  <td v-if="pesertas.status == 2">Kompeten</td>
+                  <td v-if="pesertas.status == 2">Direkomendasi Kompeten</td>
                   <td v-if="pesertas.status == -2">Belum Kompeten</td>
                 </tr>
                 <tr>

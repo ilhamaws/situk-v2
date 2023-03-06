@@ -200,6 +200,11 @@
 							</v-tooltip>
 						</template>
 					</v-data-table>
+          <v-row>
+            <v-col class="d-flex justify-end">
+              <v-btn target="_blank" :href="`/admin/print/fr-ia-08/${peserta_id}`" color="primary" outlined dark><v-icon left>print</v-icon>Print</v-btn>
+            </v-col>
+          </v-row>
 				</v-card-text>
 			</v-card>
       <v-dialog

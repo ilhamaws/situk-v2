@@ -129,7 +129,8 @@ td {
                     {{i+1}}.
                   </td>
                   <td>
-                    {{unit.unitKompetensi.kode + " " + unit.unitKompetensi.unit}}
+                    <b>{{unit.unitKompetensi.kode }}</b> 
+                    {{ unit.unitKompetensi.unit}}
                   </td>
                 </tr>
               </table>
@@ -278,8 +279,7 @@ td {
                       </th>
                       <td class="no-border-top">
                         <img
-                          :aspect-ratio="16/9"
-                          height="50"
+                          style="max-height: 80px;"
                           contain
                           :src="pesertas.asesi.ttd"
                         />
@@ -298,10 +298,9 @@ td {
                       >
                         Tanda tangan asesor :
                       </th>
-                      <td class="no-border-bottom">
+                      <td width="30%" class="no-border-bottom">
                         <img
-                          :aspect-ratio="16/9"
-                          height="50"
+                          style="max-height: 80px;"
                           contain
                           :src="pesertas.asesor.ttd"
                         />
@@ -425,18 +424,6 @@ export default {
       if (val === this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag) {
         return this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag = "0"
       }
-      // this.editedIndex = this.skemas.indexOf(item);
-      // this.input.asesmen.push({kuk_id: kuk.id, asesmen_mandiri: value});
-      // this.input = Object.assign(this.input, {uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}});
-      // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
-      // this.input = Object.assign(this.input, {[uji.id]:{uji_kompetensi_id: uji.id, asesmen: {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}}}});
-      // this.input = { 
-      //   ...this.input, 
-      //   [uji.id]: {
-      //     uji_kompetensi_id: uji.id, 
-      //     asesmen: { [kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}
-      //     }
-      //   }};
       let kukData = (this.input[uji.id] || {}).asesmen
       if (kukData == null) {
         kukData = {}
@@ -453,11 +440,6 @@ export default {
           }
         }}
       return this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex].flag = `${value}`
-
-
-      //benar
-      // this.input = Object.assign(this.input, {[kuk.id]:{kuk_id: kuk.id, asesmen_mandiri: value}});
-      // this.input.asesmen = Object.assign(this.ujikompetensi[ujiIndex].unitKompetensi.element[elemenIndex].kriteriaUk[kukIndex], {asesmen: `${value}`});
     },
     showAlert(type, message) {
       this.alert = { show: true, type, message }
@@ -505,29 +487,7 @@ export default {
         console.log(error)
       })
     },
-    // async asesmenMandiri() {
-    //     const asesmen = Object.values(this.input.asesmen);
-    //     const uji_kompetensi_id = null;
-    //     console.log(asesmen);
-    //     const result = await this.$apollo.mutate({
-    //         mutation: ASESMEN_MANDIRI_MUTATION,
-    //         variables: {
-    //           asesmen, uji_kompetensi_id
-    //         }
-    //   }).then(({ data }) => {
-    //       console.log(data);
-    //   }).catch((error) => {
-    //     console.log(error);
-    //   });
-    // },
     async observasi(){
-      // console.log(this.ujikompetensi[ujiIndex].asesmen.length);
-      // const asesmenData = this.ujikompetensi[ujiIndex].asesmen;
-      // const uji_kompetensi_id = this.ujikompetensi[ujiIndex].id;
-      // let rekomendasi_am = this.ujikompetensi[ujiIndex].rekomendasi_am;
-      // if (rekomendasi_am === undefined) {
-      //   rekomendasi_am = null;
-      // }
       const asesmenData = this.ujikompetensi.ujikompetensi.asesmen
       const observasi = []
       for (let indexAsesmen = 0; indexAsesmen < asesmenData.length; indexAsesmen++) {

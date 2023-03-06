@@ -94,7 +94,7 @@ td {
 
 <template>
   <v-container v-if="!state.skeleton" class="page-content-wrapper-inner fill-height" style="width: 1110px!important">
-    <v-card-subtitle class="font-weight-bold">FR.IA.09. PERTANYAAN WAWANCARA</v-card-subtitle>
+    <v-card-subtitle class="font-weight-bold">FR.IA.08. CEKLIS VERIFIKASI PORTOFOLIO</v-card-subtitle>
     <v-card-text style="padding-bottom: 0">
       <table>
         <tbody>
@@ -201,105 +201,75 @@ td {
       <table>
         <thead>
           <tr>
-            <td width="50%" rowspan="2" colspan="3" align="center">Pertanyaan</td>
-            <td rowspan="2"  align="center">Kesimpulan Jawaban Asesi</td>
-            <td colspan="2" align="center">Rekomendasi</td>
+            <td width="50%" rowspan="3" align="center">Dokumen Portofolio</td>
+            <td colspan="8"  align="center">Aturan Bukti</td>
           </tr>
           <tr>
-            <td align="center">K</td>
-            <td align="center">BK</td>
+            <td colspan="2" align="center">Valid</td>
+            <td colspan="2" align="center">Asli</td>
+            <td colspan="2" align="center">Terkini</td>
+            <td colspan="2" align="center">Memadai</td>
+          </tr>
+          <tr>
+            <td width="70px" align="center">ya</td>
+            <td width="70px" align="center">Tidak</td>
+            <td width="70px" align="center">ya</td>
+            <td width="70px" align="center">Tidak</td>
+            <td width="70px" align="center">ya</td>
+            <td width="70px" align="center">Tidak</td>
+            <td width="70px" align="center">ya</td>
+            <td width="70px" align="center">Tidak</td>
           </tr>
         </thead>
         <tbody>
-          <template
-            v-for="uji in ujikompetensi"
-          >
-            <tr v-for="(soal, j) in uji.unitKompetensi.SoalObservasi" :key="j">
-              <td v-if="j == 0" class="with-bg" :rowspan="uji.unitKompetensi.SoalObservasi.length">1.</td>
-              <th class="text-top">{{j+1}}</th>
-              <td class="text-top">
-                <template v-if="j==0">
-                <b>{{uji.unitKompetensi.kode}}</b>
-                <br>
-                </template>
-                {{ soal.soal }}
-              </td>
-              <td>
-                {{ soal.tanggapan }}
-              </td>
+            <tr v-for="(portofolio, i) in peserta.portofolio" :key="i+'porto'">
+              <td v-if="j == 0" class="with-bg">{{ i+1 }}</td>
+              <td>{{ portofolio.nama }}</td>
+              <!-- Valid -->
               <td>
                 <div class="d-flex justify-center">
-                  <v-checkbox :input-value="soal.hasil == 1 ? true : false" readonly></v-checkbox>
+                  {{ portofolio.valid ? `&#10004;` : ''}}
                 </div>
               </td>
               <td>
                 <div class="d-flex justify-center">
-                  <v-checkbox :input-value="soal.hasil == 0 ? true : false" readonly></v-checkbox>
+                  {{ !portofolio.valid ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <!-- Asli -->
+              <td>
+                <div class="d-flex justify-center">
+                  {{ portofolio.asli ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-center">
+                  {{ !portofolio.asli ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <!-- Terkini -->
+              <td>
+                <div class="d-flex justify-center">
+                  {{ portofolio.terkini ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-center">
+                  {{ !portofolio.terkini ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <!-- Memadai -->
+              <td>
+                <div class="d-flex justify-center">
+                  {{ portofolio.memadai ? `&#10004;` : ''}}
+                </div>
+              </td>
+              <td>
+                <div class="d-flex justify-center">
+                  {{ !portofolio.memadai ? `&#10004;` : ''}}
                 </div>
               </td>
             </tr>
-          </template>
-          
-          <!-- <tr>
-            <td colspan="2" align="start" class="no-border-bottom">
-              <table class="table-nested">
-                <tbody>
-                  <tr>
-                    <th class="nowrap text-top" style="padding-right: 10px">
-                      Tanggapan :
-                    </th>
-                    <td>
-                      
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th class="with-bg text-top">2.</th>
-            <td>
-              Misalnya, muncul insiden kecelakaan ringan di tempat kerja anda
-              dengan frekuensi tinggi namun pemangku kepentingan di tempat kerja
-              anda tidak berkenan untuk merevisi sistem manajemen K3. Apa
-              tindakan anda?
-              <b>(JRES)</b>
-            </td>
-            <td>
-              <div class="d-flex justify-center">
-                <v-checkbox readonly></v-checkbox>
-              </div>
-            </td>
-            <td>
-              <div class="d-flex justify-center">
-                <v-checkbox readonly></v-checkbox>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" align="start" class="no-border-bottom">
-              <table class="table-nested">
-                <tbody>
-                  <tr>
-                    <th class="nowrap text-top" style="padding-right: 10px">
-                      Tanggapan :
-                    </th>
-                    <td>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      Quisquam deserunt similique, consequuntur est, iste
-                      excepturi fugiat accusamus delectus eius dolorum quaerat!
-                      Odit enim nesciunt voluptates ratione. Consequatur
-                      reprehenderit laborum amet.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td></td>
-            <td></td>
-          </tr> -->
         </tbody>
       </table>
     </v-card-text>
