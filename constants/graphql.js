@@ -982,11 +982,12 @@ mutation validasiUnitPeserta($peserta_id: ID!){
 // `;
 
 export const UPLOAD_PORTOFOLIO = gql `
-mutation createPortofolio($nama: String, $peserta_id: ID!, $file: String){
+mutation createPortofolio($nama: String, $peserta_id: ID!, $file: String, $uji_kompetensi_id: ID){
   createPortofolio(
     nama : $nama
     peserta_id : $peserta_id
     file : $file
+    uji_kompetensi_id : $uji_kompetensi_id
   ) {
     id
   }
@@ -2449,6 +2450,14 @@ query($id: ID!) {
         memadai
         asli
         terkini
+        ujiKompetensi {
+          id
+          unitKompetensi {
+            id
+            kode
+            unit
+          }
+        }
       }
       ujiKompetensi {
         id

@@ -144,6 +144,16 @@
                     ></v-text-field>
                   </v-col>
                 </v-row>
+                <download-excel
+                    :title="`Bank Soal`"
+                    :data="bank_soal"
+                    :fields="json_fields"
+                    worksheet="LSP TIFA"
+                    name="bank-soal"
+                    type="xlsx"
+                >
+                    <v-btn color="success">Download Excel</v-btn>
+                </download-excel>
                 <v-data-table
                   v-if="!state.skeleton"
                   :headers="headers"
@@ -280,6 +290,11 @@
 import { GET_SKEMA_BYID } from "@/constants/graphql"
 import { CREATE_BANK_SOAL_OBSERVASI_MUTATION, UPDATE_BANK_SOAL_OBSERVASI_MUTATION, DELETE_BANK_SOAL_OBSERVASI_MUTATION } from "@/constants/observasi"
 
+import Vue from "vue"
+import JsonExcel from "vue-json-excel"
+
+Vue.component("downloadExcel", JsonExcel)
+
 export default {
   name: "bank-soal",
   layout: "App_admin",
@@ -308,6 +323,12 @@ export default {
       editedIndex: -1,
       editedSoalObservasi: {
         unitKompetensi: {}
+      },
+      json_fields: {
+        "Kode": "unitKompetensi.kode",
+        "Unit": "unitKompetensi.unit",
+        "Soal": "soal",
+        "Opsi Kompeten": "opsi_k",
       },
       dateMenu: false,
       deletedIndex: -1,
