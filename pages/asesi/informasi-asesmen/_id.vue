@@ -242,6 +242,17 @@
                                             @change="onPortofolioSelected"
                                           >
                                         </v-col>
+                                        <v-col md="12" xs="12" class="py-0">
+                                          <v-autocomplete
+                                            dense
+                                            outlined
+                                            v-model="portofolios.uji_kompetensi_id"
+                                            :items="peserta.ujiKompetensi"
+                                            item-text="unitKompetensi.unit"
+                                            item-value="unitKompetensi.id"
+                                            label="Pilih unit yang berkesesuaian"
+                                          ></v-autocomplete>
+                                        </v-col>
                                       </v-row>
                                     </v-form>
                                   </v-container>
@@ -298,6 +309,9 @@
                               </v-card-actions>
                             </v-card>
                           </v-dialog>
+                        </template>
+                        <template #item.ujiKompetensi="{ item }">
+                          {{ ujiKompetensi ? ujiKompetensi.unitKompetensi.unit : '-'}}
                         </template>
                         <template #item.valid="{ item }">
                           <v-chip v-if="item.valid == -1" small color="error" dark>tidak</v-chip>
@@ -549,6 +563,7 @@ export default {
       valid: true,
       portofoliosHeaders: [ 
         { text: 'Nama', value: 'nama' },
+        { text: 'Unit Berkaitan', value: 'ujiKompetensi' },
         { text: 'Aksi', value: 'actions' },
       ],
       catatan: null,
@@ -570,7 +585,8 @@ export default {
         nama: null,
         portofolioName: '',
         portofolioUrl: null,
-        portofolioFile: ''
+        portofolioFile: '',
+        uji_kompetensi_id: null
       },
       id: this.$route.params.id,
       deletedPortofolio:{},
@@ -828,7 +844,7 @@ export default {
           return 
         }         
         const peserta_id = this.peserta.id
-        const { portofolios: {nama} } = this.$data
+        const { portofolios: {nama, uji_kompetensi_id} } = this.$data
         const file = this.portofolios.portofolioUrl
 
         const result = await this.$apollo.mutate({
@@ -836,7 +852,8 @@ export default {
           variables: {
             nama,
             peserta_id,
-            file
+            file,
+            uji_kompetensi_id
           }
         }).then(({ data }) => {
           this.showAlert('success', 'Data anda telah berhasil diupload')

@@ -72,6 +72,7 @@
                   v-model="register.password"
                   label="Password"
                   name="password"
+                  :rules="rules"
                   :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="show_password ? 'text' : 'password'"
                   @click:append="show_password = !show_password"
@@ -147,6 +148,13 @@ export default {
         role:"asesi",
         terms: false
       },
+      rules: [
+        v => /[a-z]+/.test(v) || 'Minimal 1 huruf kecil.',
+        v => /[A-Z]+/.test(v) || 'Minimal 1 huruf kapital.',
+        v => /.{8,}/.test(v) || 'Minimal 8 karakter.',
+        v => /[0-9]+/.test(v) || 'Minimal 1 angka.',
+        v => /[^A-Za-z0-9]+/.test(v) || 'Minimal 1 spesial karakter.',
+      ],
       show_password: false,
       alert: {
         show: false,
